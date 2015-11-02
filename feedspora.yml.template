@@ -1,0 +1,9 @@
+account:
+  pod: 'your_pod_name'
+  name: 'your_username'
+  password: 'your_password'
+
+feeds:
+  - 'url_feed1'
+  - 'url_feed2'
+  - '...'

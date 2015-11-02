@@ -1,0 +1,10 @@
+feedspora.db
+feedspora.yml
+.project
+.pydevproject
+.settings
+.private
+*.pyc
+.*.swp
+.cache
+MANIFEST
