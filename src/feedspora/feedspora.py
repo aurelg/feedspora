@@ -27,9 +27,9 @@ from urllib.error import HTTPError
 
 class TweepyClient(object):
     """ The TweepyClient handles the connection to Twitter. """
-    
+
     _api = None
-    
+
     def __init__(self, account):
         """ Should be self-explaining. """
         # handle auth
@@ -37,7 +37,7 @@ class TweepyClient(object):
         auth = tweepy.OAuthHandler(account['consumer_token'], account['consumer_secret'])
         auth.set_access_token(account['access_token'], account['access_token_secret'])
         self._api = tweepy.API(auth)
-        
+
     def post(self, entry):
         """ Post content to your public timeline. """
         text = entry.title
@@ -85,6 +85,7 @@ class FeedSpora(object):
     _db_file = "feedspora.db"
     _conn = None
     _cur = None
+    _ua = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0'
 
     def __init__(self):
         logging.basicConfig(level=logging.INFO)
@@ -119,11 +120,16 @@ class FeedSpora(object):
         """ Generate FeedSpora entries out of an Atom feed. """
         for entry in soup.find_all('entry')[::-1]:
             fse = FeedSporaEntry()
-            fse.title = entry.find('title').text
+            try:
+                fse.title = BeautifulSoup(entry.find('title').text, 'html.parser').find('a').text
+            except AttributeError:
+                fse.title = entry.find('title').text
             fse.link = entry.find('link')['href']
-            fse.content = fse.title
+            fse.content = entry.find('content').text
             fse.keywords = [keyword['term'].replace(' ', '_').strip()
                             for keyword in entry.find_all('category')]
+            fse.keywords += [word[1:] for word in fse.content.split() if word.startswith('#')]
+            # keep only unique keywords (use a set?)
             yield fse
 
     def _parse_rss(self, soup):
@@ -132,9 +138,10 @@ class FeedSpora(object):
             fse = FeedSporaEntry()
             fse.title = entry.find('title').text
             fse.link = entry.find('link').text
-            fse.content = fse.title
+            fse.content = entry.find('description').text
             fse.keywords = [keyword.text.replace(' ', '_').strip()
                             for keyword in entry.find_all('category')]
+            fse.keywords += [word[1:] for word in fse.content.split() if word.startswith('#')]
             yield fse
 
     def is_already_published(self, entry):
@@ -168,7 +175,10 @@ class FeedSpora(object):
         It retrieves the feed content and publish entries that haven't been published yet. """
         # get feed content
         try:
-            feed_content = urllib.request.urlopen(feed_url).read()
+            req = urllib.request.Request(url=feed_url,
+                                         data=b'None',
+                                         headers={'User-Agent': self._ua})
+            feed_content = urllib.request.urlopen(req).read()
         except HTTPError as error:
             logging.error("Error while reading feed at " + feed_url + ": " + format(error))
             return
