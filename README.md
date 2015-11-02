@@ -1,6 +1,6 @@
 # What is FeedSpora?
 
-FeedSpora is a bot that post automatically RSS/Atom feeds to your Diaspora account. Inspired from [Fefebot](https://github.com/svbergerem/fefebot).
+FeedSpora posts RSS/Atom feeds to your Diaspora account. It's a bot written in Python3, inspired from [Fefebot](https://github.com/svbergerem/fefebot).
 
 # Installation
 
@@ -10,10 +10,13 @@ Install dependencies:
 - [BeautifulSoup](http://www.crummy.com/software/BeautifulSoup/)
 - [PyYAML](http://pyyaml.org)
 
+Then extract FeedSpora and install it with the usual:
+    
+    python setup.py install
+    
 # Usage
 - Create a config file out of the provided template `feedspora.yml.template`
 - Publish all RSS/Atom entries to your Diaspora account with:
 
-		python __main__.py
-		
+		python -m feedspora
 
