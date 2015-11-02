@@ -22,27 +22,56 @@ from bs4 import BeautifulSoup
 import diaspy.models
 import diaspy.streams
 import diaspy.connection
+import tweepy
 from urllib.error import HTTPError
 
-class DiaspyClient:
-    """ The DiaspyClient handles the connection to Diaspora """
-
-    def __init__(self, pod, username, password):
+class TweepyClient(object):
+    """ The TweepyClient handles the connection to Twitter. """
+    
+    _api = None
+    
+    def __init__(self, account):
         """ Should be self-explaining. """
-        self.connection = diaspy.connection.Connection(pod=pod,
-                                                       username=username,
-                                                       password=password)
+        # handle auth
+        # See https://tweepy.readthedocs.org/en/v3.2.0/auth_tutorial.html#auth-tutorial
+        auth = tweepy.OAuthHandler(account['consumer_token'], account['consumer_secret'])
+        auth.set_access_token(account['access_token'], account['access_token_secret'])
+        self._api = tweepy.API(auth)
+        
+    def post(self, entry):
+        """ Post content to your public timeline. """
+        text = entry.title
+        if len(entry.keywords) > 0:
+            for keyword in [' #'+keyword for keyword in entry.keywords]:
+                if len(text) + len(keyword) < 117:
+                    text += keyword
+                else:
+                    break
+        text += ' '+entry.link
+        self._api.update_status(text.encode('utf-8'))
+
+class DiaspyClient(object):
+    """ The DiaspyClient handles the connection to Diaspora. """
+
+    def __init__(self, account):
+        """ Should be self-explaining. """
+        self.connection = diaspy.connection.Connection(pod=account['pod'],
+                                                       username=account['username'],
+                                                       password=account['password'])
         self.connection.login()
         self.stream = diaspy.streams.Stream(self.connection, 'stream.json')
 
-    def post(self, text):
+    def post(self, entry):
         """ Post content to your public timeline. """
+        text = '['+entry.title+']('+entry.link+')'
+        if len(entry.keywords) > 0:
+            text += ' #' + ' #'.join(entry.keywords)
         return self.stream.post(text, aspect_ids='public', provider_display_name='FeedSpora')
 
 class FeedSporaEntry(object):
     """ A FeedSpora entry.
     This class is generated from each entry/item in an Atom/RSS feed,
-    then posted to your Diaspora account """
+    then posted to your client accounts """
     title = ''
     link = ''
     content = ''
@@ -51,7 +80,7 @@ class FeedSporaEntry(object):
 class FeedSpora(object):
     """ FeedSpora itself. """
 
-    _diaspy_client = None
+    _client = None
     _feed_urls = None
     _db_file = "feedspora.db"
     _conn = None
@@ -68,9 +97,11 @@ class FeedSpora(object):
         """ Set database file to track entries that have been already published """
         self._db_file = db_file
 
-    def connect(self, pod, username, password):
-        """ Connects to your Diaspora pod. """
-        self._diaspy_client = DiaspyClient(pod, username, password)
+    def connect(self, client):
+        """ Connects to your account. """
+        if self._client is None:
+            self._client = []
+        self._client.append(client)
 
     def _init_db(self):
         """ Initialize the connection to the database.
@@ -127,12 +158,9 @@ class FeedSpora(object):
         self._conn.commit()
 
     def _publish_entry(self, entry):
-        """ Publish a FeedSporaEntry to your Diaspora account. """
+        """ Publish a FeedSporaEntry to your all your registred account. """
         logging.info('Publishing: '+entry.title)
-        post_text = '['+entry.title+']('+entry.link+')'
-        if len(entry.keywords) > 0:
-            post_text += ' #' + ' #'.join(entry.keywords)
-        self._diaspy_client.post(post_text)
+        [client.post(entry) for client in self._client]
         self.add_to_published_entries(entry)
 
     def _process_feed(self, feed_url):

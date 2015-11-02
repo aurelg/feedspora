@@ -1,10 +1,11 @@
 '''
 Created on Nov 2, 2015
 
-@author: aurelien
+@author: Aurelien Grosdidier
+@contact: aurelien.grosdidier@gmail.com
 '''
 
-from feedspora.feedspora import FeedSpora
+from feedspora import FeedSpora, DiaspyClient, TweepyClient
 
 def read_config_file(filename):
     """ Loads the YML configuration file. """
@@ -21,9 +22,10 @@ if __name__ == '__main__':
     config = read_config_file('feedspora.yml')
     feedspora = FeedSpora()
     feedspora.set_feed_urls(config['feeds'])
-    feedspora.connect(config['account']['pod'],
-                      config['account']['name'],
-                      config['account']['password'])
+    def connect_account(account):
+        client = globals()[account['type']]
+        feedspora.connect(client(account))
+    [connect_account(account) for account in config['accounts']]
     feedspora.set_db_file('feedspora.db')
     feedspora.run()
     
