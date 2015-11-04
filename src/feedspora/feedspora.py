@@ -23,6 +23,7 @@ import diaspy.models
 import diaspy.streams
 import diaspy.connection
 import tweepy
+
 from urllib.error import HTTPError
 
 class TweepyClient(object):
@@ -128,8 +129,9 @@ class FeedSpora(object):
             fse.content = entry.find('content').text
             fse.keywords = [keyword['term'].replace(' ', '_').strip()
                             for keyword in entry.find_all('category')]
-            fse.keywords += [word[1:] for word in fse.content.split() if word.startswith('#')]
-            # keep only unique keywords (use a set?)
+            fse.keywords += [word[1:]
+                             for word in fse.content.split()
+                             if word.startswith('#') and not word in fse.keywords]
             yield fse
 
     def _parse_rss(self, soup):
@@ -141,7 +143,9 @@ class FeedSpora(object):
             fse.content = entry.find('description').text
             fse.keywords = [keyword.text.replace(' ', '_').strip()
                             for keyword in entry.find_all('category')]
-            fse.keywords += [word[1:] for word in fse.content.split() if word.startswith('#')]
+            fse.keywords += [word[1:]
+                             for word in fse.content.split()
+                             if word.startswith('#') and not word in fse.keywords]
             yield fse
 
     def is_already_published(self, entry):
@@ -175,6 +179,7 @@ class FeedSpora(object):
         It retrieves the feed content and publish entries that haven't been published yet. """
         # get feed content
         try:
+            logging.info('Retrieving feed at: '+feed_url)
             req = urllib.request.Request(url=feed_url,
                                          data=b'None',
                                          headers={'User-Agent': self._ua})
