@@ -45,9 +45,9 @@ class FacebookClient(object):
     def post(self, entry):
         text = entry.title + ' '.join(['#'+keyword for keyword in entry.keywords])
         attachment = {'name': entry.title, 'link': entry.link}
-        post_id = self._graph.put_wall_post(text, attachment, self._post_as)
+        #post_id = self._graph.put_wall_post(text, attachment, self._post_as)
         # TODO Works, but posts appear in on the Page as "visitor's post", not on page's timeline.
-        print(post_id)
+        #print(post_id)
 
 class TweepyClient(object):
     """ The TweepyClient handles the connection to Twitter. """
