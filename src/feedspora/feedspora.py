@@ -23,6 +23,7 @@ import diaspy.models
 import diaspy.streams
 import diaspy.connection
 import tweepy
+
 from urllib.error import HTTPError
 
 class TweepyClient(object):
@@ -128,8 +129,9 @@ class FeedSpora(object):
             fse.content = entry.find('content').text
             fse.keywords = [keyword['term'].replace(' ', '_').strip()
                             for keyword in entry.find_all('category')]
-            fse.keywords += [word[1:] for word in fse.content.split() if word.startswith('#')]
-            # keep only unique keywords (use a set?)
+            fse.keywords += [word[1:]
+                             for word in fse.content.split()
+                             if word.startswith('#') and not word in fse.keywords]
             yield fse
 
     def _parse_rss(self, soup):
@@ -141,7 +143,9 @@ class FeedSpora(object):
             fse.content = entry.find('description').text
             fse.keywords = [keyword.text.replace(' ', '_').strip()
                             for keyword in entry.find_all('category')]
-            fse.keywords += [word[1:] for word in fse.content.split() if word.startswith('#')]
+            fse.keywords += [word[1:]
+                             for word in fse.content.split()
+                             if word.startswith('#') and not word in fse.keywords]
             yield fse
 
     def is_already_published(self, entry):
@@ -170,19 +174,33 @@ class FeedSpora(object):
         [client.post(entry) for client in self._client]
         self.add_to_published_entries(entry)
 
+    def _retrieve_feed_soup(self, feed_url):
+        """ Retrieve and parse the specified feed.
+        :param feed_url: can either be a URL or a path to a local file
+        """
+        feed_content = None
+        try:
+            with open(feed_url) as feed_file:
+                feed_content = ''.join(feed_file.readlines())
+            logging.info("Reading %s from file.", feed_url)
+        except FileNotFoundError:
+            try:
+                logging.info('Retrieving feed at: '+feed_url)
+                req = urllib.request.Request(url=feed_url,
+                                             data=b'None',
+                                             headers={'User-Agent': self._ua})
+                feed_content = urllib.request.urlopen(req).read()
+            except HTTPError as error:
+                logging.error("Error while reading feed at " + feed_url + ": " + format(error))
+                return
+            logging.info("Reading %s from URL.", feed_url)
+        return BeautifulSoup(feed_content, 'html.parser')
+
     def _process_feed(self, feed_url):
         """ Handle RSS/Atom feed
         It retrieves the feed content and publish entries that haven't been published yet. """
         # get feed content
-        try:
-            req = urllib.request.Request(url=feed_url,
-                                         data=b'None',
-                                         headers={'User-Agent': self._ua})
-            feed_content = urllib.request.urlopen(req).read()
-        except HTTPError as error:
-            logging.error("Error while reading feed at " + feed_url + ": " + format(error))
-            return
-        soup = BeautifulSoup(feed_content, 'html.parser')
+        soup = self._retrieve_feed_soup(feed_url)
         if soup.find('entry'):
             entry_generator = self._parse_atom(soup)
         elif soup.find('item'):
