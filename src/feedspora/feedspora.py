@@ -197,20 +197,33 @@ class FeedSpora(object):
         [client.post(entry) for client in self._client]
         self.add_to_published_entries(entry)
 
+    def _retrieve_feed_soup(self, feed_url):
+        """ Retrieve and parse the specified feed.
+        :param feed_url: can either be a URL or a path to a local file
+        """
+        feed_content = None
+        try:
+            with open(feed_url) as feed_file:
+                feed_content = ''.join(feed_file.readlines())
+            logging.info("Reading %s from file.", feed_url)
+        except FileNotFoundError:
+            try:
+                logging.info('Retrieving feed at: '+feed_url)
+                req = urllib.request.Request(url=feed_url,
+                                             data=b'None',
+                                             headers={'User-Agent': self._ua})
+                feed_content = urllib.request.urlopen(req).read()
+            except HTTPError as error:
+                logging.error("Error while reading feed at " + feed_url + ": " + format(error))
+                return
+            logging.info("Reading %s from URL.", feed_url)
+        return BeautifulSoup(feed_content, 'html.parser')
+
     def _process_feed(self, feed_url):
         """ Handle RSS/Atom feed
         It retrieves the feed content and publish entries that haven't been published yet. """
         # get feed content
-        try:
-            logging.info('Retrieving feed at: '+feed_url)
-            req = urllib.request.Request(url=feed_url,
-                                         data=b'None',
-                                         headers={'User-Agent': self._ua})
-            feed_content = urllib.request.urlopen(req).read()
-        except HTTPError as error:
-            logging.error("Error while reading feed at " + feed_url + ": " + format(error))
-            return
-        soup = BeautifulSoup(feed_content, 'html.parser')
+        soup = self._retrieve_feed_soup(feed_url)
         if soup.find('entry'):
             entry_generator = self._parse_atom(soup)
         elif soup.find('item'):
