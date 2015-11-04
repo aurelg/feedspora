@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # encoding: utf-8
 '''
-FeedSpora is a bot that post automatically RSS/Atom feeds to your Diaspora account.
+FeedSpora is a bot that posts automatically RSS/Atom feeds to your Facebook, Twitter or Diaspora account.
 This file defines a DiaspyClient, a FeedSpora Entry, and FeedSpora itself.
 
 @author:     Aurelien Grosdidier
