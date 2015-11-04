@@ -16,4 +16,5 @@ accounts:
 
 feeds:
   - 'url_feed1'
-  - 'url_feed1'
+  - 'atom_file_name_feed_2'
+  - 'rss_file_name_feed_3'
