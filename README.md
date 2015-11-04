@@ -1,6 +1,6 @@
 # What is FeedSpora?
 
-FeedSpora posts RSS/Atom feeds to your social network accounts. It currently supports Diaspora and Twitter. It's a bot written in Python3, inspired from [Fefebot](https://github.com/svbergerem/fefebot).
+FeedSpora posts RSS/Atom feeds to your social network accounts. It currently supports Facebook, Twitter and Diaspora. It's a bot written in Python3, inspired from [Fefebot](https://github.com/svbergerem/fefebot).
 
 # Installation
 
@@ -8,6 +8,7 @@ Install dependencies:
 
 - [Diaspy](https://github.com/marekjm/diaspy) (the latest version is recommended if you can't connect to your pod)
 - [Tweepy](https://github.com/tweepy/tweepy)
+- [Facebook-sdk](https://github.com/pythonforfacebook/facebook-sdk)
 - [BeautifulSoup](http://www.crummy.com/software/BeautifulSoup/)
 - [PyYAML](http://pyyaml.org)
 
