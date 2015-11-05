@@ -202,7 +202,10 @@ class FeedSpora(object):
         self._conn.commit()
 
     def _publish_entry(self, entry):
-        """ Publish a FeedSporaEntry to your all your registred account. """
+        """ Publish a FeedSporaEntry to your all your registered account. """
+        if self._client is None:
+            logging.error("No client found, aborting publication")
+            return
         logging.info('Publishing: '+entry.title)
         for client in self._client:
             try:
