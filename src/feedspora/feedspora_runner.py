@@ -28,7 +28,17 @@ from urllib.error import HTTPError
 
 import facebook
 
-class FacebookClient(object):
+class GenericClient(object):
+    
+    _name = None
+    
+    def set_name(self, name):
+        self._name = name
+
+    def get_name(self):
+        return self._name
+
+class FacebookClient(GenericClient):
     """ The FacebookClient handles the connection to Facebook. """
     # See https://stackoverflow.com/questions/11510850/python-facebook-api-need-a-working-example
     # https://github.com/pythonforfacebook/facebook-sdk
@@ -49,7 +59,7 @@ class FacebookClient(object):
         # TODO Works, but posts appear in on the Page as "visitor's post", not on page's timeline.
         #print(post_id)
 
-class TweepyClient(object):
+class TweepyClient(GenericClient):
     """ The TweepyClient handles the connection to Twitter. """
 
     _api = None
@@ -74,7 +84,7 @@ class TweepyClient(object):
         text += ' '+entry.link
         self._api.update_status(text.encode('utf-8'))
 
-class DiaspyClient(object):
+class DiaspyClient(GenericClient):
     """ The DiaspyClient handles the connection to Diaspora. """
 
     def __init__(self, account):

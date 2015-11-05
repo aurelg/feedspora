@@ -22,8 +22,10 @@ if __name__ == '__main__':
     feedspora = FeedSpora()
     feedspora.set_feed_urls(config['feeds'])
     def connect_account(account):
-        client = globals()[account['type']]
-        feedspora.connect(client(account))
+        client_class = globals()[account['type']]
+        client = client_class(account)
+        client.set_name(account['name'])
+        feedspora.connect(client)
     [connect_account(account) for account in config['accounts']]
     feedspora.set_db_file('feedspora.db')
     feedspora.run()
