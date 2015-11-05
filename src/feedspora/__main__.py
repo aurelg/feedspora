@@ -4,7 +4,10 @@ Created on Nov 2, 2015
 @author: Aurelien Grosdidier
 @contact: aurelien.grosdidier@gmail.com
 '''
-from feedspora.feedspora_runner import FeedSpora, DiaspyClient, TweepyClient, FacebookClient
+from feedspora.feedspora_runner import FeedSpora
+from feedspora.feedspora_runner import DiaspyClient  # @UnusedImport
+from feedspora.feedspora_runner import TweepyClient  # @UnusedImport
+from feedspora.feedspora_runner import FacebookClient  # @UnusedImport
 
 def read_config_file(filename):
     """ Loads the YML configuration file. """
@@ -22,13 +25,16 @@ if __name__ == '__main__':
     feedspora = FeedSpora()
     feedspora.set_feed_urls(config['feeds'])
     def connect_account(account):
+        '''
+        Initialize a client for the specified account, and register it in FeedSpora
+        :param account:
+        '''
         client_class = globals()[account['type']]
         client = client_class(account)
         client.set_name(account['name'])
         feedspora.connect(client)
-    [connect_account(account)
-     for account in config['accounts']
-     if not 'enabled' in account or account['enabled']]
+    for account in config['accounts']:
+        if not 'enabled' in account or account['enabled']:
+            connect_account(account)
     feedspora.set_db_file('feedspora.db')
     feedspora.run()
-    
