@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # encoding: utf-8
 '''
-FeedSpora is a bot that posts automatically RSS/Atom feeds to your Facebook, Twitter or Diaspora account.
-This file defines a DiaspyClient, a FeedSpora Entry, and FeedSpora itself.
+FeedSpora is a bot that posts automatically RSS/Atom feeds to your social network account.
+It currently supports Facebook, Twitter and Diaspora.
 
 @author:     Aurelien Grosdidier
 
@@ -18,17 +18,36 @@ import sqlite3
 import os
 import logging
 import urllib
+from urllib.error import HTTPError
+
 from bs4 import BeautifulSoup
 import diaspy.models
 import diaspy.streams
 import diaspy.connection
 import tweepy
-
-from urllib.error import HTTPError
-
 import facebook
 
-class FacebookClient(object):
+class GenericClient(object):
+    '''
+    Implements the case functionalities expected from clients
+    '''
+
+    _name = None
+
+    def set_name(self, name):
+        '''
+        Client name setter
+        :param name:
+        '''
+        self._name = name
+
+    def get_name(self):
+        '''
+        Client name getter
+        '''
+        return self._name
+
+class FacebookClient(GenericClient):
     """ The FacebookClient handles the connection to Facebook. """
     # See https://stackoverflow.com/questions/11510850/python-facebook-api-need-a-working-example
     # https://github.com/pythonforfacebook/facebook-sdk
@@ -36,20 +55,22 @@ class FacebookClient(object):
     _graph = None
     _profile = None
     _post_as = None
-    
+
     def __init__(self, account):
         self._graph = facebook.GraphAPI(account['token'])
         self._profile = self._graph.get_object('me')
         self._post_as = account['post_as'] if 'post_as' in account else self._profile['id']
 
     def post(self, entry):
+        '''
+        Post entry to Facebook.
+        :param entry:
+        '''
         text = entry.title + ' '.join(['#'+keyword for keyword in entry.keywords])
         attachment = {'name': entry.title, 'link': entry.link}
-        #post_id = self._graph.put_wall_post(text, attachment, self._post_as)
-        # TODO Works, but posts appear in on the Page as "visitor's post", not on page's timeline.
-        #print(post_id)
+        self._graph.put_wall_post(text, attachment, self._post_as)
 
-class TweepyClient(object):
+class TweepyClient(GenericClient):
     """ The TweepyClient handles the connection to Twitter. """
 
     _api = None
@@ -63,30 +84,31 @@ class TweepyClient(object):
         self._api = tweepy.API(auth)
 
     def post(self, entry):
-        """ Post content to your public timeline. """
+        """ Post entry to Twitter. """
         text = entry.title
         if len(entry.keywords) > 0:
             for keyword in [' #'+keyword for keyword in entry.keywords]:
-                if len(text) + len(keyword) < 117:
+                if len(text) + len(keyword) < 111:
                     text += keyword
                 else:
                     break
         text += ' '+entry.link
         self._api.update_status(text.encode('utf-8'))
 
-class DiaspyClient(object):
+class DiaspyClient(GenericClient):
     """ The DiaspyClient handles the connection to Diaspora. """
 
     def __init__(self, account):
         """ Should be self-explaining. """
-        self.connection = diaspy.connection.Connection(pod=account['pod'],
-                                                       username=account['username'],
-                                                       password=account['password'])
+        self.connection = diaspy.connection.Connection( \
+            pod=account['pod'],
+            username=account['username'],
+            password=account['password'])
         self.connection.login()
         self.stream = diaspy.streams.Stream(self.connection, 'stream.json')
 
     def post(self, entry):
-        """ Post content to your public timeline. """
+        """ Post entry to Diaspora. """
         text = '['+entry.title+']('+entry.link+')'
         if len(entry.keywords) > 0:
             text += ' #' + ' #'.join(entry.keywords)
@@ -136,72 +158,47 @@ class FeedSpora(object):
         self._cur = self._conn.cursor()
         if should_init:
             logging.info('Creating new database file '+self._db_file)
-            self._cur.execute("CREATE table posts (id INTEGER PRIMARY KEY, feedspora_id TEXT)")
+            sql = "CREATE table posts (id INTEGER PRIMARY KEY, feedspora_id, client_id TEXT)"
+            self._cur.execute(sql)
         else:
             logging.info('Found database file '+self._db_file)
 
-    def _parse_atom(self, soup):
-        """ Generate FeedSpora entries out of an Atom feed. """
-        for entry in soup.find_all('entry')[::-1]:
-            fse = FeedSporaEntry()
-            try:
-                fse.title = BeautifulSoup(entry.find('title').text, 'html.parser').find('a').text
-            except AttributeError:
-                fse.title = entry.find('title').text
-            fse.link = entry.find('link')['href']
-            fse.content = entry.find('content').text
-            fse.keywords = [keyword['term'].replace(' ', '_').strip()
-                            for keyword in entry.find_all('category')]
-            fse.keywords += [word[1:]
-                             for word in fse.content.split()
-                             if word.startswith('#') and not word in fse.keywords]
-            yield fse
-
-    def _parse_rss(self, soup):
-        """ Generate FeedSpora entries out of a RSS feed. """
-        for entry in soup.find_all('item')[::-1]:
-            fse = FeedSporaEntry()
-            fse.title = entry.find('title').text
-            fse.link = entry.find('link').text
-            fse.content = entry.find('description').text
-            fse.keywords = [keyword.text.replace(' ', '_').strip()
-                            for keyword in entry.find_all('category')]
-            fse.keywords += [word[1:]
-                             for word in fse.content.split()
-                             if word.startswith('#') and not word in fse.keywords]
-            yield fse
-
-    def is_already_published(self, entry):
+    def is_already_published(self, entry, client):
         """ Checks if a FeedSporaEntry has already been published.
         It checks if it's already in the database of published items.
         """
-        self._cur.execute("SELECT id from posts WHERE feedspora_id=:feedspora_id",
-                          {"feedspora_id": entry.link})
+        sql = "SELECT id from posts WHERE feedspora_id=:feedspora_id AND client_id=:client_id"
+        self._cur.execute(sql, {"feedspora_id": entry.link, "client_id": client.get_name()})
         already_published = self._cur.fetchone() is not None
         if already_published:
-            logging.info('Skipping already published entry: '+entry.title)
+            logging.info('Skipping already published entry in '+client.get_name()+
+                         ': '+entry.title)
         else:
-            logging.info('Found entry to publish: '+entry.title)
+            logging.info('Found entry to publish in '+client.get_name()+': '+entry.title)
         return already_published
 
-    def add_to_published_entries(self, entry):
+    def add_to_published_entries(self, entry, client):
         """ Add a FeedSporaEntries to the database of published items. """
         logging.info('Storing in database of published items: '+entry.title)
-        self._cur.execute("INSERT INTO posts (feedspora_id) values (?)",
-                          (entry.link,))
+        self._cur.execute("INSERT INTO posts (feedspora_id, client_id) values (?,?)",
+                          (entry.link, client.get_name()))
         self._conn.commit()
 
     def _publish_entry(self, entry):
-        """ Publish a FeedSporaEntry to your all your registred account. """
+        """ Publish a FeedSporaEntry to your all your registered account. """
+        if self._client is None:
+            logging.error("No client found, aborting publication")
+            return
         logging.info('Publishing: '+entry.title)
         for client in self._client:
-            try:
-                client.post(entry)
-            except Exception as error:
-                logging.error("Error while publishing '" + entry.title +
-                              "' to client '" + client.__class__.__name__ +
-                              "': "+ format(error))
-        self.add_to_published_entries(entry)
+            if not self.is_already_published(entry, client):
+                try:
+                    client.post(entry)
+                    self.add_to_published_entries(entry, client)
+                except Exception as error:
+                    logging.error("Error while publishing '" + entry.title +
+                                  "' to client '" + client.__class__.__name__ +
+                                  "': "+ format(error))
 
     def _retrieve_feed_soup(self, feed_url):
         """ Retrieve and parse the specified feed.
@@ -230,17 +227,50 @@ class FeedSpora(object):
         except (HTTPError, ValueError) as error:
             logging.error("Error while reading feed at " + feed_url + ": " + format(error))
             return
+        # Define generator for Atom
+        def parse_atom(soup):
+            """ Generate FeedSpora entries out of an Atom feed. """
+            for entry in soup.find_all('entry')[::-1]:
+                fse = FeedSporaEntry()
+                try:
+                    fse.title = BeautifulSoup(entry.find('title').text,
+                                              'html.parser').find('a').text
+                except AttributeError:
+                    fse.title = entry.find('title').text
+                fse.link = entry.find('link')['href']
+                fse.content = entry.find('content').text
+                fse.keywords = [keyword['term'].replace(' ', '_').strip()
+                                for keyword in entry.find_all('category')]
+                fse.keywords += [word[1:]
+                                 for word in fse.content.split()
+                                 if word.startswith('#') and not word in fse.keywords]
+                yield fse
+        # Define generator for RSS
+        def parse_rss(soup):
+            """ Generate FeedSpora entries out of a RSS feed. """
+            for entry in soup.find_all('item')[::-1]:
+                fse = FeedSporaEntry()
+                fse.title = entry.find('title').text
+                fse.link = entry.find('link').text
+                fse.content = entry.find('description').text
+                fse.keywords = [keyword.text.replace(' ', '_').strip()
+                                for keyword in entry.find_all('category')]
+                fse.keywords += [word[1:]
+                                 for word in fse.content.split()
+                                 if word.startswith('#') and not word in fse.keywords]
+                yield fse
+        # Choose which generator to use, or abort.
         if soup.find('entry'):
-            entry_generator = self._parse_atom(soup)
+            entry_generator = parse_atom(soup)
         elif soup.find('item'):
-            entry_generator = self._parse_rss(soup)
+            entry_generator = parse_rss(soup)
         else:
             raise Exception("Unknown format")
-        [self._publish_entry(entry)
-         for entry in entry_generator
-         if not self.is_already_published(entry)]
+        for entry in entry_generator:
+            self._publish_entry(entry)
 
     def run(self):
         """ Run FeedSpora: initialize the database and process the list of feed URLs."""
         self._init_db()
-        [self._process_feed(feed_url) for feed_url in self._feed_urls]
+        for feed_url in self._feed_urls:
+            self._process_feed(feed_url)
