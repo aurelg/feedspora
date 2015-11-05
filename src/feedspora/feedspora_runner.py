@@ -67,7 +67,7 @@ class TweepyClient(object):
         text = entry.title
         if len(entry.keywords) > 0:
             for keyword in [' #'+keyword for keyword in entry.keywords]:
-                if len(text) + len(keyword) < 117:
+                if len(text) + len(keyword) < 111:
                     text += keyword
                 else:
                     break
