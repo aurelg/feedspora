@@ -16,7 +16,7 @@ accounts:
 
   - name: 'Facebook'
     type: 'FacebookClient'
-    # Get your your_facebook_token from https://developers.facebook.com/
+    # Get your your_facebook_token from https://developers.facebook.com/docs/facebook-login/access-tokens
     # Generate either a User or a Page token on https://developers.facebook.com/tools/explorer
     # Make sure to grant the token the right to push posts to your timeline
     token: 'your_facebook_token'
