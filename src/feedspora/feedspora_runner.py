@@ -34,20 +34,18 @@ class FacebookClient(object):
     # https://github.com/pythonforfacebook/facebook-sdk
     # https://facebook-sdk.readthedocs.org/en/latest/install.html
     _graph = None
-    _profile = None
     _post_as = None
     
     def __init__(self, account):
         self._graph = facebook.GraphAPI(account['token'])
-        self._profile = self._graph.get_object('me')
-        self._post_as = account['post_as'] if 'post_as' in account else self._profile['id']
+        profile = self._graph.get_object('me')
+        self._post_as = account['post_as'] if 'post_as' in account else profile['id']
 
     def post(self, entry):
         text = entry.title + ' '.join(['#'+keyword for keyword in entry.keywords])
         attachment = {'name': entry.title, 'link': entry.link}
-        #post_id = self._graph.put_wall_post(text, attachment, self._post_as)
-        # TODO Works, but posts appear in on the Page as "visitor's post", not on page's timeline.
-        #print(post_id)
+        post_id = self._graph.put_wall_post(text, attachment, self._post_as)
+        print(post_id)
 
 class TweepyClient(object):
     """ The TweepyClient handles the connection to Twitter. """
