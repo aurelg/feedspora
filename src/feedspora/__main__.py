@@ -4,8 +4,7 @@ Created on Nov 2, 2015
 @author: Aurelien Grosdidier
 @contact: aurelien.grosdidier@gmail.com
 '''
-
-from feedspora.feedspora import FeedSpora, DiaspyClient, TweepyClient, FacebookClient
+from feedspora.feedspora_runner import FeedSpora, DiaspyClient, TweepyClient, FacebookClient
 
 def read_config_file(filename):
     """ Loads the YML configuration file. """

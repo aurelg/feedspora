@@ -45,9 +45,9 @@ class FacebookClient(object):
     def post(self, entry):
         text = entry.title + ' '.join(['#'+keyword for keyword in entry.keywords])
         attachment = {'name': entry.title, 'link': entry.link}
-        post_id = self._graph.put_wall_post(text, attachment, self._post_as)
+        #post_id = self._graph.put_wall_post(text, attachment, self._post_as)
         # TODO Works, but posts appear in on the Page as "visitor's post", not on page's timeline.
-        print(post_id)
+        #print(post_id)
 
 class TweepyClient(object):
     """ The TweepyClient handles the connection to Twitter. """
@@ -194,7 +194,13 @@ class FeedSpora(object):
     def _publish_entry(self, entry):
         """ Publish a FeedSporaEntry to your all your registred account. """
         logging.info('Publishing: '+entry.title)
-        [client.post(entry) for client in self._client]
+        for client in self._client:
+            try:
+                client.post(entry)
+            except Exception as error:
+                logging.error("Error while publishing '" + entry.title +
+                              "' to client '" + client.__class__.__name__ +
+                              "': "+ format(error))
         self.add_to_published_entries(entry)
 
     def _retrieve_feed_soup(self, feed_url):
@@ -203,27 +209,27 @@ class FeedSpora(object):
         """
         feed_content = None
         try:
-            with open(feed_url) as feed_file:
+            logging.info("Trying to read %s as a file.", feed_url)
+            with open(feed_url, encoding='utf-8') as feed_file:
                 feed_content = ''.join(feed_file.readlines())
-            logging.info("Reading %s from file.", feed_url)
         except FileNotFoundError:
-            try:
-                logging.info('Retrieving feed at: '+feed_url)
-                req = urllib.request.Request(url=feed_url,
-                                             data=b'None',
-                                             headers={'User-Agent': self._ua})
-                feed_content = urllib.request.urlopen(req).read()
-            except HTTPError as error:
-                logging.error("Error while reading feed at " + feed_url + ": " + format(error))
-                return
-            logging.info("Reading %s from URL.", feed_url)
+            logging.info("Trying to read %s as a URL.", feed_url)
+            req = urllib.request.Request(url=feed_url,
+                                         data=b'None',
+                                         headers={'User-Agent': self._ua})
+            feed_content = urllib.request.urlopen(req).read()
+        logging.info("Feed read.")
         return BeautifulSoup(feed_content, 'html.parser')
 
     def _process_feed(self, feed_url):
         """ Handle RSS/Atom feed
         It retrieves the feed content and publish entries that haven't been published yet. """
         # get feed content
-        soup = self._retrieve_feed_soup(feed_url)
+        try:
+            soup = self._retrieve_feed_soup(feed_url)
+        except (HTTPError, ValueError) as error:
+            logging.error("Error while reading feed at " + feed_url + ": " + format(error))
+            return
         if soup.find('entry'):
             entry_generator = self._parse_atom(soup)
         elif soup.find('item'):
