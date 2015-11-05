@@ -26,7 +26,9 @@ if __name__ == '__main__':
         client = client_class(account)
         client.set_name(account['name'])
         feedspora.connect(client)
-    [connect_account(account) for account in config['accounts']]
+    [connect_account(account)
+     for account in config['accounts']
+     if not 'enabled' in account or account['enabled']]
     feedspora.set_db_file('feedspora.db')
     feedspora.run()
     
