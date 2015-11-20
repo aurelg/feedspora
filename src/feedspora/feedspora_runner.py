@@ -210,6 +210,7 @@ class FeedSpora(object):
             with open(feed_url, encoding='utf-8') as feed_file:
                 feed_content = ''.join(feed_file.readlines())
         except FileNotFoundError:
+            logging.info("File not found.")
             logging.info("Trying to read %s as a URL.", feed_url)
             req = urllib.request.Request(url=feed_url,
                                          data=b'None',
@@ -224,7 +225,7 @@ class FeedSpora(object):
         # get feed content
         try:
             soup = self._retrieve_feed_soup(feed_url)
-        except (HTTPError, ValueError) as error:
+        except (HTTPError, ValueError, OSError, urllib.error.URLError) as error:
             logging.error("Error while reading feed at " + feed_url + ": " + format(error))
             return
         # Define generator for Atom
