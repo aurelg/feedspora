@@ -84,7 +84,16 @@ class TweepyClient(GenericClient):
 
     def post(self, entry):
         """ Post entry to Twitter. """
-        text = entry.title
+        if len(entry.title) < 110:
+            text = entry.title
+        else:
+            text = ''
+            for word in [' '+word for word in entry.title.split(' ')]:
+                if len(text) + len(word) < 100:
+                    text += word
+                else:
+                    text += "..."
+                    break
         if len(entry.keywords) > 0:
             for keyword in [' #'+keyword for keyword in entry.keywords]:
                 if len(text) + len(keyword) < 111:
