@@ -238,7 +238,7 @@ class FeedSpora(object):
                     fse.title = entry.find('title').text
                 fse.link = entry.find('link')['href']
                 fse.content = entry.find('content').text
-                fse.keywords = [keyword['term'].replace(' ', '_').strip()
+                fse.keywords = [keyword['term'].replace(' ', '_').lower().strip()
                                 for keyword in entry.find_all('category')]
                 fse.keywords += [word[1:]
                                  for word in fse.content.split()
@@ -252,7 +252,7 @@ class FeedSpora(object):
                 fse.title = entry.find('title').text
                 fse.link = entry.find('link').text
                 fse.content = entry.find('description').text
-                fse.keywords = [keyword.text.replace(' ', '_').strip()
+                fse.keywords = [keyword.text.replace(' ', '_').lower().strip()
                                 for keyword in entry.find_all('category')]
                 fse.keywords += [word[1:]
                                  for word in fse.content.split()
