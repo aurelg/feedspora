@@ -53,13 +53,12 @@ class FacebookClient(GenericClient):
     # https://github.com/pythonforfacebook/facebook-sdk
     # https://facebook-sdk.readthedocs.org/en/latest/install.html
     _graph = None
-    _profile = None
     _post_as = None
 
     def __init__(self, account):
         self._graph = facebook.GraphAPI(account['token'])
-        self._profile = self._graph.get_object('me')
-        self._post_as = account['post_as'] if 'post_as' in account else self._profile['id']
+        profile = self._graph.get_object('me')
+        self._post_as = account['post_as'] if 'post_as' in account else profile['id']
 
     def post(self, entry):
         '''
@@ -85,7 +84,16 @@ class TweepyClient(GenericClient):
 
     def post(self, entry):
         """ Post entry to Twitter. """
-        text = entry.title
+        if len(entry.title) < 110:
+            text = entry.title
+        else:
+            text = ''
+            for word in [' '+word for word in entry.title.split(' ')]:
+                if len(text) + len(word) < 100:
+                    text += word
+                else:
+                    text += "..."
+                    break
         if len(entry.keywords) > 0:
             for keyword in [' #'+keyword for keyword in entry.keywords]:
                 if len(text) + len(keyword) < 111:
@@ -240,7 +248,7 @@ class FeedSpora(object):
                     fse.title = entry.find('title').text
                 fse.link = entry.find('link')['href']
                 fse.content = entry.find('content').text
-                fse.keywords = [keyword['term'].replace(' ', '_').strip()
+                fse.keywords = [keyword['term'].replace(' ', '_').lower().strip()
                                 for keyword in entry.find_all('category')]
                 fse.keywords += [word[1:]
                                  for word in fse.content.split()
@@ -254,7 +262,7 @@ class FeedSpora(object):
                 fse.title = entry.find('title').text
                 fse.link = entry.find('link').text
                 fse.content = entry.find('description').text
-                fse.keywords = [keyword.text.replace(' ', '_').strip()
+                fse.keywords = [keyword.text.replace(' ', '_').lower().strip()
                                 for keyword in entry.find_all('category')]
                 fse.keywords += [word[1:]
                                  for word in fse.content.split()
