@@ -114,10 +114,17 @@ class DiaspyClient(GenericClient):
             password=account['password'])
         self.connection.login()
         self.stream = diaspy.streams.Stream(self.connection, 'stream.json')
+        self.keywords = []
+        try:
+            self.keywords = [kw.strip() for kw in account['keywords'].split(',')]
+        except KeyError:
+            pass
 
     def post(self, entry):
         """ Post entry to Diaspora. """
         text = '['+entry.title+']('+entry.link+')'
+        if len(self.keywords) > 0:
+            text += ' #' + ' #'.join(self.keywords)
         if len(entry.keywords) > 0:
             text += ' #' + ' #'.join(entry.keywords)
         return self.stream.post(text, aspect_ids='public', provider_display_name='FeedSpora')
@@ -139,7 +146,8 @@ class FeedSpora(object):
     _db_file = "feedspora.db"
     _conn = None
     _cur = None
-    _ua = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0'
+    #_ua = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0'
+    _ua = 'Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0'
 
     def __init__(self):
         logging.basicConfig(level=logging.INFO)
