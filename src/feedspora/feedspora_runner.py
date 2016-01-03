@@ -259,7 +259,7 @@ class FeedSpora(object):
                 fse.keywords = [keyword['term'].replace(' ', '_').lower().strip()
                                 for keyword in entry.find_all('category')]
                 fse.keywords += [word[1:]
-                                 for word in fse.content.split()
+                                 for word in fse.title.split()
                                  if word.startswith('#') and not word in fse.keywords]
                 yield fse
         # Define generator for RSS
@@ -273,7 +273,7 @@ class FeedSpora(object):
                 fse.keywords = [keyword.text.replace(' ', '_').lower().strip()
                                 for keyword in entry.find_all('category')]
                 fse.keywords += [word[1:]
-                                 for word in fse.content.split()
+                                 for word in fse.title.split()
                                  if word.startswith('#') and not word in fse.keywords]
                 yield fse
         # Choose which generator to use, or abort.
