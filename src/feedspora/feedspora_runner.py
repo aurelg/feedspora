@@ -255,7 +255,10 @@ class FeedSpora(object):
                 except AttributeError:
                     fse.title = entry.find('title').text
                 fse.link = entry.find('link')['href']
-                fse.content = entry.find('content').text
+                try:
+                    fse.content = entry.find('content').text
+                except AttributeError:
+                    fse.content = ''
                 fse.keywords = [keyword['term'].replace(' ', '_').lower().strip()
                                 for keyword in entry.find_all('category')]
                 fse.keywords += [word[1:]
