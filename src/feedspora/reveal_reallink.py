@@ -23,5 +23,5 @@ for entry in soup.find_all('entry'):
     content_soup = BeautifulSoup(entry.find('content').string, 'html.parser')
     entry.find('link')['href'] = content_soup.find('a')['href']
     entry.find('id').string = content_soup.find('a')['href']
+    entry.find('title').string = content_soup.find('a').string
 
-print(soup)
