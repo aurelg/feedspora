@@ -212,11 +212,17 @@ class FeedSpora(object):
             if not self.is_already_published(entry, client):
                 try:
                     client.post(entry)
-                    self.add_to_published_entries(entry, client)
                 except Exception as error:
                     logging.error("Error while publishing '" + entry.title +
                                   "' to client '" + client.__class__.__name__ +
                                   "': "+ format(error))
+                try:
+                    self.add_to_published_entries(entry, client)
+                except Exception as error:
+                    logging.error("Error while storing '" + entry.title +
+                                  "' to client '" + client.__class__.__name__ +
+                                  "': "+ format(error))
+
 
     def _retrieve_feed_soup(self, feed_url):
         """ Retrieve and parse the specified feed.
