@@ -17,8 +17,10 @@ It currently supports Facebook, Twitter and Diaspora.
 import sqlite3
 import os
 import logging
+import requests
 import urllib
 from urllib.error import HTTPError
+from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
 import diaspy.models
@@ -26,6 +28,10 @@ import diaspy.streams
 import diaspy.connection
 import tweepy
 import facebook
+from wordpress_xmlrpc import Client, WordPressPost
+from wordpress_xmlrpc.methods.posts import NewPost
+from readability.readability import Document, Unparseable
+
 
 class GenericClient(object):
     '''
@@ -130,6 +136,52 @@ class DiaspyClient(GenericClient):
         if len(entry.keywords) > 0:
             text += ' #' + ' #'.join(entry.keywords)
         return self.stream.post(text, aspect_ids='public', provider_display_name='FeedSpora')
+
+
+class WPClient(GenericClient):
+    """ The WPClient handles the connection to Wordpress. """
+
+    def __init__(self, account):
+        """ Should be self-explaining. """
+        self.client = Client(account['wpurl'],
+                             account['username'],
+                             account['password'])
+        self.keywords = []
+        try:
+            self.keywords = [kw.strip()
+                             for kw in account['keywords'].split(',')]
+        except KeyError:
+            pass
+
+    def get_content(self, url):
+        """ Retrieve URL content and parse it w/ readability if it's HTML """
+        r = requests.get(url)
+        content = ''
+        if r.status_code == requests.codes.ok and\
+           r.headers['Content-Type'].find('html') != -1:
+            try:
+                content = Document(r.text).summary()
+            except Unparseable:
+                pass
+        return content
+
+    def post(self, entry):
+        """ Post entry to Wordpress. """
+
+        # get text with readability
+        post = WordPressPost()
+        post.title = entry.title
+        post.content = "Source: <a href='{}'>{}</a><hr\>{}".format(
+                entry.link,
+                urlparse(entry.link).netloc,
+                self.get_content(entry.link))
+        post.terms_names = {'post_tag': entry.keywords,
+                            'category': ["AutomatedPost"]}
+        post.post_status = 'publish'
+        self.client.call(NewPost(post))
+        import sys
+        sys.exit(1)
+
 
 class FeedSporaEntry(object):
     """ A FeedSpora entry.

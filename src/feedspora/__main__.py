@@ -8,6 +8,8 @@ from feedspora.feedspora_runner import FeedSpora
 from feedspora.feedspora_runner import DiaspyClient  # @UnusedImport
 from feedspora.feedspora_runner import TweepyClient  # @UnusedImport
 from feedspora.feedspora_runner import FacebookClient  # @UnusedImport
+from feedspora.feedspora_runner import WPClient # @UnusedImport
+
 
 def read_config_file(filename):
     """ Loads the YML configuration file. """
