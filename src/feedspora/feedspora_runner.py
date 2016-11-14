@@ -179,8 +179,6 @@ class WPClient(GenericClient):
                             'category': ["AutomatedPost"]}
         post.post_status = 'publish'
         self.client.call(NewPost(post))
-        import sys
-        sys.exit(1)
 
 
 class FeedSporaEntry(object):
