@@ -17,6 +17,7 @@ It currently supports Facebook, Twitter and Diaspora.
 import sqlite3
 import os
 import logging
+import re
 import requests
 import urllib
 from urllib.error import HTTPError
@@ -103,9 +104,18 @@ class TweepyClient(GenericClient):
                     text += "..."
                     break
         if len(entry.keywords) > 0:
-            for keyword in [' #'+keyword for keyword in entry.keywords]:
-                if rl(text) + rl(keyword) < 111:
-                    text += keyword
+            for keyword in entry.keywords:
+                # Check if it's already in the title (case insensitive)
+                #
+                newtext = ''
+                if re.search(keyword, text, re.IGNORECASE):
+                    newtext = re.sub('(?i)' + re.escape(keyword),
+                                     '#' + keyword,
+                                     text)
+                else:
+                    newtext = text + " #" + keyword
+                if rl(newtext) < 111:
+                    text = newtext
                 else:
                     break
         text += ' '+entry.link
