@@ -109,7 +109,7 @@ class TweepyClient(GenericClient):
                 #
                 newtext = ''
                 if re.search(keyword, text, re.IGNORECASE):
-                    newtext = re.sub('(?i)' + re.escape(keyword),
+                    newtext = re.sub('(?i)' + re.escape(' %s ' % keyword),
                                      '#' + keyword,
                                      text)
                 else:
