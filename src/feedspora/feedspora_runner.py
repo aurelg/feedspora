@@ -107,11 +107,16 @@ class TweepyClient(GenericClient):
             for keyword in entry.keywords:
                 # Check if it's already in the title (case insensitive)
                 #
-                newtext = ''
-                if re.search(keyword, text, re.IGNORECASE):
-                    newtext = re.sub('(?i)' + re.escape(' %s ' % keyword),
-                                     ' #%s ' % keyword,
-                                     text)
+                newtext = text
+
+                pattern = r'(\A|\W)(%s)(\W|\Z)' % re.escape('%s' % keyword)
+                if re.search(pattern, text, re.IGNORECASE):
+                    def repl(m):
+                        return '%s#%s%s' % (m.group(1), m.group(2), m.group(3))
+                    newtext = re.sub(pattern ,
+                                     repl,
+                                     newtext,
+                                     flags=re.IGNORECASE)
                 else:
                     newtext = text + " #" + keyword
                 if rl(newtext) < 111:
@@ -327,7 +332,7 @@ class FeedSpora(object):
                     fse.content = entry.find('content').text
                 except AttributeError:
                     fse.content = ''
-                fse.keywords = [keyword['term'].replace(' ', '_').lower().strip()
+                fse.keywords = [keyword['term'].replace(' ', '_').strip()
                                 for keyword in entry.find_all('category')]
                 fse.keywords += [word[1:]
                                  for word in fse.title.split()
@@ -341,7 +346,7 @@ class FeedSpora(object):
                 fse.title = entry.find('title').text
                 fse.link = entry.find('link').text
                 fse.content = entry.find('description').text
-                fse.keywords = [keyword.text.replace(' ', '_').lower().strip()
+                fse.keywords = [keyword.text.replace(' ', '_').strip()
                                 for keyword in entry.find_all('category')]
                 fse.keywords += [word[1:]
                                  for word in fse.title.split()
