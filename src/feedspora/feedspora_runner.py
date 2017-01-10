@@ -136,7 +136,12 @@ class DiaspyClient(GenericClient):
             username=account['username'],
             password=account['password'])
         self.connection.login()
-        self.stream = diaspy.streams.Stream(self.connection, 'stream.json')
+        try:
+            self.stream = diaspy.streams.Stream(self.connection, 'stream.json')
+        except diaspy.errors.PostError as e:
+            logging.error("Cannot get diaspy stream: {}".format(str(e)))
+            self.stream = None
+            pass
         self.keywords = []
         try:
             self.keywords = [kw.strip() for kw in account['keywords'].split(',')]
@@ -144,6 +149,9 @@ class DiaspyClient(GenericClient):
             pass
 
     def post(self, entry):
+        if self.stream is None:
+            logging.info("Diaspy stream is None, not posting anything")
+            return True
         """ Post entry to Diaspora. """
         text = '['+entry.title+']('+entry.link+')'
         if len(self.keywords) > 0:
