@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 # encoding: utf-8
 '''
-FeedSpora is a bot that posts automatically RSS/Atom feeds to your social network account.
-It currently supports Facebook, Twitter and Diaspora.
+FeedSpora is a bot that posts automatically RSS/Atom feeds to
+your social network account.
+It currently supports Facebook, Twitter, Diaspora, Wordpress and Mastodon.
 
 @author:     Aurelien Grosdidier
 
-@copyright:  2015 Latitude77
+@copyright:  2017 Latitude77
 
 @license:    GPL
 
@@ -116,7 +117,7 @@ class TweepyClient(GenericClient):
                 if re.search(pattern, text, re.IGNORECASE):
                     def repl(m):
                         return '%s#%s%s' % (m.group(1), m.group(2), m.group(3))
-                    newtext = re.sub(pattern ,
+                    newtext = re.sub(pattern,
                                      repl,
                                      newtext,
                                      flags=re.IGNORECASE)
@@ -129,12 +130,13 @@ class TweepyClient(GenericClient):
         text += ' '+entry.link
         self._api.update_status(text.encode('utf-8'))
 
+
 class DiaspyClient(GenericClient):
     """ The DiaspyClient handles the connection to Diaspora. """
 
     def __init__(self, account):
         """ Should be self-explaining. """
-        self.connection = diaspy.connection.Connection( \
+        self.connection = diaspy.connection.Connection(
             pod=account['pod'],
             username=account['username'],
             password=account['password'])
@@ -225,7 +227,7 @@ class MastodonClient(GenericClient):
     def post(self, entry):
         def rl(text):
             return len(text.encode('utf-8'))
-        if rl(entry.title) < 500:
+        if rl(entry.title) < 450:
             text = entry.title
         else:
             text = ''
@@ -237,14 +239,21 @@ class MastodonClient(GenericClient):
                     break
         if len(entry.keywords) > 0:
             for keyword in entry.keywords:
-                newtext = ''
-                if re.search(keyword, text, re.IGNORECASE):
-                    newtext = re.sub('(?i)' + re.escape(' %s ' % keyword),
-                                     ' #%s ' % keyword,
-                                     text)
+                # Check if it's already in the title (case insensitive)
+                #
+                newtext = text
+
+                pattern = r'(\A|\W)(%s)(\W|\Z)' % re.escape('%s' % keyword)
+                if re.search(pattern, text, re.IGNORECASE):
+                    def repl(m):
+                        return '%s#%s%s' % (m.group(1), m.group(2), m.group(3))
+                    newtext = re.sub(pattern,
+                                     repl,
+                                     newtext,
+                                     flags=re.IGNORECASE)
                 else:
                     newtext = text + " #" + keyword
-                if rl(newtext) < 500:
+                if rl(newtext) < 450:
                     text = newtext
                 else:
                     break
@@ -261,6 +270,7 @@ class FeedSporaEntry(object):
     content = ''
     keywords = None
 
+
 class FeedSpora(object):
     """ FeedSpora itself. """
 
@@ -269,7 +279,6 @@ class FeedSpora(object):
     _db_file = "feedspora.db"
     _conn = None
     _cur = None
-    #_ua = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0'
     _ua = 'Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0'
 
     def __init__(self):
@@ -336,14 +345,13 @@ class FeedSpora(object):
                 except Exception as error:
                     logging.error("Error while publishing '" + entry.title +
                                   "' to client '" + client.__class__.__name__ +
-                                  "': "+ format(error))
+                                  "': " + format(error))
                 try:
                     self.add_to_published_entries(entry, client)
                 except Exception as error:
                     logging.error("Error while storing '" + entry.title +
                                   "' to client '" + client.__class__.__name__ +
-                                  "': "+ format(error))
-
+                                  "': " + format(error))
 
     def _retrieve_feed_soup(self, feed_url):
         """ Retrieve and parse the specified feed.
@@ -392,8 +400,9 @@ class FeedSpora(object):
                                 for keyword in entry.find_all('category')]
                 fse.keywords += [word[1:]
                                  for word in fse.title.split()
-                                 if word.startswith('#') and not word in fse.keywords]
+                                 if word.startswith('#') and word not in fse.keywords]
                 yield fse
+
         # Define generator for RSS
         def parse_rss(soup):
             """ Generate FeedSpora entries out of a RSS feed. """
@@ -406,7 +415,7 @@ class FeedSpora(object):
                                 for keyword in entry.find_all('category')]
                 fse.keywords += [word[1:]
                                  for word in fse.title.split()
-                                 if word.startswith('#') and not word in fse.keywords]
+                                 if word.startswith('#') and word not in fse.keywords]
                 yield fse
         # Choose which generator to use, or abort.
         if soup.find('entry'):
