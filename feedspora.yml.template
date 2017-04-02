@@ -7,7 +7,7 @@ accounts:
     password: 'password'
 		keywords: '' # coma-separated list of keywords to use as hashtag, in addition to those retrieved from the feed.
 
-  # You can generated your tokens/secrets for twitter from https://apps.twitter.com  
+  # You can generated your tokens/secrets for twitter from https://apps.twitter.com
   - name: 'Twitter'
     type: 'TweepyClient'
     consumer_token: 'my_consumer_token'
@@ -23,6 +23,12 @@ accounts:
     token: 'your_facebook_token'
     post_as: 'page or id to post, if different from that of the token' # optional
 
+  - name: 'Mastodon'
+    type: 'MastodonClient'
+    username: 'mastodon username'
+    password: 'mastodon password'
+    delay: 120 # time between status update (seconds)
+    visibility: '' # should be either 'unlisted', 'public', or 'private'
 
 feeds:
   - 'url_feed1'
