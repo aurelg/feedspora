@@ -18,6 +18,7 @@ It currently supports Facebook, Twitter, Diaspora, Wordpress and Mastodon.
 import sqlite3
 import os
 import logging
+import time
 import re
 import requests
 import urllib
@@ -223,6 +224,11 @@ class MastodonClient(GenericClient):
             account['username'],
             account['password']
         )
+        self._delay = 0 if 'delay' not in account or \
+            not account['delay'].isdigit() else account['delay']
+        self._visibility = 'unlisted' if 'visibility' not in account or \
+            account['visibility'] not in ['public', 'unlisted', 'private'] \
+            else account['visibility']
 
     def post(self, entry):
         def rl(text):
@@ -258,7 +264,9 @@ class MastodonClient(GenericClient):
                 else:
                     break
         text += ' '+entry.link
-        self._mastodon.status_post(text, visibility='unlisted')
+        self._mastodon.status_post(text, visibility=self._visibility)
+        if self._delay > 0:
+            time.sleep(self._delay)
 
 
 class FeedSporaEntry(object):
