@@ -9,6 +9,7 @@ from feedspora.feedspora_runner import DiaspyClient  # @UnusedImport
 from feedspora.feedspora_runner import TweepyClient  # @UnusedImport
 from feedspora.feedspora_runner import FacebookClient  # @UnusedImport
 from feedspora.feedspora_runner import WPClient # @UnusedImport
+from feedspora.feedspora_runner import MastodonClient # @UnusedImport
 
 
 def read_config_file(filename):

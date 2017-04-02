@@ -29,6 +29,7 @@ import diaspy.streams
 import diaspy.connection
 import tweepy
 import facebook
+from mastodon import Mastodon
 from wordpress_xmlrpc import Client, WordPressPost
 from wordpress_xmlrpc.methods.posts import NewPost
 from readability.readability import Document, Unparseable
@@ -54,6 +55,7 @@ class GenericClient(object):
         '''
         return self._name
 
+
 class FacebookClient(GenericClient):
     """ The FacebookClient handles the connection to Facebook. """
     # See https://stackoverflow.com/questions/11510850/python-facebook-api-need-a-working-example
@@ -75,6 +77,7 @@ class FacebookClient(GenericClient):
         text = entry.title + ' '.join(['#'+keyword for keyword in entry.keywords])
         attachment = {'name': entry.title, 'link': entry.link}
         self._graph.put_wall_post(text, attachment, self._post_as)
+
 
 class TweepyClient(GenericClient):
     """ The TweepyClient handles the connection to Twitter. """
@@ -189,6 +192,51 @@ class WPClient(GenericClient):
                             'category': ["AutomatedPost"]}
         post.post_status = 'publish'
         self.client.call(NewPost(post))
+
+
+class MastodonClient(GenericClient):
+    """ The MastodonClient handles the connection to Mastodon. """
+    _mastodon = None
+
+    def __init__(self, account):
+        """ Should be self-explaining. """
+        client_id = '17a4d9914ec02ada3e9b61c2df1651cec091266877d1f92bcaa7964ba4045f99'
+        client_secret = '4d027369768026475fea1992aaeda2cb6e3f76e539f1cad195ae38578639fc36'
+        self._mastodon = Mastodon(client_id=client_id,
+                                  client_secret=client_secret)
+        self._mastodon.log_in(
+            account['username'],
+            account['password']
+        )
+
+    def post(self, entry):
+        def rl(text):
+            return len(text.encode('utf-8'))
+        if rl(entry.title) < 500:
+            text = entry.title
+        else:
+            text = ''
+            for word in [' '+word for word in entry.title.split(' ')]:
+                if rl(text) + rl(word) < 450:
+                    text += word
+                else:
+                    text += "..."
+                    break
+        if len(entry.keywords) > 0:
+            for keyword in entry.keywords:
+                newtext = ''
+                if re.search(keyword, text, re.IGNORECASE):
+                    newtext = re.sub('(?i)' + re.escape(' %s ' % keyword),
+                                     ' #%s ' % keyword,
+                                     text)
+                else:
+                    newtext = text + " #" + keyword
+                if rl(newtext) < 500:
+                    text = newtext
+                else:
+                    break
+        text += ' '+entry.link
+        self._mastodon.status_post(text, visibility='unlisted')
 
 
 class FeedSporaEntry(object):
