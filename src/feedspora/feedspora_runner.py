@@ -224,8 +224,7 @@ class MastodonClient(GenericClient):
             account['username'],
             account['password']
         )
-        self._delay = 0 if 'delay' not in account or \
-            not account['delay'].isdigit() else account['delay']
+        self._delay = 0 if 'delay' not in account else account['delay']
         self._visibility = 'unlisted' if 'visibility' not in account or \
             account['visibility'] not in ['public', 'unlisted', 'private'] \
             else account['visibility']
