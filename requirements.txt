@@ -7,3 +7,4 @@ tweepy==3.6.0
 python-wordpress-xmlrpc==2.3
 readability==0.2
 PyReadability==0.4.0
+shaarpy==0.1

@@ -30,6 +30,12 @@ accounts:
     delay: 120 # time between status update (seconds)
     visibility: '' # should be either 'unlisted', 'public', or 'private'
 
+  - name: 'Shaarpy'
+    type: 'ShaarpyClient'
+    username: 'shaarli username'
+    password: 'shaarli password'
+    url: 'https://shaarli_url/u/shaarli_username/'
+
 feeds:
   - 'url_feed1'
   - 'atom_file_name_feed_2'

@@ -34,6 +34,7 @@ import facebook
 from mastodon import Mastodon
 from wordpress_xmlrpc import Client, WordPressPost
 from wordpress_xmlrpc.methods.posts import NewPost
+from shaarpy.shaarpy import Shaarpy
 from readability.readability import Document, Unparseable
 
 
@@ -266,6 +267,21 @@ class MastodonClient(GenericClient):
         self._mastodon.status_post(text, visibility=self._visibility)
         if self._delay > 0:
             time.sleep(self._delay)
+
+
+class ShaarpyClient(GenericClient):
+    """ The ShaarpyClient handles the connection to Shaarli. """
+    _shaarpy = None
+
+    def __init__(self, account):
+        """ Should be self-explaining. """
+        self._shaarpy = Shaarpy()
+        self._shaarpy.login(account['username'],
+                            account['password'],
+                            account['url'])
+
+    def post(self, entry):
+        self._shaarpy.post_link(entry.link, entry.keywords, '')
 
 
 class FeedSporaEntry(object):

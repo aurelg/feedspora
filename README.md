@@ -1,6 +1,6 @@
 # What is FeedSpora?
 
-FeedSpora posts RSS/Atom feeds to your social network accounts. It currently supports Facebook, Twitter, Diaspora, Wordpress and Mastodon. It's a bot written in Python3, inspired from [Fefebot](https://github.com/svbergerem/fefebot).
+FeedSpora posts RSS/Atom feeds to your social network accounts. It currently supports Facebook, Twitter, Diaspora, Wordpress, Mastodon and Shaarli. It's a bot written in Python3, inspired from [Fefebot](https://github.com/svbergerem/fefebot).
 
 # Installation
 
