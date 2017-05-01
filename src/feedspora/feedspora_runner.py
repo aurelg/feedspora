@@ -446,7 +446,7 @@ class FeedSpora(object):
         elif soup.find('item'):
             entry_generator = parse_rss(soup)
         else:
-            raise Exception("Unknown format")
+            raise Exception("Unknown format for %s" % feed_url)
         for entry in entry_generator:
             self._publish_entry(entry)
 
