@@ -281,7 +281,16 @@ class ShaarpyClient(GenericClient):
                             account['url'])
 
     def post(self, entry):
-        self._shaarpy.post_link(entry.link, entry.keywords, '')
+        content = entry.content
+        try:
+            soup = BeautifulSoup(entry.content, 'html.parser')
+            content = soup.text
+        except Exception:
+            pass
+        self._shaarpy.post_link(entry.link,
+                                entry.keywords,
+                                title=entry.title,
+                                desc=content)
 
 
 class FeedSporaEntry(object):
