@@ -38,6 +38,7 @@ from shaarpy.shaarpy import Shaarpy
 from readability.readability import Document, Unparseable
 from linkedin import linkedin
 
+
 class GenericClient(object):
     '''
     Implements the case functionalities expected from clients
@@ -70,14 +71,16 @@ class FacebookClient(GenericClient):
     def __init__(self, account):
         self._graph = facebook.GraphAPI(account['token'])
         profile = self._graph.get_object('me')
-        self._post_as = account['post_as'] if 'post_as' in account else profile['id']
+        self._post_as = account['post_as'] if 'post_as' in account \
+            else profile['id']
 
     def post(self, entry):
         '''
         Post entry to Facebook.
         :param entry:
         '''
-        text = entry.title + ' '.join(['#'+keyword for keyword in entry.keywords])
+        text = entry.title + ' '.join(['#'+keyword
+                                       for keyword in entry.keywords])
         attachment = {'name': entry.title, 'link': entry.link}
         self._graph.put_wall_post(text, attachment, self._post_as)
 
@@ -91,8 +94,10 @@ class TweepyClient(GenericClient):
         """ Should be self-explaining. """
         # handle auth
         # See https://tweepy.readthedocs.org/en/v3.2.0/auth_tutorial.html#auth-tutorial
-        auth = tweepy.OAuthHandler(account['consumer_token'], account['consumer_secret'])
-        auth.set_access_token(account['access_token'], account['access_token_secret'])
+        auth = tweepy.OAuthHandler(account['consumer_token'],
+                                   account['consumer_secret'])
+        auth.set_access_token(account['access_token'],
+                              account['access_token_secret'])
         self._api = tweepy.API(auth)
 
     def post(self, entry):
@@ -151,7 +156,8 @@ class DiaspyClient(GenericClient):
             pass
         self.keywords = []
         try:
-            self.keywords = [kw.strip() for kw in account['keywords'].split(',')]
+            self.keywords = [kw.strip()
+                             for kw in account['keywords'].split(',')]
         except KeyError:
             pass
 
@@ -165,7 +171,8 @@ class DiaspyClient(GenericClient):
             text += ' #' + ' #'.join(self.keywords)
         if len(entry.keywords) > 0:
             text += ' #' + ' #'.join(entry.keywords)
-        return self.stream.post(text, aspect_ids='public', provider_display_name='FeedSpora')
+        return self.stream.post(text, aspect_ids='public',
+                                provider_display_name='FeedSpora')
 
 
 class WPClient(GenericClient):
@@ -217,8 +224,10 @@ class MastodonClient(GenericClient):
 
     def __init__(self, account):
         """ Should be self-explaining. """
-        client_id = '17a4d9914ec02ada3e9b61c2df1651cec091266877d1f92bcaa7964ba4045f99'
-        client_secret = '4d027369768026475fea1992aaeda2cb6e3f76e539f1cad195ae38578639fc36'
+        client_id = "17a4d9914ec02ada3e9b61c2df1651cec091266877d1f92bcaa7964"\
+                    "ba4045f99"
+        client_secret = "4d027369768026475fea1992aaeda2cb6e3f76e539f1cad195a"\
+                        "e38578639fc36"
         self._mastodon = Mastodon(client_id=client_id,
                                   client_secret=client_secret)
         self._mastodon.log_in(
@@ -348,7 +357,8 @@ class FeedSpora(object):
     _db_file = "feedspora.db"
     _conn = None
     _cur = None
-    _ua = 'Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0'
+    _ua = "Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101 " \
+          "Firefox/42.0"
 
     def __init__(self):
         logging.basicConfig(level=logging.INFO)
@@ -358,7 +368,8 @@ class FeedSpora(object):
         self._feed_urls = feed_urls
 
     def set_db_file(self, db_file):
-        """ Set database file to track entries that have been already published """
+        """ Set database file to track entries that have been already
+            published """
         self._db_file = db_file
 
     def connect(self, client):
@@ -375,7 +386,8 @@ class FeedSpora(object):
         self._cur = self._conn.cursor()
         if should_init:
             logging.info('Creating new database file '+self._db_file)
-            sql = "CREATE table posts (id INTEGER PRIMARY KEY, feedspora_id, client_id TEXT)"
+            sql = "CREATE table posts (id INTEGER PRIMARY KEY, " \
+                  "feedspora_id, client_id TEXT)"
             self._cur.execute(sql)
         else:
             logging.info('Found database file '+self._db_file)
@@ -384,21 +396,24 @@ class FeedSpora(object):
         """ Checks if a FeedSporaEntry has already been published.
         It checks if it's already in the database of published items.
         """
-        sql = "SELECT id from posts WHERE feedspora_id=:feedspora_id AND client_id=:client_id"
-        self._cur.execute(sql, {"feedspora_id": entry.link, "client_id": client.get_name()})
+        sql = "SELECT id from posts WHERE feedspora_id=:feedspora_id AND "\
+              "client_id=:client_id"
+        self._cur.execute(sql, {"feedspora_id": entry.link,
+                                "client_id": client.get_name()})
         already_published = self._cur.fetchone() is not None
         if already_published:
-            logging.info('Skipping already published entry in '+client.get_name()+
-                         ': '+entry.title)
+            logging.info('Skipping already published entry in ' +
+                         client.get_name() + ': ' + entry.title)
         else:
-            logging.info('Found entry to publish in '+client.get_name()+': '+entry.title)
+            logging.info('Found entry to publish in ' + client.get_name() +
+                         ': ' + entry.title)
         return already_published
 
     def add_to_published_entries(self, entry, client):
         """ Add a FeedSporaEntries to the database of published items. """
         logging.info('Storing in database of published items: '+entry.title)
-        self._cur.execute("INSERT INTO posts (feedspora_id, client_id) values (?,?)",
-                          (entry.link, client.get_name()))
+        self._cur.execute("INSERT INTO posts (feedspora_id, client_id) "
+                          "values (?,?)", (entry.link, client.get_name()))
         self._conn.commit()
 
     def _publish_entry(self, entry):
@@ -443,13 +458,15 @@ class FeedSpora(object):
 
     def _process_feed(self, feed_url):
         """ Handle RSS/Atom feed
-        It retrieves the feed content and publish entries that haven't been published yet. """
+        It retrieves the feed content and publish entries that haven't been
+        published yet. """
         # get feed content
         try:
             soup = self._retrieve_feed_soup(feed_url)
         except (HTTPError, ValueError, OSError, urllib.error.URLError) as error:
             logging.error("Error while reading feed at " + feed_url + ": " + format(error))
             return
+
         # Define generator for Atom
         def parse_atom(soup):
             """ Generate FeedSpora entries out of an Atom feed. """
@@ -469,7 +486,8 @@ class FeedSpora(object):
                                 for keyword in entry.find_all('category')]
                 fse.keywords += [word[1:]
                                  for word in fse.title.split()
-                                 if word.startswith('#') and word not in fse.keywords]
+                                 if word.startswith('#')
+                                 and word not in fse.keywords]
                 yield fse
 
         # Define generator for RSS
@@ -484,7 +502,8 @@ class FeedSpora(object):
                                 for keyword in entry.find_all('category')]
                 fse.keywords += [word[1:]
                                  for word in fse.title.split()
-                                 if word.startswith('#') and word not in fse.keywords]
+                                 if word.startswith('#')
+                                 and word not in fse.keywords]
                 yield fse
         # Choose which generator to use, or abort.
         if soup.find('entry'):
@@ -498,7 +517,8 @@ class FeedSpora(object):
             self._publish_entry(entry)
 
     def run(self):
-        """ Run FeedSpora: initialize the database and process the list of feed URLs."""
+        """ Run FeedSpora: initialize the database and process the list of
+            feed URLs. """
         self._init_db()
         for feed_url in self._feed_urls:
             self._process_feed(feed_url)
