@@ -36,6 +36,10 @@ accounts:
     password: 'shaarli password'
     url: 'https://shaarli_url/u/shaarli_username/'
 
+  - name: 'LinkedIn'
+    type: 'LinkedInClient'
+    authentication_token: 'authentication_token'
+
 feeds:
   - 'url_feed1'
   - 'atom_file_name_feed_2'

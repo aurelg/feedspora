@@ -36,7 +36,7 @@ from wordpress_xmlrpc import Client, WordPressPost
 from wordpress_xmlrpc.methods.posts import NewPost
 from shaarpy.shaarpy import Shaarpy
 from readability.readability import Document, Unparseable
-
+from linkedin import linkedin
 
 class GenericClient(object):
     '''
@@ -291,6 +291,43 @@ class ShaarpyClient(GenericClient):
                                 entry.keywords,
                                 title=entry.title,
                                 desc=content)
+
+
+def mkrichtext(text, keywords, maxlen=None):
+    def rl(text):
+        return len(text.encode('utf-8'))
+    if len(keywords) > 0:
+        for keyword in keywords:
+            newtext = text
+            pattern = r'(\A|\W)(%s)(\W|\Z)' % re.escape('%s' % keyword)
+            if re.search(pattern, text, re.IGNORECASE):
+                def repl(m):
+                    return '%s#%s%s' % (m.group(1), m.group(2), m.group(3))
+                newtext = re.sub(pattern, repl, newtext, flags=re.IGNORECASE)
+            else:
+                newtext = text + " #" + keyword
+            if maxlen is None or rl(newtext) < maxlen:
+                text = newtext
+            else:
+                break
+    return text
+
+
+class LinkedInClient(GenericClient):
+    """ The LinkedInClient handles the connection to LinkedIn. """
+    _linkedin = None
+
+    def __init__(self, account):
+        """ Should be self-explaining. """
+        self._linkedin = linkedin.LinkedInApplication(
+            token=account['authentication_token'])
+
+    def post(self, entry):
+        self._linkedin.submit_share(
+                comment=mkrichtext(entry.title, entry.keywords),
+                title=entry.title,
+                description=entry.title,
+                submitted_url=entry.link)
 
 
 class FeedSporaEntry(object):
