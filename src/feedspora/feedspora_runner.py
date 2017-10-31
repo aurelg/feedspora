@@ -475,8 +475,7 @@ class FeedSpora(object):
                            for keyword in entry.find_all('category')})
             kw = kw.union({word[1:]
                            for word in fse.title.split()
-                           if word.startswith('#')
-                           and word not in fse.keywords})
+                           if word.startswith('#')})
             fse.keywords = kw
             yield fse
 
