@@ -8,39 +8,43 @@ from feedspora.feedspora_runner import mkrichtext
 TBD = 'tests/'
 
 
-def test_mkrichtext():
+def make_fake_keyword():
+    length = random.randint(3, 10)
+    return ''.join([random.choice(string.ascii_lowercase)
+                    for i in range(length)])
 
-    def make_fake_keyword():
-        length = random.randint(3, 10)
-        return ''.join([random.choice(string.ascii_lowercase)
-                        for i in range(length)])
 
-    def make_fake_keywords():
-        number = random.randint(2, 5)
-        return [make_fake_keyword() for i in range(number)]
+def make_fake_keywords():
+    number = random.randint(2, 5)
+    return [make_fake_keyword() for i in range(number)]
 
-    def real_len(text):
-        return len(text.encode('utf-8'))
 
-    testcases = {}
+def real_len(text):
+    return len(text.encode('utf-8'))
 
-    with open(TBD+'phrases') as f:
-        for l in [l.strip() for l in f]:
-            words = [x for x in l.split(' ') if len(x) > 3]
-            if len(words) < 3:
-                continue
-            keywords = random.sample(words, random.randrange(1,
-                                     int(len(words)/3)+1))
-            testcases[l] = keywords + make_fake_keywords()
 
-    # print("Loaded {} testcases".format(len(testcases)))
+TESTCASES = {}
 
-    for (text, keywords) in testcases.items():
+with open(TBD+'phrases') as f:
+    for l in [l.strip() for l in f]:
+        words = [x for x in l.split(' ') if len(x) > 3]
+        if len(words) < 3:
+            continue
+        keywords = random.sample(words, random.randrange(1,
+                                                         int(len(words)/3)+1))
+        TESTCASES[l] = keywords + make_fake_keywords()
+
+
+def test_mkrichtext_length():
+    for (text, keywords) in TESTCASES.items():
         for maxlen in range(30, 260, 10):
             output = mkrichtext(text, keywords, maxlen)
-
-            # print("Text: {}\n Maxlength: {}\n Keywords:{}\n Output: {}\n\n"
-            #       .format(text, maxlen, keywords, output))
-
             assert not real_len(output) > maxlen, "{} > {}" \
                 .format(real_len(output))
+
+
+def test_mkrichtext_case():
+    for (text, keywords) in TESTCASES.items():
+        output1 = mkrichtext(text, keywords, 500)
+        output2 = mkrichtext(text.upper(), keywords, 500)
+        assert output1.upper() == output2.upper()

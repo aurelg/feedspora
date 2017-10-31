@@ -47,18 +47,13 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
     def real_len(text):
         return len(text.encode('utf-8'))
 
-    # make sure atom and rss are tested
-    # TODO write more tests and assert:
-    # - like no | when ... for mkrichtext
-    # TODO implement a "inline" flag, default to True?
-    # TODO keywords should be a set and this line should be removed
     keywords = set(keywords)
 
     # Find inline and extra keywords
     to_return = text.rstrip('.')
     inline_kw = {k for k in keywords
                  if re.search(r'(\A|\W)(%s)(\W|\Z)' % re.escape('%s' % k),
-                              to_return)}
+                              to_return, re.IGNORECASE)}
     extra_kw = keywords - inline_kw
 
     # Add inline keywords
@@ -194,11 +189,9 @@ class DiaspyClient(GenericClient):
             logging.info("Diaspy stream is None, not posting anything")
             return True
         """ Post entry to Diaspora. """
-        text = '['+entry.title+']('+entry.link+')'
-        if len(self.keywords) > 0:
-            text += ' #' + ' #'.join(self.keywords)
-        if len(entry.keywords) > 0:
-            text += ' #' + ' #'.join(entry.keywords)
+        text = '['+entry.title+']('+entry.link+')' \
+            + ' | ' + ''.join([" #{}".format(k) for k in self.keywords]) \
+            + ' ' + ''.join([" #{}".format(k) for k in entry.keywords])
         return self.stream.post(text, aspect_ids='public',
                                 provider_display_name='FeedSpora')
 
@@ -277,6 +270,7 @@ class MastodonClient(GenericClient):
 
 
 class ShaarpyClient(GenericClient):
+
     """ The ShaarpyClient handles the connection to Shaarli. """
     _shaarpy = None
 
@@ -295,7 +289,7 @@ class ShaarpyClient(GenericClient):
         except Exception:
             pass
         return self._shaarpy.post_link(entry.link,
-                                       entry.keywords,
+                                       list(entry.keywords),
                                        title=entry.title,
                                        desc=content)
 
