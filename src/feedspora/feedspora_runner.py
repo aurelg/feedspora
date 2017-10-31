@@ -39,6 +39,63 @@ from readability.readability import Document, Unparseable
 from linkedin import linkedin
 
 
+def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
+
+    def repl(m):
+        return '%s#%s%s' % (m.group(1), m.group(2), m.group(3))
+
+    def real_len(text):
+        return len(text.encode('utf-8'))
+
+    # make sure atom and rss are tested
+    # TODO write more tests and assert:
+    # - like no | when ... for mkrichtext
+    # TODO implement a "inline" flag, default to True?
+    # TODO keywords should be a set and this line should be removed
+    keywords = set(keywords)
+
+    # Find inline and extra keywords
+    to_return = text.rstrip('.')
+    inline_kw = {k for k in keywords
+                 if re.search(r'(\A|\W)(%s)(\W|\Z)' % re.escape('%s' % k),
+                              to_return)}
+    extra_kw = keywords - inline_kw
+
+    # Add inline keywords
+    for kw in inline_kw:
+        pattern = r'(\A|\W)(%s)(\W|\Z)' % re.escape('%s' % kw)
+        if re.search(pattern, to_return, re.IGNORECASE):
+            to_return = re.sub(pattern, repl, to_return, flags=re.IGNORECASE)
+
+    # Add separator
+    fake_separator = separator.replace(' ', '_')
+    to_return += fake_separator
+    min_length_without_extra_keywords = len(to_return)
+
+    # Add extra keywords
+    for kw in extra_kw:
+        to_return += " #" + kw
+
+    # If the text is too long, cut it and, if needed, add suffix
+    if maxlen is not None and real_len(to_return) > maxlen:
+        tmpmaxlen = maxlen - len(etc)
+        space_pos = [x for x in range(0, len(to_return))
+                     if to_return[x] == ' ' and x < tmpmaxlen]
+        cut_at = space_pos[-1] if len(space_pos) > 0 else tmpmaxlen
+        to_return = to_return[:cut_at]
+        if cut_at < min_length_without_extra_keywords:
+            to_return += etc
+
+    # restore separator
+    to_return = to_return.replace(fake_separator, separator)
+
+    if maxlen is not None:
+        assert not real_len(to_return) > maxlen, \
+            "{}:{} : {} > {}".format(text, to_return, real_len(to_return),
+                                     maxlen)
+    return to_return
+
+
 class GenericClient(object):
     '''
     Implements the case functionalities expected from clients
@@ -62,7 +119,8 @@ class GenericClient(object):
 
 class FacebookClient(GenericClient):
     """ The FacebookClient handles the connection to Facebook. """
-    # See https://stackoverflow.com/questions/11510850/python-facebook-api-need-a-working-example
+    # See https://stackoverflow.com/questions/11510850/
+    #     python-facebook-api-need-a-working-example
     # https://github.com/pythonforfacebook/facebook-sdk
     # https://facebook-sdk.readthedocs.org/en/latest/install.html
     _graph = None
@@ -79,10 +137,10 @@ class FacebookClient(GenericClient):
         Post entry to Facebook.
         :param entry:
         '''
-        text = entry.title + ' '.join(['#'+keyword
-                                       for keyword in entry.keywords])
+        text = entry.title + ''.join([' #{}'.format(k)
+                                      for k in entry.keywords])
         attachment = {'name': entry.title, 'link': entry.link}
-        self._graph.put_wall_post(text, attachment, self._post_as)
+        return self._graph.put_wall_post(text, attachment, self._post_as)
 
 
 class TweepyClient(GenericClient):
@@ -93,7 +151,8 @@ class TweepyClient(GenericClient):
     def __init__(self, account):
         """ Should be self-explaining. """
         # handle auth
-        # See https://tweepy.readthedocs.org/en/v3.2.0/auth_tutorial.html#auth-tutorial
+        # See https://tweepy.readthedocs.org/en/v3.2.0/auth_tutorial.html
+        # #auth-tutorial
         auth = tweepy.OAuthHandler(account['consumer_token'],
                                    account['consumer_secret'])
         auth.set_access_token(account['access_token'],
@@ -102,40 +161,9 @@ class TweepyClient(GenericClient):
 
     def post(self, entry):
         """ Post entry to Twitter. """
-        def rl(text):
-            return len(text.encode('utf-8'))
-        if rl(entry.title) < 110:
-            text = entry.title
-        else:
-            text = ''
-            for word in [' '+word for word in entry.title.split(' ')]:
-                if rl(text) + rl(word) < 100:
-                    text += word
-                else:
-                    text += "..."
-                    break
-        if len(entry.keywords) > 0:
-            for keyword in entry.keywords:
-                # Check if it's already in the title (case insensitive)
-                #
-                newtext = text
-
-                pattern = r'(\A|\W)(%s)(\W|\Z)' % re.escape('%s' % keyword)
-                if re.search(pattern, text, re.IGNORECASE):
-                    def repl(m):
-                        return '%s#%s%s' % (m.group(1), m.group(2), m.group(3))
-                    newtext = re.sub(pattern,
-                                     repl,
-                                     newtext,
-                                     flags=re.IGNORECASE)
-                else:
-                    newtext = text + " #" + keyword
-                if rl(newtext) < 111:
-                    text = newtext
-                else:
-                    break
+        text = mkrichtext(entry.title, entry.keywords, maxlen=115)
         text += ' '+entry.link
-        self._api.update_status(text.encode('utf-8'))
+        return self._api.update_status(text.encode('utf-8'))
 
 
 class DiaspyClient(GenericClient):
@@ -240,42 +268,12 @@ class MastodonClient(GenericClient):
             else account['visibility']
 
     def post(self, entry):
-        def rl(text):
-            return len(text.encode('utf-8'))
-        if rl(entry.title) < 450:
-            text = entry.title
-        else:
-            text = ''
-            for word in [' '+word for word in entry.title.split(' ')]:
-                if rl(text) + rl(word) < 450:
-                    text += word
-                else:
-                    text += "..."
-                    break
-        if len(entry.keywords) > 0:
-            for keyword in entry.keywords:
-                # Check if it's already in the title (case insensitive)
-                #
-                newtext = text
-
-                pattern = r'(\A|\W)(%s)(\W|\Z)' % re.escape('%s' % keyword)
-                if re.search(pattern, text, re.IGNORECASE):
-                    def repl(m):
-                        return '%s#%s%s' % (m.group(1), m.group(2), m.group(3))
-                    newtext = re.sub(pattern,
-                                     repl,
-                                     newtext,
-                                     flags=re.IGNORECASE)
-                else:
-                    newtext = text + " #" + keyword
-                if rl(newtext) < 450:
-                    text = newtext
-                else:
-                    break
+        maxlen = 500 - len(entry.link) - 1
+        text = mkrichtext(entry.title, entry.keywords, maxlen=maxlen)
         text += ' '+entry.link
-        self._mastodon.status_post(text, visibility=self._visibility)
         if self._delay > 0:
             time.sleep(self._delay)
+        return self._mastodon.status_post(text, visibility=self._visibility)
 
 
 class ShaarpyClient(GenericClient):
@@ -296,30 +294,10 @@ class ShaarpyClient(GenericClient):
             content = soup.text
         except Exception:
             pass
-        self._shaarpy.post_link(entry.link,
-                                entry.keywords,
-                                title=entry.title,
-                                desc=content)
-
-
-def mkrichtext(text, keywords, maxlen=None):
-    def rl(text):
-        return len(text.encode('utf-8'))
-    if len(keywords) > 0:
-        for keyword in keywords:
-            newtext = text
-            pattern = r'(\A|\W)(%s)(\W|\Z)' % re.escape('%s' % keyword)
-            if re.search(pattern, text, re.IGNORECASE):
-                def repl(m):
-                    return '%s#%s%s' % (m.group(1), m.group(2), m.group(3))
-                newtext = re.sub(pattern, repl, newtext, flags=re.IGNORECASE)
-            else:
-                newtext = text + " #" + keyword
-            if maxlen is None or rl(newtext) < maxlen:
-                text = newtext
-            else:
-                break
-    return text
+        return self._shaarpy.post_link(entry.link,
+                                       entry.keywords,
+                                       title=entry.title,
+                                       desc=content)
 
 
 class LinkedInClient(GenericClient):
@@ -332,11 +310,11 @@ class LinkedInClient(GenericClient):
             token=account['authentication_token'])
 
     def post(self, entry):
-        self._linkedin.submit_share(
-                comment=mkrichtext(entry.title, entry.keywords),
-                title=entry.title,
-                description=entry.title,
-                submitted_url=entry.link)
+        return self._linkedin.submit_share(
+            comment=mkrichtext(entry.title, entry.keywords),
+            title=entry.title,
+            description=entry.title,
+            submitted_url=entry.link)
 
 
 class FeedSporaEntry(object):
@@ -437,7 +415,7 @@ class FeedSpora(object):
                                   "' to client '" + client.__class__.__name__ +
                                   "': " + format(error))
 
-    def _retrieve_feed_soup(self, feed_url):
+    def retrieve_feed_soup(self, feed_url):
         """ Retrieve and parse the specified feed.
         :param feed_url: can either be a URL or a path to a local file
         """
@@ -456,60 +434,69 @@ class FeedSpora(object):
         logging.info("Feed read.")
         return BeautifulSoup(feed_content, 'html.parser')
 
+    # Define generator for Atom
+    def parse_atom(self, soup):
+        """ Generate FeedSpora entries out of an Atom feed. """
+        for entry in soup.find_all('entry')[::-1]:
+            fse = FeedSporaEntry()
+            try:
+                fse.title = BeautifulSoup(entry.find('title').text,
+                                          'html.parser').find('a').text
+            except AttributeError:
+                fse.title = entry.find('title').text
+            fse.link = entry.find('link')['href']
+            try:
+                fse.content = entry.find('content').text
+            except AttributeError:
+                fse.content = ''
+            kw = set()
+            kw = kw.union({keyword['term'].replace(' ', '_').strip()
+                           for keyword in entry.find_all('category')})
+            kw = kw.union({word[1:]
+                          for word in fse.title.split()
+                          if word.startswith('#')
+                          and word not in fse.keywords})
+            with open('/tmp/totocat', 'w') as f:
+                f.write(str(kw))
+            fse.keywords = kw
+            yield fse
+
+    # Define generator for RSS
+    def parse_rss(self, soup):
+        """ Generate FeedSpora entries out of a RSS feed. """
+        for entry in soup.find_all('item')[::-1]:
+            fse = FeedSporaEntry()
+            fse.title = entry.find('title').text
+            fse.link = entry.find('link').text
+            fse.content = entry.find('description').text
+            kw = set()
+            kw = kw.union({keyword.text.replace(' ', '_').strip()
+                           for keyword in entry.find_all('category')})
+            kw = kw.union({word[1:]
+                           for word in fse.title.split()
+                           if word.startswith('#')
+                           and word not in fse.keywords})
+            fse.keywords = kw
+            yield fse
+
     def _process_feed(self, feed_url):
         """ Handle RSS/Atom feed
         It retrieves the feed content and publish entries that haven't been
         published yet. """
         # get feed content
         try:
-            soup = self._retrieve_feed_soup(feed_url)
-        except (HTTPError, ValueError, OSError, urllib.error.URLError) as error:
-            logging.error("Error while reading feed at " + feed_url + ": " + format(error))
+            soup = self.retrieve_feed_soup(feed_url)
+        except (HTTPError, ValueError, OSError,
+                urllib.error.URLError) as error:
+            logging.error("Error while reading feed at " + feed_url + ": "
+                          + format(error))
             return
 
-        # Define generator for Atom
-        def parse_atom(soup):
-            """ Generate FeedSpora entries out of an Atom feed. """
-            for entry in soup.find_all('entry')[::-1]:
-                fse = FeedSporaEntry()
-                try:
-                    fse.title = BeautifulSoup(entry.find('title').text,
-                                              'html.parser').find('a').text
-                except AttributeError:
-                    fse.title = entry.find('title').text
-                fse.link = entry.find('link')['href']
-                try:
-                    fse.content = entry.find('content').text
-                except AttributeError:
-                    fse.content = ''
-                fse.keywords = [keyword['term'].replace(' ', '_').strip()
-                                for keyword in entry.find_all('category')]
-                fse.keywords += [word[1:]
-                                 for word in fse.title.split()
-                                 if word.startswith('#')
-                                 and word not in fse.keywords]
-                yield fse
-
-        # Define generator for RSS
-        def parse_rss(soup):
-            """ Generate FeedSpora entries out of a RSS feed. """
-            for entry in soup.find_all('item')[::-1]:
-                fse = FeedSporaEntry()
-                fse.title = entry.find('title').text
-                fse.link = entry.find('link').text
-                fse.content = entry.find('description').text
-                fse.keywords = [keyword.text.replace(' ', '_').strip()
-                                for keyword in entry.find_all('category')]
-                fse.keywords += [word[1:]
-                                 for word in fse.title.split()
-                                 if word.startswith('#')
-                                 and word not in fse.keywords]
-                yield fse
         # Choose which generator to use, or abort.
         if soup.find('entry'):
-            entry_generator = parse_atom(soup)
+            entry_generator = self.parse_atom(soup)
         elif soup.find('item'):
-            entry_generator = parse_rss(soup)
+            entry_generator = self.parse_rss(soup)
         else:
             print("No entry/item found in %s" % feed_url)
             os.sys.exit(1)
