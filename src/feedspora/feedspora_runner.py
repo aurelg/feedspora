@@ -62,14 +62,15 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
         if re.search(pattern, to_return, re.IGNORECASE):
             to_return = re.sub(pattern, repl, to_return, flags=re.IGNORECASE)
 
-    # Add separator
-    fake_separator = separator.replace(' ', '_')
-    to_return += fake_separator
-    min_length_without_extra_keywords = len(to_return)
+    # Add separator and keywords, if needed
+    if len(extra_kw) > 0:
+        fake_separator = separator.replace(' ', '_')
+        to_return += fake_separator
+        min_length_without_extra_keywords = len(to_return)
 
-    # Add extra keywords
-    for kw in extra_kw:
-        to_return += " #" + kw
+        # Add extra keywords
+        for kw in extra_kw:
+            to_return += " #" + kw
 
     # If the text is too long, cut it and, if needed, add suffix
     if maxlen is not None and real_len(to_return) > maxlen:
@@ -81,8 +82,14 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
         if cut_at < min_length_without_extra_keywords:
             to_return += etc
 
-    # restore separator
-    to_return = to_return.replace(fake_separator, separator)
+    # Restore separator
+    if len(extra_kw) > 0:
+        to_return = to_return.replace(fake_separator, separator)
+
+        # Remove separator if nothing comes after it
+        stripped_separator = separator.rstrip()
+        if to_return.endswith(stripped_separator):
+            to_return = to_return[:-len(stripped_separator)]
 
     if maxlen is not None:
         assert not real_len(to_return) > maxlen, \

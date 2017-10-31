@@ -41,6 +41,7 @@ def test_mkrichtext_length():
             output = mkrichtext(text, keywords, maxlen)
             assert not real_len(output) > maxlen, "{} > {}" \
                 .format(real_len(output))
+            assert not output.endswith('|'), "{} ends with sep".format(output)
 
 
 def test_mkrichtext_case():
