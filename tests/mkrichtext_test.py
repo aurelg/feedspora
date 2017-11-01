@@ -34,6 +34,12 @@ with open(TBD+'phrases') as f:
                                                          int(len(words)/3)+1))
         TESTCASES[l] = keywords + make_fake_keywords()
 
+    # No keywords and short
+    statement = ' '.join(make_fake_keywords())
+    TESTCASES[statement] = []
+    # No keywords and long
+    TESTCASES[statement * 30] = []
+
 
 def test_mkrichtext_length():
     for (text, keywords) in TESTCASES.items():

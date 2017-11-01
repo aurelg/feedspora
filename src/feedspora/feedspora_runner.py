@@ -63,6 +63,7 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
             to_return = re.sub(pattern, repl, to_return, flags=re.IGNORECASE)
 
     # Add separator and keywords, if needed
+    min_length_without_extra_keywords = len(to_return)
     if len(extra_kw) > 0:
         fake_separator = separator.replace(' ', '_')
         to_return += fake_separator
