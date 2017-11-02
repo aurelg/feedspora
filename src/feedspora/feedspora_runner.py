@@ -44,9 +44,6 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
     def repl(m):
         return '%s#%s%s' % (m.group(1), m.group(2), m.group(3))
 
-    def real_len(text):
-        return len(text.encode('utf-8'))
-
     keywords = set(keywords)
 
     # Find inline and extra keywords
@@ -74,7 +71,7 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
             to_return += " #" + kw
 
     # If the text is too long, cut it and, if needed, add suffix
-    if maxlen is not None and real_len(to_return) > maxlen:
+    if maxlen is not None and len(to_return) > maxlen:
         tmpmaxlen = maxlen - len(etc)
         space_pos = [x for x in range(0, len(to_return))
                      if to_return[x] == ' ' and x < tmpmaxlen]
@@ -93,9 +90,8 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
             to_return = to_return[:-len(stripped_separator)]
 
     if maxlen is not None:
-        assert not real_len(to_return) > maxlen, \
-            "{}:{} : {} > {}".format(text, to_return, real_len(to_return),
-                                     maxlen)
+        assert not len(to_return) > maxlen, \
+            "{}:{} : {} > {}".format(text, to_return, len(to_return), maxlen)
     return to_return
 
 
@@ -160,13 +156,21 @@ class TweepyClient(GenericClient):
                                    account['consumer_secret'])
         auth.set_access_token(account['access_token'],
                               account['access_token_secret'])
+        self._link_cost = 22
+        self._max_len = 140
         self._api = tweepy.API(auth)
 
     def post(self, entry):
         """ Post entry to Twitter. """
-        text = mkrichtext(entry.title, entry.keywords, maxlen=115)
+        putative_urls = re.findall('[a-zA-Z0-9]+\.[a-zA-Z]{2,3}',
+                                   entry.title)
+        # Infer the 'inner links' Twitter may charge length for
+        adjust_with_inner_links = self._link_cost + \
+            sum([self._link_cost - len(u) for u in putative_urls])
+        maxlen = self._max_len - adjust_with_inner_links - 1  # for last ' '
+        text = mkrichtext(entry.title, entry.keywords, maxlen=maxlen)
         text += ' '+entry.link
-        return self._api.update_status(text.encode('utf-8'))
+        return self._api.update_status(text)
 
 
 class DiaspyClient(GenericClient):

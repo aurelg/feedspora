@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import re
+
 from feedspora.feedspora_runner import FeedSpora
 from feedspora.feedspora_runner import DiaspyClient
 from feedspora.feedspora_runner import TweepyClient
@@ -18,22 +20,50 @@ def generator():
     return fs.parse_atom(soup)
 
 
-expected = [{'title': 'Atom-Powered Robots Run Amok',
-             'url': 'http://example.org/2003/12/13/atom03',
-             'keywords': ['vegetable', 'mineral', 'animal']}]
+expected = [{'source': {'title': 'Atom-Powered Robots Run Amok',
+                        'link': 'http://example.org/2003/12/13/atom03',
+                        'keywords': ['vegetable', 'mineral', 'animal']}
+            },
+            {'source': {'title': '1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)',
+                        'link': 'http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html',
+                        'keywords': []},
+             'TweepyClient': {'title': '1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de...',
+                              'link': 'http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html',
+                              'keywords': []}
+            },
+            {'source': {'title': '3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others',
+                        'link': 'https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos',
+                        'keywords': []},
+             'TweepyClient': {'title': '3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other...',
+                              'link': 'https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos',
+                              'keywords': []}
+            },{'source': {'title': '3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others',
+                        'link': 'https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos',
+                        'keywords': []},
+             'TweepyClient': {'title': '3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings...',
+                              'link': 'https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos',
+                              'keywords': []}
+            }]
 
 
 def check(client, check_entry):
-    entries = [x for x in generator()]
+    entries = [x for x in generator()][::-1]
     assert len(entries) > 0
     assert len(entries) == len(expected)
     for entry, expect in zip(entries, expected):
+        source = expect['source']
+        assert entry.title == source['title']
+        assert entry.link == source['link']
+        assert set(entry.keywords) == set(source['keywords'])
         returned = client.post(entry)
-        check_entry(returned, expect)
+        client_key = str(type(client)).split('.')[-1][:-2]
+        expect_key = client_key if client_key in expect else 'source'
+        assert expect[expect_key]['title'] != ''
+        assert expect[expect_key]['link'] != ''
+        check_entry(returned, expect[expect_key])
 
 
 def test_DiaspyClient():
-
     def new_init(obj):
         class fake_provider():
             def post(self, text, aspect_ids=None, provider_display_name=None):
@@ -48,7 +78,7 @@ def test_DiaspyClient():
         assert returned['aspect_ids'] == 'public'
         assert returned['provider_display_name'] == 'FeedSpora'
         assert returned['text'].startswith("[{}]({})".format(expect['title'],
-                                                             expect['url']))
+                                                             expect['link']))
         for i in ['#{}'.format(k) for k in expect['keywords']]:
             assert returned['text'].index(i) > -1
 
@@ -63,14 +93,25 @@ def test_TweepyClient():
             def update_status(self, text):
                 return {'text': text}
         obj._api = fake_provider()
+        obj._link_cost = 22
+        obj._max_len = 140
 
     def check_entry(returned, expected):
         assert returned is not None
-        assert returned['text'].index(expected['title'].encode('utf-8')) > -1
-        assert returned['text'].index(expected['url'].encode('utf-8')) > -1
-        assert not len(returned['text']) > 140
+        assert returned['text'].startswith(expected['title'])
+        assert returned['text'].endswith(expected['link'])
+        # Check the length of the text - link + 22 (twitter cost)
+        returned_text = returned['text'][:returned['text'].rfind(' ')]
+        putative_urls = re.findall('[a-zA-Z0-9]+\.[a-zA-Z]{2,3}',
+                                   returned_text)
+        # Infer the 'inner links' Twitter may charge length for
+        adjust_with_inner_links = 0
+        if len(putative_urls) > 0:
+            adjust_with_inner_links = sum([22 - len(u) for u in putative_urls])
+        detected_length = len(returned_text) + 22 + adjust_with_inner_links
+        assert not detected_length > 140
         for k in expected['keywords']:
-            target = ' #{}'.format(k).encode('utf-8')
+            target = ' #{}'.format(k)
             assert returned['text'].index(target) > -1
 
     TweepyClient.__init__ = new_init
@@ -90,7 +131,7 @@ def test_MastodonClient():
     def check_entry(returned, expected):
         assert returned is not None
         assert returned['text'].index(expected['title']) > -1
-        assert returned['text'].index(expected['url']) > -1
+        assert returned['text'].index(expected['link']) > -1
         assert not len(returned['text']) > 500
         for k in expected['keywords']:
             assert returned['text'].index(' #{}'.format(k)) > -1
@@ -115,7 +156,7 @@ def test_LinkedInClient():
         assert returned['comment'].index(expected['title']) > -1
         assert returned['title'].index(expected['title']) > -1
         assert returned['description'].index(expected['title']) > -1
-        assert returned['submitted_url'].index(expected['url']) > -1
+        assert returned['submitted_url'].index(expected['link']) > -1
         for k in expected['keywords']:
             assert returned['comment'].index(' #{}'.format(k)) > -1
 
@@ -135,7 +176,7 @@ def test_ShaarpyClient():
     def check_entry(returned, expected):
         assert returned is not None
         assert returned['title'].index(expected['title']) > -1
-        assert returned['link'].index(expected['url']) > -1
+        assert returned['link'].index(expected['link']) > -1
         assert set(expected['keywords']) == set(returned['keywords'])
 
     ShaarpyClient.__init__ = new_init
@@ -156,7 +197,7 @@ def test_FacebookClient():
         assert returned is not None
         assert returned['text'].startswith(expected['title'])
         assert returned['attachment']['name'].index(expected['title']) > -1
-        assert returned['attachment']['link'].index(expected['url']) > -1
+        assert returned['attachment']['link'].index(expected['link']) > -1
         for k in expected['keywords']:
             assert returned['text'].index(' #{}'.format(k)) > -1, \
                 "{} not found in {}".format(' #{}'.format(k), returned['text'])
