@@ -1,0 +1,49 @@
+[
+    {
+        "source": {
+            "title": "Atom-Powered Robots Run Amok",
+            "link": "http://example.org/2003/12/13/atom03",
+            "keywords": [
+                "vegetable",
+                "mineral",
+                "animal"
+            ]
+        }
+    },
+    {
+        "source": {
+            "title": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
+            "link": "http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html",
+            "keywords": []
+        },
+        "TweepyClient": {
+            "title": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de...",
+            "link": "http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html",
+            "keywords": []
+        }
+    },
+    {
+        "source": {
+            "title": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+            "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+            "keywords": []
+        },
+        "TweepyClient": {
+            "title": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other...",
+            "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+            "keywords": []
+        }
+    },
+    {
+        "source": {
+            "title": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+            "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+            "keywords": []
+        },
+        "TweepyClient": {
+            "title": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings...",
+            "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+            "keywords": []
+        }
+    }
+]

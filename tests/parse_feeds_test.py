@@ -21,8 +21,7 @@ def test_atom_parser():
     fs = FeedSpora()
     soup = fs.retrieve_feed_soup(TBD+f)
     gen = fs.parse_atom(soup)
-    for _ in gen:
-        pass
+    assert len([_ for _ in gen]) > 0
 
 
 def test_rss_parser():
@@ -30,5 +29,4 @@ def test_rss_parser():
     fs = FeedSpora()
     soup = fs.retrieve_feed_soup(TBD+f)
     gen = fs.parse_rss(soup)
-    for _ in gen:
-        pass
+    assert len([_ for _ in gen]) > 0
