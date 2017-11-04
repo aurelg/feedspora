@@ -39,6 +39,20 @@ from readability.readability import Document, Unparseable
 from linkedin import linkedin
 
 
+def trim_string(text, maxlen, etc='...', etc_if_shorter_than=None):
+    if len(text) < maxlen:
+        to_return = text
+    else:
+        tmpmaxlen = maxlen - len(etc)
+        space_pos = [x for x in range(0, len(text))
+                     if text[x] == ' ' and x < tmpmaxlen]
+        cut_at = space_pos[-1] if len(space_pos) > 0 else tmpmaxlen
+        to_return = text[:cut_at]
+        if etc_if_shorter_than is not None and cut_at < etc_if_shorter_than:
+            to_return += etc
+    return to_return
+
+
 def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
 
     def repl(m):
@@ -60,25 +74,20 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
             to_return = re.sub(pattern, repl, to_return, flags=re.IGNORECASE)
 
     # Add separator and keywords, if needed
-    min_length_without_extra_keywords = len(to_return)
+    minlen_wo_xtra_kw = len(to_return)
     if len(extra_kw) > 0:
         fake_separator = separator.replace(' ', '_')
         to_return += fake_separator
-        min_length_without_extra_keywords = len(to_return)
+        minlen_wo_xtra_kw = len(to_return)
 
         # Add extra keywords
         for kw in extra_kw:
             to_return += " #" + kw
 
     # If the text is too long, cut it and, if needed, add suffix
-    if maxlen is not None and len(to_return) > maxlen:
-        tmpmaxlen = maxlen - len(etc)
-        space_pos = [x for x in range(0, len(to_return))
-                     if to_return[x] == ' ' and x < tmpmaxlen]
-        cut_at = space_pos[-1] if len(space_pos) > 0 else tmpmaxlen
-        to_return = to_return[:cut_at]
-        if cut_at < min_length_without_extra_keywords:
-            to_return += etc
+    if maxlen is not None:
+        to_return = trim_string(to_return, maxlen, etc=etc,
+                                etc_if_shorter_than=minlen_wo_xtra_kw)
 
     # Restore separator
     if len(extra_kw) > 0:
@@ -317,9 +326,9 @@ class LinkedInClient(GenericClient):
 
     def post(self, entry):
         return self._linkedin.submit_share(
-            comment=mkrichtext(entry.title, entry.keywords),
-            title=entry.title,
-            description=entry.title,
+            comment=mkrichtext(entry.title, entry.keywords, maxlen=700),
+            title=trim_string(entry.title, 200),
+            description=trim_string(entry.title, 256),
             submitted_url=entry.link)
 
 
@@ -414,6 +423,7 @@ class FeedSpora(object):
                     logging.error("Error while publishing '" + entry.title +
                                   "' to client '" + client.__class__.__name__ +
                                   "': " + format(error))
+                    continue
                 try:
                     self.add_to_published_entries(entry, client)
                 except Exception as error:
