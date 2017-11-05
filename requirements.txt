@@ -8,3 +8,4 @@ python-wordpress-xmlrpc
 readability
 PyReadability
 shaarpy
+python3-linkedin

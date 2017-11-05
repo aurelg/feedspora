@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+	<title>Example Feed</title>
+	<subtitle>A subtitle.</subtitle>
+	<link href="http://example.org/feed/" rel="self" />
+	<link href="http://example.org/" />
+	<id>urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6</id>
+	<updated>2003-12-13T18:30:02Z</updated>
+
+
+	<entry>
+		<title>Atom-Powered Robots Run Amok</title>
+		<link href="http://example.org/2003/12/13/atom03" />
+		<link rel="alternate" type="text/html" href="http://example.org/2003/12/13/atom03.html"/>
+		<link rel="edit" href="http://example.org/2003/12/13/atom03/edit"/>
+		<id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</id>
+		<updated>2003-12-13T18:30:02Z</updated>
+		<summary>Some text.</summary>
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+				<p>This is the entry content.</p>
+			</div>
+		</content>
+		<author>
+			<name>John Doe</name>
+			<email>johndoe@example.com</email>
+		</author>
+    <app:categories
+        xmlns:app="http://www.w3.org/2007/app"
+        xmlns:atom="http://www.w3.org/2005/Atom"
+        fixed="yes" scheme="http://example.com/cats/big3">
+      <category term="animal" />
+      <category term="vegetable" />
+      <category term="mineral" />
+    </app:categories>
+	</entry>
+
+  <!--
+    # ERROR:root:Error while publishing '1.1 - Mort numérique: que faire des
+    # données personnelles et des comptes Facebook après un décès ? - Le blog de
+    # Thierry Vallat, avocat au Barreau de Paris (et sur Twitter:
+    # MeThierryVallat)' to client 'TweepyClient': 1.1 - Mort numérique: que
+    # faire des données personnelles et des comptes Facebook après un décès ? -
+    # Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter:
+    # MeThierryVallat):1.1 - Mort numérique: que faire des données personnelles
+    # et des comptes Facebook après un décès ? - Le blog de... : 118 > 115
+    # -> ?
+  -->
+  <entry>
+    <id>http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html</id>
+    <title>1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)</title>
+    <updated>2017-11-01T20:01:50.137726+02:00</updated>
+    <link href="http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html" rel="alternate"/>
+  </entry>
+
+  <!--
+    # ERROR:root:Error while publishing '2.7 - SEC.gov | Statement on
+    # Potentially Unlawful Promotion of Initial Coin Offerings and Other
+    # Investments by Celebrities and Others' to client 'TweepyClient': [{'code':
+    # 186, 'message': 'Status is over 140 characters.'}]
+    # -> Its length is 133, 'Sec.gov' might be parsed as a URL an given a length
+    #    of 22 by twitter, hence the failure.
+  -->
+  <entry>
+    <id>https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos</id>
+    <title>3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others</title>
+    <updated>2017-11-02T06:15:19.374879+02:00</updated>
+    <link href="https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos</id>
+    <title>3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others</title>
+    <updated>2017-11-02T06:15:19.374879+02:00</updated>
+    <link href="https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos" rel="alternate"/>
+  </entry>
+
+</feed>
