@@ -166,7 +166,7 @@ class TweepyClient(GenericClient):
         auth.set_access_token(account['access_token'],
                               account['access_token_secret'])
         self._link_cost = 22
-        self._max_len = 140
+        self._max_len = 280
         self._api = tweepy.API(auth)
 
     def post(self, entry):
