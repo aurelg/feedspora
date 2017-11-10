@@ -83,7 +83,7 @@ def test_TweepyClient(entry_generator, expected):
                 return {'text': text}
         obj._api = fake_provider()
         obj._link_cost = 22
-        obj._max_len = 140
+        obj._max_len = 280
 
     def check_entry(returned, expected):
         assert returned['text'].startswith(expected['title'])
@@ -97,7 +97,7 @@ def test_TweepyClient(entry_generator, expected):
         if len(putative_urls) > 0:
             adjust_with_inner_links = sum([22 - len(u) for u in putative_urls])
         detected_length = len(returned_text) + 22 + adjust_with_inner_links
-        assert not detected_length > 140
+        assert not detected_length > 280
         for k in expected['keywords']:
             target = ' #{}'.format(k)
             assert returned['text'].index(target) > -1
