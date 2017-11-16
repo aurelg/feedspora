@@ -25,8 +25,10 @@ accounts:
 
   - name: 'Mastodon'
     type: 'MastodonClient'
-    username: 'mastodon username'
-    password: 'mastodon password'
+    client_id: 'client_key'
+    client_secret: 'client_secret'
+    access_token: 'access_token'
+    url: 'base_url_mastodon'
     delay: 120 # time between status update (seconds)
     visibility: '' # should be either 'unlisted', 'public', or 'private'
 
