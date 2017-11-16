@@ -3,7 +3,7 @@ Documentation
 """
 
 from distutils.core import setup
-from feedspora import __version__
+from src.feedspora import __version__
 
 mod_name = 'feedspora'
 setup(name=mod_name,
