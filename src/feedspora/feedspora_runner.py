@@ -266,16 +266,14 @@ class MastodonClient(GenericClient):
 
     def __init__(self, account):
         """ Should be self-explaining. """
-        client_id = "17a4d9914ec02ada3e9b61c2df1651cec091266877d1f92bcaa7964"\
-                    "ba4045f99"
-        client_secret = "4d027369768026475fea1992aaeda2cb6e3f76e539f1cad195a"\
-                        "e38578639fc36"
+        client_id = account['client_id']
+        client_secret = account['client_secret']
+        access_token = account['access_token']
+        api_base_url = account['url']
         self._mastodon = Mastodon(client_id=client_id,
-                                  client_secret=client_secret)
-        self._mastodon.log_in(
-            account['username'],
-            account['password']
-        )
+                                  client_secret=client_secret,
+                                  access_token=access_token,
+                                  api_base_url=api_base_url)
         self._delay = 0 if 'delay' not in account else account['delay']
         self._visibility = 'unlisted' if 'visibility' not in account or \
             account['visibility'] not in ['public', 'unlisted', 'private'] \
