@@ -5,7 +5,7 @@ accounts:
     pod: 'diaspora_pod_url'
     username: 'username'
     password: 'password'
-		keywords: '' # coma-separated list of keywords to use as hashtag, in addition to those retrieved from the feed.
+    keywords: '' # coma-separated list of keywords to use as hashtag, in addition to those retrieved from the feed.
 
   # You can generated your tokens/secrets for twitter from https://apps.twitter.com
   - name: 'Twitter'
