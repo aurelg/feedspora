@@ -4,6 +4,7 @@ Created on Nov 2, 2015
 @author: Aurelien Grosdidier
 @contact: aurelien.grosdidier@gmail.com
 '''
+import logging
 from feedspora.feedspora_runner import FeedSpora
 from feedspora.feedspora_runner import DiaspyClient  # @UnusedImport
 from feedspora.feedspora_runner import TweepyClient  # @UnusedImport
@@ -34,10 +35,14 @@ if __name__ == '__main__':
         Initialize a client for the specified account, and register it in FeedSpora
         :param account:
         '''
-        client_class = globals()[account['type']]
-        client = client_class(account)
-        client.set_name(account['name'])
-        feedspora.connect(client)
+        try:
+            client_class = globals()[account['type']]
+            client = client_class(account)
+            client.set_name(account['name'])
+            feedspora.connect(client)
+        except Exception as e:
+            logging.error('Cannot connect {} : {}'.format(account['name'],
+                                                        str(e)))
     for account in config['accounts']:
         if not 'enabled' in account or account['enabled']:
             connect_account(account)

@@ -519,6 +519,9 @@ class FeedSpora(object):
     def run(self):
         """ Run FeedSpora: initialize the database and process the list of
             feed URLs. """
+        if self._client is None or len(self._client) == 0:
+            logging.error("No client found, aborting publication")
+            return
         self._init_db()
         for feed_url in self._feed_urls:
             self._process_feed(feed_url)
