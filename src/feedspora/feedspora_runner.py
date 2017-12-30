@@ -512,7 +512,7 @@ class FeedSpora(object):
             entry_generator = self.parse_rss(soup)
         else:
             print("No entry/item found in %s" % feed_url)
-            os.sys.exit(1)
+            return
         for entry in entry_generator:
             self._publish_entry(entry)
 
