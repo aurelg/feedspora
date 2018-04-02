@@ -466,12 +466,12 @@ class FeedSpora(object):
             kw = set()
             kw = kw.union({keyword['term'].replace(' ', '_').strip()
                            for keyword in entry.find_all('category')})
+            if fse.keywords is None:
+                fse.keywords = []
             kw = kw.union({word[1:]
                           for word in fse.title.split()
                           if word.startswith('#')
                           and word not in fse.keywords})
-            with open('/tmp/totocat', 'w') as f:
-                f.write(str(kw))
             fse.keywords = kw
             yield fse
 
