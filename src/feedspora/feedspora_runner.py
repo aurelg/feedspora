@@ -442,7 +442,7 @@ class FeedSpora(object):
             logging.info("File not found.")
             logging.info("Trying to read %s as a URL.", feed_url)
             req = urllib.request.Request(url=feed_url,
-                                         data=b'None',
+                                         data=b'None', method='GET',
                                          headers={'User-Agent': self._ua})
             feed_content = urllib.request.urlopen(req).read()
         logging.info("Feed read.")
