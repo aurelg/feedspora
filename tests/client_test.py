@@ -20,7 +20,7 @@ TBD = 'tests/'
 def entry_generator():
     f = 'feed.atom'
     fs = FeedSpora()
-    soup = fs.retrieve_feed_soup(TBD+f)
+    soup = fs.retrieve_feed_soup(TBD + f)
     return fs.parse_atom(soup)
 
 
@@ -57,17 +57,20 @@ def test_DiaspyClient(entry_generator, expected):
     def new_init(obj):
         class fake_provider():
             def post(self, text, aspect_ids=None, provider_display_name=None):
-                return {'text': text,
-                        'aspect_ids': aspect_ids,
-                        'provider_display_name': provider_display_name}
+                return {
+                    'text': text,
+                    'aspect_ids': aspect_ids,
+                    'provider_display_name': provider_display_name
+                }
+
         obj.stream = fake_provider()
         obj.keywords = []
 
     def check_entry(returned, expect):
         assert returned['aspect_ids'] == 'public'
         assert returned['provider_display_name'] == 'FeedSpora'
-        assert returned['text'].startswith("[{}]({})".format(expect['title'],
-                                                             expect['link']))
+        assert returned['text'].startswith("[{}]({})".format(
+            expect['title'], expect['link']))
         for i in ['#{}'.format(k) for k in expect['keywords']]:
             assert returned['text'].index(i) > -1
 
@@ -76,11 +79,11 @@ def test_DiaspyClient(entry_generator, expected):
 
 
 def test_TweepyClient(entry_generator, expected):
-
     def new_init(obj):
         class fake_provider():
             def update_status(self, text):
                 return {'text': text}
+
         obj._api = fake_provider()
         obj._link_cost = 22
         obj._max_len = 280
@@ -107,11 +110,11 @@ def test_TweepyClient(entry_generator, expected):
 
 
 def test_MastodonClient(entry_generator, expected):
-
     def new_init(obj):
         class fake_provider():
             def status_post(self, text, visibility=None):
                 return {'text': text, 'visibility': visibility}
+
         obj._mastodon = fake_provider()
         obj._visibility = 'public'
         obj._delay = 0
@@ -128,14 +131,16 @@ def test_MastodonClient(entry_generator, expected):
 
 
 def test_LinkedInClient(entry_generator, expected):
-
     def new_init(obj):
         class fake_provider():
             def submit_share(self, comment, title, description, submitted_url):
-                return {'comment': comment,
-                        'title': title,
-                        'description': description,
-                        'submitted_url': submitted_url}
+                return {
+                    'comment': comment,
+                    'title': title,
+                    'description': description,
+                    'submitted_url': submitted_url
+                }
+
         obj._linkedin = fake_provider()
 
     def check_entry(returned, expected):
@@ -151,12 +156,16 @@ def test_LinkedInClient(entry_generator, expected):
 
 
 def test_ShaarpyClient(entry_generator, expected):
-
     def new_init(obj):
         class fake_provider():
             def post_link(self, link, keywords, title=None, desc=None):
-                return {'link': link, 'keywords': keywords, 'title': title,
-                        'desc': desc}
+                return {
+                    'link': link,
+                    'keywords': keywords,
+                    'title': title,
+                    'desc': desc
+                }
+
         obj._shaarpy = fake_provider()
 
     def check_entry(returned, expected):
@@ -169,12 +178,15 @@ def test_ShaarpyClient(entry_generator, expected):
 
 
 def test_FacebookClient(entry_generator, expected):
-
     def new_init(obj):
         class fake_provider():
             def put_wall_post(self, text, attachment, post_as):
-                return {'text': text, 'attachment': attachment, 'post_as':
-                        post_as}
+                return {
+                    'text': text,
+                    'attachment': attachment,
+                    'post_as': post_as
+                }
+
         obj._graph = fake_provider()
         obj._post_as = 'me'
 
