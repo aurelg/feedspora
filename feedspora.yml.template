@@ -14,6 +14,7 @@ accounts:
     consumer_secret: 'my_consumer_secret'
     access_token: 'my_access_token'
     access_token_secret: 'my_access_token_scret'
+    max_posts: 1 # [optional] if > 0, defines the maximum number of entrys to post on a per-run basis.  If < 0, does not post, but puts the entry in the "published" database, allowing you to "seed" the database, especially useful when first starting up posting of a feed with a lot of entries.  If 0, essentially disables both posting and making entries to the "published" database (useful for seeing what might be published from the selected feed(s))
 
   - name: 'Facebook'
     type: 'FacebookClient'

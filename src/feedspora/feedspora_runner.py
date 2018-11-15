@@ -110,6 +110,9 @@ class GenericClient(object):
     '''
 
     _name = None
+    # Special handling of default (0) value that allows unlimited postings
+    _max_posts = 0
+    _posts_done = 0
 
     def set_name(self, name):
         '''
@@ -123,6 +126,39 @@ class GenericClient(object):
         Client name getter
         '''
         return self._name
+
+    def set_max_posts(self, max_posts):
+        '''
+        Client max posts setter
+        :param max_posts:
+        '''
+        self._max_posts = max_posts
+
+    def get_max_posts(self):
+        '''
+        Client max posts getter
+        '''
+        return self._max_posts
+
+    def is_post_limited(self):
+        '''
+        Client has a post limit set
+        '''
+        return (self._max_posts != 0)
+
+    def post_within_limits(self, entry_to_post):
+        '''
+        Client post entry, as long as within specified limits
+        :param entry_to_post:
+        '''
+        if (self.is_post_limited() and 
+            (self._posts_done >= self.get_max_posts())):
+            return False
+        else:
+            to_return = self.post(entry_to_post)
+            if to_return:
+                self._posts_done += 1
+            return to_return
 
 
 class FacebookClient(GenericClient):
@@ -168,6 +204,9 @@ class TweepyClient(GenericClient):
         self._link_cost = 22
         self._max_len = 280
         self._api = tweepy.API(auth)
+        # Post/run limit. Negative value implies a seed-only operation.
+        if ('max_posts' in account):
+            self.set_max_posts(account['max_posts'])
 
     def post(self, entry):
         """ Post entry to Twitter. """
@@ -407,7 +446,7 @@ class FeedSpora(object):
                           "values (?,?)", (entry.link, client.get_name()))
         self._conn.commit()
 
-    def _publish_entry(self, entry):
+    def _publish_entry(self, item_num, entry):
         """ Publish a FeedSporaEntry to your all your registered account. """
         if self._client is None:
             logging.error("No client found, aborting publication")
@@ -416,18 +455,19 @@ class FeedSpora(object):
         for client in self._client:
             if not self.is_already_published(entry, client):
                 try:
-                    client.post(entry)
+                    posted_to_client = client.post_within_limits(entry)
                 except Exception as error:
                     logging.error("Error while publishing '" + entry.title +
                                   "' to client '" + client.__class__.__name__ +
                                   "': " + format(error))
                     continue
-                try:
-                    self.add_to_published_entries(entry, client)
-                except Exception as error:
-                    logging.error("Error while storing '" + entry.title +
-                                  "' to client '" + client.__class__.__name__ +
-                                  "': " + format(error))
+               if (posted_to_client or client.seeding_published_db(item_num)):
+                    try:
+                        self.add_to_published_entries(entry, client)
+                    except Exception as error:
+                        logging.error("Error while storing '" + entry.title +
+                                      "' to client '" + client.__class__.__name__ +
+                                      "': " + format(error))
 
     def retrieve_feed_soup(self, feed_url):
         """ Retrieve and parse the specified feed.
@@ -513,8 +553,10 @@ class FeedSpora(object):
         else:
             print("No entry/item found in %s" % feed_url)
             return
+        entry_count = 0
         for entry in entry_generator:
-            self._publish_entry(entry)
+            entry_count += 1
+            self._publish_entry(entry_count, entry)
 
     def run(self):
         """ Run FeedSpora: initialize the database and process the list of
