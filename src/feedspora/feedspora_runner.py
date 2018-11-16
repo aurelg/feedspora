@@ -316,18 +316,20 @@ class ShaarpyClient(GenericClient):
 class LinkedInClient(GenericClient):
     """ The LinkedInClient handles the connection to LinkedIn. """
     _linkedin = None
+    _visibility = None
 
     def __init__(self, account):
         """ Should be self-explaining. """
         self._linkedin = linkedin.LinkedInApplication(
             token=account['authentication_token'])
+        self._visibility = account['visibility']
 
     def post(self, entry):
         return self._linkedin.submit_share(
             comment=mkrichtext(entry.title, entry.keywords, maxlen=700),
             title=trim_string(entry.title, 200),
             description=trim_string(entry.title, 256),
-            submitted_url=entry.link)
+            submitted_url=entry.link, visibility_code=self._visibility)
 
 
 class FeedSporaEntry(object):

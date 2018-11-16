@@ -41,6 +41,7 @@ accounts:
   - name: 'LinkedIn'
     type: 'LinkedInClient'
     authentication_token: 'authentication_token'
+    visibility: '' # should be either 'connections-only' or 'anyone'
 
 feeds:
   - 'url_feed1'
