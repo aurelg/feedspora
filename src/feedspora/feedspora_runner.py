@@ -103,6 +103,32 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
             "{}:{} : {} > {}".format(text, to_return, len(to_return), maxlen)
     return to_return
 
+def get_filename_from_cd(cd):
+    """
+    Get filename from Content-Disposition
+    """
+    if not cd:
+        return None
+    fname = re.findall('filename=(.+)', cd)
+    if len(fname) == 0:
+        return None
+    return fname[0]
+
+def download_media(the_url):
+    """
+    Download the media file referenced by the_url
+    Returns the path to the downloaded file
+    """
+
+    r = requests.get(the_url, allow_redirects=True)
+    filename = get_filename_from_cd(r.headers.get('Content-Disposition'))
+    if (filename is None):
+      filename = 'random.jpg'
+    media_dir = os.getenv('MEDIA_DIR','/tmp');
+    full_path = media_dir+'/'+filename
+    logging.info("Downloading "+the_url+" as "+full_path+"...")
+    open(full_path, 'wb').write(r.content)
+    return full_path
 
 class GenericClient(object):
     '''
@@ -215,6 +241,10 @@ class TweepyClient(GenericClient):
         # Post/run limit. Negative value implies a seed-only operation.
         if ('max_posts' in account):
             self.set_max_posts(account['max_posts'])
+        # Include media?
+        self._include_media = False
+        if ('post_include_media' in account):
+            self._include_media = (account['post_include_media'].lower() == "true")
 
     def post(self, entry):
         """ Post entry to Twitter. """
@@ -226,7 +256,16 @@ class TweepyClient(GenericClient):
         maxlen = self._max_len - adjust_with_inner_links - 1  # for last ' '
         text = mkrichtext(entry.title, entry.keywords, maxlen=maxlen)
         text += ' '+entry.link
-        return self._api.update_status(text)
+        if (self._include_media and (entry.media_url is not None)):
+            # Need to download image from that URL in order to post it!
+            media_path = download_media(entry.media_url)
+            if (media_path is not None):
+                return self._api.update_with_media(media_path, text)
+            else:
+                # Punt; post text only
+                return self._api.update_status(text)
+        else:
+            return self._api.update_status(text)
 
 
 class DiaspyClient(GenericClient):
@@ -538,6 +577,13 @@ class FeedSpora(object):
                            for word in fse.title.split()
                            if word.startswith('#')})
             fse.keywords = kw
+            # And for our final act, media
+            fse.media_url = None
+            if ((entry.find('media:content') is not None) and
+                (entry.find('media:content')['medium'] == 'image')):
+                fse.media_url = entry.find('media:content')['url']
+            elif (entry.find('img') is not None):
+                fse.media_url = entry.find('img')['src']
             yield fse
 
     def _process_feed(self, feed_url):
