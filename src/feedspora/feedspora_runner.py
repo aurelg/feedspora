@@ -103,6 +103,32 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
             "{}:{} : {} > {}".format(text, to_return, len(to_return), maxlen)
     return to_return
 
+def get_filename_from_cd(cd):
+    """
+    Get filename from Content-Disposition
+    """
+    if not cd:
+        return None
+    fname = re.findall('filename=(.+)', cd)
+    if len(fname) == 0:
+        return None
+    return fname[0]
+
+def download_media(the_url):
+    """
+    Download the media file referenced by the_url
+    Returns the path to the downloaded file
+    """
+
+    r = requests.get(the_url, allow_redirects=True)
+    filename = get_filename_from_cd(r.headers.get('Content-Disposition'))
+    if (filename is None):
+      filename = 'random.jpg'
+    media_dir = os.getenv('MEDIA_DIR','/tmp');
+    full_path = media_dir+'/'+filename
+    logging.info("Downloading "+the_url+" as "+full_path+"...")
+    open(full_path, 'wb').write(r.content)
+    return full_path
 
 class GenericClient(object):
     '''
@@ -110,6 +136,9 @@ class GenericClient(object):
     '''
 
     _name = None
+    # Special handling of default (0) value that allows unlimited postings
+    _max_posts = 0
+    _posts_done = 0
 
     def set_name(self, name):
         '''
@@ -123,6 +152,47 @@ class GenericClient(object):
         Client name getter
         '''
         return self._name
+
+    def set_max_posts(self, max_posts):
+        '''
+        Client max posts setter
+        :param max_posts:
+        '''
+        self._max_posts = max_posts
+
+    def get_max_posts(self):
+        '''
+        Client max posts getter
+        '''
+        return self._max_posts
+
+    def is_post_limited(self):
+        '''
+        Client has a post limit set
+        '''
+        return (self._max_posts != 0)
+
+    def post_within_limits(self, entry_to_post):
+        '''
+        Client post entry, as long as within specified limits
+        :param entry_to_post:
+        '''
+        if (self.is_post_limited() and 
+            (self._posts_done >= self.get_max_posts())):
+            return False
+        else:
+            to_return = self.post(entry_to_post)
+            if to_return:
+                self._posts_done += 1
+            return to_return
+
+    def seeding_published_db(self, item_num): 
+        '''
+        Override to post not being published, but marking it as published
+        in the DB anyway ("seeding" the published DB)
+        :param item_num:
+        '''
+        return ((self._max_posts < 0) and ((item_num + self._max_posts) <= 0))
 
 
 class FacebookClient(GenericClient):
@@ -168,6 +238,13 @@ class TweepyClient(GenericClient):
         self._link_cost = 22
         self._max_len = 280
         self._api = tweepy.API(auth)
+        # Post/run limit. Negative value implies a seed-only operation.
+        if ('max_posts' in account):
+            self.set_max_posts(account['max_posts'])
+        # Include media?
+        self._include_media = False
+        if ('post_include_media' in account):
+            self._include_media = account['post_include_media']
 
     def post(self, entry):
         """ Post entry to Twitter. """
@@ -179,7 +256,16 @@ class TweepyClient(GenericClient):
         maxlen = self._max_len - adjust_with_inner_links - 1  # for last ' '
         text = mkrichtext(entry.title, entry.keywords, maxlen=maxlen)
         text += ' '+entry.link
-        return self._api.update_status(text)
+        if (self._include_media and (entry.media_url is not None)):
+            # Need to download image from that URL in order to post it!
+            media_path = download_media(entry.media_url)
+            if (media_path is not None):
+                return self._api.update_with_media(media_path, text)
+            else:
+                # Punt; post text only
+                return self._api.update_status(text)
+        else:
+            return self._api.update_status(text)
 
 
 class DiaspyClient(GenericClient):
@@ -409,7 +495,7 @@ class FeedSpora(object):
                           "values (?,?)", (entry.link, client.get_name()))
         self._conn.commit()
 
-    def _publish_entry(self, entry):
+    def _publish_entry(self, item_num, entry):
         """ Publish a FeedSporaEntry to your all your registered account. """
         if self._client is None:
             logging.error("No client found, aborting publication")
@@ -418,18 +504,19 @@ class FeedSpora(object):
         for client in self._client:
             if not self.is_already_published(entry, client):
                 try:
-                    client.post(entry)
+                    posted_to_client = client.post_within_limits(entry)
                 except Exception as error:
                     logging.error("Error while publishing '" + entry.title +
                                   "' to client '" + client.__class__.__name__ +
                                   "': " + format(error))
                     continue
-                try:
-                    self.add_to_published_entries(entry, client)
-                except Exception as error:
-                    logging.error("Error while storing '" + entry.title +
-                                  "' to client '" + client.__class__.__name__ +
-                                  "': " + format(error))
+                if (posted_to_client or client.seeding_published_db(item_num)):
+                    try:
+                        self.add_to_published_entries(entry, client)
+                    except Exception as error:
+                        logging.error("Error while storing '" + entry.title +
+                                      "' to client '" + client.__class__.__name__ +
+                                      "': " + format(error))
 
     def retrieve_feed_soup(self, feed_url):
         """ Retrieve and parse the specified feed.
@@ -444,7 +531,7 @@ class FeedSpora(object):
             logging.info("File not found.")
             logging.info("Trying to read %s as a URL.", feed_url)
             req = urllib.request.Request(url=feed_url,
-                                         data=b'None',
+                                         data=b'None', method='GET',
                                          headers={'User-Agent': self._ua})
             feed_content = urllib.request.urlopen(req).read()
         logging.info("Feed read.")
@@ -492,6 +579,18 @@ class FeedSpora(object):
                            for word in fse.title.split()
                            if word.startswith('#')})
             fse.keywords = kw
+            # And for our final act, media
+            fse.media_url = None
+            if ((entry.find('media:content') is not None) and
+                (entry.find('media:content')['medium'] == 'image')):
+                fse.media_url = entry.find('media:content')['url']
+            elif (entry.find('img') is not None):
+                # TODO: handle possibility of an incomplete URL (prepend link
+                #       site root)
+                fse.media_url = entry.find('img')['src']
+            # TODO: additional measures to retrieve "buried" image 
+            #       specifications, such as within CDATA constructs of
+            #       content or description tags
             yield fse
 
     def _process_feed(self, feed_url):
@@ -515,8 +614,10 @@ class FeedSpora(object):
         else:
             print("No entry/item found in %s" % feed_url)
             return
+        entry_count = 0
         for entry in entry_generator:
-            self._publish_entry(entry)
+            entry_count += 1
+            self._publish_entry(entry_count, entry)
 
     def run(self):
         """ Run FeedSpora: initialize the database and process the list of

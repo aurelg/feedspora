@@ -2,33 +2,34 @@
 
 import random
 import string
-import pytest
-from feedspora.feedspora_runner import mkrichtext
 
+import pytest
+
+from feedspora.feedspora_runner import mkrichtext
 
 TBD = 'tests/'
 
 
 @pytest.fixture
 def testcases():
-
     def make_fake_keyword():
         length = random.randint(3, 10)
-        return ''.join([random.choice(string.ascii_lowercase)
-                        for i in range(length)])
+        return ''.join(
+            [random.choice(string.ascii_lowercase) for i in range(length)])
 
     def make_fake_keywords():
         number = random.randint(2, 5)
         return [make_fake_keyword() for i in range(number)]
 
     to_return = {}
-    with open(TBD+'phrases') as f:
+    with open(TBD + 'phrases') as f:
         for l in [l.strip() for l in f]:
             words = [x for x in l.split(' ') if len(x) > 3]
             if len(words) < 3:
                 continue
-            keywords = random.sample(words,
-                                     random.randrange(1, int(len(words)/3)+1))
+            keywords = random.sample(
+                words, random.randrange(1,
+                                        int(len(words) / 3) + 1))
             to_return[l] = keywords + make_fake_keywords()
 
         # No keywords and short
