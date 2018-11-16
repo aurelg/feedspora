@@ -244,7 +244,7 @@ class TweepyClient(GenericClient):
         # Include media?
         self._include_media = False
         if ('post_include_media' in account):
-            self._include_media = (account['post_include_media'].lower() == "true")
+            self._include_media = account['post_include_media']
 
     def post(self, entry):
         """ Post entry to Twitter. """
@@ -583,7 +583,12 @@ class FeedSpora(object):
                 (entry.find('media:content')['medium'] == 'image')):
                 fse.media_url = entry.find('media:content')['url']
             elif (entry.find('img') is not None):
+                # TODO: handle possibility of an incomplete URL (prepend link
+                #       site root)
                 fse.media_url = entry.find('img')['src']
+            # TODO: additional measures to retrieve "buried" image 
+            #       specifications, such as within CDATA constructs of
+            #       content or description tags
             yield fse
 
     def _process_feed(self, feed_url):
