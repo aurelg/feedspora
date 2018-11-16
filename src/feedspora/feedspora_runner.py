@@ -160,6 +160,14 @@ class GenericClient(object):
                 self._posts_done += 1
             return to_return
 
+    def seeding_published_db(self, item_num): 
+        '''
+        Override to post not being published, but marking it as published
+        in the DB anyway ("seeding" the published DB)
+        :param item_num:
+        '''
+        return ((self._max_posts < 0) and ((item_num + self._max_posts) <= 0))
+
 
 class FacebookClient(GenericClient):
     """ The FacebookClient handles the connection to Facebook. """
@@ -461,7 +469,7 @@ class FeedSpora(object):
                                   "' to client '" + client.__class__.__name__ +
                                   "': " + format(error))
                     continue
-               if (posted_to_client or client.seeding_published_db(item_num)):
+                if (posted_to_client or client.seeding_published_db(item_num)):
                     try:
                         self.add_to_published_entries(entry, client)
                     except Exception as error:
