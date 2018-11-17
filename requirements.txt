@@ -9,3 +9,4 @@ readability
 PyReadability
 shaarpy
 python3-linkedin
+lxml

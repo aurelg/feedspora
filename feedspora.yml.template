@@ -16,6 +16,7 @@ accounts:
     access_token_secret: 'my_access_token_scret'
     max_posts: 1 # [optional] if > 0, defines the maximum number of entrys to post on a per-run basis.  If < 0, does not post, but puts the entry in the "published" database, allowing you to "seed" the database, especially useful when first starting up posting of a feed with a lot of entries.  If 0 or not specified, unlimited postings/run are allowed
     post_include_media: true # [optional] if specified, image media from RSS feed sources will attempt to be included as part of the posted tweet
+    post_include_content: true # [optional] if specified, the content of the RSS feed sources (if present) will be included within the posted tweet.  Any hashtags at the end of this content will be removed and processed separately
 
   - name: 'Facebook'
     type: 'FacebookClient'

@@ -37,6 +37,7 @@ from wordpress_xmlrpc.methods.posts import NewPost
 from shaarpy.shaarpy import Shaarpy
 from readability.readability import Document, Unparseable
 from linkedin import linkedin
+import lxml.html
 
 
 def trim_string(text, maxlen, etc='...', etc_if_shorter_than=None):
@@ -245,6 +246,10 @@ class TweepyClient(GenericClient):
         self._include_media = False
         if ('post_include_media' in account):
             self._include_media = account['post_include_media']
+        # Include content?
+        self._include_content = False
+        if ('post_include_content' in account):
+            self._include_content = account['post_include_content']
 
     def post(self, entry):
         """ Post entry to Twitter. """
@@ -254,7 +259,35 @@ class TweepyClient(GenericClient):
         adjust_with_inner_links = self._link_cost + \
             sum([self._link_cost - len(u) for u in putative_urls])
         maxlen = self._max_len - adjust_with_inner_links - 1  # for last ' '
-        text = mkrichtext(entry.title, entry.keywords, maxlen=maxlen)
+
+        # The content with all HTML stripped will be used later, but get it now
+        stripped_html = lxml.html.fromstring(entry.content).text_content().strip()
+        # Derive additional keywords (tags) from the end of content
+        all_keywords = []
+        tag_pattern = r'\s+#([\w]+)$'
+        m = re.search(tag_pattern, stripped_html)
+        while (m):
+            tag = m.group(1)
+            if (tag not in all_keywords):
+                all_keywords.insert(0, tag)
+            stripped_html = re.sub(tag_pattern, '', stripped_html)
+            m = re.search(tag_pattern, stripped_html)
+        if (re.match(r'^#[\w]+$', stripped_html)):
+            # Left with a single tag!
+            if (stripped_html not in all_keywords):
+                all_keywords.insert(0, stripped_html[1:])
+                stripped_html = None
+        # Now add the original keywords on to the end of the existing array
+        for word in entry.keywords:
+            if (word not in all_keywords):
+                all_keywords.append(word)
+
+        # Let's build our tweet!
+        text = ''
+        raw_contents = entry.title
+        if (self._include_content and (stripped_html is not None)):
+            raw_contents += ' '+stripped_html
+        text += mkrichtext(raw_contents, all_keywords, maxlen=maxlen)
         text += ' '+entry.link
         if (self._include_media and (entry.media_url is not None)):
             # Need to download image from that URL in order to post it!
@@ -569,9 +602,16 @@ class FeedSpora(object):
         """ Generate FeedSpora entries out of a RSS feed. """
         for entry in soup.find_all('item')[::-1]:
             fse = FeedSporaEntry()
+            # Title
             fse.title = entry.find('title').text
+            # Link
             fse.link = entry.find('link').text
-            fse.content = entry.find('description').text
+            # Content takes priority over Description
+            if (entry.find('content') is not None):
+                fse.content = entry.find('content')[0].text
+            else:
+                fse.content = entry.find('description').text
+            # Keywords (from category)
             kw = set()
             kw = kw.union({keyword.text.replace(' ', '_').strip()
                            for keyword in entry.find_all('category')})
