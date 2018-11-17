@@ -37,8 +37,46 @@ from wordpress_xmlrpc.methods.posts import NewPost
 from shaarpy.shaarpy import Shaarpy
 from readability.readability import Document, Unparseable
 from linkedin import linkedin
+from pyshorteners import Shortener
 import lxml.html
 
+
+# TODO: Still additional shorteners to implement...
+# (see https://pypi.org/project/pyshorteners/)
+# (see also https://github.com/ellisonleao/pyshorteners/)
+# Note that none of the current shorteners below require any keys/tokens...
+def shorten_url(the_url,url_shortener):
+    to_return = the_url
+    _no_params_shorteners = ['Chilpit',
+                             'Clkru',
+                             'Dagd',
+                             'Isgd',
+                             'Osdb',
+                             'Qpsru',
+                             'Readability',
+                             'Sentala',
+                             'Soogd',
+                             'Tinyurl',
+                            ]
+    if ((the_url is not None) and
+        (url_shortener is not None) and
+        (url_shortener is not "None")):
+        try:
+            if (url_shortener in _no_params_shorteners):
+                shortener = Shortener(url_shortener,timeout=3)
+                to_return = shortener.short(the_url)
+        #except NotImplementedError as e:
+        # Parameter advertised as existing, but RTEs say otherwise
+        # Undoubtedly a pyshorteners version issue
+        #    logging.error("URL shortening error: {}".format(str(e)))
+        #    logging.info("Available URL shorteners: "+
+        #                 ' '.join(Shortener().available_shorteners))
+        except Exception as e:
+            # Shortening attempt failed - revert to non-shortened link
+            logging.error("Cannot shorten URL {} with {}: {}".format(the_url,url_shortener,str(e)))
+            to_return = the_url
+            pass
+    return to_return
 
 def trim_string(text, maxlen, etc='...', etc_if_shorter_than=None):
     if len(text) < maxlen:
@@ -242,6 +280,10 @@ class TweepyClient(GenericClient):
         # Post/run limit. Negative value implies a seed-only operation.
         if ('max_posts' in account):
             self.set_max_posts(account['max_posts'])
+        # Shorten URLs?
+        self._url_shortener = None
+        if ('url_shortener' in account):
+            self._url_shortener = account['url_shortener'].capitalize()
         # Include media?
         self._include_media = False
         if ('post_include_media' in account):
@@ -259,6 +301,9 @@ class TweepyClient(GenericClient):
         adjust_with_inner_links = self._link_cost + \
             sum([self._link_cost - len(u) for u in putative_urls])
         maxlen = self._max_len - adjust_with_inner_links - 1  # for last ' '
+
+        # Shorten the link URL if configured/possible
+        post_url = shorten_url(entry.link, self._url_shortener) 
 
         # The content with all HTML stripped will be used later, but get it now
         stripped_html = lxml.html.fromstring(entry.content).text_content().strip()
@@ -288,7 +333,7 @@ class TweepyClient(GenericClient):
         if (self._include_content and (stripped_html is not None)):
             raw_contents += ' '+stripped_html
         text += mkrichtext(raw_contents, all_keywords, maxlen=maxlen)
-        text += ' '+entry.link
+        text += ' '+post_url
         if (self._include_media and (entry.media_url is not None)):
             # Need to download image from that URL in order to post it!
             media_path = download_media(entry.media_url)
