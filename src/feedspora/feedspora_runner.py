@@ -299,9 +299,13 @@ class TweepyClient(GenericClient):
         if ('url_shortener' in account):
             self._url_shortener = account['url_shortener'].capitalize()
         # Post prefix
-        self._post_prefix = account['post_prefix']
+        self._post_prefix = None
+        if ('post_prefix' in account):
+            self._post_prefix = account['post_prefix']
         # Post suffix
-        self._post_suffix = account['post_suffix']
+        self._post_suffix = None
+        if ('post_suffix' in account):
+            self._post_suffix = account['post_suffix']
         # Include media?
         self._include_media = False
         if ('post_include_media' in account):
