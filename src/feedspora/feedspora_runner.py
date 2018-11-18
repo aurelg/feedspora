@@ -582,13 +582,25 @@ class FeedSpora(object):
         else:
             logging.info('Found database file '+self._db_file)
 
+    def entry_identifier(self, entry):
+        """Defines the identifier associated with the specified entry"""
+        # Unique item formed of link data, perhaps with published date
+        to_return = entry.link
+        # Try before you buy...
+        try: entry.published_date
+        except NameError: entry.published_date = None
+        if (entry.published_date is not None):
+            to_return += ' '+entry.published_date
+        return to_return
+
     def is_already_published(self, entry, client):
         """ Checks if a FeedSporaEntry has already been published.
         It checks if it's already in the database of published items.
         """
+        pub_item = self.entry_identifier(entry)
         sql = "SELECT id from posts WHERE feedspora_id=:feedspora_id AND "\
               "client_id=:client_id"
-        self._cur.execute(sql, {"feedspora_id": entry.link,
+        self._cur.execute(sql, {"feedspora_id": pub_item,
                                 "client_id": client.get_name()})
         already_published = self._cur.fetchone() is not None
         if already_published:
@@ -601,9 +613,10 @@ class FeedSpora(object):
 
     def add_to_published_entries(self, entry, client):
         """ Add a FeedSporaEntries to the database of published items. """
-        logging.info('Storing in database of published items: '+entry.title)
+        pub_item = self.entry_identifier(entry)
+        logging.info('Storing in database of published items: '+pub_item)
         self._cur.execute("INSERT INTO posts (feedspora_id, client_id) "
-                          "values (?,?)", (entry.link, client.get_name()))
+                          "values (?,?)", (pub_item, client.get_name()))
         self._conn.commit()
 
     def _publish_entry(self, item_num, entry):
@@ -689,6 +702,8 @@ class FeedSpora(object):
                 fse.content = entry.find('content')[0].text
             else:
                 fse.content = entry.find('description').text
+            # PubDate
+            fse.published_date = entry.find('pubdate').text
             # Keywords (from category)
             kw = set()
             kw = kw.union({keyword.text.replace(' ', '_').strip()
