@@ -14,8 +14,11 @@ accounts:
     consumer_secret: 'my_consumer_secret'
     access_token: 'my_access_token'
     access_token_secret: 'my_access_token_scret'
-    url_shortener: 'None' # [optional] defines the URL shortener that will attempt to be applied to the tweet's URL (if this fails for any reason, the original link is used instead).  Supported choices include 'Chilpit', 'Clkru', 'Dagd', 'Isgd', 'Osdb', 'Qpsru','Readability', 'Sentala', 'Soogd', and 'Tinyurl'.
+    url_shortener: 'None' # [optional] defines the URL shortener that will attempt to be applied to the tweet's URL (if this fails for any reason, the original link is used instead).  Supported choices include 'Chilpit', 'Clkru', 'Dagd', 'Isgd', 'Osdb', 'Qpsru', and 'Tinyurl'.
     max_posts: 1 # [optional] if > 0, defines the maximum number of entrys to post on a per-run basis.  If < 0, does not post, but puts the entry in the "published" database, allowing you to "seed" the database, especially useful when first starting up posting of a feed with a lot of entries.  If 0 or not specified, unlimited postings/run are allowed
+    max_tags: 2 # [optional] specifies the maximum number of hashtags that will be included in the posted tweet
+    post_prefix: 'BEGIN-' # [optional] posted tweets will start with the specified text
+    post_suffix: '-END' # [optional] posted tweet contents will end with the specified text, followed by the relevant link
     post_include_media: true # [optional] if specified, image media from RSS feed sources will attempt to be included as part of the posted tweet
     post_include_content: true # [optional] if specified, the content of the RSS feed sources (if present) will be included within the posted tweet.  Any hashtags at the end of this content will be removed and processed separately
 

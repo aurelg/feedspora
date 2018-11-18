@@ -97,18 +97,22 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
     def repl(m):
         return '%s#%s%s' % (m.group(1), m.group(2), m.group(3))
 
-    keywords = set(keywords)
+    to_return = text
 
     # Find inline and extra keywords
-    to_return = text.rstrip('.')
     inline_kw = {k for k in keywords
                  if re.search(r'(\A|\W)(%s)(\W|\Z)' % re.escape('%s' % k),
                               to_return, re.IGNORECASE)}
-    extra_kw = keywords - inline_kw
+    # Tag/keyword order needs to be observed
+    # Set manipulations ignore that, so don't use them!
+    extra_kw = []
+    for kw in keywords:
+        if kw not in inline_kw:
+            extra_kw.append(kw)
 
-    # Add inline keywords
+    # Process inline keywords
     for kw in inline_kw:
-        pattern = r'(\A|\W)(%s)(\W|\Z)' % re.escape('%s' % kw)
+        pattern = r'(\A|\W)[^#](%s)(\W|\Z)' % re.escape('%s' % kw)
         if re.search(pattern, to_return, re.IGNORECASE):
             to_return = re.sub(pattern, repl, to_return, flags=re.IGNORECASE)
 
@@ -119,9 +123,14 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
         to_return += fake_separator
         minlen_wo_xtra_kw = len(to_return)
 
-        # Add extra keywords
+        # Add extra (ordered) keywords
         for kw in extra_kw:
-            to_return += " #" + kw
+            # remove any illegal characters
+            kw = re.sub('[\-\.]','',kw)
+            # prevent duplication
+            pattern = r'(\A|\W)#(%s)(\W|\Z)' % re.escape('%s' % kw)
+            if re.search(pattern, to_return, re.IGNORECASE) == None:
+                to_return += " #" + kw
 
     # If the text is too long, cut it and, if needed, add suffix
     if maxlen is not None:
@@ -280,10 +289,23 @@ class TweepyClient(GenericClient):
         # Post/run limit. Negative value implies a seed-only operation.
         if ('max_posts' in account):
             self.set_max_posts(account['max_posts'])
+        # Tags/post limit
+        # Default.  Essentially "no limit"...
+        self._max_tags = 100 
+        if ('max_tags' in account):
+            self._max_tags = account['max_tags']
         # Shorten URLs?
         self._url_shortener = None
         if ('url_shortener' in account):
             self._url_shortener = account['url_shortener'].capitalize()
+        # Post prefix
+        self._post_prefix = None
+        if ('post_prefix' in account):
+            self._post_prefix = account['post_prefix']
+        # Post suffix
+        self._post_suffix = None
+        if ('post_suffix' in account):
+            self._post_suffix = account['post_suffix']
         # Include media?
         self._include_media = False
         if ('post_include_media' in account):
@@ -295,15 +317,17 @@ class TweepyClient(GenericClient):
 
     def post(self, entry):
         """ Post entry to Twitter. """
+
+        # Shorten the link URL if configured/possible
+        post_url = shorten_url(entry.link, self._url_shortener) 
+
+        # TODO: These should all be shortened too, right?
         putative_urls = re.findall('[a-zA-Z0-9]+\.[a-zA-Z]{2,3}',
                                    entry.title)
         # Infer the 'inner links' Twitter may charge length for
         adjust_with_inner_links = self._link_cost + \
             sum([self._link_cost - len(u) for u in putative_urls])
-        maxlen = self._max_len - adjust_with_inner_links - 1  # for last ' '
-
-        # Shorten the link URL if configured/possible
-        post_url = shorten_url(entry.link, self._url_shortener) 
+        maxlen = self._max_len - len(post_url) - adjust_with_inner_links - 1  # for last ' '
 
         # The content with all HTML stripped will be used later, but get it now
         stripped_html = lxml.html.fromstring(entry.content).text_content().strip()
@@ -326,13 +350,22 @@ class TweepyClient(GenericClient):
         for word in entry.keywords:
             if (word not in all_keywords):
                 all_keywords.append(word)
+	# Apply any tag limits specified
+        if (self._max_tags < len(all_keywords)):
+            all_keywords = all_keywords[:self._max_tags]
 
         # Let's build our tweet!
         text = ''
+        # Apply optional prefix
+        if (self._post_prefix is not None):
+            text = self._post_prefix+' '
         raw_contents = entry.title
         if (self._include_content and (stripped_html is not None)):
-            raw_contents += ' '+stripped_html
+            raw_contents += ': '+stripped_html
         text += mkrichtext(raw_contents, all_keywords, maxlen=maxlen)
+        # Apply optional suffix
+        if (self._post_suffix is not None):
+            text += ' '+self._post_suffix
         text += ' '+post_url
         if (self._include_media and (entry.media_url is not None)):
             # Need to download image from that URL in order to post it!
