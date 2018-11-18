@@ -55,7 +55,7 @@ def shorten_url(the_url,url_shortener):
                              'Qpsru',
                              'Readability',
                              'Sentala',
-                             #'Soogd', # Not available in 0.16
+                             'Soogd',
                              'Tinyurl',
                             ]
     if ((the_url is not None) and
@@ -318,16 +318,16 @@ class TweepyClient(GenericClient):
     def post(self, entry):
         """ Post entry to Twitter. """
 
+        # Shorten the link URL if configured/possible
+        post_url = shorten_url(entry.link, self._url_shortener) 
+
         # TODO: These should all be shortened too, right?
         putative_urls = re.findall('[a-zA-Z0-9]+\.[a-zA-Z]{2,3}',
                                    entry.title)
         # Infer the 'inner links' Twitter may charge length for
         adjust_with_inner_links = self._link_cost + \
             sum([self._link_cost - len(u) for u in putative_urls])
-        maxlen = self._max_len - adjust_with_inner_links - 1  # for last ' '
-
-        # Shorten the link URL if configured/possible
-        post_url = shorten_url(entry.link, self._url_shortener) 
+        maxlen = self._max_len - len(post_url) - adjust_with_inner_links - 1  # for last ' '
 
         # The content with all HTML stripped will be used later, but get it now
         stripped_html = lxml.html.fromstring(entry.content).text_content().strip()
@@ -365,7 +365,7 @@ class TweepyClient(GenericClient):
         text += mkrichtext(raw_contents, all_keywords, maxlen=maxlen)
         # Apply optional suffix
         if (self._post_suffix is not None):
-            text = ' '+self._post_suffix
+            text += ' '+self._post_suffix
         text += ' '+post_url
         if (self._include_media and (entry.media_url is not None)):
             # Need to download image from that URL in order to post it!
