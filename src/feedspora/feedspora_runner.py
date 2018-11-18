@@ -23,15 +23,14 @@ import urllib
 from urllib.error import HTTPError
 from urllib.parse import urlparse
 
-import lxml.html
-import requests
-from bs4 import BeautifulSoup
-
 import diaspy.connection
 import diaspy.models
 import diaspy.streams
 import facebook
+import lxml.html
+import requests
 import tweepy
+from bs4 import BeautifulSoup
 from linkedin import linkedin
 from mastodon import Mastodon
 from pyshorteners import Shortener
@@ -216,6 +215,12 @@ class GenericClient:
     # Special handling of default (0) value that allows unlimited postings
     _max_posts = 0
     _posts_done = 0
+    _url_shortener = None
+    _max_tags = 100
+    _post_prefix = None
+    _include_content = False
+    _include_media = False
+    _post_suffix = None
 
     def set_name(self, name):
         '''
@@ -326,38 +331,34 @@ class TweepyClient(GenericClient):
         self._link_cost = 22
         self._max_len = 280
         self._api = tweepy.API(auth)
+
         # Post/run limit. Negative value implies a seed-only operation.
 
         if 'max_posts' in account:
             self.set_max_posts(account['max_posts'])
-        # Tags/post limit
-        # Default.  Essentially "no limit"...
-        self._max_tags = 100
 
         if 'max_tags' in account:
             self._max_tags = account['max_tags']
-        # Shorten URLs?
-        self._url_shortener = None
 
         if 'url_shortener' in account:
             self._url_shortener = account['url_shortener'].capitalize()
+
         # Post prefix
-        self._post_prefix = None
 
         if 'post_prefix' in account:
             self._post_prefix = account['post_prefix']
+
         # Post suffix
-        self._post_suffix = None
 
         if 'post_suffix' in account:
             self._post_suffix = account['post_suffix']
+
         # Include media?
-        self._include_media = False
 
         if 'post_include_media' in account:
             self._include_media = account['post_include_media']
+
         # Include content?
-        self._include_content = False
 
         if 'post_include_content' in account:
             self._include_content = account['post_include_content']
