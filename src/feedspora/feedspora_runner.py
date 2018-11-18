@@ -123,7 +123,7 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
     # Process inline keywords
 
     for kw in inline_kw:
-        pattern = r'(\A|\W)[^#](%s)(\W|\Z)' % re.escape('%s' % kw)
+        pattern = r'(\A|\W)(%s)(\W|\Z)' % re.escape('%s' % kw)
 
         if re.search(pattern, to_return, re.IGNORECASE):
             to_return = re.sub(pattern, repl, to_return, flags=re.IGNORECASE)
