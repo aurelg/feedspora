@@ -333,7 +333,6 @@ class TweepyClient(GenericClient):
         self._api = tweepy.API(auth)
 
         # Post/run limit. Negative value implies a seed-only operation.
-
         if 'max_posts' in account:
             self.set_max_posts(account['max_posts'])
 
@@ -344,22 +343,18 @@ class TweepyClient(GenericClient):
             self._url_shortener = account['url_shortener'].capitalize()
 
         # Post prefix
-
         if 'post_prefix' in account:
             self._post_prefix = account['post_prefix']
 
         # Post suffix
-
         if 'post_suffix' in account:
             self._post_suffix = account['post_suffix']
 
         # Include media?
-
         if 'post_include_media' in account:
             self._include_media = account['post_include_media']
 
         # Include content?
-
         if 'post_include_content' in account:
             self._include_content = account['post_include_content']
 
@@ -380,62 +375,66 @@ class TweepyClient(GenericClient):
         # The content with all HTML stripped will be used later, but get it now
         stripped_html = lxml.html.fromstring(
             entry.content).text_content().strip()
+
         # Derive additional keywords (tags) from the end of content
         all_keywords = []
         tag_pattern = r'\s+#([\w]+)$'
         m = re.search(tag_pattern, stripped_html)
-
         while m:
             tag = m.group(1)
-
             if tag not in all_keywords:
                 all_keywords.insert(0, tag)
             stripped_html = re.sub(tag_pattern, '', stripped_html)
             m = re.search(tag_pattern, stripped_html)
-
         if re.match(r'^#[\w]+$', stripped_html):
             # Left with a single tag!
-
             if stripped_html not in all_keywords:
                 all_keywords.insert(0, stripped_html[1:])
                 stripped_html = None
-        # Now add the original keywords on to the end of the existing array
 
+        # Now add the original keywords (from category) on to
+        # the end of the existing array
         for word in entry.keywords:
             if word not in all_keywords:
                 all_keywords.append(word)
 
         # Apply any tag limits specified
-
         if self._max_tags < len(all_keywords):
             all_keywords = all_keywords[:self._max_tags]
 
         # Let's build our tweet!
         text = ""
-        # Apply optional prefix
 
+        # Apply optional prefix
         if self._post_prefix:
             text = self._post_prefix + " "
-        raw_contents = entry.title
 
+        # Process contents
+        raw_contents = entry.title
         if self._include_content and stripped_html:
             raw_contents += ": " + stripped_html
         text += mkrichtext(raw_contents, all_keywords, maxlen=maxlen)
-        # Apply optional suffix
 
+        # Apply optional suffix
         if self._post_suffix:
             text += " " + self._post_suffix
         text += " " + post_url
-
-        to_return = self._api.update_status(text)
-
+        
+        # Finally ready to post.  Let's find out how (media/text)
+        post_with_media = False
+        media_path = None
         if self._include_media and entry.media_url:
             # Need to download image from that URL in order to post it!
             media_path = download_media(entry.media_url)
-
             if media_path:
-                to_return = self._api.update_with_media(media_path, text)
+                post_with_media = True
 
+        to_return = False
+        if post_with_media:
+            to_return = self._api.update_with_media(media_path, text)
+        else:
+            to_return = self._api.update_status(text)
+          
         return to_return
 
 
