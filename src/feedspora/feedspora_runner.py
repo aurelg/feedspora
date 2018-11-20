@@ -773,8 +773,11 @@ class FeedSpora:
 
                 if word.startswith('#') and word not in fse.keywords
             }
-            # Potential published_date implementation for Atom
-            #fse.published_date = entry.find('updated').text
+            # Published_date implementation for Atom
+            if entry.find('updated'):
+                fse.published_date = entry.find('updated').text
+            elif entry.find('published'):
+                fse.published_date = entry.find('published').text
             yield fse
 
     # Define generator for RSS
