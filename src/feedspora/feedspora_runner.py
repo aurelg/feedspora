@@ -381,7 +381,7 @@ class TweepyClient(GenericClient):
 
         # Derive additional keywords (tags) from the end of content
         all_keywords = []
-        if (stripped_html):
+        if stripped_html:
             tag_pattern = r'\s+#([\w]+)$'
             m = re.search(tag_pattern, stripped_html)
             while m:
