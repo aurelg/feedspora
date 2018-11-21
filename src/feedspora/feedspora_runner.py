@@ -372,25 +372,29 @@ class TweepyClient(GenericClient):
         maxlen = self._max_len - len(
             post_url) - adjust_with_inner_links - 1  # for last ' '
 
-        # The content with all HTML stripped will be used later, but get it now
-        stripped_html = lxml.html.fromstring(
-            entry.content).text_content().strip()
+        stripped_html = None
+        if entry.content:
+            # The content with all HTML stripped will be used later,
+            # but get it now
+            stripped_html = lxml.html.fromstring(
+                entry.content).text_content().strip()
 
         # Derive additional keywords (tags) from the end of content
         all_keywords = []
-        tag_pattern = r'\s+#([\w]+)$'
-        m = re.search(tag_pattern, stripped_html)
-        while m:
-            tag = m.group(1)
-            if tag not in all_keywords:
-                all_keywords.insert(0, tag)
-            stripped_html = re.sub(tag_pattern, '', stripped_html)
+        if (stripped_html):
+            tag_pattern = r'\s+#([\w]+)$'
             m = re.search(tag_pattern, stripped_html)
-        if re.match(r'^#[\w]+$', stripped_html):
-            # Left with a single tag!
-            if stripped_html not in all_keywords:
-                all_keywords.insert(0, stripped_html[1:])
-                stripped_html = None
+            while m:
+                tag = m.group(1)
+                if tag not in all_keywords:
+                    all_keywords.insert(0, tag)
+                stripped_html = re.sub(tag_pattern, '', stripped_html)
+                m = re.search(tag_pattern, stripped_html)
+            if re.match(r'^#[\w]+$', stripped_html):
+                # Left with a single tag!
+                if stripped_html not in all_keywords:
+                    all_keywords.insert(0, stripped_html[1:])
+                    stripped_html = None
 
         # Now add the original keywords (from category) on to
         # the end of the existing array
