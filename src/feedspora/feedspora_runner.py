@@ -742,16 +742,27 @@ class FeedSpora:
 
         for entry in soup.find_all('entry')[::-1]:
             fse = FeedSporaEntry()
+
+            # Title
             try:
                 fse.title = BeautifulSoup(
                     entry.find('title').text, 'html.parser').find('a').text
             except AttributeError:
                 fse.title = entry.find('title').text
+
+            # Link
             fse.link = entry.find('link')['href']
-            try:
+
+            # Content
+            if entry.find('content'):
                 fse.content = entry.find('content').text
-            except AttributeError:
+            # If no content, attempt to use summary
+            if not fse.content and entry.find('summary'):
+                fse.content = entry.find('summary').text
+            if fse.content is None:
                 fse.content = ''
+
+            # Keywords
             fse.keywords = {
                 keyword['term'].replace(' ', '_').strip()
 
