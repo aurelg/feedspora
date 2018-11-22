@@ -221,6 +221,7 @@ class GenericClient:
     _include_content = False
     _include_media = False
     _post_suffix = None
+    _testing_root = None
 
     def set_name(self, name):
         '''
@@ -286,6 +287,44 @@ class GenericClient:
 
         return self._max_posts < 0 and item_num + self._max_posts <= 0
 
+    def set_testing_root(self, testing_root):
+        '''
+        Client testing_root setter
+        :param testing_root:
+        '''
+        self._testing_root = testing_root
+
+    def get_testing_root(self):
+        '''
+        Client testing_root getter
+        '''
+
+        return self._testing_root
+
+    def is_testing(self):
+        '''
+        Are we testing this client?
+        '''
+        return self._testing_root is not None;
+
+    def output_test(self, text):
+        '''
+        Print output for testing purposes
+        :param: text
+        '''
+        print(output)
+        return True
+
+    def test_output(self, text):
+        '''
+        Define output for testing purposes (potentially overridden on
+        per-client basis - this is the default), then output that definition
+        :param: text
+        '''
+        output = '>>> '+self.get_name()+' posting:\n'+
+                 'Content: '+text
+        return self.output_test(output)
+         
 
 class FacebookClient(GenericClient):
     """ The FacebookClient handles the connection to Facebook. """
@@ -296,12 +335,29 @@ class FacebookClient(GenericClient):
     _graph = None
     _post_as = None
 
-    def __init__(self, account):
-        self._graph = facebook.GraphAPI(account['token'])
-        profile = self._graph.get_object('me')
-        self._post_as = account['post_as'] if 'post_as' in account \
-            else profile['id']
+    def __init__(self, account, testing):
+        if not testing:
+            self._graph = facebook.GraphAPI(account['token'])
+            profile = self._graph.get_object('me')
+        self._post_as = 'TESTER'
+        if 'post_as' in account:
+            self._post_as = account['post_as']
+        elif not testing:
+            self._post_as = profile['id']
 
+    def test_output(self, text, attachment, post_as):
+        '''
+        Print output for testing purposes
+        :param: text
+        :param: attachment
+        :param: post_as
+        '''
+        output = '>>> '+self.get_name()+' posting as '+post_as+':\n'+
+                 'Name: '+attachment['name']+':\n'+
+                 'Link: '+attachment['link']+':\n'+
+                 'Content: '+text
+        return self.output_test(output)
+    
     def post(self, entry):
         '''
         Post entry to Facebook.
@@ -311,7 +367,12 @@ class FacebookClient(GenericClient):
             [' #{}'.format(k) for k in entry.keywords])
         attachment = {'name': entry.title, 'link': entry.link}
 
-        return self._graph.put_wall_post(text, attachment, self._post_as)
+        to_return = False
+        if self.is_testing():
+            to_return = self.test_output(text, attachment, self._post_as)
+        else:
+            to_return = self._graph.put_wall_post(text, attachment, self._post_as)
+        return to_return
 
 
 class TweepyClient(GenericClient):
@@ -319,15 +380,16 @@ class TweepyClient(GenericClient):
 
     _api = None
 
-    def __init__(self, account):
+    def __init__(self, account, testing):
         """ Should be self-explaining. """
         # handle auth
         # See https://tweepy.readthedocs.org/en/v3.2.0/auth_tutorial.html
         # #auth-tutorial
-        auth = tweepy.OAuthHandler(account['consumer_token'],
-                                   account['consumer_secret'])
-        auth.set_access_token(account['access_token'],
-                              account['access_token_secret'])
+        if not testing:
+            auth = tweepy.OAuthHandler(account['consumer_token'],
+                                       account['consumer_secret'])
+            auth.set_access_token(account['access_token'],
+                                  account['access_token_secret'])
         self._link_cost = 22
         self._max_len = 280
         self._api = tweepy.API(auth)
@@ -358,6 +420,20 @@ class TweepyClient(GenericClient):
         if 'post_include_content' in account:
             self._include_content = account['post_include_content']
 
+    def test_output(self, text, media_path):
+        '''
+        Print output for testing purposes
+        :param: text
+        :param: media_path
+        '''
+        output = '>>> '+self.get_name()+' posting:\n'+
+                 'Content: '+text
+        if media_path:
+            output += '\nMedia: '+media_path
+        else:
+            output += '\nMedia: None'
+        return self.output_test(output)
+    
     def post(self, entry):
         """ Post entry to Twitter. """
 
@@ -421,16 +497,15 @@ class TweepyClient(GenericClient):
         text += " " + post_url
         
         # Finally ready to post.  Let's find out how (media/text)
-        post_with_media = False
         media_path = None
         if self._include_media and entry.media_url:
             # Need to download image from that URL in order to post it!
             media_path = download_media(entry.media_url)
-            if media_path:
-                post_with_media = True
 
         to_return = False
-        if post_with_media:
+        if self.is_testing():
+            to_return = self.test_output(text, media_path)
+        elif media_path:
             to_return = self._api.update_with_media(media_path, text)
         else:
             to_return = self._api.update_status(text)
@@ -441,18 +516,21 @@ class TweepyClient(GenericClient):
 class DiaspyClient(GenericClient):
     """ The DiaspyClient handles the connection to Diaspora. """
 
-    def __init__(self, account):
+    def __init__(self, account, testing):
         """ Should be self-explaining. """
-        self.connection = diaspy.connection.Connection(
-            pod=account['pod'],
-            username=account['username'],
-            password=account['password'])
-        self.connection.login()
-        try:
-            self.stream = diaspy.streams.Stream(self.connection, 'stream.json')
-        except diaspy.errors.PostError as e:
-            logging.error("Cannot get diaspy stream: %s", str(e))
-            self.stream = None
+        self.stream = None
+        if not testing:
+            self.connection = diaspy.connection.Connection(
+                pod=account['pod'],
+                username=account['username'],
+                password=account['password'])
+            self.connection.login()
+            try:
+                self.stream = diaspy.streams.Stream(self.connection,
+                                                    'stream.json')
+            except diaspy.errors.PostError as e:
+                logging.error("Cannot get diaspy stream: %s", str(e))
+                self.stream = None
         self.keywords = []
         try:
             self.keywords = [
@@ -464,16 +542,15 @@ class DiaspyClient(GenericClient):
     def post(self, entry):
         """ Post entry to Diaspora. """
 
+        text = '['+entry.title+']('+entry.link+')' \
+            + ' | ' + ''.join([" #{}".format(k) for k in self.keywords]) \
+            + ' ' + ''.join([" #{}".format(k) for k in entry.keywords])
         to_return = True
-
         if self.stream:
-            text = '['+entry.title+']('+entry.link+')' \
-                + ' | ' + ''.join([" #{}".format(k) for k in self.keywords]) \
-                + ' ' + ''.join([" #{}".format(k) for k in entry.keywords])
-
-            to_return = self.stream.post(
-                text, aspect_ids='public', provider_display_name='FeedSpora')
-
+            to_return = self.stream.post(text, aspect_ids='public',
+                                         provider_display_name='FeedSpora')
+        elif self.is_testing():
+            to_return = self.test_output(text)
         else:
             logging.info("Diaspy stream is None, not posting anything")
 
@@ -483,10 +560,11 @@ class DiaspyClient(GenericClient):
 class WPClient(GenericClient):
     """ The WPClient handles the connection to Wordpress. """
 
-    def __init__(self, account):
+    def __init__(self, account, testing):
         """ Should be self-explaining. """
-        self.client = Client(account['wpurl'], account['username'],
-                             account['password'])
+        if not testing:
+            self.client = Client(account['wpurl'], account['username'],
+                                 account['password'])
         self.keywords = []
         try:
             self.keywords = [
@@ -509,63 +587,114 @@ class WPClient(GenericClient):
 
         return content
 
+    def test_output(self, entry, text):
+        '''
+        Print output for testing purposes
+        :param: text
+        '''
+        output = '>>> '+self.get_name()+' posting:\n'+
+                 'Title: '+entry.title+'\n'+
+                 'post_tag: '+','.join(entry.keywords)+'\n'+
+                 'category: AutomatedPost\n'+
+                 'status: publish\n'+
+                 'Content: '+text
+        return self.output_test(output)
+
     def post(self, entry):
         """ Post entry to Wordpress. """
 
-        # get text with readability
-        post = WordPressPost()
-        post.title = entry.title
-        post.content = r"Source: <a href='{}'>{}</a><hr\>{}".format(
+        post_content = r"Source: <a href='{}'>{}</a><hr\>{}".format(
             entry.link,
             urlparse(entry.link).netloc, self.get_content(entry.link))
-        post.terms_names = {
-            'post_tag': entry.keywords,
-            'category': ["AutomatedPost"]
-        }
-        post.post_status = 'publish'
-        self.client.call(NewPost(post))
-
+        to_return = False
+        if self.is_testing():
+            to_return = self.test_output(entry, content)
+        else:
+            # get text with readability
+            post = WordPressPost()
+            post.title = entry.title
+            post.content = post_content
+            post.terms_names = {
+                'post_tag': entry.keywords,
+                'category': ["AutomatedPost"]
+            }
+            post.post_status = 'publish'
+            post_id = self.client.call(NewPost(post))
+            to_return = post_id != 0
+        return to_return
 
 class MastodonClient(GenericClient):
     """ The MastodonClient handles the connection to Mastodon. """
     _mastodon = None
 
-    def __init__(self, account):
+    def __init__(self, account, testing):
         """ Should be self-explaining. """
         client_id = account['client_id']
         client_secret = account['client_secret']
         access_token = account['access_token']
         api_base_url = account['url']
-        self._mastodon = Mastodon(
-            client_id=client_id,
-            client_secret=client_secret,
-            access_token=access_token,
-            api_base_url=api_base_url)
+        if not testing:
+            self._mastodon = Mastodon(
+                client_id=client_id,
+                client_secret=client_secret,
+                access_token=access_token,
+                api_base_url=api_base_url)
         self._delay = 0 if 'delay' not in account else account['delay']
         self._visibility = 'unlisted' if 'visibility' not in account or \
             account['visibility'] not in ['public', 'unlisted', 'private'] \
             else account['visibility']
+
+    def test_output(self, text, delay, visibility):
+        '''
+        Print output for testing purposes
+        :param: delay
+        :param: visibility
+        :param: text
+        '''
+        output = '>>> '+self.get_name()+' posting:\n'+
+                 'Delay: '+delay+'\n'+
+                 'Visibility: '+visibility+'\n'+
+                 'Content: '+text
+        return self.output_test(output)
 
     def post(self, entry):
         maxlen = 500 - len(entry.link) - 1
         text = mkrichtext(entry.title, entry.keywords, maxlen=maxlen)
         text += ' ' + entry.link
 
-        if self._delay > 0:
-            time.sleep(self._delay)
+        to_return = False
+        if self.is_testing():
+            to_return = self.test_output(text, self._delay, self._visibility)
+        else:
+            if self._delay > 0:
+                time.sleep(self._delay)
 
-        return self._mastodon.status_post(text, visibility=self._visibility)
-
+            to_return = self._mastodon.status_post(text,
+                                                   visibility=self._visibility)
+        return to_return
 
 class ShaarpyClient(GenericClient):
     """ The ShaarpyClient handles the connection to Shaarli. """
     _shaarpy = None
 
-    def __init__(self, account):
+    def __init__(self, account, testing):
         """ Should be self-explaining. """
-        self._shaarpy = Shaarpy()
-        self._shaarpy.login(account['username'], account['password'],
-                            account['url'])
+        if not testing:
+            self._shaarpy = Shaarpy()
+            self._shaarpy.login(account['username'], account['password'],
+                                account['url'])
+
+    def test_output(self, link, keywords, title, text):
+        '''
+        Print output for testing purposes
+        :param: text
+        '''
+        output = '>>> '+self.get_name()+' posting:\n'+
+                 'Title: '+title+'\n'+
+                 'Link: '+link+'\n'+
+                 'Keywords: '+' ,'.join(keywords)+'\n'+
+                 'Content: '+text
+        return self.output_test(output)
 
     def post(self, entry):
         content = entry.content
@@ -575,8 +704,16 @@ class ShaarpyClient(GenericClient):
         except Exception:
             pass
 
-        return self._shaarpy.post_link(
-            entry.link, list(entry.keywords), title=entry.title, desc=content)
+        to_return = False
+        if self.is_testing():
+            to_return = self.test_output(entry.link, list(entry.keywords),
+                                         entry.title, content)
+        else:
+            to_return = self._shaarpy.post_link(entry.link,
+                                                list(entry.keywords),
+                                                title=entry.title,
+                                                desc=content)
+        return to_return
 
 
 class LinkedInClient(GenericClient):
@@ -584,19 +721,39 @@ class LinkedInClient(GenericClient):
     _linkedin = None
     _visibility = None
 
-    def __init__(self, account):
+    def __init__(self, account, testing):
         """ Should be self-explaining. """
-        self._linkedin = linkedin.LinkedInApplication(
-            token=account['authentication_token'])
+        if not testing:
+            self._linkedin = linkedin.LinkedInApplication(
+                token=account['authentication_token'])
         self._visibility = account['visibility']
 
+    def test_output(self, entry, visibility):
+        '''
+        Print output for testing purposes
+        :param: entry
+        :param: visibility
+        '''
+        output = '>>> '+self.get_name()+' posting:\n'+
+                 'Title: '+trim_string(entry.title, 200)+'\n'+
+                 'Link: '+entry.link+'\n'+
+                 'Visibility: '+visibility+'\n'+
+                 'Description: '+trim_string(entry.title, 256)+'\n'+
+                 'Comment: '+mkrichtext(entry.title, entry.keywords, maxlen=700)
+        return self.output_test(output)
+
     def post(self, entry):
-        return self._linkedin.submit_share(
-            comment=mkrichtext(entry.title, entry.keywords, maxlen=700),
-            title=trim_string(entry.title, 200),
-            description=trim_string(entry.title, 256),
-            submitted_url=entry.link,
-            visibility_code=self._visibility)
+        to_return = False
+        if self.is_testing():
+            to_return = self.test_output(entry, self._visibility)
+        else:
+            to_return= self._linkedin.submit_share(
+                comment=mkrichtext(entry.title, entry.keywords, maxlen=700),
+                title=trim_string(entry.title, 200),
+                description=trim_string(entry.title, 256),
+                submitted_url=entry.link,
+                visibility_code=self._visibility)
+        return to_return
 
 
 class FeedSporaEntry:
