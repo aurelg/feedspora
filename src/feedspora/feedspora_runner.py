@@ -605,6 +605,7 @@ class FeedSporaEntry:
     then posted to your client accounts """
     title = ''
     link = ''
+    published_date = None
     content = ''
     keywords = None
     media_url = None
@@ -655,14 +656,23 @@ class FeedSpora:
         else:
             logging.info("Found database file %s", self._db_file)
 
+    def entry_identifier(self, entry):
+        """ Defines the identifier associated with the specified entry """
+        # Unique item formed of link data, perhaps with published date
+        to_return = entry.link
+        if entry.published_date:
+            to_return += ' '+entry.published_date
+        return to_return
+
     def is_already_published(self, entry, client):
         """ Checks if a FeedSporaEntry has already been published.
         It checks if it's already in the database of published items.
         """
+        pub_item = self.entry_identifier(entry)
         sql = "SELECT id from posts WHERE feedspora_id=:feedspora_id AND "\
               "client_id=:client_id"
         self._cur.execute(sql, {
-            "feedspora_id": entry.link,
+            "feedspora_id": pub_item,
             "client_id": client.get_name()
         })
         already_published = self._cur.fetchone() is not None
@@ -678,10 +688,10 @@ class FeedSpora:
 
     def add_to_published_entries(self, entry, client):
         """ Add a FeedSporaEntries to the database of published items. """
-        logging.info('Storing in database of published items: %s', entry.title)
-        self._cur.execute(
-            "INSERT INTO posts (feedspora_id, client_id) "
-            "values (?,?)", (entry.link, client.get_name()))
+        pub_item = self.entry_identifier(entry)
+        logging.info('Storing in database of published items: '+pub_item)
+        self._cur.execute("INSERT INTO posts (feedspora_id, client_id) "
+                          "values (?,?)", (pub_item, client.get_name()))
         self._conn.commit()
 
     def _publish_entry(self, item_num, entry):
@@ -774,6 +784,11 @@ class FeedSpora:
 
                 if word.startswith('#') and word not in fse.keywords
             }
+            # Published_date implementation for Atom
+            if entry.find('updated'):
+                fse.published_date = entry.find('updated').text
+            elif entry.find('published'):
+                fse.published_date = entry.find('published').text
             yield fse
 
     # Define generator for RSS
@@ -782,16 +797,21 @@ class FeedSpora:
 
         for entry in soup.find_all('item')[::-1]:
             fse = FeedSporaEntry()
+
             # Title
             fse.title = entry.find('title').text
+
             # Link
             fse.link = entry.find('link').text
-            # Content takes priority over Description
 
+            # Content takes priority over Description
             if entry.find('content'):
                 fse.content = entry.find('content')[0].text
             else:
                 fse.content = entry.find('description').text
+
+            # PubDate
+            fse.published_date = entry.find('pubdate').text
 
             # Keywords (from category)
             fse.keywords = {
@@ -805,7 +825,6 @@ class FeedSpora:
             }
 
             # And for our final act, media
-
             if entry.find('media:content') and entry.find(
                     'media:content')['medium'] == 'image':
                 fse.media_url = entry.find('media:content')['url']
