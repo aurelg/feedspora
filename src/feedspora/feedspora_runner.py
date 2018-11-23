@@ -336,6 +336,7 @@ class FacebookClient(GenericClient):
     _post_as = None
 
     def __init__(self, account, testing):
+        profile = None
         if not testing:
             self._graph = facebook.GraphAPI(account['token'])
             profile = self._graph.get_object('me')
@@ -377,7 +378,6 @@ class FacebookClient(GenericClient):
 
 class TweepyClient(GenericClient):
     """ The TweepyClient handles the connection to Twitter. """
-
     _api = None
 
     def __init__(self, account, testing):
@@ -385,6 +385,7 @@ class TweepyClient(GenericClient):
         # handle auth
         # See https://tweepy.readthedocs.org/en/v3.2.0/auth_tutorial.html
         # #auth-tutorial
+        auth = None
         if not testing:
             auth = tweepy.OAuthHandler(account['consumer_token'],
                                        account['consumer_secret'])
@@ -515,10 +516,11 @@ class TweepyClient(GenericClient):
 
 class DiaspyClient(GenericClient):
     """ The DiaspyClient handles the connection to Diaspora. """
+    stream = None
 
     def __init__(self, account, testing):
         """ Should be self-explaining. """
-        self.stream = None
+        connection = None
         if not testing:
             self.connection = diaspy.connection.Connection(
                 pod=account['pod'],
@@ -559,6 +561,7 @@ class DiaspyClient(GenericClient):
 
 class WPClient(GenericClient):
     """ The WPClient handles the connection to Wordpress. """
+    client = None
 
     def __init__(self, account, testing):
         """ Should be self-explaining. """
