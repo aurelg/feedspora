@@ -312,7 +312,7 @@ class GenericClient:
         Print output for testing purposes
         :param: text
         '''
-        print(output)
+        print(text)
         return True
 
     def test_output(self, text):
@@ -597,7 +597,7 @@ class WPClient(GenericClient):
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
                  'Title: '+entry.title+'\n'+ \
-                 'post_tag: '+','.join(entry.keywords)+'\n'+ \
+                 'post_tag: '+', '.join(entry.keywords)+'\n'+ \
                  'category: AutomatedPost\n'+ \
                  'status: publish\n'+ \
                  'Content: '+text
@@ -611,7 +611,7 @@ class WPClient(GenericClient):
             urlparse(entry.link).netloc, self.get_content(entry.link))
         to_return = False
         if self.is_testing():
-            to_return = self.test_output(entry, content)
+            to_return = self.test_output(entry, post_content)
         else:
             # get text with readability
             post = WordPressPost()
@@ -655,7 +655,7 @@ class MastodonClient(GenericClient):
         :param: text
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Delay: '+delay+'\n'+ \
+                 'Delay: '+str(delay)+'\n'+ \
                  'Visibility: '+visibility+'\n'+ \
                  'Content: '+text
         return self.output_test(output)
@@ -695,7 +695,7 @@ class ShaarpyClient(GenericClient):
         output = '>>> '+self.get_name()+' posting:\n'+ \
                  'Title: '+title+'\n'+ \
                  'Link: '+link+'\n'+ \
-                 'Keywords: '+' ,'.join(keywords)+'\n'+ \
+                 'Keywords: '+', '.join(keywords)+'\n'+ \
                  'Content: '+text
         return self.output_test(output)
 
