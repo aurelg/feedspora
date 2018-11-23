@@ -33,7 +33,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Post from Atom/RSS feeds to various client types.')
     parser.add_argument('-t', '--testing', nargs='?',
-                        const='feedspora', default=None
+                        const='feedspora', default=None,
                         help='execute test runs; no actual posting done')
     args = parser.parse_args()
 

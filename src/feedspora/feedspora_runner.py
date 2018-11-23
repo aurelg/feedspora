@@ -321,7 +321,7 @@ class GenericClient:
         per-client basis - this is the default), then output that definition
         :param: text
         '''
-        output = '>>> '+self.get_name()+' posting:\n'+
+        output = '>>> '+self.get_name()+' posting:\n'+ \
                  'Content: '+text
         return self.output_test(output)
          
@@ -353,9 +353,9 @@ class FacebookClient(GenericClient):
         :param: attachment
         :param: post_as
         '''
-        output = '>>> '+self.get_name()+' posting as '+post_as+':\n'+
-                 'Name: '+attachment['name']+':\n'+
-                 'Link: '+attachment['link']+':\n'+
+        output = '>>> '+self.get_name()+' posting as '+post_as+':\n'+ \
+                 'Name: '+attachment['name']+':\n'+ \
+                 'Link: '+attachment['link']+':\n'+ \
                  'Content: '+text
         return self.output_test(output)
     
@@ -427,7 +427,7 @@ class TweepyClient(GenericClient):
         :param: text
         :param: media_path
         '''
-        output = '>>> '+self.get_name()+' posting:\n'+
+        output = '>>> '+self.get_name()+' posting:\n'+ \
                  'Content: '+text
         if media_path:
             output += '\nMedia: '+media_path
@@ -595,11 +595,11 @@ class WPClient(GenericClient):
         Print output for testing purposes
         :param: text
         '''
-        output = '>>> '+self.get_name()+' posting:\n'+
-                 'Title: '+entry.title+'\n'+
-                 'post_tag: '+','.join(entry.keywords)+'\n'+
-                 'category: AutomatedPost\n'+
-                 'status: publish\n'+
+        output = '>>> '+self.get_name()+' posting:\n'+ \
+                 'Title: '+entry.title+'\n'+ \
+                 'post_tag: '+','.join(entry.keywords)+'\n'+ \
+                 'category: AutomatedPost\n'+ \
+                 'status: publish\n'+ \
                  'Content: '+text
         return self.output_test(output)
 
@@ -654,9 +654,9 @@ class MastodonClient(GenericClient):
         :param: visibility
         :param: text
         '''
-        output = '>>> '+self.get_name()+' posting:\n'+
-                 'Delay: '+delay+'\n'+
-                 'Visibility: '+visibility+'\n'+
+        output = '>>> '+self.get_name()+' posting:\n'+ \
+                 'Delay: '+delay+'\n'+ \
+                 'Visibility: '+visibility+'\n'+ \
                  'Content: '+text
         return self.output_test(output)
 
@@ -692,10 +692,10 @@ class ShaarpyClient(GenericClient):
         Print output for testing purposes
         :param: text
         '''
-        output = '>>> '+self.get_name()+' posting:\n'+
-                 'Title: '+title+'\n'+
-                 'Link: '+link+'\n'+
-                 'Keywords: '+' ,'.join(keywords)+'\n'+
+        output = '>>> '+self.get_name()+' posting:\n'+ \
+                 'Title: '+title+'\n'+ \
+                 'Link: '+link+'\n'+ \
+                 'Keywords: '+' ,'.join(keywords)+'\n'+ \
                  'Content: '+text
         return self.output_test(output)
 
@@ -737,11 +737,11 @@ class LinkedInClient(GenericClient):
         :param: entry
         :param: visibility
         '''
-        output = '>>> '+self.get_name()+' posting:\n'+
-                 'Title: '+trim_string(entry.title, 200)+'\n'+
-                 'Link: '+entry.link+'\n'+
-                 'Visibility: '+visibility+'\n'+
-                 'Description: '+trim_string(entry.title, 256)+'\n'+
+        output = '>>> '+self.get_name()+' posting:\n'+ \
+                 'Title: '+trim_string(entry.title, 200)+'\n'+ \
+                 'Link: '+entry.link+'\n'+ \
+                 'Visibility: '+visibility+'\n'+ \
+                 'Description: '+trim_string(entry.title, 256)+'\n'+ \
                  'Comment: '+mkrichtext(entry.title, entry.keywords, maxlen=700)
         return self.output_test(output)
 
