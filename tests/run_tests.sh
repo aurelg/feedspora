@@ -8,7 +8,7 @@ function execute_tests() {
   for CONFIG in "${TESTDIR}"/*.yml; do
     BASEFILENAME=$(basename -s .yml -- "$CONFIG")
     echo "    $BASEFILENAME..."
-    rm -f "$TESTDIR"/"$BASEFILENAME".{db,out,log,,err,diff}
+    rm -f "$TESTDIR"/"$BASEFILENAME".{db,out,log,err,diff}
     (
       cd "$TESTDIR" &&
         python -m feedspora --testing "$BASEFILENAME" \
