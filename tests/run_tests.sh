@@ -1,4 +1,7 @@
 #!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
 function execute_tests() {
   test_dir=$1
   for config in `ls ${test_dir}/*.yml`; do

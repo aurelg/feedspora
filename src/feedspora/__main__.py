@@ -39,9 +39,7 @@ if __name__ == '__main__':
 
     # root name of config and DB files, optionally modified by the --testing
     # argument value (if present)
-    root_name = 'feedspora'
-    if args.testing:
-        root_name = args.testing
+    root_name = args.testing if args.testing else 'feedspora'
     
     config = read_config_file(root_name+'.yml')
     feedspora = FeedSpora()
