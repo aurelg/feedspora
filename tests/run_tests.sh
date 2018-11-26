@@ -70,3 +70,4 @@ else
 fi
 exit $PASSORFAIL
 
+echo "All specified tests executed"
