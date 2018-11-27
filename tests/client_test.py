@@ -90,20 +90,23 @@ def test_TweepyClient(entry_generator, expected):
         obj._max_len = 280
 
     def check_entry(returned, expected):
-        assert returned['text'].startswith(expected['title'])
-        assert returned['text'].endswith(expected['link'])
         # Check the length of the text - link + 22 (twitter cost)
         returned_text = returned['text'][:returned['text'].rfind(' ')]
         putative_urls = re.findall(r'[a-zA-Z0-9]+\.[a-zA-Z]{2,3}',
                                    returned_text)
         # Infer the 'inner links' Twitter may charge length for
-        adjust_with_inner_links = 0
-
-        if len(putative_urls) > 0:
-            adjust_with_inner_links = sum([22 - len(u) for u in putative_urls])
-        detected_length = len(returned_text) + 22 + adjust_with_inner_links
+        adjust_with_inner_links = 22 + \
+            sum([22 - len(u) for u in putative_urls])
+        detected_length = len(returned_text) + adjust_with_inner_links
         assert not detected_length > 280
 
+        # Subtract additional 4 for the potential '... ' separator
+        title_length = 280 - len(expected['link']) - \
+                       adjust_with_inner_links - 4
+        title_start = expected['title'][:title_length]
+        title_start = title_start[:title_start.rfind(' ')]
+        assert returned['text'].startswith(title_start)
+        assert returned['text'].endswith(expected['link'])
         for k in expected['keywords']:
             target = ' #{}'.format(k)
             assert returned['text'].index(target) > -1
