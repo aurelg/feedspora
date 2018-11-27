@@ -305,7 +305,8 @@ class GenericClient:
         '''
         Are we testing this client?
         '''
-        return self._testing_root is not None;
+
+        return self._testing_root is not None
 
     def output_test(self, text):
         '''
@@ -313,6 +314,7 @@ class GenericClient:
         :param: text
         '''
         print(text)
+
         return True
 
     def test_output(self, text):
@@ -323,8 +325,9 @@ class GenericClient:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
                  'Content: '+text
+
         return self.output_test(output)
-         
+
 
 class FacebookClient(GenericClient):
     """ The FacebookClient handles the connection to Facebook. """
@@ -337,10 +340,12 @@ class FacebookClient(GenericClient):
 
     def __init__(self, account, testing):
         profile = None
+
         if not testing:
             self._graph = facebook.GraphAPI(account['token'])
             profile = self._graph.get_object('me')
         self._post_as = 'TESTER'
+
         if 'post_as' in account:
             self._post_as = account['post_as']
         elif not testing:
@@ -357,8 +362,9 @@ class FacebookClient(GenericClient):
                  'Name: '+attachment['name']+':\n'+ \
                  'Link: '+attachment['link']+':\n'+ \
                  'Content: '+text
+
         return self.output_test(output)
-    
+
     def post(self, entry):
         '''
         Post entry to Facebook.
@@ -369,10 +375,13 @@ class FacebookClient(GenericClient):
         attachment = {'name': entry.title, 'link': entry.link}
 
         to_return = False
+
         if self.is_testing():
             to_return = self.test_output(text, attachment, self._post_as)
         else:
-            to_return = self._graph.put_wall_post(text, attachment, self._post_as)
+            to_return = self._graph.put_wall_post(text, attachment,
+                                                  self._post_as)
+
         return to_return
 
 
@@ -386,6 +395,7 @@ class TweepyClient(GenericClient):
         # See https://tweepy.readthedocs.org/en/v3.2.0/auth_tutorial.html
         # #auth-tutorial
         auth = None
+
         if not testing:
             auth = tweepy.OAuthHandler(account['consumer_token'],
                                        account['consumer_secret'])
@@ -396,6 +406,7 @@ class TweepyClient(GenericClient):
         self._api = tweepy.API(auth)
 
         # Post/run limit. Negative value implies a seed-only operation.
+
         if 'max_posts' in account:
             self.set_max_posts(account['max_posts'])
 
@@ -406,18 +417,22 @@ class TweepyClient(GenericClient):
             self._url_shortener = account['url_shortener'].capitalize()
 
         # Post prefix
+
         if 'post_prefix' in account:
             self._post_prefix = account['post_prefix']
 
         # Post suffix
+
         if 'post_suffix' in account:
             self._post_suffix = account['post_suffix']
 
         # Include media?
+
         if 'post_include_media' in account:
             self._include_media = account['post_include_media']
 
         # Include content?
+
         if 'post_include_content' in account:
             self._include_content = account['post_include_content']
 
@@ -429,12 +444,14 @@ class TweepyClient(GenericClient):
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
                  'Content: '+text
+
         if media_path:
-            output += '\nMedia: '+media_path
+            output += '\nMedia: ' + media_path
         else:
             output += '\nMedia: None'
+
         return self.output_test(output)
-    
+
     def post(self, entry):
         """ Post entry to Twitter. """
 
@@ -450,6 +467,7 @@ class TweepyClient(GenericClient):
             post_url) - adjust_with_inner_links - 1  # for last ' '
 
         stripped_html = None
+
         if entry.content:
             # The content with all HTML stripped will be used later,
             # but get it now
@@ -458,28 +476,35 @@ class TweepyClient(GenericClient):
 
         # Derive additional keywords (tags) from the end of content
         all_keywords = []
+
         if stripped_html:
             tag_pattern = r'\s+#([\w]+)$'
             m = re.search(tag_pattern, stripped_html)
+
             while m:
                 tag = m.group(1)
+
                 if tag not in all_keywords:
                     all_keywords.insert(0, tag)
                 stripped_html = re.sub(tag_pattern, '', stripped_html)
                 m = re.search(tag_pattern, stripped_html)
+
             if re.match(r'^#[\w]+$', stripped_html):
                 # Left with a single tag!
+
                 if stripped_html not in all_keywords:
                     all_keywords.insert(0, stripped_html[1:])
                     stripped_html = None
 
         # Now add the original keywords (from category) on to
         # the end of the existing array
+
         for word in entry.keywords:
             if word not in all_keywords:
                 all_keywords.append(word)
 
         # Apply any tag limits specified
+
         if self._max_tags < len(all_keywords):
             all_keywords = all_keywords[:self._max_tags]
 
@@ -487,34 +512,39 @@ class TweepyClient(GenericClient):
         text = ""
 
         # Apply optional prefix
+
         if self._post_prefix:
             text = self._post_prefix + " "
 
         # Process contents
         raw_contents = entry.title
+
         if self._include_content and stripped_html:
             raw_contents += ": " + stripped_html
         text += mkrichtext(raw_contents, all_keywords, maxlen=maxlen)
 
         # Apply optional suffix
+
         if self._post_suffix:
             text += " " + self._post_suffix
         text += " " + post_url
-        
+
         # Finally ready to post.  Let's find out how (media/text)
         media_path = None
+
         if self._include_media and entry.media_url:
             # Need to download image from that URL in order to post it!
             media_path = download_media(entry.media_url)
 
         to_return = False
+
         if self.is_testing():
             to_return = self.test_output(text, media_path)
         elif media_path:
             to_return = self._api.update_with_media(media_path, text)
         else:
             to_return = self._api.update_status(text)
-          
+
         return to_return
 
 
@@ -525,6 +555,7 @@ class DiaspyClient(GenericClient):
     def __init__(self, account, testing):
         """ Should be self-explaining. """
         connection = None
+
         if not testing:
             self.connection = diaspy.connection.Connection(
                 pod=account['pod'],
@@ -552,9 +583,10 @@ class DiaspyClient(GenericClient):
             + ' | ' + ''.join([" #{}".format(k) for k in self.keywords]) \
             + ' ' + ''.join([" #{}".format(k) for k in entry.keywords])
         to_return = True
+
         if self.stream:
-            to_return = self.stream.post(text, aspect_ids='public',
-                                         provider_display_name='FeedSpora')
+            to_return = self.stream.post(
+                text, aspect_ids='public', provider_display_name='FeedSpora')
         elif self.is_testing():
             to_return = self.test_output(text)
         else:
@@ -569,6 +601,7 @@ class WPClient(GenericClient):
 
     def __init__(self, account, testing):
         """ Should be self-explaining. """
+
         if not testing:
             self.client = Client(account['wpurl'], account['username'],
                                  account['password'])
@@ -605,6 +638,7 @@ class WPClient(GenericClient):
                  'category: AutomatedPost\n'+ \
                  'status: publish\n'+ \
                  'Content: '+text
+
         return self.output_test(output)
 
     def post(self, entry):
@@ -614,6 +648,7 @@ class WPClient(GenericClient):
             entry.link,
             urlparse(entry.link).netloc, self.get_content(entry.link))
         to_return = False
+
         if self.is_testing():
             to_return = self.test_output(entry, post_content)
         else:
@@ -628,7 +663,9 @@ class WPClient(GenericClient):
             post.post_status = 'publish'
             post_id = self.client.call(NewPost(post))
             to_return = post_id != 0
+
         return to_return
+
 
 class MastodonClient(GenericClient):
     """ The MastodonClient handles the connection to Mastodon. """
@@ -640,6 +677,7 @@ class MastodonClient(GenericClient):
         client_secret = account['client_secret']
         access_token = account['access_token']
         api_base_url = account['url']
+
         if not testing:
             self._mastodon = Mastodon(
                 client_id=client_id,
@@ -662,6 +700,7 @@ class MastodonClient(GenericClient):
                  'Delay: '+str(delay)+'\n'+ \
                  'Visibility: '+visibility+'\n'+ \
                  'Content: '+text
+
         return self.output_test(output)
 
     def post(self, entry):
@@ -670,15 +709,18 @@ class MastodonClient(GenericClient):
         text += ' ' + entry.link
 
         to_return = False
+
         if self.is_testing():
             to_return = self.test_output(text, self._delay, self._visibility)
         else:
             if self._delay > 0:
                 time.sleep(self._delay)
 
-            to_return = self._mastodon.status_post(text,
-                                                   visibility=self._visibility)
+            to_return = self._mastodon.status_post(
+                text, visibility=self._visibility)
+
         return to_return
+
 
 class ShaarpyClient(GenericClient):
     """ The ShaarpyClient handles the connection to Shaarli. """
@@ -686,6 +728,7 @@ class ShaarpyClient(GenericClient):
 
     def __init__(self, account, testing):
         """ Should be self-explaining. """
+
         if not testing:
             self._shaarpy = Shaarpy()
             self._shaarpy.login(account['username'], account['password'],
@@ -701,6 +744,7 @@ class ShaarpyClient(GenericClient):
                  'Link: '+link+'\n'+ \
                  'Keywords: '+', '.join(keywords)+'\n'+ \
                  'Content: '+text
+
         return self.output_test(output)
 
     def post(self, entry):
@@ -712,14 +756,17 @@ class ShaarpyClient(GenericClient):
             pass
 
         to_return = False
+
         if self.is_testing():
             to_return = self.test_output(entry.link, list(entry.keywords),
                                          entry.title, content)
         else:
-            to_return = self._shaarpy.post_link(entry.link,
-                                                list(entry.keywords),
-                                                title=entry.title,
-                                                desc=content)
+            to_return = self._shaarpy.post_link(
+                entry.link,
+                list(entry.keywords),
+                title=entry.title,
+                desc=content)
+
         return to_return
 
 
@@ -730,6 +777,7 @@ class LinkedInClient(GenericClient):
 
     def __init__(self, account, testing):
         """ Should be self-explaining. """
+
         if not testing:
             self._linkedin = linkedin.LinkedInApplication(
                 token=account['authentication_token'])
@@ -747,19 +795,22 @@ class LinkedInClient(GenericClient):
                  'Visibility: '+visibility+'\n'+ \
                  'Description: '+trim_string(entry.title, 256)+'\n'+ \
                  'Comment: '+mkrichtext(entry.title, entry.keywords, maxlen=700)
+
         return self.output_test(output)
 
     def post(self, entry):
         to_return = False
+
         if self.is_testing():
             to_return = self.test_output(entry, self._visibility)
         else:
-            to_return= self._linkedin.submit_share(
+            to_return = self._linkedin.submit_share(
                 comment=mkrichtext(entry.title, entry.keywords, maxlen=700),
                 title=trim_string(entry.title, 200),
                 description=trim_string(entry.title, 256),
                 submitted_url=entry.link,
                 visibility_code=self._visibility)
+
         return to_return
 
 
@@ -824,8 +875,10 @@ class FeedSpora:
         """ Defines the identifier associated with the specified entry """
         # Unique item formed of link data, perhaps with published date
         to_return = entry.link
+
         if entry.published_date:
-            to_return += ' '+entry.published_date
+            to_return += ' ' + entry.published_date
+
         return to_return
 
     def is_already_published(self, entry, client):
@@ -853,9 +906,10 @@ class FeedSpora:
     def add_to_published_entries(self, entry, client):
         """ Add a FeedSporaEntries to the database of published items. """
         pub_item = self.entry_identifier(entry)
-        logging.info('Storing in database of published items: '+pub_item)
-        self._cur.execute("INSERT INTO posts (feedspora_id, client_id) "
-                          "values (?,?)", (pub_item, client.get_name()))
+        logging.info('Storing in database of published items: ' + pub_item)
+        self._cur.execute(
+            "INSERT INTO posts (feedspora_id, client_id) "
+            "values (?,?)", (pub_item, client.get_name()))
         self._conn.commit()
 
     def _publish_entry(self, item_num, entry):
@@ -928,11 +982,14 @@ class FeedSpora:
             fse.link = entry.find('link')['href']
 
             # Content
+
             if entry.find('content'):
                 fse.content = entry.find('content').text
             # If no content, attempt to use summary
+
             if not fse.content and entry.find('summary'):
                 fse.content = entry.find('summary').text
+
             if fse.content is None:
                 fse.content = ''
 
@@ -944,11 +1001,10 @@ class FeedSpora:
             } | {
                 word[1:]
 
-                for word in fse.title.split()
-
-                if word.startswith('#') and word not in fse.keywords
+                for word in fse.title.split() if word.startswith('#')
             }
             # Published_date implementation for Atom
+
             if entry.find('updated'):
                 fse.published_date = entry.find('updated').text
             elif entry.find('published'):
@@ -969,6 +1025,7 @@ class FeedSpora:
             fse.link = entry.find('link').text
 
             # Content takes priority over Description
+
             if entry.find('content'):
                 fse.content = entry.find('content')[0].text
             else:
@@ -989,6 +1046,7 @@ class FeedSpora:
             }
 
             # And for our final act, media
+
             if entry.find('media:content') and entry.find(
                     'media:content')['medium'] == 'image':
                 fse.media_url = entry.find('media:content')['url']
