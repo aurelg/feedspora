@@ -11,6 +11,33 @@
 
 
 	<entry>
+		<title>How #Atomic #Punk Rules The Day</title>
+		<link href="http://example.org/2003/12/13/atom04" />
+		<link rel="alternate" type="text/html" href="http://example.org/2003/12/13/atom04.html"/>
+		<link rel="edit" href="http://example.org/2003/12/13/atom04/edit"/>
+		<id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</id>
+		<updated>2013-12-13T18:30:02Z</updated>
+		<summary>Some atomic text.</summary>
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+				<p>This is the atomic entry content.</p>
+			</div>
+		</content>
+		<author>
+			<name>Punky Doe</name>
+			<email>punkydoe@example.com</email>
+		</author>
+    <app:categories
+        xmlns:app="http://www.w3.org/2007/app"
+        xmlns:atom="http://www.w3.org/2005/Atom"
+        fixed="yes" scheme="http://example.com/cats/big3">
+      <category term="atomic" />
+      <category term="punk" />
+      <category term="day" />
+    </app:categories>
+	</entry>
+
+	<entry>
 		<title>Atom-Powered Robots Run Amok</title>
 		<link href="http://example.org/2003/12/13/atom03" />
 		<link rel="alternate" type="text/html" href="http://example.org/2003/12/13/atom03.html"/>
@@ -37,17 +64,6 @@
     </app:categories>
 	</entry>
 
-  <!--
-    # ERROR:root:Error while publishing '1.1 - Mort numérique: que faire des
-    # données personnelles et des comptes Facebook après un décès ? - Le blog de
-    # Thierry Vallat, avocat au Barreau de Paris (et sur Twitter:
-    # MeThierryVallat)' to client 'TweepyClient': 1.1 - Mort numérique: que
-    # faire des données personnelles et des comptes Facebook après un décès ? -
-    # Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter:
-    # MeThierryVallat):1.1 - Mort numérique: que faire des données personnelles
-    # et des comptes Facebook après un décès ? - Le blog de... : 118 > 115
-    # -> ?
-  -->
   <entry>
     <id>http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html</id>
     <title>1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)</title>
@@ -55,14 +71,6 @@
     <link href="http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html" rel="alternate"/>
   </entry>
 
-  <!--
-    # ERROR:root:Error while publishing '2.7 - SEC.gov | Statement on
-    # Potentially Unlawful Promotion of Initial Coin Offerings and Other
-    # Investments by Celebrities and Others' to client 'TweepyClient': [{'code':
-    # 186, 'message': 'Status is over 140 characters.'}]
-    # -> Its length is 133, 'Sec.gov' might be parsed as a URL an given a length
-    #    of 22 by twitter, hence the failure.
-  -->
   <entry>
     <id>https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos</id>
     <title>3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others</title>

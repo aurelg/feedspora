@@ -115,18 +115,22 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
     # Tag/keyword order needs to be observed
     # Set manipulations ignore that, so don't use them!
     extra_kw = []
-
     for kw in keywords:
         if kw not in inline_kw:
             extra_kw.append(kw)
 
-    # Process inline keywords
-
+    #deej
+    logging.info('Inline keywords: '+', '.join(inline_kw))
+    logging.info('Extra keywords: '+', '.join(extra_kw))
+    logging.info('Full keywords: '+', '.join(keywords))
+    logging.info('Text before inline keyword processing:\n'+to_return)
+    # Process inline keywords - a waste of time?
     for kw in inline_kw:
         pattern = r'(\A|\W)(%s)(\W|\Z)' % re.escape('%s' % kw)
-
         if re.search(pattern, to_return, re.IGNORECASE):
             to_return = re.sub(pattern, repl, to_return, flags=re.IGNORECASE)
+    #deej - I think this will end up being exactly the same...
+    logging.info('Text after inline keyword processing:\n'+to_return)
 
     # Add separator and keywords, if needed
     minlen_wo_xtra_kw = len(to_return)
@@ -137,7 +141,6 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
         minlen_wo_xtra_kw = len(to_return)
 
         # Add extra (ordered) keywords
-
         for kw in extra_kw:
             # remove any illegal characters
             kw = re.sub(r'[\-\.]', '', kw)
@@ -758,9 +761,11 @@ class ShaarpyClient(GenericClient):
         to_return = False
 
         if self.is_testing():
+            #deej note cast to list
             to_return = self.test_output(entry.link, list(entry.keywords),
                                          entry.title, content)
         else:
+            #deej note cast to list
             to_return = self._shaarpy.post_link(
                 entry.link,
                 list(entry.keywords),
@@ -982,29 +987,45 @@ class FeedSpora:
             fse.link = entry.find('link')['href']
 
             # Content
-
             if entry.find('content'):
                 fse.content = entry.find('content').text
             # If no content, attempt to use summary
-
             if not fse.content and entry.find('summary'):
                 fse.content = entry.find('summary').text
-
             if fse.content is None:
                 fse.content = ''
 
-            # Keywords
-            fse.keywords = {
-                keyword['term'].replace(' ', '_').strip()
+            # Keywords, in priority order from 1) title, 2) content, 3) category
+            fse.keywords = []
+            # Add keywords from title
+            for word in fse.title.split():
+                if word.startswith('#') and word[1:] not in fse.keywords:
+                    fse.keywords.append(word[1:])
+            # Add keywords from end of content (removing from content in the
+            # process of gathering keywords)
+            if fse.content:
+                content_keyword_start = len(fse.keywords)
+                tag_pattern = r'\s+#([\w]+)$'
+                m = re.search(tag_pattern, fse.content)
+                while m:
+                    tag = m.group(1)
+                    if tag not in fse.keywords:
+                        fse.keywords.insert(content_keyword_start, tag)
+                    fse.content = re.sub(tag_pattern, '', fse.content)
+                    m = re.search(tag_pattern, fse.content)
+                if re.match(r'^#[\w]+$', fse.content):
+                    # Left with a single tag!
+                    if fse.content not in fse.keywords:
+                        fse.keywords.insert(content_keyword_start,
+                                            fse.content[1:])
+                        fse.content = ''              
+            # Add keywords from category
+            for keyword in entry.find_all('category'):
+                new_keyword = keyword['term'].replace(' ', '_').strip()
+                if new_keyword not in fse.keywords:
+                    fse.keywords.append(new_keyword)
 
-                for keyword in entry.find_all('category')
-            } | {
-                word[1:]
-
-                for word in fse.title.split() if word.startswith('#')
-            }
             # Published_date implementation for Atom
-
             if entry.find('updated'):
                 fse.published_date = entry.find('updated').text
             elif entry.find('published'):
@@ -1025,7 +1046,6 @@ class FeedSpora:
             fse.link = entry.find('link').text
 
             # Content takes priority over Description
-
             if entry.find('content'):
                 fse.content = entry.find('content')[0].text
             else:
@@ -1034,19 +1054,37 @@ class FeedSpora:
             # PubDate
             fse.published_date = entry.find('pubdate').text
 
-            # Keywords (from category)
-            fse.keywords = {
-                keyword.text.replace(' ', '_').strip()
-
-                for keyword in entry.find_all('category')
-            } | {
-                word[1:]
-
-                for word in fse.title.split() if word.startswith('#')
-            }
+            # Keywords, in priority order from 1) title, 2) content, 3) category
+            fse.keywords = []
+            # Add keywords from title
+            for word in fse.title.split():
+                if word.startswith('#') and word[1:] not in fse.keywords:
+                    fse.keywords.append(word[1:])
+            # Add keywords from end of content (removing from content in the
+            # process of gathering keywords)
+            if fse.content:
+                content_keyword_start = len(fse.keywords)
+                tag_pattern = r'\s+#([\w]+)$'
+                m = re.search(tag_pattern, fse.content)
+                while m:
+                    tag = m.group(1)
+                    if tag not in fse.keywords:
+                        fse.keywords.insert(content_keyword_start, tag)
+                    fse.content = re.sub(tag_pattern, '', fse.content)
+                    m = re.search(tag_pattern, fse.content)
+                if re.match(r'^#[\w]+$', fse.content):
+                    # Left with a single tag!
+                    if fse.content not in fse.keywords:
+                        fse.keywords.insert(content_keyword_start,
+                                            fse.content[1:])
+                        fse.content = ''              
+            # Add keywords from category
+            for keyword in entry.find_all('category'):
+                new_keyword = keyword.text.replace(' ', '_').strip()
+                if new_keyword not in fse.keywords:
+                    fse.keywords.append(new_keyword)
 
             # And for our final act, media
-
             if entry.find('media:content') and entry.find(
                     'media:content')['medium'] == 'image':
                 fse.media_url = entry.find('media:content')['url']
