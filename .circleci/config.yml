@@ -32,6 +32,8 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            # Hack/workaround to get latest shaarpy
+            pip install git+https://github.com/aurelg/shaarpy.git
             pip install -r requirements.txt
 
       - save_cache:
