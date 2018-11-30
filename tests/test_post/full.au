@@ -93,37 +93,6 @@ Visibility: connections-only
 Description: Atom-Powered Robots Run Amok
 Comment: Atom-Powered Robots Run Amok | #animal #vegetable #mineral
 >>> Diaspora_full posting:
-Content: [How #Atomic #Punk Rules The Day](http://example.org/2003/12/13/atom04) |  #hashtag1 #hashtag2  #atomic #punk #day
->>> Facebook_full posting as yomama:
-Name: How #Atomic #Punk Rules The Day:
-Link: http://example.org/2003/12/13/atom04:
-Content: How #Atomic #Punk Rules The Day #atomic #punk #day
->>> Mastodon_full posting:
-Delay: 10
-Visibility: private
-Content: How #Atomic #Punk Rules The #Day http://example.org/2003/12/13/atom04
->>> Shaarpy_full posting:
-Title: How #Atomic #Punk Rules The Day
-Link: http://example.org/2003/12/13/atom04
-Keywords: atomic, punk, day
-Content: 
-
-This is the atomic entry content.
-
-
->>> WordPress_full posting:
-Title: How #Atomic #Punk Rules The Day
-post_tag: atomic, punk, day
-category: AutomatedPost
-status: publish
-Content: <as captured from http://example.org/2003/12/13/atom04>
->>> LinkedIn_full posting:
-Title: How #Atomic #Punk Rules The Day
-Link: http://example.org/2003/12/13/atom04
-Visibility: connections-only
-Description: How #Atomic #Punk Rules The Day
-Comment: How #Atomic #Punk Rules The #Day
->>> Diaspora_full posting:
 Content: [Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author](https://www.youtube.com/watch?v=24F6C1KfbjM) |  #hashtag1 #hashtag2  #bell #fry #lecture #myths #shannon #technology
 >>> Facebook_full posting as yomama:
 Name: Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author:
