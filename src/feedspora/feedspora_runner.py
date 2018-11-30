@@ -103,34 +103,27 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
 
     to_return = text
 
-    # Find inline and extra keywords
-    inline_kw = {
-        k
-
-        for k in keywords
-
-        if re.search(r'(\A|\W)(%s)(\W|\Z)' %
-                     re.escape('%s' % k), to_return, re.IGNORECASE)
-    }
     # Tag/keyword order needs to be observed
     # Set manipulations ignore that, so don't use them!
-    extra_kw = []
-    for kw in keywords:
-        if kw not in inline_kw:
-            extra_kw.append(kw)
 
-    #deej
-    logging.info('Inline keywords: '+', '.join(inline_kw))
-    logging.info('Extra keywords: '+', '.join(extra_kw))
-    logging.info('Full keywords: '+', '.join(keywords))
-    logging.info('Text before inline keyword processing:\n'+to_return)
-    # Process inline keywords - a waste of time?
-    for kw in inline_kw:
-        pattern = r'(\A|\W)(%s)(\W|\Z)' % re.escape('%s' % kw)
+    # Find inline keywords
+    inline_kw = []
+    for k in keywords:
+        if re.search(r'(\A|\W)(%s)(\W|\Z)' %
+                     re.escape('%s' % k), to_return, re.IGNORECASE):
+            inline_kw.append(k)
+
+    # Find extra keywords
+    extra_kw = []
+    for word in keywords:
+        if word not in inline_kw:
+            extra_kw.append(word)
+
+    # Process inline keywords
+    for word in inline_kw:
+        pattern = r'(\A|\W)(%s)(\W|\Z)' % re.escape('%s' % word)
         if re.search(pattern, to_return, re.IGNORECASE):
             to_return = re.sub(pattern, repl, to_return, flags=re.IGNORECASE)
-    #deej - I think this will end up being exactly the same...
-    logging.info('Text after inline keyword processing:\n'+to_return)
 
     # Add separator and keywords, if needed
     minlen_wo_xtra_kw = len(to_return)
@@ -141,29 +134,26 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
         minlen_wo_xtra_kw = len(to_return)
 
         # Add extra (ordered) keywords
-        for kw in extra_kw:
+        for word in extra_kw:
             # remove any illegal characters
-            kw = re.sub(r'[\-\.]', '', kw)
+            word = re.sub(r'[\-\.]', '', word)
             # prevent duplication
-            pattern = r'(\A|\W)#(%s)(\W|\Z)' % re.escape('%s' % kw)
+            pattern = r'(\A|\W)#(%s)(\W|\Z)' % re.escape('%s' % word)
 
             if re.search(pattern, to_return, re.IGNORECASE) is None:
-                to_return += " #" + kw
+                to_return += " #" + word
 
     # If the text is too long, cut it and, if needed, add suffix
-
     if maxlen is not None:
         to_return = trim_string(
             to_return, maxlen, etc=etc, etc_if_shorter_than=minlen_wo_xtra_kw)
 
     # Restore separator
-
     if extra_kw:
         to_return = to_return.replace(fake_separator, separator)
 
         # Remove separator if nothing comes after it
         stripped_separator = separator.rstrip()
-
         if to_return.endswith(stripped_separator):
             to_return = to_return[:-len(stripped_separator)]
 
@@ -477,70 +467,36 @@ class TweepyClient(GenericClient):
             stripped_html = lxml.html.fromstring(
                 entry.content).text_content().strip()
 
-        # Derive additional keywords (tags) from the end of content
-        all_keywords = []
-
-        if stripped_html:
-            tag_pattern = r'\s+#([\w]+)$'
-            m = re.search(tag_pattern, stripped_html)
-
-            while m:
-                tag = m.group(1)
-
-                if tag not in all_keywords:
-                    all_keywords.insert(0, tag)
-                stripped_html = re.sub(tag_pattern, '', stripped_html)
-                m = re.search(tag_pattern, stripped_html)
-
-            if re.match(r'^#[\w]+$', stripped_html):
-                # Left with a single tag!
-
-                if stripped_html not in all_keywords:
-                    all_keywords.insert(0, stripped_html[1:])
-                    stripped_html = None
-
-        # Now add the original keywords (from category) on to
-        # the end of the existing array
-
-        for word in entry.keywords:
-            if word not in all_keywords:
-                all_keywords.append(word)
-
         # Apply any tag limits specified
-
-        if self._max_tags < len(all_keywords):
-            all_keywords = all_keywords[:self._max_tags]
+        used_keywords = entry.keywords
+        if self._max_tags < len(used_keywords):
+            used_keywords = used_keywords[:self._max_tags]
 
         # Let's build our tweet!
         text = ""
 
         # Apply optional prefix
-
         if self._post_prefix:
             text = self._post_prefix + " "
 
         # Process contents
         raw_contents = entry.title
-
         if self._include_content and stripped_html:
             raw_contents += ": " + stripped_html
-        text += mkrichtext(raw_contents, all_keywords, maxlen=maxlen)
+        text += mkrichtext(raw_contents, used_keywords, maxlen=maxlen)
 
         # Apply optional suffix
-
         if self._post_suffix:
             text += " " + self._post_suffix
         text += " " + post_url
 
         # Finally ready to post.  Let's find out how (media/text)
         media_path = None
-
         if self._include_media and entry.media_url:
             # Need to download image from that URL in order to post it!
             media_path = download_media(entry.media_url)
 
         to_return = False
-
         if self.is_testing():
             to_return = self.test_output(text, media_path)
         elif media_path:
@@ -574,7 +530,7 @@ class DiaspyClient(GenericClient):
         self.keywords = []
         try:
             self.keywords = [
-                kw.strip() for kw in account['keywords'].split(',')
+                word.strip() for word in account['keywords'].split(',')
             ]
         except KeyError:
             pass
@@ -611,7 +567,7 @@ class WPClient(GenericClient):
         self.keywords = []
         try:
             self.keywords = [
-                kw.strip() for kw in account['keywords'].split(',')
+                word.strip() for word in account['keywords'].split(',')
             ]
         except KeyError:
             pass
@@ -630,7 +586,7 @@ class WPClient(GenericClient):
 
         return content
 
-    def test_output(self, entry, text):
+    def test_output(self, entry):
         '''
         Print output for testing purposes
         :param: text
@@ -640,7 +596,7 @@ class WPClient(GenericClient):
                  'post_tag: '+', '.join(entry.keywords)+'\n'+ \
                  'category: AutomatedPost\n'+ \
                  'status: publish\n'+ \
-                 'Content: '+text
+                 'Content: <as captured from '+entry.link+'>'
 
         return self.output_test(output)
 
@@ -653,7 +609,7 @@ class WPClient(GenericClient):
         to_return = False
 
         if self.is_testing():
-            to_return = self.test_output(entry, post_content)
+            to_return = self.test_output(entry)
         else:
             # get text with readability
             post = WordPressPost()
@@ -761,14 +717,12 @@ class ShaarpyClient(GenericClient):
         to_return = False
 
         if self.is_testing():
-            #deej note cast to list
-            to_return = self.test_output(entry.link, list(entry.keywords),
+            to_return = self.test_output(entry.link, entry.keywords,
                                          entry.title, content)
         else:
-            #deej note cast to list
             to_return = self._shaarpy.post_link(
                 entry.link,
-                list(entry.keywords),
+                entry.keywords,
                 title=entry.title,
                 desc=content)
 
@@ -969,6 +923,36 @@ class FeedSpora:
 
         return BeautifulSoup(feed_content, 'html.parser')
 
+    def get_keyword_list(self, title, content):
+        """
+        Determine the list of keywords, in priority order from title and
+        content (content may be modified by this operation)
+        """
+        keywords = []
+        # Add keywords from title
+        for word in title.split():
+            if word.startswith('#') and word[1:].lower() not in keywords:
+                keywords.append(word[1:].lower())
+        # Add keywords from end of content (removing from content in the
+        # process of gathering keywords)
+        if content:
+            content_keyword_start = len(keywords)
+            tag_pattern = r'\s+#([\w]+)$'
+            match_result = re.search(tag_pattern, content)
+            while match_result:
+                tag = match_result.group(1).lower()
+                if tag not in keywords:
+                    keywords.insert(content_keyword_start, tag)
+                content = re.sub(tag_pattern, '', content)
+                match_result = re.search(tag_pattern, content)
+            if re.match(r'^#[\w]+$', content):
+                # Left with a single tag!
+                if content[1:].lower() not in keywords:
+                    keywords.insert(content_keyword_start, content[1:].lower())
+                    content = ''
+
+        return content, keywords
+
     # Define generator for Atom
     def parse_atom(self, soup):
         """ Generate FeedSpora entries out of an Atom feed. """
@@ -995,33 +979,12 @@ class FeedSpora:
             if fse.content is None:
                 fse.content = ''
 
-            # Keywords, in priority order from 1) title, 2) content, 3) category
-            fse.keywords = []
-            # Add keywords from title
-            for word in fse.title.split():
-                if word.startswith('#') and word[1:] not in fse.keywords:
-                    fse.keywords.append(word[1:])
-            # Add keywords from end of content (removing from content in the
-            # process of gathering keywords)
-            if fse.content:
-                content_keyword_start = len(fse.keywords)
-                tag_pattern = r'\s+#([\w]+)$'
-                m = re.search(tag_pattern, fse.content)
-                while m:
-                    tag = m.group(1)
-                    if tag not in fse.keywords:
-                        fse.keywords.insert(content_keyword_start, tag)
-                    fse.content = re.sub(tag_pattern, '', fse.content)
-                    m = re.search(tag_pattern, fse.content)
-                if re.match(r'^#[\w]+$', fse.content):
-                    # Left with a single tag!
-                    if fse.content not in fse.keywords:
-                        fse.keywords.insert(content_keyword_start,
-                                            fse.content[1:])
-                        fse.content = ''              
+            # Keywords from title and content, potentially modifying content
+            fse.content, fse.keywords = self.get_keyword_list(fse.title,
+                                                              fse.content)
             # Add keywords from category
             for keyword in entry.find_all('category'):
-                new_keyword = keyword['term'].replace(' ', '_').strip()
+                new_keyword = keyword['term'].replace(' ', '_').strip().lower()
                 if new_keyword not in fse.keywords:
                     fse.keywords.append(new_keyword)
 
@@ -1054,30 +1017,9 @@ class FeedSpora:
             # PubDate
             fse.published_date = entry.find('pubdate').text
 
-            # Keywords, in priority order from 1) title, 2) content, 3) category
-            fse.keywords = []
-            # Add keywords from title
-            for word in fse.title.split():
-                if word.startswith('#') and word[1:] not in fse.keywords:
-                    fse.keywords.append(word[1:])
-            # Add keywords from end of content (removing from content in the
-            # process of gathering keywords)
-            if fse.content:
-                content_keyword_start = len(fse.keywords)
-                tag_pattern = r'\s+#([\w]+)$'
-                m = re.search(tag_pattern, fse.content)
-                while m:
-                    tag = m.group(1)
-                    if tag not in fse.keywords:
-                        fse.keywords.insert(content_keyword_start, tag)
-                    fse.content = re.sub(tag_pattern, '', fse.content)
-                    m = re.search(tag_pattern, fse.content)
-                if re.match(r'^#[\w]+$', fse.content):
-                    # Left with a single tag!
-                    if fse.content not in fse.keywords:
-                        fse.keywords.insert(content_keyword_start,
-                                            fse.content[1:])
-                        fse.content = ''              
+            # Keywords from title and content, potentially modifying content
+            fse.content, fse.keywords = self.get_keyword_list(fse.title,
+                                                              fse.content)
             # Add keywords from category
             for keyword in entry.find_all('category'):
                 new_keyword = keyword.text.replace(' ', '_').strip()
