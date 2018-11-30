@@ -28,7 +28,7 @@ jobs:
           - v1-dependencies-
 
       - run:
-          name: install dependencies
+          name: Install Dependencies
           command: |
             python3 -m venv venv
             . venv/bin/activate
@@ -42,18 +42,24 @@ jobs:
           key: v1-dependencies-{{ checksum "requirements.txt" }}
         
       - run:
-          name: install application
+          name: Install Application
           command: |
             . venv/bin/activate
             python setup.py install
 
-      # run tests!
       - run:
-          name: run tests
+          name: Run Tests
           command: |
             . venv/bin/activate
             pip install pytest
             pytest
+
+      - run:
+          name: Run Analytics
+          command: |
+            . venv/bin/activate
+            pip install pylint
+            pylint --verbose --exit-zero feedspora
 
       - store_artifacts:
           path: test-reports
