@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+	<title>Test Feed</title>
+	<subtitle>A subtitle.</subtitle>
+	<link href="http://example.org/feed/" rel="self" />
+	<link href="http://example.org/" />
+	<id>urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6</id>
+	<updated>2018-11-30T18:30:02Z</updated>
+
+	<entry>
+		<title>How #Atomic #Punk Rules The Day</title>
+		<link href="http://example.org/2003/12/13/atom04" />
+		<link rel="alternate" type="text/html" href="http://example.org/2003/12/13/atom04.html"/>
+		<link rel="edit" href="http://example.org/2003/12/13/atom04/edit"/>
+		<id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</id>
+	        <updated>2018-11-30T18:30:02Z</updated>
+		<summary>Some atomic text.</summary>
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+				<p>This is the atomic entry content.</p>
+			</div>
+		</content>
+		<author>
+			<name>Punky Doe</name>
+			<email>punkydoe@example.com</email>
+		</author>
+    <app:categories
+        xmlns:app="http://www.w3.org/2007/app"
+        xmlns:atom="http://www.w3.org/2005/Atom"
+        fixed="yes" scheme="http://example.com/cats/big3">
+      <category term="atomic" />
+      <category term="punk" />
+      <category term="day" />
+      <category term="extra" />
+    </app:categories>
+	</entry>
+
+</feed>
