@@ -98,30 +98,41 @@ def trim_string(text, maxlen, etc='...', etc_if_shorter_than=None):
 
 
 def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
+    '''
+    Process the text to include hashtagged keywords and adhere to the specified
+    maximum length.
+    '''
     def repl(m):
         return '%s#%s%s' % (m.group(1), m.group(2), m.group(3))
+
+    # Constants used in regex pattern generation
+    # pylint: disable=anomalous-backslash-in-string
+    before_tag = '(\A|[\'"/([{\s])'
+    after_tag = '(\Z|[\'"/\s)\]},.!?:])'
+    # pylint: enable=anomalous-backslash-in-string
 
     to_return = text
 
     # Tag/keyword order needs to be observed
-    # Set manipulations ignore that, so don't use them!
+    # Set manipulations ignore that, so use lists instead!
 
-    # Find inline keywords
+    # Find inline and extra keywords
     inline_kw = []
-    for k in keywords:
-        if re.search(r'(\A|\W)(%s)(\W|\Z)' %
-                     re.escape('%s' % k), to_return, re.IGNORECASE):
-            inline_kw.append(k)
-
-    # Find extra keywords
     extra_kw = []
     for word in keywords:
-        if word not in inline_kw:
+        # remove any illegal characters
+        word = re.sub(r'[\-\.]', '', word)
+        if re.search(r'%s#?(%s)%s' %
+                     (before_tag, re.escape('%s' % word), after_tag),
+                     to_return, re.IGNORECASE):
+            inline_kw.append(word)
+        else:
             extra_kw.append(word)
 
     # Process inline keywords
     for word in inline_kw:
-        pattern = r'(\A|\W)(%s)(\W|\Z)' % re.escape('%s' % word)
+        pattern = (r'%s(%s)%s' %
+                   (before_tag, re.escape('%s' % word), after_tag))
         if re.search(pattern, to_return, re.IGNORECASE):
             to_return = re.sub(pattern, repl, to_return, flags=re.IGNORECASE)
 
@@ -135,11 +146,9 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
 
         # Add extra (ordered) keywords
         for word in extra_kw:
-            # remove any illegal characters
-            word = re.sub(r'[\-\.]', '', word)
             # prevent duplication
-            pattern = r'(\A|\W)#(%s)(\W|\Z)' % re.escape('%s' % word)
-
+            pattern = (r'%s#(%s)%s' % \
+                       (before_tag, re.escape('%s' % word), after_tag))
             if re.search(pattern, to_return, re.IGNORECASE) is None:
                 to_return += " #" + word
 

@@ -219,7 +219,7 @@ Comment: Le #burnout, une pathologie de civilisation
 >>> Diaspora_basic posting:
 Content: [awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.](https://github.com/unixorn/awesome-zsh-plugins) |   #awesome #git #plugins #zsh
 >>> Twitter_basic posting:
-Content: #awesome-#zsh-#plugins: A collection of #ZSH frameworks, #plugins & themes inspired by the various #awesome list collections out there. | #git https://github.com/unixorn/awesome-zsh-plugins
+Content: awesome-zsh-plugins: A collection of #ZSH frameworks, #plugins & themes inspired by the various #awesome list collections out there. | #git https://github.com/unixorn/awesome-zsh-plugins
 Media: None
 >>> Facebook_basic posting as TESTER:
 Name: awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.:
@@ -228,7 +228,7 @@ Content: awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes i
 >>> Mastodon_basic posting:
 Delay: 0
 Visibility: unlisted
-Content: #awesome-#zsh-#plugins: A collection of #ZSH frameworks, #plugins & themes inspired by the various #awesome list collections out there. | #git https://github.com/unixorn/awesome-zsh-plugins
+Content: awesome-zsh-plugins: A collection of #ZSH frameworks, #plugins & themes inspired by the various #awesome list collections out there. | #git https://github.com/unixorn/awesome-zsh-plugins
 >>> Shaarpy_basic posting:
 Title: awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.
 Link: https://github.com/unixorn/awesome-zsh-plugins
@@ -246,7 +246,7 @@ Title: awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes ins
 Link: https://github.com/unixorn/awesome-zsh-plugins
 Visibility: anyone
 Description: awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.
-Comment: #awesome-#zsh-#plugins: A collection of #ZSH frameworks, #plugins & themes inspired by the various #awesome list collections out there. | #git
+Comment: awesome-zsh-plugins: A collection of #ZSH frameworks, #plugins & themes inspired by the various #awesome list collections out there. | #git
 >>> Diaspora_basic posting:
 Content: [antigen: The plugin manager for zsh](https://github.com/zsh-users/antigen) |   #antigen #git #manager #plugin #zsh
 >>> Twitter_basic posting:
@@ -715,7 +715,7 @@ Comment: Hannah #Arendt - L'#impasse de la #modernité
 >>> Diaspora_basic posting:
 Content: [L’autonomie est à l’indépendance ce que la liberté est à l’insoumission](https://www.dailymotion.com/video/x65rs5r) |   #autonomie #indépendance #insoumission #liberté
 >>> Twitter_basic posting:
-Content: L’#autonomie est à l’#indépendance ce que la #liberté est à l’#insoumission https://www.dailymotion.com/video/x65rs5r
+Content: L’autonomie est à l’indépendance ce que la #liberté est à l’insoumission | #autonomie #indépendance #insoumission https://www.dailymotion.com/video/x65rs5r
 Media: None
 >>> Facebook_basic posting as TESTER:
 Name: L’autonomie est à l’indépendance ce que la liberté est à l’insoumission:
@@ -724,7 +724,7 @@ Content: L’autonomie est à l’indépendance ce que la liberté est à l’in
 >>> Mastodon_basic posting:
 Delay: 0
 Visibility: unlisted
-Content: L’#autonomie est à l’#indépendance ce que la #liberté est à l’#insoumission https://www.dailymotion.com/video/x65rs5r
+Content: L’autonomie est à l’indépendance ce que la #liberté est à l’insoumission | #autonomie #indépendance #insoumission https://www.dailymotion.com/video/x65rs5r
 >>> Shaarpy_basic posting:
 Title: L’autonomie est à l’indépendance ce que la liberté est à l’insoumission
 Link: https://www.dailymotion.com/video/x65rs5r
@@ -742,11 +742,11 @@ Title: L’autonomie est à l’indépendance ce que la liberté est à l’inso
 Link: https://www.dailymotion.com/video/x65rs5r
 Visibility: anyone
 Description: L’autonomie est à l’indépendance ce que la liberté est à l’insoumission
-Comment: L’#autonomie est à l’#indépendance ce que la #liberté est à l’#insoumission
+Comment: L’autonomie est à l’indépendance ce que la #liberté est à l’insoumission | #autonomie #indépendance #insoumission
 >>> Diaspora_basic posting:
 Content: [MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.](https://github.com/NullArray/MIDA-Multitool) |   #enumeration #git #MIDA #pentesting #system
 >>> Twitter_basic posting:
-Content: #MIDA-Multitool: Bash script purposed for #system #enumeration, vulnerability identification and privilege escalation. | #git #pentesting https://github.com/NullArray/MIDA-Multitool
+Content: MIDA-Multitool: Bash script purposed for #system #enumeration, vulnerability identification and privilege escalation. | #git #MIDA #pentesting https://github.com/NullArray/MIDA-Multitool
 Media: None
 >>> Facebook_basic posting as TESTER:
 Name: MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.:
@@ -755,7 +755,7 @@ Content: MIDA-Multitool: Bash script purposed for system enumeration, vulnerabil
 >>> Mastodon_basic posting:
 Delay: 0
 Visibility: unlisted
-Content: #MIDA-Multitool: Bash script purposed for #system #enumeration, vulnerability identification and privilege escalation. | #git #pentesting https://github.com/NullArray/MIDA-Multitool
+Content: MIDA-Multitool: Bash script purposed for #system #enumeration, vulnerability identification and privilege escalation. | #git #MIDA #pentesting https://github.com/NullArray/MIDA-Multitool
 >>> Shaarpy_basic posting:
 Title: MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.
 Link: https://github.com/NullArray/MIDA-Multitool
@@ -773,7 +773,7 @@ Title: MIDA-Multitool: Bash script purposed for system enumeration, vulnerabilit
 Link: https://github.com/NullArray/MIDA-Multitool
 Visibility: anyone
 Description: MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.
-Comment: #MIDA-Multitool: Bash script purposed for #system #enumeration, vulnerability identification and privilege escalation. | #git #pentesting
+Comment: MIDA-Multitool: Bash script purposed for #system #enumeration, vulnerability identification and privilege escalation. | #git #MIDA #pentesting
 >>> Diaspora_basic posting:
 Content: [Using Language Servers in Neovim](https://fortes.com/2017/language-server-neovim) |   #LanguageServerProtocol #LSP #microsoft #neovim
 >>> Twitter_basic posting:
@@ -1087,7 +1087,7 @@ Comment: Programmable #base #editing of A•T to G•C in genomic #DNA without #
 >>> Diaspora_basic posting:
 Content: [RNA editing with CRISPR-Cas13](http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180) |   #cas13 #crispr #editing #RNA
 >>> Twitter_basic posting:
-Content: #RNA #editing with #CRISPR-#Cas13 http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180
+Content: #RNA #editing with CRISPR-Cas13 | #cas13 #crispr http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180
 Media: None
 >>> Facebook_basic posting as TESTER:
 Name: RNA editing with CRISPR-Cas13:
@@ -1096,7 +1096,7 @@ Content: RNA editing with CRISPR-Cas13 #cas13 #crispr #editing #RNA
 >>> Mastodon_basic posting:
 Delay: 0
 Visibility: unlisted
-Content: #RNA #editing with #CRISPR-#Cas13 http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180
+Content: #RNA #editing with CRISPR-Cas13 | #cas13 #crispr http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180
 >>> Shaarpy_basic posting:
 Title: RNA editing with CRISPR-Cas13
 Link: http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180
@@ -1114,7 +1114,7 @@ Title: RNA editing with CRISPR-Cas13
 Link: http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180
 Visibility: anyone
 Description: RNA editing with CRISPR-Cas13
-Comment: #RNA #editing with #CRISPR-#Cas13
+Comment: #RNA #editing with CRISPR-Cas13 | #cas13 #crispr
 >>> Diaspora_basic posting:
 Content: [CRISPR 2.0 Is Here, and It’s Way More Precise](https://www.technologyreview.com/s/609203/crispr-20-is-here-and-its-way-more-precise/) |   #base #CRISPR #editing #genetics
 >>> Twitter_basic posting:
