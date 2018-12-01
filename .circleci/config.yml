@@ -53,6 +53,7 @@ jobs:
             . venv/bin/activate
             pip install pytest
             pytest
+            (cd tests && ./run_tests.sh all)
 
       - run:
           name: Run Analytics
