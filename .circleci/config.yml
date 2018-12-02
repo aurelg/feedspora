@@ -20,6 +20,12 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Setup VirtualEnv
+          command: |
+            echo 'export TAG=0.1.${CIRCLE_BUILD_NUM}' >> $BASH_ENV
+            echo 'export IMAGE_NAME=feedspora' >> $BASH_ENV 
+
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -32,7 +38,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            # Hack/workaround to get latest shaarpy
+            # Hack/workaround to get latest shaarpy (should be in requirements.txt)
             pip install git+https://github.com/aurelg/shaarpy.git
             pip install -r requirements.txt
 
@@ -42,17 +48,22 @@ jobs:
           key: v1-dependencies-{{ checksum "requirements.txt" }}
         
       - run:
-          name: Install Application
+          name: Install feedspora Application
           command: |
             . venv/bin/activate
             python setup.py install
 
       - run:
-          name: Run Tests
+          name: Run pytest Tests
           command: |
             . venv/bin/activate
             pip install pytest
             pytest
+
+      - run:
+          name: Run Shell Tests
+          command: |
+            . venv/bin/activate
             (cd tests && ./run_tests.sh all)
 
       - run:
@@ -65,4 +76,17 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
+
+      # NOW it gets interesting!
+      - setup_remote_docker:
+          docker_layer_caching: true
+
+      - run:
+          name: Build And Push Docker Image
+          command: |
+            . venv/bin/activate
+            docker build -t $DOCKERHUB_USERNAME/$IMAGE_NAME:$TAG .
+            echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
+            docker push $DOCKERHUB_USERNAME/$IMAGE_NAME:$TAG
+
 
