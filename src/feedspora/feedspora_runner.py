@@ -292,6 +292,7 @@ class GenericClient:
 
         return self.output_test(output)
 
+    # pylint: disable=too-many-branches
     def shorten_url(self, the_url):
         '''
         Apply configured URL shortener (if present) to the provided link and
@@ -301,7 +302,6 @@ class GenericClient:
         # Default
         short_options = {'timeout': 3}
         short_options.update(self._url_shortener_opts)
-        # TODO: From client config (api_key, etc.)
         if the_url and self._url_shortener and (self._url_shortener != 'none'):
             try:
                 shortener = pyshorteners.Shortener(**short_options)
@@ -333,21 +333,26 @@ class GenericClient:
                     to_return = shortener.tinyurl.short(the_url)
                 else:
                     all_shorteners = ' '.join(shortener.available_shorteners)
-                    logging.error('URL shortener '+self._url_shortener+
-                                  ' is unimplemented!')
-                    logging.info('Available URL shorteners: '+all_shorteners)
+                    logging.error('URL shortener %s is unimplemented!',
+                                  self._url_shortener)
+                    logging.info('Available URL shorteners: %s',
+                                 all_shorteners)
                 # Sanity check!
-                if (len(to_return) > len(the_url)):
+                if len(to_return) > len(the_url):
                     # Not shorter?  You're fired!
-                    raise RuntimeError('Shortener '+self._url_shortener+
-                        ' produced a longer result than the original URL!')
+                    raise RuntimeError('Shortener %s produced a longer URL ' +
+                                       'than the original!',
+                                       self._url_shortener)
+            # pylint: disable=broad-except
             except Exception as exception:
                 # Shortening attempt failed - revert to non-shortened link
-                logging.error('Cannot shorten URL '+the_url+' with '+
-                              self._url_shortener+': '+str(exception))
+                logging.error('Cannot shorten URL %s with %s: %s',
+                              the_url, self._url_shortener, str(exception))
                 to_return = the_url
+            # pylint: enable=broad-except
 
         return to_return
+    # pylint: enable=too-many-branches
 
     def set_common_opts(self, account):
         '''
@@ -384,7 +389,7 @@ class GenericClient:
             self._post_suffix = account['post_suffix']
 
         if 'url_shortener' in account:
-            self._url_shortener = account['url_shortener'].capitalize()
+            self._url_shortener = account['url_shortener'].lower()
 
         if 'url_shortener_opts' in account:
             self._url_shortener_opts = account['url_shortener_opts']
