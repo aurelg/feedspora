@@ -341,10 +341,10 @@ class GenericClient:
                     # Not shorter?  You're fired!
                     raise RuntimeError('Shortener '+self._url_shortener+
                         ' produced a longer result than the original URL!')
-            except Exception as except:
+            except Exception as exception:
                 # Shortening attempt failed - revert to non-shortened link
                 logging.error('Cannot shorten URL '+the_url+' with '+
-                              self._url_shortener+': '+str(except))
+                              self._url_shortener+': '+str(exception))
                 to_return = the_url
 
         return to_return
