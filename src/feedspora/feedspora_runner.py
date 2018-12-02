@@ -488,7 +488,7 @@ class TweepyClient(GenericClient):
         """ Post entry to Twitter. """
 
         # Shorten the link URL if configured/possible
-        post_url = shorten_url(entry.link)
+        post_url = self.shorten_url(entry.link)
 
         # TODO: These should all be shortened too, right?
         putative_urls = re.findall(r'[a-zA-Z0-9]+\.[a-zA-Z]{2,3}', entry.title)
