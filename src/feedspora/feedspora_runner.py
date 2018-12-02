@@ -28,56 +28,16 @@ import diaspy.models
 import diaspy.streams
 import facebook
 import lxml.html
+import pyshorteners
 import requests
 import tweepy
 from bs4 import BeautifulSoup
 from linkedin import linkedin
 from mastodon import Mastodon
-from pyshorteners import Shortener
 from readability.readability import Document, Unparseable
 from shaarpy.shaarpy import Shaarpy
 from wordpress_xmlrpc import Client, WordPressPost
 from wordpress_xmlrpc.methods.posts import NewPost
-
-
-# TODO: Still additional shorteners to implement...
-# (see https://pypi.org/project/pyshorteners/)
-# (see also https://github.com/ellisonleao/pyshorteners/)
-# Note that none of the current shorteners below require any keys/tokens...
-def shorten_url(the_url, url_shortener):
-    """ Shorten urls """
-    to_return = the_url
-    _no_params_shorteners = [
-        'Chilpit',
-        'Clkru',
-        'Dagd',
-        'Isgd',
-        'Osdb',
-        'Qpsru',
-        'Readability',
-        'Sentala',
-        'Soogd',
-        'Tinyurl',
-    ]
-
-    if the_url and url_shortener and url_shortener != "None":
-        try:
-            if url_shortener in _no_params_shorteners:
-                shortener = Shortener(url_shortener, timeout=3)
-                to_return = shortener.short(the_url)
-        # except NotImplementedError as e:
-        #  Parameter advertised as existing, but RTEs say otherwise
-        #  Undoubtedly a pyshorteners version issue
-        #     logging.error("URL shortening error: {}".format(str(e)))
-        #     logging.info("Available URL shorteners: "+
-        #                  ' '.join(Shortener().available_shorteners))
-        except Exception as e:
-            # Shortening attempt failed - revert to non-shortened link
-            logging.error("Cannot shorten URL %s with %s: %s", the_url,
-                          url_shortener, str(e))
-            to_return = the_url
-
-    return to_return
 
 
 def trim_string(text, maxlen, etc='...', etc_if_shorter_than=None):
@@ -217,7 +177,9 @@ class GenericClient:
     # Special handling of default (0) value that allows unlimited postings
     _max_posts = 0
     _posts_done = 0
+    _keywords = []
     _url_shortener = None
+    _url_shortener_opts = {}
     _max_tags = 100
     _post_prefix = None
     _include_content = False
@@ -330,6 +292,103 @@ class GenericClient:
 
         return self.output_test(output)
 
+    def shorten_url(self, the_url):
+        '''
+        Apply configured URL shortener (if present) to the provided link and
+        return the result.  If anything goes awry, return the unmodified link.
+        '''
+        to_return = the_url
+        # Default
+        short_options = {'timeout': 3}
+        short_options.update(self._url_shortener_opts)
+        # TODO: From client config (api_key, etc.)
+        if the_url and self._url_shortener and (self._url_shortener != 'none'):
+            try:
+                shortener = pyshorteners.Shortener(**short_options)
+                if self._url_shortener == 'adfly':
+                    to_return = shortener.adfly.short(the_url)
+                elif self._url_shortener == 'bitly':
+                    to_return = shortener.bitly.short(the_url)
+                elif self._url_shortener == 'chilpit':
+                    to_return = shortener.chilpit.short(the_url)
+                elif self._url_shortener == 'clkru':
+                    to_return = shortener.clkru.short(the_url)
+                elif self._url_shortener == 'dagd':
+                    to_return = shortener.dagd.short(the_url)
+                elif self._url_shortener == 'isgd':
+                    to_return = shortener.isgd.short(the_url)
+                elif self._url_shortener == 'osdb':
+                    to_return = shortener.osdb.short(the_url)
+                elif self._url_shortener == 'owly':
+                    to_return = shortener.owly.short(the_url)
+                elif self._url_shortener == 'post':
+                    to_return = shortener.post.short(the_url)
+                elif self._url_shortener == 'qpsru':
+                    to_return = shortener.qpsru.short(the_url)
+                elif self._url_shortener == 'soogd':
+                    to_return = shortener.soogd.short(the_url)
+                elif self._url_shortener == 'tinycc':
+                    to_return = shortener.tinycc.short(the_url)
+                elif self._url_shortener == 'tinyurl':
+                    to_return = shortener.tinyurl.short(the_url)
+                else:
+                    all_shorteners = ' '.join(shortener.available_shorteners)
+                    logging.error('URL shortener '+self._url_shortener+
+                                  ' is unimplemented!')
+                    logging.info('Available URL shorteners: '+all_shorteners)
+                # Sanity check!
+                if (len(to_return) > len(the_url)):
+                    # Not shorter?  You're fired!
+                    raise RuntimeError('Shortener '+self._url_shortener+
+                        ' produced a longer result than the original URL!')
+            except Exception as except:
+                # Shortening attempt failed - revert to non-shortened link
+                logging.error('Cannot shorten URL '+the_url+' with '+
+                              self._url_shortener+': '+str(except))
+                to_return = the_url
+
+        return to_return
+
+    def set_common_opts(self, account):
+        '''
+        Set options common to all clients
+        '''
+
+        # Keywords
+        if 'keywords' in account:
+            self._keywords = [
+                word.strip() for word in account['keywords'].split(',')
+            ]
+
+        # Post/run limit. Negative value implies a seed-only operation.
+        if 'max_posts' in account:
+            self.set_max_posts(account['max_posts'])
+
+        if 'max_tags' in account:
+            self._max_tags = account['max_tags']
+
+        # Include content?
+        if 'post_include_content' in account:
+            self._include_content = account['post_include_content']
+
+        # Include media?
+        if 'post_include_media' in account:
+            self._include_media = account['post_include_media']
+
+        # Post prefix
+        if 'post_prefix' in account:
+            self._post_prefix = account['post_prefix']
+
+        # Post suffix
+        if 'post_suffix' in account:
+            self._post_suffix = account['post_suffix']
+
+        if 'url_shortener' in account:
+            self._url_shortener = account['url_shortener'].capitalize()
+
+        if 'url_shortener_opts' in account:
+            self._url_shortener_opts = account['url_shortener_opts']
+
 
 class FacebookClient(GenericClient):
     """ The FacebookClient handles the connection to Facebook. """
@@ -407,36 +466,7 @@ class TweepyClient(GenericClient):
         self._max_len = 280
         self._api = tweepy.API(auth)
 
-        # Post/run limit. Negative value implies a seed-only operation.
-
-        if 'max_posts' in account:
-            self.set_max_posts(account['max_posts'])
-
-        if 'max_tags' in account:
-            self._max_tags = account['max_tags']
-
-        if 'url_shortener' in account:
-            self._url_shortener = account['url_shortener'].capitalize()
-
-        # Post prefix
-
-        if 'post_prefix' in account:
-            self._post_prefix = account['post_prefix']
-
-        # Post suffix
-
-        if 'post_suffix' in account:
-            self._post_suffix = account['post_suffix']
-
-        # Include media?
-
-        if 'post_include_media' in account:
-            self._include_media = account['post_include_media']
-
-        # Include content?
-
-        if 'post_include_content' in account:
-            self._include_content = account['post_include_content']
+        self.set_common_opts(account)
 
     def test_output(self, text, media_path):
         '''
@@ -458,7 +488,7 @@ class TweepyClient(GenericClient):
         """ Post entry to Twitter. """
 
         # Shorten the link URL if configured/possible
-        post_url = shorten_url(entry.link, self._url_shortener)
+        post_url = shorten_url(entry.link)
 
         # TODO: These should all be shortened too, right?
         putative_urls = re.findall(r'[a-zA-Z0-9]+\.[a-zA-Z]{2,3}', entry.title)
@@ -477,6 +507,7 @@ class TweepyClient(GenericClient):
                 entry.content).text_content().strip()
 
         # Apply any tag limits specified
+        # TODO: This should move into mkrichtext
         used_keywords = entry.keywords
         if self._max_tags < len(used_keywords):
             used_keywords = used_keywords[:self._max_tags]
