@@ -843,7 +843,7 @@ class ShaarpyClient(GenericClient):
         if self.is_testing():
             if self.test_output(content, entry.link,
                                 entry.keywords, entry.title):
-                to_return = {'result': 'success}
+                to_return = {'result': 'success'}
         else:
             to_return = self._shaarpy.post_link(
                 entry.link,
