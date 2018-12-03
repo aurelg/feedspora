@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # encoding: utf-8
+# pylint: disable=too-many-lines
 '''
 FeedSpora is a bot that posts automatically RSS/Atom feeds to
 your social network account.
@@ -65,6 +66,7 @@ def trim_string(text, maxlen, etc='...', etc_if_shorter_than=None):
     return to_return
 
 
+# pylint: disable=too-many-locals
 def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
     '''
     Process the text to include hashtagged keywords and adhere to the specified
@@ -144,7 +146,7 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
             "{}:{} : {} > {}".format(text, to_return, len(to_return), maxlen)
 
     return to_return
-
+# pylint: enable=too-many-locals
 
 def get_filename_from_cd(content_disp):
     '''
@@ -186,6 +188,7 @@ def download_media(the_url):
 class GenericClient:
     ''' Implements the case functionalities expected from clients '''
 
+    # pylint: disable=too-many-instance-attributes
     _name = None
     # Special handling of default (0) value that allows unlimited postings
     _max_posts = 0
@@ -199,6 +202,7 @@ class GenericClient:
     _include_media = False
     _post_suffix = None
     _testing_root = None
+    # pylint: enable=too-many-instance-attributes
 
     def set_name(self, name):
         '''
@@ -288,6 +292,7 @@ class GenericClient:
 
         return self._testing_root is not None
 
+    # pylint: disable=no-self-use
     def output_test(self, text):
         '''
         Print output for testing purposes
@@ -296,12 +301,14 @@ class GenericClient:
         print(text)
 
         return True
+    # pylint: enable=no-self-use
 
-    def test_output(self, text):
+    def test_output(self, text, *args):
         '''
         Define output for testing purposes (potentially overridden on
         per-client basis - this is the default), then output that definition
         :param text:
+        :param args:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
                  'Content: '+text
@@ -659,6 +666,7 @@ class WPClient(GenericClient):
         except KeyError:
             pass
 
+    # pylint: disable=no-self-use
     def get_content(self, url):
         '''
         Retrieve URL content and parse it w/ readability if it's HTML
@@ -675,6 +683,7 @@ class WPClient(GenericClient):
                 pass
 
         return content
+    # pylint: enable=no-self-use
 
     def test_output(self, entry):
         '''
@@ -798,7 +807,7 @@ class ShaarpyClient(GenericClient):
             self._shaarpy.login(account['username'], account['password'],
                                 account['url'])
 
-    def test_output(self, link, keywords, title, text):
+    def test_output(self, text, link, keywords, title):
         '''
         Print output for testing purposes
         :param link:
@@ -828,14 +837,15 @@ class ShaarpyClient(GenericClient):
             pass
         # pylint: enable=broad-except
 
-        to_return = False
+        # Note non-boolean return type!
+        to_return = {}
 
         if self.is_testing():
-            to_return = self.test_output(entry.link, entry.keywords,
-                                         entry.title, content)
+            if self.test_output(content, entry.link,
+                                entry.keywords, entry.title):
+                to_return = {'result': 'success}
         else:
-            to_return = True
-            self._shaarpy.post_link(
+            to_return = self._shaarpy.post_link(
                 entry.link,
                 entry.keywords,
                 title=entry.title,
@@ -968,6 +978,7 @@ class FeedSpora:
         else:
             logging.info("Found database file %s", self._db_file)
 
+    # pylint: disable=no-self-use
     def entry_identifier(self, entry):
         '''
         Defines the identifier associated with the specified entry
@@ -980,6 +991,7 @@ class FeedSpora:
             to_return += ' ' + entry.published_date
 
         return to_return
+    # pylint: enable=no-self-use
 
     def is_already_published(self, entry, client):
         '''
@@ -1033,7 +1045,6 @@ class FeedSpora:
         logging.info('Publishing: %s', entry.title)
 
         for client in self._client:
-            # pylint: disable=broad-except
             if not self.is_already_published(entry, client):
                 try:
                     posted_to_client = client.post_within_limits(entry)
@@ -1078,6 +1089,7 @@ class FeedSpora:
 
         return BeautifulSoup(feed_content, 'html.parser')
 
+    # pylint: disable=no-self-use
     def get_keyword_list(self, title, content):
         '''
         Determine the list of keywords, in priority order from title and
@@ -1109,6 +1121,7 @@ class FeedSpora:
                     content = ''
 
         return content, keywords
+    # pylint: enable=no-self-use
 
     # Define generator for Atom
     def parse_atom(self, soup):
@@ -1155,6 +1168,7 @@ class FeedSpora:
                 fse.published_date = entry.find('published').text
             yield fse
 
+    # pylint: disable=no-self-use
     def find_rss_image_url(self, entry, link):
         '''
         Extract specified image URL, if it exists in the item (entry)
@@ -1193,6 +1207,7 @@ class FeedSpora:
                     else:
                         to_return = url_root+"/"+to_return
         return to_return
+    # pylint: enable=no-self-use
 
     # Define generator for RSS
     def parse_rss(self, soup):
