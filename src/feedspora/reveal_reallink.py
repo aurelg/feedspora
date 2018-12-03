@@ -9,19 +9,18 @@ new modified feed to make the "real" link available, instead of the default link
 is not relevant (see Atom feeds generated out of Diaspora).
 '''
 
-from bs4 import BeautifulSoup
 import sys
+from bs4 import BeautifulSoup
 
-srcfilename = sys.argv[1]
+source_filename = sys.argv[1]
 try:
-    with open(srcfilename) as srcfile:
-        soup = BeautifulSoup(srcfile, 'html.parser')
+    with open(source_filename) as source_file:
+        soup = BeautifulSoup(source_file, 'html.parser')
 except FileNotFoundError:
-    print("File "+srcfilename+ " not found.")
+    print("File "+source_filename+ " not found.")
 
 for entry in soup.find_all('entry'):
     content_soup = BeautifulSoup(entry.find('content').string, 'html.parser')
     entry.find('link')['href'] = content_soup.find('a')['href']
     entry.find('id').string = content_soup.find('a')['href']
     entry.find('title').string = content_soup.find('a').string
-

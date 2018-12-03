@@ -41,6 +41,14 @@ from wordpress_xmlrpc.methods.posts import NewPost
 
 
 def trim_string(text, maxlen, etc='...', etc_if_shorter_than=None):
+    '''
+    Trim the string to the specified length, using the etc notation to show
+    this has been done
+    :param text:
+    :param maxlen:
+    :param etc:
+    :param etc_if_shorter_than:
+    '''
     if len(text) < maxlen:
         to_return = text
     else:
@@ -61,9 +69,14 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
     '''
     Process the text to include hashtagged keywords and adhere to the specified
     maximum length.
+    :param text:
+    :param keywords:
+    :param maxlen:
+    :param etc:
+    :param separator:
     '''
-    def repl(m):
-        return '%s#%s%s' % (m.group(1), m.group(2), m.group(3))
+    def repl(match):
+        return '%s#%s%s' % (match.group(1), match.group(2), match.group(3))
 
     # Constants used in regex pattern generation
     # pylint: disable=anomalous-backslash-in-string
@@ -133,15 +146,16 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
     return to_return
 
 
-def get_filename_from_cd(cd):
-    """
+def get_filename_from_cd(content_disp):
+    '''
     Get filename from Content-Disposition
-    """
+    :param content_disp:
+    '''
 
     to_return = None
 
-    if cd:
-        fname = re.findall('filename=(.+)', cd)
+    if content_disp:
+        fname = re.findall('filename=(.+)', content_disp)
 
         if fname:
             to_return = fname[0]
@@ -150,13 +164,14 @@ def get_filename_from_cd(cd):
 
 
 def download_media(the_url):
-    """
+    '''
     Download the media file referenced by the_url
     Returns the path to the downloaded file
-    """
+    :param the_url:
+    '''
 
-    r = requests.get(the_url, allow_redirects=True)
-    filename = get_filename_from_cd(r.headers.get('Content-Disposition'))
+    request = requests.get(the_url, allow_redirects=True)
+    filename = get_filename_from_cd(request.headers.get('Content-Disposition'))
 
     if not filename:
         filename = 'random.jpg'
@@ -169,9 +184,7 @@ def download_media(the_url):
 
 
 class GenericClient:
-    '''
-    Implements the case functionalities expected from clients
-    '''
+    ''' Implements the case functionalities expected from clients '''
 
     _name = None
     # Special handling of default (0) value that allows unlimited postings
@@ -229,8 +242,8 @@ class GenericClient:
         '''
         to_return = False
 
-        if not self.is_post_limited(
-        ) or self._posts_done < self.get_max_posts():
+        if not self.is_post_limited() or \
+           self._posts_done < self.get_max_posts():
             to_return = self.post(entry_to_post)
 
             if to_return:
@@ -239,7 +252,10 @@ class GenericClient:
         return to_return
 
     def post(self, entry):
-        """ Placeholder for post, override it in subclasses """
+        '''
+        Placeholder for post, override it in subclasses
+        :param entry:
+        '''
         raise NotImplementedError("Please implement!")
 
     def seeding_published_db(self, item_num):
@@ -275,7 +291,7 @@ class GenericClient:
     def output_test(self, text):
         '''
         Print output for testing purposes
-        :param: text
+        :param text:
         '''
         print(text)
 
@@ -285,7 +301,7 @@ class GenericClient:
         '''
         Define output for testing purposes (potentially overridden on
         per-client basis - this is the default), then output that definition
-        :param: text
+        :param text:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
                  'Content: '+text
@@ -297,6 +313,7 @@ class GenericClient:
         '''
         Apply configured URL shortener (if present) to the provided link and
         return the result.  If anything goes awry, return the unmodified link.
+        :param the_url:
         '''
         to_return = the_url
         # Default
@@ -357,6 +374,7 @@ class GenericClient:
     def set_common_opts(self, account):
         '''
         Set options common to all clients
+        :param account:
         '''
 
         # Keywords
@@ -396,7 +414,7 @@ class GenericClient:
 
 
 class FacebookClient(GenericClient):
-    """ The FacebookClient handles the connection to Facebook. """
+    ''' The FacebookClient handles the connection to Facebook. '''
     # See https://stackoverflow.com/questions/11510850/
     #     python-facebook-api-need-a-working-example
     # https://github.com/pythonforfacebook/facebook-sdk
@@ -405,6 +423,11 @@ class FacebookClient(GenericClient):
     _post_as = None
 
     def __init__(self, account, testing):
+        '''
+        Initialize
+        :param account:
+        :param testing:
+        '''
         profile = None
 
         if not testing:
@@ -420,9 +443,9 @@ class FacebookClient(GenericClient):
     def test_output(self, text, attachment, post_as):
         '''
         Print output for testing purposes
-        :param: text
-        :param: attachment
-        :param: post_as
+        :param text:
+        :param attachment:
+        :param post_as:
         '''
         output = '>>> '+self.get_name()+' posting as '+post_as+':\n'+ \
                  'Name: '+attachment['name']+':\n'+ \
@@ -452,11 +475,15 @@ class FacebookClient(GenericClient):
 
 
 class TweepyClient(GenericClient):
-    """ The TweepyClient handles the connection to Twitter. """
+    ''' The TweepyClient handles the connection to Twitter. '''
     _api = None
 
     def __init__(self, account, testing):
-        """ Should be self-explaining. """
+        '''
+        Initialize
+        :param account:
+        :param testing:
+        '''
         # handle auth
         # See https://tweepy.readthedocs.org/en/v3.2.0/auth_tutorial.html
         # #auth-tutorial
@@ -476,8 +503,8 @@ class TweepyClient(GenericClient):
     def test_output(self, text, media_path):
         '''
         Print output for testing purposes
-        :param: text
-        :param: media_path
+        :param text:
+        :param media_path:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
                  'Content: '+text
@@ -490,12 +517,14 @@ class TweepyClient(GenericClient):
         return self.output_test(output)
 
     def post(self, entry):
-        """ Post entry to Twitter. """
+        '''
+        Post entry to Twitter.
+        :param entry:
+        '''
 
         # Shorten the link URL if configured/possible
         post_url = self.shorten_url(entry.link)
 
-        # TODO: These should all be shortened too, right?
         putative_urls = re.findall(r'[a-zA-Z0-9]+\.[a-zA-Z]{2,3}', entry.title)
         # Infer the 'inner links' Twitter may charge length for
         adjust_with_inner_links = self._link_cost + \
@@ -511,8 +540,10 @@ class TweepyClient(GenericClient):
             stripped_html = lxml.html.fromstring(
                 entry.content).text_content().strip()
 
+        # QUESTION: This should probably move into mkrichtext, but would
+        #           require mkrichtext to move within GenericClient (maybe
+        #           not a bad idea anyway)?
         # Apply any tag limits specified
-        # TODO: This should move into mkrichtext
         used_keywords = entry.keywords
         if self._max_tags < len(used_keywords):
             used_keywords = used_keywords[:self._max_tags]
@@ -553,11 +584,15 @@ class TweepyClient(GenericClient):
 
 
 class DiaspyClient(GenericClient):
-    """ The DiaspyClient handles the connection to Diaspora. """
+    ''' The DiaspyClient handles the connection to Diaspora. '''
     stream = None
 
     def __init__(self, account, testing):
-        """ Should be self-explaining. """
+        '''
+        Initialize
+        :param account:
+        :param testing:
+        '''
         connection = None
 
         if not testing:
@@ -581,7 +616,10 @@ class DiaspyClient(GenericClient):
             pass
 
     def post(self, entry):
-        """ Post entry to Diaspora. """
+        '''
+        Post entry to Diaspora.
+        :param entry:
+        '''
 
         text = '['+entry.title+']('+entry.link+')' \
             + ' | ' + ''.join([" #{}".format(k) for k in self.keywords]) \
@@ -600,11 +638,15 @@ class DiaspyClient(GenericClient):
 
 
 class WPClient(GenericClient):
-    """ The WPClient handles the connection to Wordpress. """
+    ''' The WPClient handles the connection to Wordpress. '''
     client = None
 
     def __init__(self, account, testing):
-        """ Should be self-explaining. """
+        '''
+        Initialize
+        :param account:
+        :param testing:
+        '''
 
         if not testing:
             self.client = Client(account['wpurl'], account['username'],
@@ -618,14 +660,17 @@ class WPClient(GenericClient):
             pass
 
     def get_content(self, url):
-        """ Retrieve URL content and parse it w/ readability if it's HTML """
-        r = requests.get(url)
+        '''
+        Retrieve URL content and parse it w/ readability if it's HTML
+        :param url:
+        '''
+        request = requests.get(url)
         content = ''
 
-        if r.status_code == requests.codes.ok and \
-           r.headers['Content-Type'].find('html') != -1:
+        if request.status_code == requests.codes.ok and \
+           request.headers['Content-Type'].find('html') != -1:
             try:
-                content = Document(r.text).summary()
+                content = Document(request.text).summary()
             except Unparseable:
                 pass
 
@@ -634,7 +679,7 @@ class WPClient(GenericClient):
     def test_output(self, entry):
         '''
         Print output for testing purposes
-        :param: text
+        :param text:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
                  'Title: '+entry.title+'\n'+ \
@@ -646,7 +691,10 @@ class WPClient(GenericClient):
         return self.output_test(output)
 
     def post(self, entry):
-        """ Post entry to Wordpress. """
+        '''
+        Post entry to Wordpress.
+        :param entry:
+        '''
 
         post_content = r"Source: <a href='{}'>{}</a><hr\>{}".format(
             entry.link,
@@ -672,11 +720,15 @@ class WPClient(GenericClient):
 
 
 class MastodonClient(GenericClient):
-    """ The MastodonClient handles the connection to Mastodon. """
+    ''' The MastodonClient handles the connection to Mastodon. '''
     _mastodon = None
 
     def __init__(self, account, testing):
-        """ Should be self-explaining. """
+        '''
+        Initialize
+        :param account:
+        :param testing:
+        '''
         client_id = account['client_id']
         client_secret = account['client_secret']
         access_token = account['access_token']
@@ -696,9 +748,9 @@ class MastodonClient(GenericClient):
     def test_output(self, text, delay, visibility):
         '''
         Print output for testing purposes
-        :param: delay
-        :param: visibility
-        :param: text
+        :param delay:
+        :param visibility:
+        :param text:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
                  'Delay: '+str(delay)+'\n'+ \
@@ -708,6 +760,10 @@ class MastodonClient(GenericClient):
         return self.output_test(output)
 
     def post(self, entry):
+        '''
+        Post entry to Mastadon
+        :param entry:
+        '''
         maxlen = 500 - len(entry.link) - 1
         text = mkrichtext(entry.title, entry.keywords, maxlen=maxlen)
         text += ' ' + entry.link
@@ -727,11 +783,15 @@ class MastodonClient(GenericClient):
 
 
 class ShaarpyClient(GenericClient):
-    """ The ShaarpyClient handles the connection to Shaarli. """
+    ''' The ShaarpyClient handles the connection to Shaarli. '''
     _shaarpy = None
 
     def __init__(self, account, testing):
-        """ Should be self-explaining. """
+        '''
+        Initialize
+        :param account:
+        :param testing:
+        '''
 
         if not testing:
             self._shaarpy = Shaarpy()
@@ -741,7 +801,10 @@ class ShaarpyClient(GenericClient):
     def test_output(self, link, keywords, title, text):
         '''
         Print output for testing purposes
-        :param: text
+        :param link:
+        :param keywords:
+        :param title:
+        :param text:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
                  'Title: '+title+'\n'+ \
@@ -752,12 +815,18 @@ class ShaarpyClient(GenericClient):
         return self.output_test(output)
 
     def post(self, entry):
+        '''
+        Post entry to Shaarli
+        :param entry:
+        '''
         content = entry.content
+        # pylint: disable=broad-except
         try:
             soup = BeautifulSoup(entry.content, 'html.parser')
             content = soup.text
         except Exception:
             pass
+        # pylint: enable=broad-except
 
         to_return = False
 
@@ -765,7 +834,8 @@ class ShaarpyClient(GenericClient):
             to_return = self.test_output(entry.link, entry.keywords,
                                          entry.title, content)
         else:
-            to_return = self._shaarpy.post_link(
+            to_return = True
+            self._shaarpy.post_link(
                 entry.link,
                 entry.keywords,
                 title=entry.title,
@@ -775,12 +845,16 @@ class ShaarpyClient(GenericClient):
 
 
 class LinkedInClient(GenericClient):
-    """ The LinkedInClient handles the connection to LinkedIn. """
+    ''' The LinkedInClient handles the connection to LinkedIn. '''
     _linkedin = None
     _visibility = None
 
     def __init__(self, account, testing):
-        """ Should be self-explaining. """
+        '''
+        Initialize
+        :param account:
+        :param testing:
+        '''
 
         if not testing:
             self._linkedin = linkedin.LinkedInApplication(
@@ -790,8 +864,8 @@ class LinkedInClient(GenericClient):
     def test_output(self, entry, visibility):
         '''
         Print output for testing purposes
-        :param: entry
-        :param: visibility
+        :param entry:
+        :param visibility:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
                  'Title: '+trim_string(entry.title, 200)+'\n'+ \
@@ -803,6 +877,10 @@ class LinkedInClient(GenericClient):
         return self.output_test(output)
 
     def post(self, entry):
+        '''
+        Post entry to LinkedIn
+        :param entry:
+        '''
         to_return = False
 
         if self.is_testing():
@@ -819,9 +897,11 @@ class LinkedInClient(GenericClient):
 
 
 class FeedSporaEntry:
-    """ A FeedSpora entry.
+    '''
+    A FeedSpora entry.
     This class is generated from each entry/item in an Atom/RSS feed,
-    then posted to your client accounts """
+    then posted to your client accounts
+    '''
     title = ''
     link = ''
     published_date = None
@@ -831,7 +911,7 @@ class FeedSporaEntry:
 
 
 class FeedSpora:
-    """ FeedSpora itself. """
+    ''' FeedSpora itself. '''
 
     _client = None
     _feed_urls = None
@@ -842,27 +922,40 @@ class FeedSpora:
           "Firefox/42.0"
 
     def __init__(self):
+        '''
+        Initialize
+        '''
         logging.basicConfig(level=logging.INFO)
 
     def set_feed_urls(self, feed_urls):
-        """ Set feeds URL """
+        '''
+        Set feeds URL
+        :param feed_urls:
+        '''
         self._feed_urls = feed_urls
 
     def set_db_file(self, db_file):
-        """ Set database file to track entries that have been already
-            published """
+        '''
+        Set database file to track entries that have been already published
+        :param db_file:
+        '''
         self._db_file = db_file
 
     def connect(self, client):
-        """ Connects to your account. """
+        '''
+        Connects to your account.
+        :param client:
+        '''
 
         if self._client is None:
             self._client = []
         self._client.append(client)
 
     def _init_db(self):
-        """ Initialize the connection to the database.
-        It also creates the table if the file does not exist yet."""
+        '''
+        Initialize the connection to the database.
+        It also creates the table if the file does not exist yet.
+        '''
         should_init = not os.path.exists(self._db_file)
         self._conn = sqlite3.connect(self._db_file)
         self._cur = self._conn.cursor()
@@ -876,7 +969,10 @@ class FeedSpora:
             logging.info("Found database file %s", self._db_file)
 
     def entry_identifier(self, entry):
-        """ Defines the identifier associated with the specified entry """
+        '''
+        Defines the identifier associated with the specified entry
+        :param entry:
+        '''
         # Unique item formed of link data, perhaps with published date
         to_return = entry.link
 
@@ -886,9 +982,12 @@ class FeedSpora:
         return to_return
 
     def is_already_published(self, entry, client):
-        """ Checks if a FeedSporaEntry has already been published.
+        '''
+        Checks if a FeedSporaEntry has already been published.
         It checks if it's already in the database of published items.
-        """
+        :param entry:
+        :param client:
+        '''
         pub_item = self.entry_identifier(entry)
         sql = "SELECT id from posts WHERE feedspora_id=:feedspora_id AND "\
               "client_id=:client_id"
@@ -899,25 +998,33 @@ class FeedSpora:
         already_published = self._cur.fetchone() is not None
 
         if already_published:
-            logging.info('Skipping already published entry in ' +
-                         client.get_name() + ': ' + entry.title)
+            logging.info('Skipping already published entry in %s: %s',
+                         client.get_name(), entry.title)
         else:
-            logging.info('Found entry to publish in ' + client.get_name() +
-                         ': ' + entry.title)
+            logging.info('Found entry to publish in %s: %s',
+                         client.get_name(), entry.title)
 
         return already_published
 
     def add_to_published_entries(self, entry, client):
-        """ Add a FeedSporaEntries to the database of published items. """
+        '''
+        Add a FeedSporaEntries to the database of published items.
+        :param entry:
+        :param client:
+        '''
         pub_item = self.entry_identifier(entry)
-        logging.info('Storing in database of published items: ' + pub_item)
+        logging.info('Storing in database of published items: %s', pub_item)
         self._cur.execute(
             "INSERT INTO posts (feedspora_id, client_id) "
             "values (?,?)", (pub_item, client.get_name()))
         self._conn.commit()
 
     def _publish_entry(self, item_num, entry):
-        """ Publish a FeedSporaEntry to your all your registered account. """
+        '''
+        Publish a FeedSporaEntry to your all your registered account.
+        :param item_num:
+        :param entry:
+        '''
 
         if self._client is None:
             logging.error("No client found, aborting publication")
@@ -926,6 +1033,7 @@ class FeedSpora:
         logging.info('Publishing: %s', entry.title)
 
         for client in self._client:
+            # pylint: disable=broad-except
             if not self.is_already_published(entry, client):
                 try:
                     posted_to_client = client.post_within_limits(entry)
@@ -945,11 +1053,13 @@ class FeedSpora:
                             "Error while storing '%s' to client"
                             "'%s' : %s", entry.title,
                             client.__class__.__name__, format(error))
+            # pylint: enable=broad-except
 
     def retrieve_feed_soup(self, feed_url):
-        """ Retrieve and parse the specified feed.
+        '''
+        Retrieve and parse the specified feed.
         :param feed_url: can either be a URL or a path to a local file
-        """
+        '''
         feed_content = None
         try:
             logging.info("Trying to read %s as a file.", feed_url)
@@ -969,10 +1079,12 @@ class FeedSpora:
         return BeautifulSoup(feed_content, 'html.parser')
 
     def get_keyword_list(self, title, content):
-        """
+        '''
         Determine the list of keywords, in priority order from title and
         content (content may be modified by this operation)
-        """
+        :param title:
+        :param content:
+        '''
         keywords = []
         # Add keywords from title
         for word in title.split():
@@ -1000,7 +1112,10 @@ class FeedSpora:
 
     # Define generator for Atom
     def parse_atom(self, soup):
-        """ Generate FeedSpora entries out of an Atom feed. """
+        '''
+        Generate FeedSpora entries out of an Atom feed.
+        :param soup:
+        '''
 
         for entry in soup.find_all('entry')[::-1]:
             fse = FeedSporaEntry()
@@ -1043,8 +1158,8 @@ class FeedSpora:
     def find_rss_image_url(self, entry, link):
         '''
         Extract specified image URL, if it exists in the item (entry)
-        :param: entry
-        :param: link
+        :param entry:
+        :param link:
         '''
         def content_img_src(entity):
             result = None
@@ -1081,7 +1196,10 @@ class FeedSpora:
 
     # Define generator for RSS
     def parse_rss(self, soup):
-        """ Generate FeedSpora entries out of a RSS feed. """
+        '''
+        Generate FeedSpora entries out of an RSS feed.
+        :param soup:
+        '''
 
         for entry in soup.find_all('item')[::-1]:
             fse = FeedSporaEntry()
@@ -1115,16 +1233,19 @@ class FeedSpora:
             yield fse
 
     def _process_feed(self, feed_url):
-        """ Handle RSS/Atom feed
+        '''
+        Handle RSS/Atom feed
         It retrieves the feed content and publish entries that haven't been
-        published yet. """
+        published yet.
+        :param feed_url:
+        '''
         # get feed content
         try:
             soup = self.retrieve_feed_soup(feed_url)
         except (HTTPError, ValueError, OSError,
                 urllib.error.URLError) as error:
-            logging.error("Error while reading feed at " + feed_url + ": " +
-                          format(error))
+            logging.error("Error while reading feed at %s: %s",
+                          feed_url, format(error))
 
             return
 
@@ -1145,8 +1266,10 @@ class FeedSpora:
             self._publish_entry(entry_count, entry)
 
     def run(self):
-        """ Run FeedSpora: initialize the database and process the list of
-            feed URLs. """
+        '''
+        Run FeedSpora: initialize the database and process the list of
+        feed URLs.
+        '''
 
         if not self._client:
             logging.error("No client found, aborting publication")
