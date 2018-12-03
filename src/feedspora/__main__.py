@@ -18,7 +18,10 @@ from feedspora.feedspora_runner import LinkedInClient  # @UnusedImport
 # pylint: enable=unused-import
 
 def read_config_file(filename):
-    """ Loads the YML configuration file. """
+    '''
+    Loads the YML configuration file.
+    :param filename:
+    '''
     from yaml import load
     error = ''
     try:
@@ -28,24 +31,8 @@ def read_config_file(filename):
         error = format(excpt)
     raise Exception("Couldn't load config file "+filename+":\n"+error)
 
-
-if __name__ == '__main__':
-    # Parse input args
-    arg_parser = argparse.ArgumentParser(
-        description='Post from Atom/RSS feeds to various client types.')
-    arg_parser.add_argument('-t', '--testing', nargs='?',
-                        const='feedspora', default=None,
-                        help='execute test runs; no actual posting done')
-    parsed_args = arg_parser.parse_args()
-
-    # root name of config and DB files, optionally modified by the --testing
-    # argument value (if present)
-    root_name = parsed_args.testing if parsed_args.testing else 'feedspora'
-
-    run_config = read_config_file(root_name+'.yml')
-    feedspora_main = FeedSpora()
-    feedspora_main.set_feed_urls(run_config['feeds'])
-
+def main():
+    '''Entry point if called as an executable'''
     def connect_account(account, testing):
         '''
         Initialize a client for the specified account
@@ -61,12 +48,31 @@ if __name__ == '__main__':
             client.set_testing_root(testing)
             feedspora.connect(client)
         except Exception as exception:
-            logging.error('Cannot connect {} : {}',
+            logging.error('Cannot connect %s : %s',
                           account['name'], str(exception))
         # pylint: enable=broad-except
 
-    for account in run_config['accounts']:
+    # Parse input args
+    parser = argparse.ArgumentParser(
+        description='Post from Atom/RSS feeds to various client types.')
+    parser.add_argument('-t', '--testing', nargs='?',
+                        const='feedspora', default=None,
+                        help='execute test runs; no actual posting done')
+    args = parser.parse_args()
+
+    # root name of config and DB files, optionally modified by the --testing
+    # argument value (if present)
+    root_name = args.testing if args.testing else 'feedspora'
+
+    config = read_config_file(root_name+'.yml')
+    feedspora = FeedSpora()
+    feedspora.set_feed_urls(config['feeds'])
+
+    for account in config['accounts']:
         if 'enabled' not in account or account['enabled']:
-            connect_account(account, parsed_args.testing)
+            connect_account(account, args.testing)
     feedspora.set_db_file(root_name+'.db')
     feedspora.run()
+
+if __name__ == '__main__':
+    main()

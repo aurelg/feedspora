@@ -178,7 +178,7 @@ def download_media(the_url):
     media_dir = os.getenv('MEDIA_DIR', '/tmp')
     full_path = media_dir + '/' + filename
     logging.info("Downloading %s as %s...", the_url, full_path)
-    open(full_path, 'wb').write(r.content)
+    open(full_path, 'wb').write(request.content)
 
     return full_path
 
@@ -586,6 +586,7 @@ class TweepyClient(GenericClient):
 class DiaspyClient(GenericClient):
     ''' The DiaspyClient handles the connection to Diaspora. '''
     stream = None
+    connection = None
 
     def __init__(self, account, testing):
         '''
@@ -593,8 +594,6 @@ class DiaspyClient(GenericClient):
         :param account:
         :param testing:
         '''
-        connection = None
-
         if not testing:
             self.connection = diaspy.connection.Connection(
                 pod=account['pod'],
@@ -604,8 +603,9 @@ class DiaspyClient(GenericClient):
             try:
                 self.stream = diaspy.streams.Stream(self.connection,
                                                     'stream.json')
-            except diaspy.errors.PostError as e:
-                logging.error("Cannot get diaspy stream: %s", str(e))
+            except diaspy.errors.PostError as exception:
+                logging.error("Cannot get diaspy stream: %s",
+                              str(exception))
                 self.stream = None
         self.keywords = []
         try:
