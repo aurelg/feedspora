@@ -9,5 +9,5 @@ python-wordpress-xmlrpc
 python3-linkedin
 PyYAML
 readability
-shaarpy
+git+https://github.com/aurelg/shaarpy.git
 tweepy

@@ -6,7 +6,6 @@ ENV MEDIA_DIR $DATA_DIR/media
 RUN \
   mkdir $DATA_DIR \
   && mkdir -p $MEDIA_DIR \
-  && pip install git+https://github.com/aurelg/shaarpy.git \
   && git clone https://github.com/aurelg/feedspora.git \
   && cd feedspora \
   && pip install -r requirements.txt \

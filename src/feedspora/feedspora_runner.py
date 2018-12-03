@@ -303,15 +303,14 @@ class GenericClient:
         return True
     # pylint: enable=no-self-use
 
-    def test_output(self, text, *args):
+    def test_output(self, **kwargs):
         '''
         Define output for testing purposes (potentially overridden on
         per-client basis - this is the default), then output that definition
-        :param text:
-        :param args:
+        :param kwargs:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Content: '+text
+                 'Content: '+kwargs['text']
 
         return self.output_test(output)
 
@@ -447,17 +446,15 @@ class FacebookClient(GenericClient):
         elif not testing:
             self._post_as = profile['id']
 
-    def test_output(self, text, attachment, post_as):
+    def test_output(self, **kwargs):
         '''
         Print output for testing purposes
-        :param text:
-        :param attachment:
-        :param post_as:
+        :param kwargs:
         '''
-        output = '>>> '+self.get_name()+' posting as '+post_as+':\n'+ \
-                 'Name: '+attachment['name']+':\n'+ \
-                 'Link: '+attachment['link']+':\n'+ \
-                 'Content: '+text
+        output = '>>> '+self.get_name()+' posting as '+self._post_as+':\n'+ \
+                 'Name: '+kwargs['attachment']['name']+':\n'+ \
+                 'Link: '+kwargs['attachment']['link']+':\n'+ \
+                 'Content: '+kwargs['text']
 
         return self.output_test(output)
 
@@ -473,7 +470,8 @@ class FacebookClient(GenericClient):
         to_return = False
 
         if self.is_testing():
-            to_return = self.test_output(text, attachment, self._post_as)
+            to_return = self.test_output({'text': text,
+                                          'attachment': attachment})
         else:
             to_return = self._graph.put_wall_post(text, attachment,
                                                   self._post_as)
@@ -507,7 +505,7 @@ class TweepyClient(GenericClient):
 
         self.set_common_opts(account)
 
-    def test_output(self, text, media_path):
+    def test_output(self, text, media_path): # pylint: disable=arguments-differ
         '''
         Print output for testing purposes
         :param text:
@@ -637,7 +635,7 @@ class DiaspyClient(GenericClient):
             to_return = self.stream.post(
                 text, aspect_ids='public', provider_display_name='FeedSpora')
         elif self.is_testing():
-            to_return = self.test_output(text)
+            to_return = self.test_output({'text': text})
         else:
             logging.info("Diaspy stream is None, not posting anything")
 
@@ -685,7 +683,7 @@ class WPClient(GenericClient):
         return content
     # pylint: enable=no-self-use
 
-    def test_output(self, entry):
+    def test_output(self, entry): # pylint: disable=arguments-differ
         '''
         Print output for testing purposes
         :param text:
@@ -754,7 +752,7 @@ class MastodonClient(GenericClient):
             account['visibility'] not in ['public', 'unlisted', 'private'] \
             else account['visibility']
 
-    def test_output(self, text, delay, visibility):
+    def test_output(self, text, delay, visibility): # pylint: disable=arguments-differ
         '''
         Print output for testing purposes
         :param delay:
@@ -807,7 +805,7 @@ class ShaarpyClient(GenericClient):
             self._shaarpy.login(account['username'], account['password'],
                                 account['url'])
 
-    def test_output(self, text, link, keywords, title):
+    def test_output(self, text, link, keywords, title): # pylint: disable=arguments-differ
         '''
         Print output for testing purposes
         :param link:
@@ -871,7 +869,7 @@ class LinkedInClient(GenericClient):
                 token=account['authentication_token'])
         self._visibility = account['visibility']
 
-    def test_output(self, entry, visibility):
+    def test_output(self, entry, visibility): # pylint: disable=arguments-differ
         '''
         Print output for testing purposes
         :param entry:
@@ -906,6 +904,7 @@ class LinkedInClient(GenericClient):
         return to_return
 
 
+# pylint: disable=too-few-public-methods
 class FeedSporaEntry:
     '''
     A FeedSpora entry.
@@ -918,6 +917,7 @@ class FeedSporaEntry:
     content = ''
     keywords = None
     media_url = None
+# pylint: enable=too-few-public-methods
 
 
 class FeedSpora:
@@ -1045,6 +1045,7 @@ class FeedSpora:
         logging.info('Publishing: %s', entry.title)
 
         for client in self._client:
+            # pylint: disable=broad-except
             if not self.is_already_published(entry, client):
                 try:
                     posted_to_client = client.post_within_limits(entry)
