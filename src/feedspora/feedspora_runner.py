@@ -470,11 +470,12 @@ class FacebookClient(GenericClient):
         to_return = False
 
         if self.is_testing():
-            to_return = self.test_output({'text': text,
-                                          'attachment': attachment})
+            to_return = self.test_output(text=text, attachment=attachment)
         else:
+            # pylint: disable=no-member
             to_return = self._graph.put_wall_post(text, attachment,
                                                   self._post_as)
+            # pylint: enable=no-member
 
         return to_return
 
@@ -505,17 +506,16 @@ class TweepyClient(GenericClient):
 
         self.set_common_opts(account)
 
-    def test_output(self, text, media_path): # pylint: disable=arguments-differ
+    def test_output(self, **kwargs):
         '''
         Print output for testing purposes
-        :param text:
-        :param media_path:
+        :param kwargs:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Content: '+text
+                 'Content: '+kwargs['text']
 
-        if media_path:
-            output += '\nMedia: ' + media_path
+        if kwargs['media_path']:
+            output += '\nMedia: '+kwargs['media_path']
         else:
             output += '\nMedia: None'
 
@@ -579,7 +579,7 @@ class TweepyClient(GenericClient):
 
         to_return = False
         if self.is_testing():
-            to_return = self.test_output(text, media_path)
+            to_return = self.test_output(text=text, media_path=media_path)
         elif media_path:
             to_return = self._api.update_with_media(media_path, text)
         else:
@@ -632,10 +632,12 @@ class DiaspyClient(GenericClient):
         to_return = True
 
         if self.stream:
+            # pylint: disable=no-member
             to_return = self.stream.post(
                 text, aspect_ids='public', provider_display_name='FeedSpora')
+            # pylint: enable=no-member
         elif self.is_testing():
-            to_return = self.test_output({'text': text})
+            to_return = self.test_output(text=text)
         else:
             logging.info("Diaspy stream is None, not posting anything")
 
@@ -673,27 +675,29 @@ class WPClient(GenericClient):
         request = requests.get(url)
         content = ''
 
+        # pylint: disable=no-member
         if request.status_code == requests.codes.ok and \
            request.headers['Content-Type'].find('html') != -1:
             try:
                 content = Document(request.text).summary()
             except Unparseable:
                 pass
+        # pylint: enable=no-member
 
         return content
     # pylint: enable=no-self-use
 
-    def test_output(self, entry): # pylint: disable=arguments-differ
+    def test_output(self, **kwargs):
         '''
         Print output for testing purposes
-        :param text:
+        :param kwargs:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Title: '+entry.title+'\n'+ \
-                 'post_tag: '+', '.join(entry.keywords)+'\n'+ \
+                 'Title: '+kwargs['entry'].title+'\n'+ \
+                 'post_tag: '+', '.join(kwargs['entry'].keywords)+'\n'+ \
                  'category: AutomatedPost\n'+ \
                  'status: publish\n'+ \
-                 'Content: <as captured from '+entry.link+'>'
+                 'Content: <as captured from '+kwargs['entry'].link+'>'
 
         return self.output_test(output)
 
@@ -709,7 +713,7 @@ class WPClient(GenericClient):
         to_return = False
 
         if self.is_testing():
-            to_return = self.test_output(entry)
+            to_return = self.test_output(entry=entry)
         else:
             # get text with readability
             post = WordPressPost()
@@ -752,17 +756,15 @@ class MastodonClient(GenericClient):
             account['visibility'] not in ['public', 'unlisted', 'private'] \
             else account['visibility']
 
-    def test_output(self, text, delay, visibility): # pylint: disable=arguments-differ
+    def test_output(self, **kwargs):
         '''
         Print output for testing purposes
-        :param delay:
-        :param visibility:
-        :param text:
+        :param kwargs:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Delay: '+str(delay)+'\n'+ \
-                 'Visibility: '+visibility+'\n'+ \
-                 'Content: '+text
+                 'Delay: '+str(self._delay)+'\n'+ \
+                 'Visibility: '+self._visibility+'\n'+ \
+                 'Content: '+kwargs['text']
 
         return self.output_test(output)
 
@@ -778,7 +780,7 @@ class MastodonClient(GenericClient):
         to_return = False
 
         if self.is_testing():
-            to_return = self.test_output(text, self._delay, self._visibility)
+            to_return = self.test_output(text=text)
         else:
             if self._delay > 0:
                 time.sleep(self._delay)
@@ -805,19 +807,16 @@ class ShaarpyClient(GenericClient):
             self._shaarpy.login(account['username'], account['password'],
                                 account['url'])
 
-    def test_output(self, text, link, keywords, title): # pylint: disable=arguments-differ
+    def test_output(self, **kwargs):
         '''
         Print output for testing purposes
-        :param link:
-        :param keywords:
-        :param title:
-        :param text:
+        :param kwargs:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Title: '+title+'\n'+ \
-                 'Link: '+link+'\n'+ \
-                 'Keywords: '+', '.join(keywords)+'\n'+ \
-                 'Content: '+text
+                 'Title: '+kwargs['entry'].title+'\n'+ \
+                 'Link: '+kwargs['entry'].link+'\n'+ \
+                 'Keywords: '+', '.join(kwargs['entry'].keywords)+'\n'+ \
+                 'Content: '+kwargs['text']
 
         return self.output_test(output)
 
@@ -839,15 +838,18 @@ class ShaarpyClient(GenericClient):
         to_return = {}
 
         if self.is_testing():
-            if self.test_output(content, entry.link,
-                                entry.keywords, entry.title):
+            if self.test_output(text=content, entry=entry):
                 to_return = {'result': 'success'}
         else:
+            # pylint: disable=assignment-from-no-return
+            # pylint: disable=unexpected-keyword-arg
             to_return = self._shaarpy.post_link(
                 entry.link,
                 entry.keywords,
                 title=entry.title,
                 desc=content)
+            # pylint: enable=assignment-from-no-return
+            # pylint: enable=unexpected-keyword-arg
 
         return to_return
 
@@ -869,18 +871,19 @@ class LinkedInClient(GenericClient):
                 token=account['authentication_token'])
         self._visibility = account['visibility']
 
-    def test_output(self, entry, visibility): # pylint: disable=arguments-differ
+    def test_output(self, **kwargs):
         '''
         Print output for testing purposes
-        :param entry:
-        :param visibility:
+        :param kwargs:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Title: '+trim_string(entry.title, 200)+'\n'+ \
-                 'Link: '+entry.link+'\n'+ \
-                 'Visibility: '+visibility+'\n'+ \
-                 'Description: '+trim_string(entry.title, 256)+'\n'+ \
-                 'Comment: '+mkrichtext(entry.title, entry.keywords, maxlen=700)
+                 'Title: '+trim_string(kwargs['entry'].title, 200)+'\n'+ \
+                 'Link: '+kwargs['entry'].link+'\n'+ \
+                 'Visibility: '+self._visibility+'\n'+ \
+                 'Description: '+trim_string(kwargs['entry'].title, 256)+'\n'+ \
+                 'Comment: '+mkrichtext(kwargs['entry'].title,
+                                        kwargs['entry'].keywords,
+                                        maxlen=700)
 
         return self.output_test(output)
 
@@ -892,7 +895,7 @@ class LinkedInClient(GenericClient):
         to_return = False
 
         if self.is_testing():
-            to_return = self.test_output(entry, self._visibility)
+            to_return = self.test_output(entry=entry)
         else:
             to_return = self._linkedin.submit_share(
                 comment=mkrichtext(entry.title, entry.keywords, maxlen=700),
