@@ -65,6 +65,7 @@ jobs:
           command: |
             . venv/bin/activate
             (cd tests && ./run_tests.sh all)
+            cp tests/*/*.{err,diff,log} test-reports
 
       - run:
           name: Run Analytics
@@ -85,8 +86,12 @@ jobs:
           name: Build And Push Docker Image
           command: |
             . venv/bin/activate
-            docker build -t $DOCKERHUB_USERNAME/$IMAGE_NAME:$TAG .
+            docker build --build-arg GIT_REPO=$CIRCLE_REPOSITORY_URL \
+                         --build-arg GIT_REPO_REV=$CIRCLE_SHA1 \
+                         -t $DOCKERHUB_USERNAME/$IMAGE_NAME:latest \
+                         -t $DOCKERHUB_USERNAME/$IMAGE_NAME:$TAG .
             docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
             docker push $DOCKERHUB_USERNAME/$IMAGE_NAME:$TAG
+            docker push $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
 
 

@@ -632,10 +632,10 @@ class DiaspyClient(GenericClient):
         to_return = True
 
         if self.stream:
-            # pylint: disable=no-member
+            # pylint: disable=unexpected-keyword-arg
             to_return = self.stream.post(
                 text, aspect_ids='public', provider_display_name='FeedSpora')
-            # pylint: enable=no-member
+            # pylint: enable=unexpected-keyword-arg
         elif self.is_testing():
             to_return = self.test_output(text=text)
         else:
