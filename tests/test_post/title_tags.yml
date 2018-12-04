@@ -1,0 +1,45 @@
+accounts:
+
+  - name: 'Diaspora_basic'
+    type: 'DiaspyClient'
+    pod: 'diaspora_pod_url'
+    username: 'username'
+    password: 'password'
+
+  - name: 'Twitter_basic'
+    type: 'TweepyClient'
+    consumer_token: 'my_consumer_token'
+    consumer_secret: 'my_consumer_secret'
+    access_token: 'my_access_token'
+    access_token_secret: 'my_access_token_secret'
+
+  - name: 'Facebook_basic'
+    type: 'FacebookClient'
+    token: 'your_facebook_token'
+
+  - name: 'Mastodon_basic'
+    type: 'MastodonClient'
+    client_id: 'client_key'
+    client_secret: 'client_secret'
+    access_token: 'access_token'
+    url: 'base_url_mastodon'
+
+  - name: 'Shaarpy_basic'
+    type: 'ShaarpyClient'
+    username: 'shaarli username'
+    password: 'shaarli password'
+    url: 'https://shaarli_url/u/shaarli_username/'
+
+  - name: 'WordPress_basic'
+    type: 'WPClient'
+    wpurl: 'some_random_url'
+    username: 'username'
+    password: 'password'
+
+  - name: 'LinkedIn_basic'
+    type: 'LinkedInClient'
+    authentication_token: 'authentication_token'
+    visibility: 'anyone'
+
+feeds:
+  - 'title_tags.atom'

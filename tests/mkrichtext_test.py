@@ -54,3 +54,59 @@ def test_mkrichtext_case(testcases):
         output1 = mkrichtext(text, keywords, 500)
         output2 = mkrichtext(text.upper(), keywords, 500)
         assert output1.upper() == output2.upper()
+
+def test_mkrichtext_tags():
+    '''
+    Test the proper handling and application of hashtags
+    '''
+    testcases = {
+                     'No Tags, No Keywords': {
+                         'keywords': [],
+                         'expected': 'No Tags, No Keywords'
+                     },
+                     'One #Tag, No Keywords': {
+                         'keywords': [],
+                         'expected': 'One #Tag, No Keywords'
+                     },
+                     'One #Tag, Unrelated Keyword': {
+                         'keywords': ['appended'],
+                         'expected': 'One #Tag, Unrelated Keyword | #appended'
+                     },
+                     'One #Tag, Duplicate Keyword': {
+                         'keywords': ['tag'],
+                         'expected': 'One #Tag, Duplicate Keyword'
+                     },
+                     'One #Tag, Keyword In Title': {
+                         'keywords': ['keyword'],
+                         'expected': 'One #Tag, #Keyword In Title'
+                     },
+                     'tag-text-embedded In Title': {
+                         'keywords': ['tag', 'embedded'],
+                         'expected': 'tag-text-embedded In Title | #tag #embedded'
+                     },
+                     'Tags at beginning and end': {
+                         'keywords': ['tags', 'end'],
+                         'expected': '#Tags at beginning and #end'
+                     },
+                     'Tags within "quotes" and parens (tricky)': {
+                         'keywords': ['quotes', 'tricky'],
+                         'expected': 'Tags within "#quotes" and parens (#tricky)'
+                     },
+                     'Tags in red/white/blue': {
+                         'keywords': ['red', 'white', 'blue'],
+                         'expected': 'Tags in #red/#white/#blue'
+                     },
+                     'Tag before comma, before period.': {
+                         'keywords': ['comma', 'period'],
+                         'expected': 'Tag before #comma, before #period.'
+                     },
+                     '#Bad-tag retained (not bad, eh?)': {
+                         'keywords': ['bad', 'eh'],
+                         'expected': '#Bad-tag retained (not #bad, #eh?)'
+                     },
+                }
+    for input in testcases:
+        keywords = testcases[input]['keywords']
+        expected = testcases[input]['expected']
+        output = mkrichtext(input, keywords, 500)
+        assert output == expected
