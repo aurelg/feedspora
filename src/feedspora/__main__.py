@@ -4,6 +4,7 @@ Created on Nov 2, 2015
 @author: Aurelien Grosdidier
 @contact: aurelien.grosdidier@gmail.com
 '''
+import argparse
 import logging
 from feedspora.feedspora_runner import FeedSpora
 from feedspora.feedspora_runner import DiaspyClient  # @UnusedImport
@@ -28,26 +29,40 @@ def read_config_file(filename):
 
 
 if __name__ == '__main__':
-    config = read_config_file('feedspora.yml')
+    # Parse input args
+    parser = argparse.ArgumentParser(
+        description='Post from Atom/RSS feeds to various client types.')
+    parser.add_argument('-t', '--testing', nargs='?',
+                        const='feedspora', default=None,
+                        help='execute test runs; no actual posting done')
+    args = parser.parse_args()
+
+    # root name of config and DB files, optionally modified by the --testing
+    # argument value (if present)
+    root_name = args.testing if args.testing else 'feedspora'
+    
+    config = read_config_file(root_name+'.yml')
     feedspora = FeedSpora()
     feedspora.set_feed_urls(config['feeds'])
 
-    def connect_account(account):
+    def connect_account(account, testing):
         '''
         Initialize a client for the specified account
         Then register it in FeedSpora
         :param account:
+        :param testing:
         '''
         try:
             client_class = globals()[account['type']]
-            client = client_class(account)
+            client = client_class(account, testing)
             client.set_name(account['name'])
+            client.set_testing_root(testing)
             feedspora.connect(client)
         except Exception as e:
             logging.error('Cannot connect {} : {}'.format(account['name'],
                                                           str(e)))
     for account in config['accounts']:
         if 'enabled' not in account or account['enabled']:
-            connect_account(account)
-    feedspora.set_db_file('feedspora.db')
+            connect_account(account, args.testing)
+    feedspora.set_db_file(root_name+'.db')
     feedspora.run()
