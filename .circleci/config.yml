@@ -65,7 +65,7 @@ jobs:
           command: |
             . venv/bin/activate
             (cd tests && ./run_tests.sh all)
-            cp tests/*/*.{err,diff,log} test-reports
+            mkdir test-reports && cp tests/*/*.{err,diff,log} test-reports
 
       - run:
           name: Run Analytics
