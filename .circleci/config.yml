@@ -86,7 +86,8 @@ jobs:
           name: Build And Push Docker Image
           command: |
             . venv/bin/activate
-            docker build --build-arg GIT_REPO=$CIRCLE_REPOSITORY_URL \
+            PUBLIC_REPO=`echo $CIRCLE_REPOSITORY_URL | sed -e 's~:~/~' -e 's~git@~https://~'`
+            docker build --build-arg GIT_REPO=$PUBLIC_REPO \
                          --build-arg GIT_REPO_REV=$CIRCLE_SHA1 \
                          -t $DOCKERHUB_USERNAME/$IMAGE_NAME:latest \
                          -t $DOCKERHUB_USERNAME/$IMAGE_NAME:$TAG .
