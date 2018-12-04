@@ -302,7 +302,7 @@ class GenericClient:
         # Default
         short_options = {'timeout': 3}
         short_options.update(self._url_shortener_opts)
-        if the_url and self._url_shortener and (self._url_shortener != 'none'):
+        if the_url and self._url_shortener and self._url_shortener != 'none':
             try:
                 shortener = pyshorteners.Shortener(**short_options)
                 if self._url_shortener == 'adfly':
@@ -311,8 +311,8 @@ class GenericClient:
                     to_return = shortener.bitly.short(the_url)
                 elif self._url_shortener == 'chilpit':
                     to_return = shortener.chilpit.short(the_url)
-                elif self._url_shortener == 'clkru':
-                    to_return = shortener.clkru.short(the_url)
+                elif self._url_shortener == 'clckru':
+                    to_return = shortener.clckru.short(the_url)
                 elif self._url_shortener == 'dagd':
                     to_return = shortener.dagd.short(the_url)
                 elif self._url_shortener == 'isgd':
