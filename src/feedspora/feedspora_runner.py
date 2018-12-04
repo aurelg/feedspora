@@ -841,15 +841,13 @@ class ShaarpyClient(GenericClient):
             if self.test_output(text=content, entry=entry):
                 to_return = {'result': 'success'}
         else:
-            # pylint: disable=assignment-from-no-return
-            # pylint: disable=unexpected-keyword-arg
+            # pylint: disable=assignment-from-no-return,unexpected-keyword-arg
             to_return = self._shaarpy.post_link(
                 entry.link,
                 entry.keywords,
                 title=entry.title,
                 desc=content)
-            # pylint: enable=assignment-from-no-return
-            # pylint: enable=unexpected-keyword-arg
+            # pylint: enable=assignment-from-no-return,unexpected-keyword-arg
 
         return to_return
 
