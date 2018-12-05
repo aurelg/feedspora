@@ -292,7 +292,6 @@ class GenericClient:
 
         return self.output_test(output)
 
-    # pylint: disable=too-many-branches
     def shorten_url(self, the_url):
         '''
         Apply configured URL shortener (if present) to the provided link and
@@ -305,38 +304,9 @@ class GenericClient:
         if the_url and self._url_shortener and self._url_shortener != 'none':
             try:
                 shortener = pyshorteners.Shortener(**short_options)
-                if self._url_shortener == 'adfly':
-                    to_return = shortener.adfly.short(the_url)
-                elif self._url_shortener == 'bitly':
-                    to_return = shortener.bitly.short(the_url)
-                elif self._url_shortener == 'chilpit':
-                    to_return = shortener.chilpit.short(the_url)
-                elif self._url_shortener == 'clckru':
-                    to_return = shortener.clckru.short(the_url)
-                elif self._url_shortener == 'dagd':
-                    to_return = shortener.dagd.short(the_url)
-                elif self._url_shortener == 'isgd':
-                    to_return = shortener.isgd.short(the_url)
-                elif self._url_shortener == 'osdb':
-                    to_return = shortener.osdb.short(the_url)
-                elif self._url_shortener == 'owly':
-                    to_return = shortener.owly.short(the_url)
-                elif self._url_shortener == 'post':
-                    to_return = shortener.post.short(the_url)
-                elif self._url_shortener == 'qpsru':
-                    to_return = shortener.qpsru.short(the_url)
-                elif self._url_shortener == 'soogd':
-                    to_return = shortener.soogd.short(the_url)
-                elif self._url_shortener == 'tinycc':
-                    to_return = shortener.tinycc.short(the_url)
-                elif self._url_shortener == 'tinyurl':
-                    to_return = shortener.tinyurl.short(the_url)
-                else:
-                    all_shorteners = ' '.join(shortener.available_shorteners)
-                    logging.error('URL shortener %s is unimplemented!',
-                                  self._url_shortener)
-                    logging.info('Available URL shorteners: %s',
-                                 all_shorteners)
+                # Verify a legal choice
+                assert self._url_shortener in shortener.available_shorteners
+                to_return = getattr(shortener, self._url_shortener).short(the_url)
                 # Sanity check!
                 if len(to_return) > len(the_url):
                     # Not shorter?  You're fired!
@@ -345,14 +315,21 @@ class GenericClient:
                                        self._url_shortener)
             # pylint: disable=broad-except
             except Exception as exception:
-                # Shortening attempt failed - revert to non-shortened link
-                logging.error('Cannot shorten URL %s with %s: %s',
-                              the_url, self._url_shortener, str(exception))
+                # Shortening attempt failed somehow (we don't care how, except
+                # for messaging purposes) - revert to non-shortened link
+                if isinstance(exception, AssertionError):
+                    all_shorteners = ' '.join(shortener.available_shorteners)
+                    logging.error('URL shortener %s is unimplemented!',
+                                  self._url_shortener)
+                    logging.info('Available URL shorteners: %s',
+                                 all_shorteners)
+                else:
+                    logging.error('Cannot shorten URL %s with %s: %s',
+                                  the_url, self._url_shortener, str(exception))
                 to_return = the_url
             # pylint: enable=broad-except
 
         return to_return
-    # pylint: enable=too-many-branches
 
     def set_common_opts(self, account):
         '''
