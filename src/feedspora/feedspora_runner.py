@@ -1017,6 +1017,45 @@ class FeedSpora:
                 fse.published_date = entry.find('published').text
             yield fse
 
+    def find_rss_image_url(self, entry, link):
+        '''
+        Extract specified image URL, if it exists in the item (entry)
+        :param: entry
+        :param: link
+        '''
+        def content_img_src(entity):
+            result = None
+            for content in entity.contents:
+                img_tag = re.search(r'<img [^>]*src=["\']([^"\']+)["\']',
+                                    content)
+                if img_tag:
+                    result = img_tag.group(1)
+                    break
+            return result
+
+        to_return = None
+
+        if entry.find('media:content') and \
+           entry.find('media:content')['medium'] == 'image':
+            to_return = entry.find('media:content')['url']
+        elif entry.find('content'):
+            to_return = content_img_src(entry.find('content'))
+        elif entry.find('description'):
+            to_return = content_img_src(entry.find('description'))
+        if to_return and link:
+            tag_pattern = r'^(https?://[^/]+)/'
+            match_result = re.search(tag_pattern, to_return)
+            if not match_result:
+                # Not a full URL, need to adjust using link
+                match_result = re.search(tag_pattern, link)
+                if match_result:
+                    url_root = match_result.group(1)
+                    if to_return.startswith("/"):
+                        to_return = url_root+to_return
+                    else:
+                        to_return = url_root+"/"+to_return
+        return to_return
+
     # Define generator for RSS
     def parse_rss(self, soup):
         """ Generate FeedSpora entries out of a RSS feed. """
@@ -1049,16 +1088,7 @@ class FeedSpora:
                     fse.keywords.append(new_keyword)
 
             # And for our final act, media
-            if entry.find('media:content') and entry.find(
-                    'media:content')['medium'] == 'image':
-                fse.media_url = entry.find('media:content')['url']
-            elif entry.find('img'):
-                # TODO: handle possibility of an incomplete URL (prepend link
-                #       site root)
-                fse.media_url = entry.find('img')['src']
-            # TODO: additional measures to retrieve "buried" image
-            #       specifications, such as within CDATA constructs of
-            #       content or description tags
+            fse.media_url = self.find_rss_image_url(entry, fse.link)
             yield fse
 
     def _process_feed(self, feed_url):
