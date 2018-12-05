@@ -90,12 +90,16 @@ jobs:
             docker build --build-arg GIT_REPO=$PUBLIC_REPO \
                          --build-arg GIT_REPO_REV=$CIRCLE_SHA1 \
                          -t $DOCKERHUB_USERNAME/$IMAGE_NAME:$TAG .
+            echo "Docker build complete"
             docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
             docker push $DOCKERHUB_USERNAME/$IMAGE_NAME:$TAG
-            if [ "X$CIRCLECI_BRANCH" == "Xdev" ]; then
+            echo "Docker push complete"
+            if [ "X$CIRCLE_BRANCH" == "Xdev" ]; then
                 # "latest" tag can ONLY come from the "dev" branch!
+                echo "Tagging/pushing image tag $TAG as 'latest'"
                 docker tag $DOCKERHUB_USERNAME/$IMAGE_NAME:$TAG \
                            $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
                 docker push $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
             fi
+            echo "All Docker build/push operations complete"
 
