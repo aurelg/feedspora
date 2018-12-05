@@ -4,10 +4,10 @@ facebook-sdk
 lxml
 Mastodon.py
 PyReadability
-pyshorteners
+git+https://github.com/ellisonleao/pyshorteners.git
 python-wordpress-xmlrpc
 python3-linkedin
 PyYAML
 readability
-shaarpy
+git+https://github.com/aurelg/shaarpy.git
 tweepy
