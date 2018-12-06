@@ -1,0 +1,105 @@
+# Python CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
+      - image: circleci/python:3.6.1
+      
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run:
+          name: Setup VirtualEnv
+          command: |
+            echo 'export TAG=${CIRCLE_SHA1}' >> $BASH_ENV
+            echo 'export IMAGE_NAME=feedspora' >> $BASH_ENV 
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "requirements.txt" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run:
+          name: Install Dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            # Hack/workaround to get latest shaarpy (should be in requirements.txt)
+            pip install git+https://github.com/aurelg/shaarpy.git
+            pip install -r requirements.txt
+
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+        
+      - run:
+          name: Install feedspora Application
+          command: |
+            . venv/bin/activate
+            python setup.py install
+
+      - run:
+          name: Run pytest Tests
+          command: |
+            . venv/bin/activate
+            pip install pytest
+            pytest
+
+      - run:
+          name: Run Shell Tests
+          command: |
+            . venv/bin/activate
+            (cd tests && ./run_tests.sh all)
+            #mkdir test-reports && cp tests/*/*.{err,diff,log} test-reports
+
+      - run:
+          name: Run Analytics
+          command: |
+            . venv/bin/activate
+            pip install pylint
+            pylint --verbose --exit-zero feedspora
+
+      - store_artifacts:
+          path: test-reports
+          destination: test-reports
+
+      # NOW it gets interesting!
+      - setup_remote_docker:
+          docker_layer_caching: true
+
+      - run:
+          name: Build And Push Docker Image
+          command: |
+            . venv/bin/activate
+            PUBLIC_REPO=`echo $CIRCLE_REPOSITORY_URL | sed -e 's~:~/~' -e 's~git@~https://~'`
+            docker build --build-arg GIT_REPO=$PUBLIC_REPO \
+                         --build-arg GIT_REPO_REV=$CIRCLE_SHA1 \
+                         -t $DOCKERHUB_USERNAME/$IMAGE_NAME:$TAG .
+            echo "Docker build complete"
+            docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+            docker push $DOCKERHUB_USERNAME/$IMAGE_NAME:$TAG
+            echo "Docker push complete"
+            if [ "X$CIRCLE_BRANCH" == "Xdev" ]; then
+                # "latest" tag can ONLY come from the "dev" branch!
+                echo "Tagging/pushing image tag $TAG as 'latest'"
+                docker tag $DOCKERHUB_USERNAME/$IMAGE_NAME:$TAG \
+                           $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
+                docker push $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
+            fi
+            echo "All Docker build/push operations complete"
+

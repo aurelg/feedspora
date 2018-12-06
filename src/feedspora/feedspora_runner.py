@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # encoding: utf-8
+# pylint: disable=too-many-lines
 '''
 FeedSpora is a bot that posts automatically RSS/Atom feeds to
 your social network account.
@@ -28,59 +29,27 @@ import diaspy.models
 import diaspy.streams
 import facebook
 import lxml.html
+import pyshorteners
 import requests
 import tweepy
 from bs4 import BeautifulSoup
 from linkedin import linkedin
 from mastodon import Mastodon
-from pyshorteners import Shortener
 from readability.readability import Document, Unparseable
 from shaarpy.shaarpy import Shaarpy
 from wordpress_xmlrpc import Client, WordPressPost
 from wordpress_xmlrpc.methods.posts import NewPost
 
 
-# TODO: Still additional shorteners to implement...
-# (see https://pypi.org/project/pyshorteners/)
-# (see also https://github.com/ellisonleao/pyshorteners/)
-# Note that none of the current shorteners below require any keys/tokens...
-def shorten_url(the_url, url_shortener):
-    """ Shorten urls """
-    to_return = the_url
-    _no_params_shorteners = [
-        'Chilpit',
-        'Clkru',
-        'Dagd',
-        'Isgd',
-        'Osdb',
-        'Qpsru',
-        'Readability',
-        'Sentala',
-        'Soogd',
-        'Tinyurl',
-    ]
-
-    if the_url and url_shortener and url_shortener != "None":
-        try:
-            if url_shortener in _no_params_shorteners:
-                shortener = Shortener(url_shortener, timeout=3)
-                to_return = shortener.short(the_url)
-        # except NotImplementedError as e:
-        #  Parameter advertised as existing, but RTEs say otherwise
-        #  Undoubtedly a pyshorteners version issue
-        #     logging.error("URL shortening error: {}".format(str(e)))
-        #     logging.info("Available URL shorteners: "+
-        #                  ' '.join(Shortener().available_shorteners))
-        except Exception as e:
-            # Shortening attempt failed - revert to non-shortened link
-            logging.error("Cannot shorten URL %s with %s: %s", the_url,
-                          url_shortener, str(e))
-            to_return = the_url
-
-    return to_return
-
-
 def trim_string(text, maxlen, etc='...', etc_if_shorter_than=None):
+    '''
+    Trim the string to the specified length, using the etc notation to show
+    this has been done
+    :param text:
+    :param maxlen:
+    :param etc:
+    :param etc_if_shorter_than:
+    '''
     if len(text) < maxlen:
         to_return = text
     else:
@@ -97,34 +66,48 @@ def trim_string(text, maxlen, etc='...', etc_if_shorter_than=None):
     return to_return
 
 
+# pylint: disable=too-many-locals
 def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
-    def repl(m):
-        return '%s#%s%s' % (m.group(1), m.group(2), m.group(3))
+    '''
+    Process the text to include hashtagged keywords and adhere to the specified
+    maximum length.
+    :param text:
+    :param keywords:
+    :param maxlen:
+    :param etc:
+    :param separator:
+    '''
+    def repl(match):
+        return '%s#%s%s' % (match.group(1), match.group(2), match.group(3))
+
+    # Constants used in regex pattern generation
+    # pylint: disable=anomalous-backslash-in-string
+    before_tag = '(\A|[\'"/([{\s])'
+    after_tag = '(\Z|[\'"/\s)\]},.!?:])'
+    # pylint: enable=anomalous-backslash-in-string
 
     to_return = text
 
-    # Find inline and extra keywords
-    inline_kw = {
-        k
-
-        for k in keywords
-
-        if re.search(r'(\A|\W)(%s)(\W|\Z)' %
-                     re.escape('%s' % k), to_return, re.IGNORECASE)
-    }
     # Tag/keyword order needs to be observed
-    # Set manipulations ignore that, so don't use them!
-    extra_kw = []
+    # Set manipulations ignore that, so use lists instead!
 
-    for kw in keywords:
-        if kw not in inline_kw:
-            extra_kw.append(kw)
+    # Find inline and extra keywords
+    inline_kw = []
+    extra_kw = []
+    for word in keywords:
+        # remove any illegal characters
+        word = re.sub(r'[\-\.]', '', word)
+        if re.search(r'%s#?(%s)%s' %
+                     (before_tag, re.escape('%s' % word), after_tag),
+                     to_return, re.IGNORECASE):
+            inline_kw.append(word)
+        else:
+            extra_kw.append(word)
 
     # Process inline keywords
-
-    for kw in inline_kw:
-        pattern = r'(\A|\W)(%s)(\W|\Z)' % re.escape('%s' % kw)
-
+    for word in inline_kw:
+        pattern = (r'%s(%s)%s' %
+                   (before_tag, re.escape('%s' % word), after_tag))
         if re.search(pattern, to_return, re.IGNORECASE):
             to_return = re.sub(pattern, repl, to_return, flags=re.IGNORECASE)
 
@@ -137,30 +120,24 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
         minlen_wo_xtra_kw = len(to_return)
 
         # Add extra (ordered) keywords
-
-        for kw in extra_kw:
-            # remove any illegal characters
-            kw = re.sub(r'[\-\.]', '', kw)
+        for word in extra_kw:
             # prevent duplication
-            pattern = r'(\A|\W)#(%s)(\W|\Z)' % re.escape('%s' % kw)
-
+            pattern = (r'%s#(%s)%s' % \
+                       (before_tag, re.escape('%s' % word), after_tag))
             if re.search(pattern, to_return, re.IGNORECASE) is None:
-                to_return += " #" + kw
+                to_return += " #" + word
 
     # If the text is too long, cut it and, if needed, add suffix
-
     if maxlen is not None:
         to_return = trim_string(
             to_return, maxlen, etc=etc, etc_if_shorter_than=minlen_wo_xtra_kw)
 
     # Restore separator
-
     if extra_kw:
         to_return = to_return.replace(fake_separator, separator)
 
         # Remove separator if nothing comes after it
         stripped_separator = separator.rstrip()
-
         if to_return.endswith(stripped_separator):
             to_return = to_return[:-len(stripped_separator)]
 
@@ -169,17 +146,18 @@ def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
             "{}:{} : {} > {}".format(text, to_return, len(to_return), maxlen)
 
     return to_return
+# pylint: enable=too-many-locals
 
-
-def get_filename_from_cd(cd):
-    """
+def get_filename_from_cd(content_disp):
+    '''
     Get filename from Content-Disposition
-    """
+    :param content_disp:
+    '''
 
     to_return = None
 
-    if cd:
-        fname = re.findall('filename=(.+)', cd)
+    if content_disp:
+        fname = re.findall('filename=(.+)', content_disp)
 
         if fname:
             to_return = fname[0]
@@ -188,40 +166,43 @@ def get_filename_from_cd(cd):
 
 
 def download_media(the_url):
-    """
+    '''
     Download the media file referenced by the_url
     Returns the path to the downloaded file
-    """
+    :param the_url:
+    '''
 
-    r = requests.get(the_url, allow_redirects=True)
-    filename = get_filename_from_cd(r.headers.get('Content-Disposition'))
+    request = requests.get(the_url, allow_redirects=True)
+    filename = get_filename_from_cd(request.headers.get('Content-Disposition'))
 
     if not filename:
         filename = 'random.jpg'
     media_dir = os.getenv('MEDIA_DIR', '/tmp')
     full_path = media_dir + '/' + filename
     logging.info("Downloading %s as %s...", the_url, full_path)
-    open(full_path, 'wb').write(r.content)
+    open(full_path, 'wb').write(request.content)
 
     return full_path
 
 
 class GenericClient:
-    '''
-    Implements the case functionalities expected from clients
-    '''
+    ''' Implements the case functionalities expected from clients '''
 
+    # pylint: disable=too-many-instance-attributes
     _name = None
     # Special handling of default (0) value that allows unlimited postings
     _max_posts = 0
     _posts_done = 0
+    _keywords = []
     _url_shortener = None
+    _url_shortener_opts = {}
     _max_tags = 100
     _post_prefix = None
     _include_content = False
     _include_media = False
     _post_suffix = None
     _testing_root = None
+    # pylint: enable=too-many-instance-attributes
 
     def set_name(self, name):
         '''
@@ -265,8 +246,8 @@ class GenericClient:
         '''
         to_return = False
 
-        if not self.is_post_limited(
-        ) or self._posts_done < self.get_max_posts():
+        if not self.is_post_limited() or \
+           self._posts_done < self.get_max_posts():
             to_return = self.post(entry_to_post)
 
             if to_return:
@@ -275,7 +256,10 @@ class GenericClient:
         return to_return
 
     def post(self, entry):
-        """ Placeholder for post, override it in subclasses """
+        '''
+        Placeholder for post, override it in subclasses
+        :param entry:
+        '''
         raise NotImplementedError("Please implement!")
 
     def seeding_published_db(self, item_num):
@@ -308,29 +292,112 @@ class GenericClient:
 
         return self._testing_root is not None
 
+    # pylint: disable=no-self-use
     def output_test(self, text):
         '''
         Print output for testing purposes
-        :param: text
+        :param text:
         '''
         print(text)
 
         return True
+    # pylint: enable=no-self-use
 
-    def test_output(self, text):
+    def test_output(self, **kwargs):
         '''
         Define output for testing purposes (potentially overridden on
         per-client basis - this is the default), then output that definition
-        :param: text
+        :param kwargs:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Content: '+text
+                 'Content: '+kwargs['text']
 
         return self.output_test(output)
 
+    def shorten_url(self, the_url):
+        '''
+        Apply configured URL shortener (if present) to the provided link and
+        return the result.  If anything goes awry, return the unmodified link.
+        :param the_url:
+        '''
+        to_return = the_url
+        # Default
+        short_options = {'timeout': 3}
+        short_options.update(self._url_shortener_opts)
+        if the_url and self._url_shortener and self._url_shortener != 'none':
+            try:
+                shortener = pyshorteners.Shortener(**short_options)
+                # Verify a legal choice
+                assert self._url_shortener in shortener.available_shorteners
+                to_return = getattr(shortener, self._url_shortener).short(the_url)
+                # Sanity check!
+                if len(to_return) > len(the_url):
+                    # Not shorter?  You're fired!
+                    raise RuntimeError('Shortener %s produced a longer URL ' +
+                                       'than the original!',
+                                       self._url_shortener)
+            # pylint: disable=broad-except
+            except Exception as exception:
+                # Shortening attempt failed somehow (we don't care how, except
+                # for messaging purposes) - revert to non-shortened link
+                if isinstance(exception, AssertionError):
+                    all_shorteners = ' '.join(shortener.available_shorteners)
+                    logging.error('URL shortener %s is unimplemented!',
+                                  self._url_shortener)
+                    logging.info('Available URL shorteners: %s',
+                                 all_shorteners)
+                else:
+                    logging.error('Cannot shorten URL %s with %s: %s',
+                                  the_url, self._url_shortener, str(exception))
+                to_return = the_url
+            # pylint: enable=broad-except
+
+        return to_return
+
+    def set_common_opts(self, account):
+        '''
+        Set options common to all clients
+        :param account:
+        '''
+
+        # Keywords
+        if 'keywords' in account:
+            self._keywords = [
+                word.strip() for word in account['keywords'].split(',')
+            ]
+
+        # Post/run limit. Negative value implies a seed-only operation.
+        if 'max_posts' in account:
+            self.set_max_posts(account['max_posts'])
+
+        if 'max_tags' in account:
+            self._max_tags = account['max_tags']
+
+        # Include content?
+        if 'post_include_content' in account:
+            self._include_content = account['post_include_content']
+
+        # Include media?
+        if 'post_include_media' in account:
+            self._include_media = account['post_include_media']
+
+        # Post prefix
+        if 'post_prefix' in account:
+            self._post_prefix = account['post_prefix']
+
+        # Post suffix
+        if 'post_suffix' in account:
+            self._post_suffix = account['post_suffix']
+
+        if 'url_shortener' in account:
+            self._url_shortener = account['url_shortener'].lower()
+
+        if 'url_shortener_opts' in account:
+            self._url_shortener_opts = account['url_shortener_opts']
+
 
 class FacebookClient(GenericClient):
-    """ The FacebookClient handles the connection to Facebook. """
+    ''' The FacebookClient handles the connection to Facebook. '''
     # See https://stackoverflow.com/questions/11510850/
     #     python-facebook-api-need-a-working-example
     # https://github.com/pythonforfacebook/facebook-sdk
@@ -339,6 +406,11 @@ class FacebookClient(GenericClient):
     _post_as = None
 
     def __init__(self, account, testing):
+        '''
+        Initialize
+        :param account:
+        :param testing:
+        '''
         profile = None
 
         if not testing:
@@ -351,17 +423,15 @@ class FacebookClient(GenericClient):
         elif not testing:
             self._post_as = profile['id']
 
-    def test_output(self, text, attachment, post_as):
+    def test_output(self, **kwargs):
         '''
         Print output for testing purposes
-        :param: text
-        :param: attachment
-        :param: post_as
+        :param kwargs:
         '''
-        output = '>>> '+self.get_name()+' posting as '+post_as+':\n'+ \
-                 'Name: '+attachment['name']+':\n'+ \
-                 'Link: '+attachment['link']+':\n'+ \
-                 'Content: '+text
+        output = '>>> '+self.get_name()+' posting as '+self._post_as+':\n'+ \
+                 'Name: '+kwargs['attachment']['name']+':\n'+ \
+                 'Link: '+kwargs['attachment']['link']+':\n'+ \
+                 'Content: '+kwargs['text']
 
         return self.output_test(output)
 
@@ -377,20 +447,26 @@ class FacebookClient(GenericClient):
         to_return = False
 
         if self.is_testing():
-            to_return = self.test_output(text, attachment, self._post_as)
+            to_return = self.test_output(text=text, attachment=attachment)
         else:
+            # pylint: disable=no-member
             to_return = self._graph.put_wall_post(text, attachment,
                                                   self._post_as)
+            # pylint: enable=no-member
 
         return to_return
 
 
 class TweepyClient(GenericClient):
-    """ The TweepyClient handles the connection to Twitter. """
+    ''' The TweepyClient handles the connection to Twitter. '''
     _api = None
 
     def __init__(self, account, testing):
-        """ Should be self-explaining. """
+        '''
+        Initialize
+        :param account:
+        :param testing:
+        '''
         # handle auth
         # See https://tweepy.readthedocs.org/en/v3.2.0/auth_tutorial.html
         # #auth-tutorial
@@ -405,60 +481,32 @@ class TweepyClient(GenericClient):
         self._max_len = 280
         self._api = tweepy.API(auth)
 
-        # Post/run limit. Negative value implies a seed-only operation.
+        self.set_common_opts(account)
 
-        if 'max_posts' in account:
-            self.set_max_posts(account['max_posts'])
-
-        if 'max_tags' in account:
-            self._max_tags = account['max_tags']
-
-        if 'url_shortener' in account:
-            self._url_shortener = account['url_shortener'].capitalize()
-
-        # Post prefix
-
-        if 'post_prefix' in account:
-            self._post_prefix = account['post_prefix']
-
-        # Post suffix
-
-        if 'post_suffix' in account:
-            self._post_suffix = account['post_suffix']
-
-        # Include media?
-
-        if 'post_include_media' in account:
-            self._include_media = account['post_include_media']
-
-        # Include content?
-
-        if 'post_include_content' in account:
-            self._include_content = account['post_include_content']
-
-    def test_output(self, text, media_path):
+    def test_output(self, **kwargs):
         '''
         Print output for testing purposes
-        :param: text
-        :param: media_path
+        :param kwargs:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Content: '+text
+                 'Content: '+kwargs['text']
 
-        if media_path:
-            output += '\nMedia: ' + media_path
+        if kwargs['media_path']:
+            output += '\nMedia: '+kwargs['media_path']
         else:
             output += '\nMedia: None'
 
         return self.output_test(output)
 
     def post(self, entry):
-        """ Post entry to Twitter. """
+        '''
+        Post entry to Twitter.
+        :param entry:
+        '''
 
         # Shorten the link URL if configured/possible
-        post_url = shorten_url(entry.link, self._url_shortener)
+        post_url = self.shorten_url(entry.link)
 
-        # TODO: These should all be shortened too, right?
         putative_urls = re.findall(r'[a-zA-Z0-9]+\.[a-zA-Z]{2,3}', entry.title)
         # Infer the 'inner links' Twitter may charge length for
         adjust_with_inner_links = self._link_cost + \
@@ -474,72 +522,41 @@ class TweepyClient(GenericClient):
             stripped_html = lxml.html.fromstring(
                 entry.content).text_content().strip()
 
-        # Derive additional keywords (tags) from the end of content
-        all_keywords = []
-
-        if stripped_html:
-            tag_pattern = r'\s+#([\w]+)$'
-            m = re.search(tag_pattern, stripped_html)
-
-            while m:
-                tag = m.group(1)
-
-                if tag not in all_keywords:
-                    all_keywords.insert(0, tag)
-                stripped_html = re.sub(tag_pattern, '', stripped_html)
-                m = re.search(tag_pattern, stripped_html)
-
-            if re.match(r'^#[\w]+$', stripped_html):
-                # Left with a single tag!
-
-                if stripped_html not in all_keywords:
-                    all_keywords.insert(0, stripped_html[1:])
-                    stripped_html = None
-
-        # Now add the original keywords (from category) on to
-        # the end of the existing array
-
-        for word in entry.keywords:
-            if word not in all_keywords:
-                all_keywords.append(word)
-
+        # QUESTION: This should probably move into mkrichtext, but would
+        #           require mkrichtext to move within GenericClient (maybe
+        #           not a bad idea anyway)?
         # Apply any tag limits specified
-
-        if self._max_tags < len(all_keywords):
-            all_keywords = all_keywords[:self._max_tags]
+        used_keywords = entry.keywords
+        if self._max_tags < len(used_keywords):
+            used_keywords = used_keywords[:self._max_tags]
 
         # Let's build our tweet!
         text = ""
 
         # Apply optional prefix
-
         if self._post_prefix:
             text = self._post_prefix + " "
 
         # Process contents
         raw_contents = entry.title
-
         if self._include_content and stripped_html:
             raw_contents += ": " + stripped_html
-        text += mkrichtext(raw_contents, all_keywords, maxlen=maxlen)
+        text += mkrichtext(raw_contents, used_keywords, maxlen=maxlen)
 
         # Apply optional suffix
-
         if self._post_suffix:
             text += " " + self._post_suffix
         text += " " + post_url
 
         # Finally ready to post.  Let's find out how (media/text)
         media_path = None
-
         if self._include_media and entry.media_url:
             # Need to download image from that URL in order to post it!
             media_path = download_media(entry.media_url)
 
         to_return = False
-
         if self.is_testing():
-            to_return = self.test_output(text, media_path)
+            to_return = self.test_output(text=text, media_path=media_path)
         elif media_path:
             to_return = self._api.update_with_media(media_path, text)
         else:
@@ -549,13 +566,16 @@ class TweepyClient(GenericClient):
 
 
 class DiaspyClient(GenericClient):
-    """ The DiaspyClient handles the connection to Diaspora. """
+    ''' The DiaspyClient handles the connection to Diaspora. '''
     stream = None
+    connection = None
 
     def __init__(self, account, testing):
-        """ Should be self-explaining. """
-        connection = None
-
+        '''
+        Initialize
+        :param account:
+        :param testing:
+        '''
         if not testing:
             self.connection = diaspy.connection.Connection(
                 pod=account['pod'],
@@ -565,19 +585,23 @@ class DiaspyClient(GenericClient):
             try:
                 self.stream = diaspy.streams.Stream(self.connection,
                                                     'stream.json')
-            except diaspy.errors.PostError as e:
-                logging.error("Cannot get diaspy stream: %s", str(e))
+            except diaspy.errors.PostError as exception:
+                logging.error("Cannot get diaspy stream: %s",
+                              str(exception))
                 self.stream = None
         self.keywords = []
         try:
             self.keywords = [
-                kw.strip() for kw in account['keywords'].split(',')
+                word.strip() for word in account['keywords'].split(',')
             ]
         except KeyError:
             pass
 
     def post(self, entry):
-        """ Post entry to Diaspora. """
+        '''
+        Post entry to Diaspora.
+        :param entry:
+        '''
 
         text = '['+entry.title+']('+entry.link+')' \
             + ' | ' + ''.join([" #{}".format(k) for k in self.keywords]) \
@@ -585,10 +609,12 @@ class DiaspyClient(GenericClient):
         to_return = True
 
         if self.stream:
+            # pylint: disable=unexpected-keyword-arg
             to_return = self.stream.post(
                 text, aspect_ids='public', provider_display_name='FeedSpora')
+            # pylint: enable=unexpected-keyword-arg
         elif self.is_testing():
-            to_return = self.test_output(text)
+            to_return = self.test_output(text=text)
         else:
             logging.info("Diaspy stream is None, not posting anything")
 
@@ -596,11 +622,15 @@ class DiaspyClient(GenericClient):
 
 
 class WPClient(GenericClient):
-    """ The WPClient handles the connection to Wordpress. """
+    ''' The WPClient handles the connection to Wordpress. '''
     client = None
 
     def __init__(self, account, testing):
-        """ Should be self-explaining. """
+        '''
+        Initialize
+        :param account:
+        :param testing:
+        '''
 
         if not testing:
             self.client = Client(account['wpurl'], account['username'],
@@ -608,41 +638,51 @@ class WPClient(GenericClient):
         self.keywords = []
         try:
             self.keywords = [
-                kw.strip() for kw in account['keywords'].split(',')
+                word.strip() for word in account['keywords'].split(',')
             ]
         except KeyError:
             pass
 
+    # pylint: disable=no-self-use
     def get_content(self, url):
-        """ Retrieve URL content and parse it w/ readability if it's HTML """
-        r = requests.get(url)
+        '''
+        Retrieve URL content and parse it w/ readability if it's HTML
+        :param url:
+        '''
+        request = requests.get(url)
         content = ''
 
-        if r.status_code == requests.codes.ok and \
-           r.headers['Content-Type'].find('html') != -1:
+        # pylint: disable=no-member
+        if request.status_code == requests.codes.ok and \
+           request.headers['Content-Type'].find('html') != -1:
             try:
-                content = Document(r.text).summary()
+                content = Document(request.text).summary()
             except Unparseable:
                 pass
+        # pylint: enable=no-member
 
         return content
+    # pylint: enable=no-self-use
 
-    def test_output(self, entry, text):
+    def test_output(self, **kwargs):
         '''
         Print output for testing purposes
-        :param: text
+        :param kwargs:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Title: '+entry.title+'\n'+ \
-                 'post_tag: '+', '.join(entry.keywords)+'\n'+ \
+                 'Title: '+kwargs['entry'].title+'\n'+ \
+                 'post_tag: '+', '.join(kwargs['entry'].keywords)+'\n'+ \
                  'category: AutomatedPost\n'+ \
                  'status: publish\n'+ \
-                 'Content: '+text
+                 'Content: <as captured from '+kwargs['entry'].link+'>'
 
         return self.output_test(output)
 
     def post(self, entry):
-        """ Post entry to Wordpress. """
+        '''
+        Post entry to Wordpress.
+        :param entry:
+        '''
 
         post_content = r"Source: <a href='{}'>{}</a><hr\>{}".format(
             entry.link,
@@ -650,7 +690,7 @@ class WPClient(GenericClient):
         to_return = False
 
         if self.is_testing():
-            to_return = self.test_output(entry, post_content)
+            to_return = self.test_output(entry=entry)
         else:
             # get text with readability
             post = WordPressPost()
@@ -668,11 +708,15 @@ class WPClient(GenericClient):
 
 
 class MastodonClient(GenericClient):
-    """ The MastodonClient handles the connection to Mastodon. """
+    ''' The MastodonClient handles the connection to Mastodon. '''
     _mastodon = None
 
     def __init__(self, account, testing):
-        """ Should be self-explaining. """
+        '''
+        Initialize
+        :param account:
+        :param testing:
+        '''
         client_id = account['client_id']
         client_secret = account['client_secret']
         access_token = account['access_token']
@@ -689,21 +733,23 @@ class MastodonClient(GenericClient):
             account['visibility'] not in ['public', 'unlisted', 'private'] \
             else account['visibility']
 
-    def test_output(self, text, delay, visibility):
+    def test_output(self, **kwargs):
         '''
         Print output for testing purposes
-        :param: delay
-        :param: visibility
-        :param: text
+        :param kwargs:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Delay: '+str(delay)+'\n'+ \
-                 'Visibility: '+visibility+'\n'+ \
-                 'Content: '+text
+                 'Delay: '+str(self._delay)+'\n'+ \
+                 'Visibility: '+self._visibility+'\n'+ \
+                 'Content: '+kwargs['text']
 
         return self.output_test(output)
 
     def post(self, entry):
+        '''
+        Post entry to Mastadon
+        :param entry:
+        '''
         maxlen = 500 - len(entry.link) - 1
         text = mkrichtext(entry.title, entry.keywords, maxlen=maxlen)
         text += ' ' + entry.link
@@ -711,7 +757,7 @@ class MastodonClient(GenericClient):
         to_return = False
 
         if self.is_testing():
-            to_return = self.test_output(text, self._delay, self._visibility)
+            to_return = self.test_output(text=text)
         else:
             if self._delay > 0:
                 time.sleep(self._delay)
@@ -723,86 +769,108 @@ class MastodonClient(GenericClient):
 
 
 class ShaarpyClient(GenericClient):
-    """ The ShaarpyClient handles the connection to Shaarli. """
+    ''' The ShaarpyClient handles the connection to Shaarli. '''
     _shaarpy = None
 
     def __init__(self, account, testing):
-        """ Should be self-explaining. """
+        '''
+        Initialize
+        :param account:
+        :param testing:
+        '''
 
         if not testing:
             self._shaarpy = Shaarpy()
             self._shaarpy.login(account['username'], account['password'],
                                 account['url'])
 
-    def test_output(self, link, keywords, title, text):
+    def test_output(self, **kwargs):
         '''
         Print output for testing purposes
-        :param: text
+        :param kwargs:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Title: '+title+'\n'+ \
-                 'Link: '+link+'\n'+ \
-                 'Keywords: '+', '.join(keywords)+'\n'+ \
-                 'Content: '+text
+                 'Title: '+kwargs['entry'].title+'\n'+ \
+                 'Link: '+kwargs['entry'].link+'\n'+ \
+                 'Keywords: '+', '.join(kwargs['entry'].keywords)+'\n'+ \
+                 'Content: '+kwargs['text']
 
         return self.output_test(output)
 
     def post(self, entry):
+        '''
+        Post entry to Shaarli
+        :param entry:
+        '''
         content = entry.content
+        # pylint: disable=broad-except
         try:
             soup = BeautifulSoup(entry.content, 'html.parser')
             content = soup.text
         except Exception:
             pass
+        # pylint: enable=broad-except
 
-        to_return = False
+        # Note non-boolean return type!
+        to_return = {}
 
         if self.is_testing():
-            to_return = self.test_output(entry.link, list(entry.keywords),
-                                         entry.title, content)
+            if self.test_output(text=content, entry=entry):
+                to_return = {'result': 'success'}
         else:
+            # pylint: disable=assignment-from-no-return,unexpected-keyword-arg
             to_return = self._shaarpy.post_link(
                 entry.link,
-                list(entry.keywords),
+                entry.keywords,
                 title=entry.title,
                 desc=content)
+            # pylint: enable=assignment-from-no-return,unexpected-keyword-arg
 
         return to_return
 
 
 class LinkedInClient(GenericClient):
-    """ The LinkedInClient handles the connection to LinkedIn. """
+    ''' The LinkedInClient handles the connection to LinkedIn. '''
     _linkedin = None
     _visibility = None
 
     def __init__(self, account, testing):
-        """ Should be self-explaining. """
+        '''
+        Initialize
+        :param account:
+        :param testing:
+        '''
 
         if not testing:
             self._linkedin = linkedin.LinkedInApplication(
                 token=account['authentication_token'])
         self._visibility = account['visibility']
 
-    def test_output(self, entry, visibility):
+    def test_output(self, **kwargs):
         '''
         Print output for testing purposes
-        :param: entry
-        :param: visibility
+        :param kwargs:
         '''
         output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Title: '+trim_string(entry.title, 200)+'\n'+ \
-                 'Link: '+entry.link+'\n'+ \
-                 'Visibility: '+visibility+'\n'+ \
-                 'Description: '+trim_string(entry.title, 256)+'\n'+ \
-                 'Comment: '+mkrichtext(entry.title, entry.keywords, maxlen=700)
+                 'Title: '+trim_string(kwargs['entry'].title, 200)+'\n'+ \
+                 'Link: '+kwargs['entry'].link+'\n'+ \
+                 'Visibility: '+self._visibility+'\n'+ \
+                 'Description: '+trim_string(kwargs['entry'].title, 256)+'\n'+ \
+                 'Comment: '+mkrichtext(kwargs['entry'].title,
+                                        kwargs['entry'].keywords,
+                                        maxlen=700)
 
         return self.output_test(output)
 
     def post(self, entry):
+        '''
+        Post entry to LinkedIn
+        :param entry:
+        '''
         to_return = False
 
         if self.is_testing():
-            to_return = self.test_output(entry, self._visibility)
+            to_return = self.test_output(entry=entry)
         else:
             to_return = self._linkedin.submit_share(
                 comment=mkrichtext(entry.title, entry.keywords, maxlen=700),
@@ -814,20 +882,24 @@ class LinkedInClient(GenericClient):
         return to_return
 
 
+# pylint: disable=too-few-public-methods
 class FeedSporaEntry:
-    """ A FeedSpora entry.
+    '''
+    A FeedSpora entry.
     This class is generated from each entry/item in an Atom/RSS feed,
-    then posted to your client accounts """
+    then posted to your client accounts
+    '''
     title = ''
     link = ''
     published_date = None
     content = ''
     keywords = None
     media_url = None
+# pylint: enable=too-few-public-methods
 
 
 class FeedSpora:
-    """ FeedSpora itself. """
+    ''' FeedSpora itself. '''
 
     _client = None
     _feed_urls = None
@@ -838,27 +910,40 @@ class FeedSpora:
           "Firefox/42.0"
 
     def __init__(self):
+        '''
+        Initialize
+        '''
         logging.basicConfig(level=logging.INFO)
 
     def set_feed_urls(self, feed_urls):
-        """ Set feeds URL """
+        '''
+        Set feeds URL
+        :param feed_urls:
+        '''
         self._feed_urls = feed_urls
 
     def set_db_file(self, db_file):
-        """ Set database file to track entries that have been already
-            published """
+        '''
+        Set database file to track entries that have been already published
+        :param db_file:
+        '''
         self._db_file = db_file
 
     def connect(self, client):
-        """ Connects to your account. """
+        '''
+        Connects to your account.
+        :param client:
+        '''
 
         if self._client is None:
             self._client = []
         self._client.append(client)
 
     def _init_db(self):
-        """ Initialize the connection to the database.
-        It also creates the table if the file does not exist yet."""
+        '''
+        Initialize the connection to the database.
+        It also creates the table if the file does not exist yet.
+        '''
         should_init = not os.path.exists(self._db_file)
         self._conn = sqlite3.connect(self._db_file)
         self._cur = self._conn.cursor()
@@ -871,8 +956,12 @@ class FeedSpora:
         else:
             logging.info("Found database file %s", self._db_file)
 
+    # pylint: disable=no-self-use
     def entry_identifier(self, entry):
-        """ Defines the identifier associated with the specified entry """
+        '''
+        Defines the identifier associated with the specified entry
+        :param entry:
+        '''
         # Unique item formed of link data, perhaps with published date
         to_return = entry.link
 
@@ -880,11 +969,15 @@ class FeedSpora:
             to_return += ' ' + entry.published_date
 
         return to_return
+    # pylint: enable=no-self-use
 
     def is_already_published(self, entry, client):
-        """ Checks if a FeedSporaEntry has already been published.
+        '''
+        Checks if a FeedSporaEntry has already been published.
         It checks if it's already in the database of published items.
-        """
+        :param entry:
+        :param client:
+        '''
         pub_item = self.entry_identifier(entry)
         sql = "SELECT id from posts WHERE feedspora_id=:feedspora_id AND "\
               "client_id=:client_id"
@@ -895,25 +988,33 @@ class FeedSpora:
         already_published = self._cur.fetchone() is not None
 
         if already_published:
-            logging.info('Skipping already published entry in ' +
-                         client.get_name() + ': ' + entry.title)
+            logging.info('Skipping already published entry in %s: %s',
+                         client.get_name(), entry.title)
         else:
-            logging.info('Found entry to publish in ' + client.get_name() +
-                         ': ' + entry.title)
+            logging.info('Found entry to publish in %s: %s',
+                         client.get_name(), entry.title)
 
         return already_published
 
     def add_to_published_entries(self, entry, client):
-        """ Add a FeedSporaEntries to the database of published items. """
+        '''
+        Add a FeedSporaEntries to the database of published items.
+        :param entry:
+        :param client:
+        '''
         pub_item = self.entry_identifier(entry)
-        logging.info('Storing in database of published items: ' + pub_item)
+        logging.info('Storing in database of published items: %s', pub_item)
         self._cur.execute(
             "INSERT INTO posts (feedspora_id, client_id) "
             "values (?,?)", (pub_item, client.get_name()))
         self._conn.commit()
 
     def _publish_entry(self, item_num, entry):
-        """ Publish a FeedSporaEntry to your all your registered account. """
+        '''
+        Publish a FeedSporaEntry to your all your registered account.
+        :param item_num:
+        :param entry:
+        '''
 
         if self._client is None:
             logging.error("No client found, aborting publication")
@@ -922,6 +1023,7 @@ class FeedSpora:
         logging.info('Publishing: %s', entry.title)
 
         for client in self._client:
+            # pylint: disable=broad-except
             if not self.is_already_published(entry, client):
                 try:
                     posted_to_client = client.post_within_limits(entry)
@@ -941,11 +1043,13 @@ class FeedSpora:
                             "Error while storing '%s' to client"
                             "'%s' : %s", entry.title,
                             client.__class__.__name__, format(error))
+            # pylint: enable=broad-except
 
     def retrieve_feed_soup(self, feed_url):
-        """ Retrieve and parse the specified feed.
+        '''
+        Retrieve and parse the specified feed.
         :param feed_url: can either be a URL or a path to a local file
-        """
+        '''
         feed_content = None
         try:
             logging.info("Trying to read %s as a file.", feed_url)
@@ -964,9 +1068,46 @@ class FeedSpora:
 
         return BeautifulSoup(feed_content, 'html.parser')
 
+    # pylint: disable=no-self-use
+    def get_keyword_list(self, title, content):
+        '''
+        Determine the list of keywords, in priority order from title and
+        content (content may be modified by this operation)
+        :param title:
+        :param content:
+        '''
+        keywords = []
+        # Add keywords from title
+        for word in title.split():
+            if word.startswith('#') and word[1:].lower() not in keywords:
+                keywords.append(word[1:].lower())
+        # Add keywords from end of content (removing from content in the
+        # process of gathering keywords)
+        if content:
+            content_keyword_start = len(keywords)
+            tag_pattern = r'\s+#([\w]+)$'
+            match_result = re.search(tag_pattern, content)
+            while match_result:
+                tag = match_result.group(1).lower()
+                if tag not in keywords:
+                    keywords.insert(content_keyword_start, tag)
+                content = re.sub(tag_pattern, '', content)
+                match_result = re.search(tag_pattern, content)
+            if re.match(r'^#[\w]+$', content):
+                # Left with a single tag!
+                if content[1:].lower() not in keywords:
+                    keywords.insert(content_keyword_start, content[1:].lower())
+                    content = ''
+
+        return content, keywords
+    # pylint: enable=no-self-use
+
     # Define generator for Atom
     def parse_atom(self, soup):
-        """ Generate FeedSpora entries out of an Atom feed. """
+        '''
+        Generate FeedSpora entries out of an Atom feed.
+        :param soup:
+        '''
 
         for entry in soup.find_all('entry')[::-1]:
             fse = FeedSporaEntry()
@@ -982,38 +1123,77 @@ class FeedSpora:
             fse.link = entry.find('link')['href']
 
             # Content
-
             if entry.find('content'):
                 fse.content = entry.find('content').text
             # If no content, attempt to use summary
-
             if not fse.content and entry.find('summary'):
                 fse.content = entry.find('summary').text
-
             if fse.content is None:
                 fse.content = ''
 
-            # Keywords
-            fse.keywords = {
-                keyword['term'].replace(' ', '_').strip()
+            # Keywords from title and content, potentially modifying content
+            fse.content, fse.keywords = self.get_keyword_list(fse.title,
+                                                              fse.content)
+            # Add keywords from category
+            for keyword in entry.find_all('category'):
+                new_keyword = keyword['term'].replace(' ', '_').strip().lower()
+                if new_keyword not in fse.keywords:
+                    fse.keywords.append(new_keyword)
 
-                for keyword in entry.find_all('category')
-            } | {
-                word[1:]
-
-                for word in fse.title.split() if word.startswith('#')
-            }
             # Published_date implementation for Atom
-
             if entry.find('updated'):
                 fse.published_date = entry.find('updated').text
             elif entry.find('published'):
                 fse.published_date = entry.find('published').text
             yield fse
 
+    # pylint: disable=no-self-use
+    def find_rss_image_url(self, entry, link):
+        '''
+        Extract specified image URL, if it exists in the item (entry)
+        :param entry:
+        :param link:
+        '''
+        def content_img_src(entity):
+            result = None
+            for content in entity.contents:
+                img_tag = re.search(r'<img [^>]*src=["\']([^"\']+)["\']',
+                                    content)
+                if img_tag:
+                    result = img_tag.group(1)
+                    break
+            return result
+
+        to_return = None
+
+        if entry.find('media:content') and \
+           entry.find('media:content')['medium'] == 'image':
+            to_return = entry.find('media:content')['url']
+        elif entry.find('content'):
+            to_return = content_img_src(entry.find('content'))
+        elif entry.find('description'):
+            to_return = content_img_src(entry.find('description'))
+        if to_return and link:
+            tag_pattern = r'^(https?://[^/]+)/'
+            match_result = re.search(tag_pattern, to_return)
+            if not match_result:
+                # Not a full URL, need to adjust using link
+                match_result = re.search(tag_pattern, link)
+                if match_result:
+                    url_root = match_result.group(1)
+                    if to_return.startswith("/"):
+                        to_return = url_root+to_return
+                    else:
+                        to_return = url_root+"/"+to_return
+        return to_return
+    # pylint: enable=no-self-use
+
     # Define generator for RSS
     def parse_rss(self, soup):
-        """ Generate FeedSpora entries out of a RSS feed. """
+        '''
+        Generate FeedSpora entries out of an RSS feed.
+        :param soup:
+        '''
 
         for entry in soup.find_all('item')[::-1]:
             fse = FeedSporaEntry()
@@ -1025,7 +1205,6 @@ class FeedSpora:
             fse.link = entry.find('link').text
 
             # Content takes priority over Description
-
             if entry.find('content'):
                 fse.content = entry.find('content')[0].text
             else:
@@ -1034,42 +1213,33 @@ class FeedSpora:
             # PubDate
             fse.published_date = entry.find('pubdate').text
 
-            # Keywords (from category)
-            fse.keywords = {
-                keyword.text.replace(' ', '_').strip()
-
-                for keyword in entry.find_all('category')
-            } | {
-                word[1:]
-
-                for word in fse.title.split() if word.startswith('#')
-            }
+            # Keywords from title and content, potentially modifying content
+            fse.content, fse.keywords = self.get_keyword_list(fse.title,
+                                                              fse.content)
+            # Add keywords from category
+            for keyword in entry.find_all('category'):
+                new_keyword = keyword.text.replace(' ', '_').strip()
+                if new_keyword not in fse.keywords:
+                    fse.keywords.append(new_keyword)
 
             # And for our final act, media
-
-            if entry.find('media:content') and entry.find(
-                    'media:content')['medium'] == 'image':
-                fse.media_url = entry.find('media:content')['url']
-            elif entry.find('img'):
-                # TODO: handle possibility of an incomplete URL (prepend link
-                #       site root)
-                fse.media_url = entry.find('img')['src']
-            # TODO: additional measures to retrieve "buried" image
-            #       specifications, such as within CDATA constructs of
-            #       content or description tags
+            fse.media_url = self.find_rss_image_url(entry, fse.link)
             yield fse
 
     def _process_feed(self, feed_url):
-        """ Handle RSS/Atom feed
+        '''
+        Handle RSS/Atom feed
         It retrieves the feed content and publish entries that haven't been
-        published yet. """
+        published yet.
+        :param feed_url:
+        '''
         # get feed content
         try:
             soup = self.retrieve_feed_soup(feed_url)
         except (HTTPError, ValueError, OSError,
                 urllib.error.URLError) as error:
-            logging.error("Error while reading feed at " + feed_url + ": " +
-                          format(error))
+            logging.error("Error while reading feed at %s: %s",
+                          feed_url, format(error))
 
             return
 
@@ -1090,8 +1260,10 @@ class FeedSpora:
             self._publish_entry(entry_count, entry)
 
     def run(self):
-        """ Run FeedSpora: initialize the database and process the list of
-            feed URLs. """
+        '''
+        Run FeedSpora: initialize the database and process the list of
+        feed URLs.
+        '''
 
         if not self._client:
             logging.error("No client found, aborting publication")
