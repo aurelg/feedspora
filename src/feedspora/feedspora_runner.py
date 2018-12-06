@@ -403,7 +403,7 @@ class TweepyClient(GenericClient):
                                        account['consumer_secret'])
             auth.set_access_token(account['access_token'],
                                   account['access_token_secret'])
-        self._link_cost = 22
+        self._link_cost = 23
         self._max_len = 280
         self._api = tweepy.API(auth)
 
@@ -465,8 +465,7 @@ class TweepyClient(GenericClient):
         # Infer the 'inner links' Twitter may charge length for
         adjust_with_inner_links = self._link_cost + \
             sum([self._link_cost - len(u) for u in putative_urls])
-        maxlen = self._max_len - len(
-            post_url) - adjust_with_inner_links - 1  # for last ' '
+        maxlen = self._max_len - adjust_with_inner_links - 1  # for last ' '
 
         stripped_html = None
 
