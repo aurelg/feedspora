@@ -108,22 +108,16 @@ class TweepyClient(GenericClient):
             sum([self._link_cost - len(u) for u in putative_urls])
         maxlen = self._max_len - adjust_with_inner_links - 1  # for last ' '
 
-        stripped_html = None
+        used_tags = self.filter_tags(entry)
 
+        stripped_html = None
         if entry.content:
             # The content with all HTML stripped will be used later,
             # but get it now
             stripped_html = lxml.html.fromstring(
                 entry.content).text_content().strip()
+            # TODO: remove any relevant used_tags from end of content!
 
-        # QUESTION: This should probably move into mkrichtext, but would
-        #           require mkrichtext to move within GenericClient (maybe
-        #           not a bad idea anyway)?
-        # Apply any tag limits specified
-        used_keywords = entry.keywords
-
-        if self._max_tags < len(used_keywords):
-            used_keywords = used_keywords[:self._max_tags]
 
         # Let's build our tweet!
         text = ""
@@ -138,7 +132,7 @@ class TweepyClient(GenericClient):
 
         if self._include_content and stripped_html:
             raw_contents += ": " + stripped_html
-        text += self._mkrichtext(raw_contents, used_keywords, maxlen=maxlen)
+        text += self._mkrichtext(raw_contents, used_tags, maxlen=maxlen)
 
         # Apply optional suffix
 

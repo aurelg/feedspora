@@ -35,6 +35,7 @@ class FacebookClient(GenericClient):
             self._post_as = account['post_as']
         elif not testing:
             self._post_as = profile['id']
+        self.set_common_opts(account)
 
     def test_output(self, **kwargs):
         '''
@@ -59,7 +60,7 @@ class FacebookClient(GenericClient):
         :param entry:
         '''
         text = entry.title + ''.join(
-            [' #{}'.format(k) for k in entry.keywords])
+            [' #{}'.format(k) for k in self.filter_tags(entry)])
         attachment = {'name': entry.title, 'link': entry.link}
 
         to_return = False

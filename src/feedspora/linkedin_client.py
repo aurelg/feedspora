@@ -25,6 +25,7 @@ class LinkedInClient(GenericClient):
             self._linkedin = linkedin.LinkedInApplication(
                 token=account['authentication_token'])
         self._visibility = account['visibility']
+        self.set_common_opts(account)
 
     def test_output(self, **kwargs):
         '''
@@ -46,7 +47,7 @@ class LinkedInClient(GenericClient):
                 "Comment":
                 self._mkrichtext(
                     kwargs['entry'].title,
-                    kwargs['entry'].keywords,
+                    self.filter_tags(kwargs['entry']),
                     maxlen=700)
             },
                        indent=4))
@@ -65,7 +66,7 @@ class LinkedInClient(GenericClient):
         else:
             to_return = self._linkedin.submit_share(
                 comment=self._mkrichtext(
-                    entry.title, entry.keywords, maxlen=700),
+                    entry.title, self.filter_tags(entry), maxlen=700),
                 title=self._trim_string(entry.title, 200),
                 description=self._trim_string(entry.title, 256),
                 submitted_url=entry.link,

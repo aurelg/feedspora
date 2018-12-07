@@ -25,6 +25,7 @@ class ShaarpyClient(GenericClient):
             self._shaarpy = Shaarpy()
             self._shaarpy.login(account['username'], account['password'],
                                 account['url'])
+        self.set_common_opts(account)
 
     def test_output(self, **kwargs):
         '''
@@ -36,7 +37,7 @@ class ShaarpyClient(GenericClient):
                 "client": self.get_name(),
                 "title": kwargs['entry'].title,
                 "link": kwargs['entry'].link,
-                "keywords": kwargs['entry'].keywords,
+                "tags": self.filter_tags(kwargs['entry']),
                 "content": kwargs['text']
             },
                        indent=4))
@@ -66,7 +67,8 @@ class ShaarpyClient(GenericClient):
             # For some reasons, this pylint directive is ignored?
             # pylint: disable=assignment-from-no-return
             to_return = self._shaarpy.post_link(
-                entry.link, entry.keywords, title=entry.title, desc=content)
+                entry.link, self.filter_tags(entry),
+                title=entry.title, desc=content)
             # pylint: enable=assignment-from-no-return
 
         return to_return

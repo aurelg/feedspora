@@ -27,13 +27,7 @@ class WPClient(GenericClient):
         if not testing:
             self.client = Client(account['wpurl'], account['username'],
                                  account['password'])
-        self.keywords = []
-        try:
-            self.keywords = [
-                word.strip() for word in account['keywords'].split(',')
-            ]
-        except KeyError:
-            pass
+        self.set_common_opts(account)
 
     # pylint: disable=no-self-use
     def get_content(self, url):
@@ -67,7 +61,7 @@ class WPClient(GenericClient):
             json.dumps({
                 "client": self.get_name(),
                 "title": kwargs['entry'].title,
-                "post_tag": kwargs['entry'].keywords,
+                "post_tag": self.filter_tags(kwargs['entry']),
                 "Content": kwargs['entry'].link
             },
                        indent=4))
@@ -93,7 +87,7 @@ class WPClient(GenericClient):
             post.title = entry.title
             post.content = post_content
             post.terms_names = {
-                'post_tag': entry.keywords,
+                'post_tag': self.filter_tags(entry),
                 'category': ["AutomatedPost"]
             }
             post.post_status = 'publish'
