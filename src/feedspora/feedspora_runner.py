@@ -316,9 +316,10 @@ class FeedSpora:
         def content_img_src(entity):
             result = None
 
+            compiled_pattern = re.compile(r'<img [^>]*src=["\']([^"\']+)["\']')
+
             for content in entity.contents:
-                img_tag = re.search(r'<img [^>]*src=["\']([^"\']+)["\']',
-                                    content)
+                img_tag = compiled_pattern.search(content)
 
                 if img_tag:
                     result = img_tag.group(1)
