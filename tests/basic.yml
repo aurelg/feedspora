@@ -42,5 +42,5 @@ accounts:
     visibility: 'anyone'
 
 feeds:
-  - '../feed.atom'
-  - '../feed.rss'
+  - 'feed.atom'
+  - 'feed.rss'

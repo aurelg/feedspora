@@ -54,5 +54,5 @@ accounts:
     visibility: 'connections-only'
 
 feeds:
-  - '../feed.atom'
-  - '../feed.rss'
+  - 'feed.atom'
+  - 'feed.rss'
