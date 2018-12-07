@@ -55,10 +55,9 @@ class ShaarpyClient(GenericClient):
         to_return = {}
 
         if self.is_testing():
-            if self.test_output(text=content, entry=entry):
-                to_return = {'result': 'success'}
+            to_return = self.test_output(text=content, entry=entry)
         else:
-            # For some reasons, pylint directive is ignored?
+            # For some reasons, this pylint directive is ignored?
             # pylint: disable=assignment-from-no-return
             to_return = self._shaarpy.post_link(
                 entry.link, entry.keywords, title=entry.title, desc=content)
