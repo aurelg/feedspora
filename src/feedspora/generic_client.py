@@ -2,6 +2,7 @@
 GenericClient: baseclass providing features to specific clients.
 """
 
+import json
 import logging
 import re
 
@@ -116,16 +117,6 @@ class GenericClient:
 
         return self._testing_root is not None
 
-    # pylint: disable=no-self-use
-    def output_test(self, text):
-        '''
-        Print output for testing purposes
-        :param text:
-        '''
-        print(text)
-
-        return True
-
     # pylint: enable=no-self-use
 
     def test_output(self, **kwargs):
@@ -134,10 +125,14 @@ class GenericClient:
         per-client basis - this is the default), then output that definition
         :param kwargs:
         '''
-        output = '>>> ' + self.get_name() + ' posting:\nContent: ' \
-            + kwargs['text']
+        print(
+            json.dumps({
+                "client": self.get_name(),
+                "content": kwargs['text']
+            },
+                       indent=4))
 
-        return self.output_test(output)
+        return True
 
     def shorten_url(self, the_url):
         '''

@@ -2,6 +2,8 @@
 Shaarpy client
 """
 
+import json
+
 from bs4 import BeautifulSoup
 from shaarpy.shaarpy import Shaarpy
 
@@ -29,13 +31,17 @@ class ShaarpyClient(GenericClient):
         Print output for testing purposes
         :param kwargs:
         '''
-        output = '>>> ' + self.get_name() + ' posting:\n' + \
-                 'Title: ' + kwargs['entry'].title + '\n' + \
-                 'Link: ' + kwargs['entry'].link + '\n' + \
-                 'Keywords: ' + ', '.join(kwargs['entry'].keywords) + '\n' + \
-                 'Content: ' + kwargs['text']
+        print(
+            json.dumps({
+                "client": self.get_name(),
+                "title": kwargs['entry'].title,
+                "link": kwargs['entry'].link,
+                "keywords": kwargs['entry'].keywords,
+                "content": kwargs['text']
+            },
+                       indent=4))
 
-        return self.output_test(output)
+        return True
 
     def post(self, entry):
         '''

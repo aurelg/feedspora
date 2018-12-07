@@ -2,6 +2,7 @@
 Mastodon client
 """
 
+import json
 import time
 
 from mastodon import Mastodon
@@ -40,12 +41,16 @@ class MastodonClient(GenericClient):
         Print output for testing purposes
         :param kwargs:
         '''
-        output = '>>> ' + self.get_name() + ' posting:\n' + \
-                 'Delay: ' + str(self._delay) + '\n' + \
-                 'Visibility: ' + self._visibility + '\n' + \
-                 'Content: ' + kwargs['text']
+        print(
+            json.dumps({
+                "client": self.get_name(),
+                "delay": self._delay,
+                "visibility": self._visibility,
+                "content": kwargs['text']
+            },
+                       indent=4))
 
-        return self.output_test(output)
+        return True
 
     def post(self, entry):
         '''

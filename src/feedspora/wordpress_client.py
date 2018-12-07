@@ -2,6 +2,7 @@
 Wordpress client
 """
 
+import json
 from urllib.parse import urlparse
 
 import requests
@@ -62,14 +63,16 @@ class WPClient(GenericClient):
         Print output for testing purposes
         :param kwargs:
         '''
-        output = '>>> ' + self.get_name() + ' posting:\n' + \
-                 'Title: ' + kwargs['entry'].title + '\n' + \
-                 'post_tag: ' + ', '.join(kwargs['entry'].keywords)+'\n' + \
-                 'category: AutomatedPost\n' + \
-                 'status: publish\n' + \
-                 'Content: <as captured from ' + kwargs['entry'].link + '>'
+        print(
+            json.dumps({
+                "client": self.get_name(),
+                "title": kwargs['entry'].title,
+                "post_tag": kwargs['entry'].keywords,
+                "Content": kwargs['entry'].link
+            },
+                       indent=4))
 
-        return self.output_test(output)
+        return True
 
     def post(self, entry):
         '''

@@ -2,6 +2,8 @@
 Facebook client.
 """
 
+import json
+
 import facebook
 
 from feedspora.generic_client import GenericClient
@@ -39,12 +41,17 @@ class FacebookClient(GenericClient):
         Print output for testing purposes
         :param kwargs:
         '''
-        output = '>>> ' + self.get_name() + ' posting as ' + self._post_as + \
-            ':\n' + 'Name: ' + kwargs['attachment']['name'] + ':\n' + \
-            'Link: ' + kwargs['attachment']['link'] + ':\n' + \
-            'Content: ' + kwargs['text']
+        print(
+            json.dumps({
+                "client": self.get_name(),
+                "posting_as": self._post_as,
+                "name": kwargs['attachment']['name'],
+                "link": kwargs['attachment']['link'],
+                "content": kwargs['text']
+            },
+                       indent=4))
 
-        return self.output_test(output)
+        return True
 
     def post(self, entry):
         '''

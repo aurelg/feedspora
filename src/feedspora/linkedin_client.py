@@ -2,6 +2,8 @@
 LinkedIn client
 """
 
+import json
+
 from linkedin import linkedin
 
 from feedspora.generic_client import GenericClient
@@ -29,17 +31,27 @@ class LinkedInClient(GenericClient):
         Print output for testing purposes
         :param kwargs:
         '''
-        output = '>>> ' + self.get_name() + ' posting:\n' + \
-            'Title: ' + self._trim_string(kwargs['entry'].title, 200)+'\n' + \
-            'Link: ' + kwargs['entry'].link + '\n' + \
-            'Visibility: ' + self._visibility+'\n' + \
-            'Description: ' + self._trim_string(kwargs['entry'].title, 256) + \
-            '\n' + \
-            'Comment: ' + self._mkrichtext(kwargs['entry'].title,
-                                           kwargs['entry'].keywords,
-                                           maxlen=700)
+        print(
+            json.dumps({
+                "client":
+                self.get_name(),
+                "title":
+                self._trim_string(kwargs['entry'].title, 200),
+                "link":
+                kwargs['entry'].link,
+                "visibility":
+                self._visibility,
+                "description":
+                self._trim_string(kwargs['entry'].title, 256),
+                "Comment":
+                self._mkrichtext(
+                    kwargs['entry'].title,
+                    kwargs['entry'].keywords,
+                    maxlen=700)
+            },
+                       indent=4))
 
-        return self.output_test(output)
+        return True
 
     def post(self, entry):
         '''
