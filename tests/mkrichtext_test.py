@@ -7,8 +7,6 @@ import pytest
 
 from feedspora.generic_client import GenericClient
 
-TBD = 'tests/'
-
 
 @pytest.fixture
 def testcases():
@@ -24,7 +22,7 @@ def testcases():
         return [make_fake_keyword() for i in range(number)]
 
     to_return = {}
-    with open(TBD + 'phrases') as f:
+    with open('phrases') as f:
         for l in [l.strip() for l in f]:
             words = [x for x in l.split(' ') if len(x) > 3]
 

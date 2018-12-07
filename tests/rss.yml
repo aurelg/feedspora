@@ -11,4 +11,4 @@ accounts:
 
 
 feeds:
-  - '../feed.atom'
+  - './feed.rss'

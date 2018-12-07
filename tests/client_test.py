@@ -15,21 +15,19 @@ from feedspora.shaarpy_client import ShaarpyClient
 from feedspora.tweepy_client import TweepyClient
 from feedspora.wordpress_client import WPClient
 
-TBD = 'tests/'
-
 
 @pytest.fixture
 def entry_generator():
     f = 'feed.atom'
     fs = FeedSpora()
-    soup = fs.retrieve_feed_soup(TBD + f)
+    soup = fs.retrieve_feed_soup(f)
 
     return fs.parse_atom(soup)
 
 
 @pytest.fixture
 def expected():
-    with open('tests/expected.json') as f:
+    with open('expected.json') as f:
         return json.load(f)
 
 
@@ -79,8 +77,10 @@ def test_DiaspyClient(entry_generator, expected):
         for i in ['#{}'.format(k) for k in expect['keywords']]:
             assert returned['text'].index(i) > -1
 
+    old_init = DiaspyClient.__init__
     DiaspyClient.__init__ = new_init
     check(DiaspyClient(), entry_generator, expected, check_entry)
+    DiaspyClient.__init__ = old_init
 
 
 def test_TweepyClient(entry_generator, expected):
@@ -116,8 +116,10 @@ def test_TweepyClient(entry_generator, expected):
             target = ' #{}'.format(k)
             assert returned['text'].index(target) > -1
 
+    old_init = TweepyClient.__init__
     TweepyClient.__init__ = new_init
     check(TweepyClient(), entry_generator, expected, check_entry)
+    TweepyClient.__init__ = old_init
 
 
 def test_MastodonClient(entry_generator, expected):
@@ -138,8 +140,10 @@ def test_MastodonClient(entry_generator, expected):
         for k in expected['keywords']:
             assert returned['text'].index(' #{}'.format(k)) > -1
 
+    old_init = MastodonClient.__init__
     MastodonClient.__init__ = new_init
     check(MastodonClient(), entry_generator, expected, check_entry)
+    MastodonClient.__init__ = old_init
 
 
 def test_LinkedInClient(entry_generator, expected):
@@ -170,8 +174,10 @@ def test_LinkedInClient(entry_generator, expected):
         for k in expected['keywords']:
             assert returned['comment'].index(' #{}'.format(k)) > -1
 
+    old_init = LinkedInClient.__init__
     LinkedInClient.__init__ = new_init
     check(LinkedInClient(), entry_generator, expected, check_entry)
+    LinkedInClient.__init__ = old_init
 
 
 def test_ShaarpyClient(entry_generator, expected):
@@ -192,8 +198,10 @@ def test_ShaarpyClient(entry_generator, expected):
         assert returned['link'].index(expected['link']) > -1
         assert set(expected['keywords']) == set(returned['keywords'])
 
+    old_init = ShaarpyClient.__init__
     ShaarpyClient.__init__ = new_init
     check(ShaarpyClient(), entry_generator, expected, check_entry)
+    ShaarpyClient.__init__ = old_init
 
 
 def test_FacebookClient(entry_generator, expected):
@@ -218,5 +226,7 @@ def test_FacebookClient(entry_generator, expected):
             assert returned['text'].index(' #{}'.format(k)) > -1, \
                 "{} not found in {}".format(' #{}'.format(k), returned['text'])
 
+    old_init = FacebookClient.__init__
     FacebookClient.__init__ = new_init
     check(FacebookClient(), entry_generator, expected, check_entry)
+    FacebookClient.__init__ = old_init
