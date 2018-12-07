@@ -116,8 +116,8 @@ class TweepyClient(GenericClient):
             # but get it now
             stripped_html = lxml.html.fromstring(
                 entry.content).text_content().strip()
-            # TODO: remove any relevant used_tags from end of content!
-
+            # Remove all used_tags from end of content!
+            stripped_html = self.remove_ending_tags(stripped_html)
 
         # Let's build our tweet!
         text = ""

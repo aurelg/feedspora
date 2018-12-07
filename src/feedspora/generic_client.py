@@ -410,3 +410,25 @@ class GenericClient:
                 break
 
         return to_return
+
+    def remove_ending_tags(self, content):
+        '''
+        Trim any tags from the end of content, and return the modified content.
+        :param content:
+        '''
+
+        if content:
+            tag_pattern = r'\s+#([\w]+)$'
+            match_result = re.search(tag_pattern, content)
+
+            while match_result:
+                tag = match_result.group(1)
+                content = re.sub(tag_pattern, '', content)
+                match_result = re.search(tag_pattern, content)
+
+            if re.match(r'^\s*#[\w]+$', content):
+                # Left with a single tag!
+                content = ''
+
+        return content
+

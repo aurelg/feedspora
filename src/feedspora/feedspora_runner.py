@@ -241,12 +241,14 @@ class FeedSpora:
                 content = re.sub(tag_pattern, '', content)
                 match_result = re.search(tag_pattern, content)
 
-            if re.match(r'^#[\w]+$', content):
+            tag_pattern = r'^\s*#([\w]+)$'
+            match_result = re.search(tag_pattern, content)
+            if match_result:
                 # Left with a single tag!
-
-                if content[1:] not in content_tags:
-                    content_tags.insert(0, content[1:])
-                    content = ''
+                tag = match_result.group(1)
+                if tag not in content_tags:
+                    content_tags.insert(0, tag)
+                content = ''
 
         return title_tags, content_tags
 
