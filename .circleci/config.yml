@@ -61,13 +61,6 @@ jobs:
             pytest
 
       - run:
-          name: Run Shell Tests
-          command: |
-            . venv/bin/activate
-            (cd tests && ./run_tests.sh all)
-            #mkdir test-reports && cp tests/*/*.{err,diff,log} test-reports
-
-      - run:
           name: Run Analytics
           command: |
             . venv/bin/activate
