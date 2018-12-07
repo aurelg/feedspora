@@ -19,869 +19,11 @@ import logging
 import os
 import re
 import sqlite3
-import time
 import urllib
-from urllib.error import HTTPError
-from urllib.parse import urlparse
 
-import diaspy.connection
-import diaspy.models
-import diaspy.streams
-import facebook
-import lxml.html
-import pyshorteners
-import requests
-import tweepy
 from bs4 import BeautifulSoup
-from linkedin import linkedin
-from mastodon import Mastodon
-from readability.readability import Document, Unparseable
-from shaarpy.shaarpy import Shaarpy
-from wordpress_xmlrpc import Client, WordPressPost
-from wordpress_xmlrpc.methods.posts import NewPost
 
 
-def trim_string(text, maxlen, etc='...', etc_if_shorter_than=None):
-    '''
-    Trim the string to the specified length, using the etc notation to show
-    this has been done
-    :param text:
-    :param maxlen:
-    :param etc:
-    :param etc_if_shorter_than:
-    '''
-    if len(text) < maxlen:
-        to_return = text
-    else:
-        tmpmaxlen = maxlen - len(etc)
-        space_pos = [
-            x for x in range(0, len(text)) if text[x] == ' ' and x < tmpmaxlen
-        ]
-        cut_at = space_pos[-1] if space_pos else tmpmaxlen
-        to_return = text[:cut_at]
-
-        if etc_if_shorter_than and cut_at < etc_if_shorter_than:
-            to_return += etc
-
-    return to_return
-
-
-# pylint: disable=too-many-locals
-def mkrichtext(text, keywords, maxlen=None, etc='...', separator=' |'):
-    '''
-    Process the text to include hashtagged keywords and adhere to the specified
-    maximum length.
-    :param text:
-    :param keywords:
-    :param maxlen:
-    :param etc:
-    :param separator:
-    '''
-    def repl(match):
-        return '%s#%s%s' % (match.group(1), match.group(2), match.group(3))
-
-    # Constants used in regex pattern generation
-    # pylint: disable=anomalous-backslash-in-string
-    before_tag = '(\A|[\'"/([{\s])'
-    after_tag = '(\Z|[\'"/\s)\]},.!?:])'
-    # pylint: enable=anomalous-backslash-in-string
-
-    to_return = text
-
-    # Tag/keyword order needs to be observed
-    # Set manipulations ignore that, so use lists instead!
-
-    # Find inline and extra keywords
-    inline_kw = []
-    extra_kw = []
-    for word in keywords:
-        # remove any illegal characters
-        word = re.sub(r'[\-\.]', '', word)
-        if re.search(r'%s#?(%s)%s' %
-                     (before_tag, re.escape('%s' % word), after_tag),
-                     to_return, re.IGNORECASE):
-            inline_kw.append(word)
-        else:
-            extra_kw.append(word)
-
-    # Process inline keywords
-    for word in inline_kw:
-        pattern = (r'%s(%s)%s' %
-                   (before_tag, re.escape('%s' % word), after_tag))
-        if re.search(pattern, to_return, re.IGNORECASE):
-            to_return = re.sub(pattern, repl, to_return, flags=re.IGNORECASE)
-
-    # Add separator and keywords, if needed
-    minlen_wo_xtra_kw = len(to_return)
-
-    if extra_kw:
-        fake_separator = separator.replace(' ', '_')
-        to_return += fake_separator
-        minlen_wo_xtra_kw = len(to_return)
-
-        # Add extra (ordered) keywords
-        for word in extra_kw:
-            # prevent duplication
-            pattern = (r'%s#(%s)%s' % \
-                       (before_tag, re.escape('%s' % word), after_tag))
-            if re.search(pattern, to_return, re.IGNORECASE) is None:
-                to_return += " #" + word
-
-    # If the text is too long, cut it and, if needed, add suffix
-    if maxlen is not None:
-        to_return = trim_string(
-            to_return, maxlen, etc=etc, etc_if_shorter_than=minlen_wo_xtra_kw)
-
-    # Restore separator
-    if extra_kw:
-        to_return = to_return.replace(fake_separator, separator)
-
-        # Remove separator if nothing comes after it
-        stripped_separator = separator.rstrip()
-        if to_return.endswith(stripped_separator):
-            to_return = to_return[:-len(stripped_separator)]
-
-    if maxlen is not None:
-        assert not len(to_return) > maxlen, \
-            "{}:{} : {} > {}".format(text, to_return, len(to_return), maxlen)
-
-    return to_return
-# pylint: enable=too-many-locals
-
-def get_filename_from_cd(content_disp):
-    '''
-    Get filename from Content-Disposition
-    :param content_disp:
-    '''
-
-    to_return = None
-
-    if content_disp:
-        fname = re.findall('filename=(.+)', content_disp)
-
-        if fname:
-            to_return = fname[0]
-
-    return to_return
-
-
-def download_media(the_url):
-    '''
-    Download the media file referenced by the_url
-    Returns the path to the downloaded file
-    :param the_url:
-    '''
-
-    request = requests.get(the_url, allow_redirects=True)
-    filename = get_filename_from_cd(request.headers.get('Content-Disposition'))
-
-    if not filename:
-        filename = 'random.jpg'
-    media_dir = os.getenv('MEDIA_DIR', '/tmp')
-    full_path = media_dir + '/' + filename
-    logging.info("Downloading %s as %s...", the_url, full_path)
-    open(full_path, 'wb').write(request.content)
-
-    return full_path
-
-
-class GenericClient:
-    ''' Implements the case functionalities expected from clients '''
-
-    # pylint: disable=too-many-instance-attributes
-    _name = None
-    # Special handling of default (0) value that allows unlimited postings
-    _max_posts = 0
-    _posts_done = 0
-    _keywords = []
-    _url_shortener = None
-    _url_shortener_opts = {}
-    _max_tags = 100
-    _post_prefix = None
-    _include_content = False
-    _include_media = False
-    _post_suffix = None
-    _testing_root = None
-    # pylint: enable=too-many-instance-attributes
-
-    def set_name(self, name):
-        '''
-        Client name setter
-        :param name:
-        '''
-        self._name = name
-
-    def get_name(self):
-        '''
-        Client name getter
-        '''
-
-        return self._name
-
-    def set_max_posts(self, max_posts):
-        '''
-        Client max posts setter
-        :param max_posts:
-        '''
-        self._max_posts = max_posts
-
-    def get_max_posts(self):
-        '''
-        Client max posts getter
-        '''
-
-        return self._max_posts
-
-    def is_post_limited(self):
-        '''
-        Client has a post limit set
-        '''
-
-        return self._max_posts != 0
-
-    def post_within_limits(self, entry_to_post):
-        '''
-        Client post entry, as long as within specified limits
-        :param entry_to_post:
-        '''
-        to_return = False
-
-        if not self.is_post_limited() or \
-           self._posts_done < self.get_max_posts():
-            to_return = self.post(entry_to_post)
-
-            if to_return:
-                self._posts_done += 1
-
-        return to_return
-
-    def post(self, entry):
-        '''
-        Placeholder for post, override it in subclasses
-        :param entry:
-        '''
-        raise NotImplementedError("Please implement!")
-
-    def seeding_published_db(self, item_num):
-        '''
-        Override to post not being published, but marking it as published
-        in the DB anyway ("seeding" the published DB)
-        :param item_num:
-        '''
-
-        return self._max_posts < 0 and item_num + self._max_posts <= 0
-
-    def set_testing_root(self, testing_root):
-        '''
-        Client testing_root setter
-        :param testing_root:
-        '''
-        self._testing_root = testing_root
-
-    def get_testing_root(self):
-        '''
-        Client testing_root getter
-        '''
-
-        return self._testing_root
-
-    def is_testing(self):
-        '''
-        Are we testing this client?
-        '''
-
-        return self._testing_root is not None
-
-    # pylint: disable=no-self-use
-    def output_test(self, text):
-        '''
-        Print output for testing purposes
-        :param text:
-        '''
-        print(text)
-
-        return True
-    # pylint: enable=no-self-use
-
-    def test_output(self, **kwargs):
-        '''
-        Define output for testing purposes (potentially overridden on
-        per-client basis - this is the default), then output that definition
-        :param kwargs:
-        '''
-        output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Content: '+kwargs['text']
-
-        return self.output_test(output)
-
-    def shorten_url(self, the_url):
-        '''
-        Apply configured URL shortener (if present) to the provided link and
-        return the result.  If anything goes awry, return the unmodified link.
-        :param the_url:
-        '''
-        to_return = the_url
-        # Default
-        short_options = {'timeout': 3}
-        short_options.update(self._url_shortener_opts)
-        if the_url and self._url_shortener and self._url_shortener != 'none':
-            try:
-                shortener = pyshorteners.Shortener(**short_options)
-                # Verify a legal choice
-                assert self._url_shortener in shortener.available_shorteners
-                to_return = getattr(shortener, self._url_shortener).short(the_url)
-                # Sanity check!
-                if len(to_return) > len(the_url):
-                    # Not shorter?  You're fired!
-                    raise RuntimeError('Shortener %s produced a longer URL ' +
-                                       'than the original!',
-                                       self._url_shortener)
-            # pylint: disable=broad-except
-            except Exception as exception:
-                # Shortening attempt failed somehow (we don't care how, except
-                # for messaging purposes) - revert to non-shortened link
-                if isinstance(exception, AssertionError):
-                    all_shorteners = ' '.join(shortener.available_shorteners)
-                    logging.error('URL shortener %s is unimplemented!',
-                                  self._url_shortener)
-                    logging.info('Available URL shorteners: %s',
-                                 all_shorteners)
-                else:
-                    logging.error('Cannot shorten URL %s with %s: %s',
-                                  the_url, self._url_shortener, str(exception))
-                to_return = the_url
-            # pylint: enable=broad-except
-
-        return to_return
-
-    def set_common_opts(self, account):
-        '''
-        Set options common to all clients
-        :param account:
-        '''
-
-        # Keywords
-        if 'keywords' in account:
-            self._keywords = [
-                word.strip() for word in account['keywords'].split(',')
-            ]
-
-        # Post/run limit. Negative value implies a seed-only operation.
-        if 'max_posts' in account:
-            self.set_max_posts(account['max_posts'])
-
-        if 'max_tags' in account:
-            self._max_tags = account['max_tags']
-
-        # Include content?
-        if 'post_include_content' in account:
-            self._include_content = account['post_include_content']
-
-        # Include media?
-        if 'post_include_media' in account:
-            self._include_media = account['post_include_media']
-
-        # Post prefix
-        if 'post_prefix' in account:
-            self._post_prefix = account['post_prefix']
-
-        # Post suffix
-        if 'post_suffix' in account:
-            self._post_suffix = account['post_suffix']
-
-        if 'url_shortener' in account:
-            self._url_shortener = account['url_shortener'].lower()
-
-        if 'url_shortener_opts' in account:
-            self._url_shortener_opts = account['url_shortener_opts']
-
-
-class FacebookClient(GenericClient):
-    ''' The FacebookClient handles the connection to Facebook. '''
-    # See https://stackoverflow.com/questions/11510850/
-    #     python-facebook-api-need-a-working-example
-    # https://github.com/pythonforfacebook/facebook-sdk
-    # https://facebook-sdk.readthedocs.org/en/latest/install.html
-    _graph = None
-    _post_as = None
-
-    def __init__(self, account, testing):
-        '''
-        Initialize
-        :param account:
-        :param testing:
-        '''
-        profile = None
-
-        if not testing:
-            self._graph = facebook.GraphAPI(account['token'])
-            profile = self._graph.get_object('me')
-        self._post_as = 'TESTER'
-
-        if 'post_as' in account:
-            self._post_as = account['post_as']
-        elif not testing:
-            self._post_as = profile['id']
-
-    def test_output(self, **kwargs):
-        '''
-        Print output for testing purposes
-        :param kwargs:
-        '''
-        output = '>>> '+self.get_name()+' posting as '+self._post_as+':\n'+ \
-                 'Name: '+kwargs['attachment']['name']+':\n'+ \
-                 'Link: '+kwargs['attachment']['link']+':\n'+ \
-                 'Content: '+kwargs['text']
-
-        return self.output_test(output)
-
-    def post(self, entry):
-        '''
-        Post entry to Facebook.
-        :param entry:
-        '''
-        text = entry.title + ''.join(
-            [' #{}'.format(k) for k in entry.keywords])
-        attachment = {'name': entry.title, 'link': entry.link}
-
-        to_return = False
-
-        if self.is_testing():
-            to_return = self.test_output(text=text, attachment=attachment)
-        else:
-            # pylint: disable=no-member
-            to_return = self._graph.put_wall_post(text, attachment,
-                                                  self._post_as)
-            # pylint: enable=no-member
-
-        return to_return
-
-
-class TweepyClient(GenericClient):
-    ''' The TweepyClient handles the connection to Twitter. '''
-    _api = None
-
-    def __init__(self, account, testing):
-        '''
-        Initialize
-        :param account:
-        :param testing:
-        '''
-        # handle auth
-        # See https://tweepy.readthedocs.org/en/v3.2.0/auth_tutorial.html
-        # #auth-tutorial
-        auth = None
-
-        if not testing:
-            auth = tweepy.OAuthHandler(account['consumer_token'],
-                                       account['consumer_secret'])
-            auth.set_access_token(account['access_token'],
-                                  account['access_token_secret'])
-        self._link_cost = 23
-        self._max_len = 280
-        self._api = tweepy.API(auth)
-
-        self.set_common_opts(account)
-
-    def test_output(self, **kwargs):
-        '''
-        Print output for testing purposes
-        :param kwargs:
-        '''
-        output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Content: '+kwargs['text']
-
-        if kwargs['media_path']:
-            output += '\nMedia: '+kwargs['media_path']
-        else:
-            output += '\nMedia: None'
-
-        return self.output_test(output)
-
-    def post(self, entry):
-        '''
-        Post entry to Twitter.
-        :param entry:
-        '''
-
-        # Shorten the link URL if configured/possible
-        post_url = self.shorten_url(entry.link)
-
-        putative_urls = re.findall(r'[a-zA-Z0-9]+\.[a-zA-Z]{2,3}', entry.title)
-        # Infer the 'inner links' Twitter may charge length for
-        adjust_with_inner_links = self._link_cost + \
-            sum([self._link_cost - len(u) for u in putative_urls])
-        maxlen = self._max_len - adjust_with_inner_links - 1  # for last ' '
-
-        stripped_html = None
-
-        if entry.content:
-            # The content with all HTML stripped will be used later,
-            # but get it now
-            stripped_html = lxml.html.fromstring(
-                entry.content).text_content().strip()
-
-        # QUESTION: This should probably move into mkrichtext, but would
-        #           require mkrichtext to move within GenericClient (maybe
-        #           not a bad idea anyway)?
-        # Apply any tag limits specified
-        used_keywords = entry.keywords
-        if self._max_tags < len(used_keywords):
-            used_keywords = used_keywords[:self._max_tags]
-
-        # Let's build our tweet!
-        text = ""
-
-        # Apply optional prefix
-        if self._post_prefix:
-            text = self._post_prefix + " "
-
-        # Process contents
-        raw_contents = entry.title
-        if self._include_content and stripped_html:
-            raw_contents += ": " + stripped_html
-        text += mkrichtext(raw_contents, used_keywords, maxlen=maxlen)
-
-        # Apply optional suffix
-        if self._post_suffix:
-            text += " " + self._post_suffix
-        text += " " + post_url
-
-        # Finally ready to post.  Let's find out how (media/text)
-        media_path = None
-        if self._include_media and entry.media_url:
-            # Need to download image from that URL in order to post it!
-            media_path = download_media(entry.media_url)
-
-        to_return = False
-        if self.is_testing():
-            to_return = self.test_output(text=text, media_path=media_path)
-        elif media_path:
-            to_return = self._api.update_with_media(media_path, text)
-        else:
-            to_return = self._api.update_status(text)
-
-        return to_return
-
-
-class DiaspyClient(GenericClient):
-    ''' The DiaspyClient handles the connection to Diaspora. '''
-    stream = None
-    connection = None
-
-    def __init__(self, account, testing):
-        '''
-        Initialize
-        :param account:
-        :param testing:
-        '''
-        if not testing:
-            self.connection = diaspy.connection.Connection(
-                pod=account['pod'],
-                username=account['username'],
-                password=account['password'])
-            self.connection.login()
-            try:
-                self.stream = diaspy.streams.Stream(self.connection,
-                                                    'stream.json')
-            except diaspy.errors.PostError as exception:
-                logging.error("Cannot get diaspy stream: %s",
-                              str(exception))
-                self.stream = None
-        self.keywords = []
-        try:
-            self.keywords = [
-                word.strip() for word in account['keywords'].split(',')
-            ]
-        except KeyError:
-            pass
-
-    def post(self, entry):
-        '''
-        Post entry to Diaspora.
-        :param entry:
-        '''
-
-        text = '['+entry.title+']('+entry.link+')' \
-            + ' | ' + ''.join([" #{}".format(k) for k in self.keywords]) \
-            + ' ' + ''.join([" #{}".format(k) for k in entry.keywords])
-        to_return = True
-
-        if self.stream:
-            # pylint: disable=unexpected-keyword-arg
-            to_return = self.stream.post(
-                text, aspect_ids='public', provider_display_name='FeedSpora')
-            # pylint: enable=unexpected-keyword-arg
-        elif self.is_testing():
-            to_return = self.test_output(text=text)
-        else:
-            logging.info("Diaspy stream is None, not posting anything")
-
-        return to_return
-
-
-class WPClient(GenericClient):
-    ''' The WPClient handles the connection to Wordpress. '''
-    client = None
-
-    def __init__(self, account, testing):
-        '''
-        Initialize
-        :param account:
-        :param testing:
-        '''
-
-        if not testing:
-            self.client = Client(account['wpurl'], account['username'],
-                                 account['password'])
-        self.keywords = []
-        try:
-            self.keywords = [
-                word.strip() for word in account['keywords'].split(',')
-            ]
-        except KeyError:
-            pass
-
-    # pylint: disable=no-self-use
-    def get_content(self, url):
-        '''
-        Retrieve URL content and parse it w/ readability if it's HTML
-        :param url:
-        '''
-        request = requests.get(url)
-        content = ''
-
-        # pylint: disable=no-member
-        if request.status_code == requests.codes.ok and \
-           request.headers['Content-Type'].find('html') != -1:
-            try:
-                content = Document(request.text).summary()
-            except Unparseable:
-                pass
-        # pylint: enable=no-member
-
-        return content
-    # pylint: enable=no-self-use
-
-    def test_output(self, **kwargs):
-        '''
-        Print output for testing purposes
-        :param kwargs:
-        '''
-        output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Title: '+kwargs['entry'].title+'\n'+ \
-                 'post_tag: '+', '.join(kwargs['entry'].keywords)+'\n'+ \
-                 'category: AutomatedPost\n'+ \
-                 'status: publish\n'+ \
-                 'Content: <as captured from '+kwargs['entry'].link+'>'
-
-        return self.output_test(output)
-
-    def post(self, entry):
-        '''
-        Post entry to Wordpress.
-        :param entry:
-        '''
-
-        post_content = r"Source: <a href='{}'>{}</a><hr\>{}".format(
-            entry.link,
-            urlparse(entry.link).netloc, self.get_content(entry.link))
-        to_return = False
-
-        if self.is_testing():
-            to_return = self.test_output(entry=entry)
-        else:
-            # get text with readability
-            post = WordPressPost()
-            post.title = entry.title
-            post.content = post_content
-            post.terms_names = {
-                'post_tag': entry.keywords,
-                'category': ["AutomatedPost"]
-            }
-            post.post_status = 'publish'
-            post_id = self.client.call(NewPost(post))
-            to_return = post_id != 0
-
-        return to_return
-
-
-class MastodonClient(GenericClient):
-    ''' The MastodonClient handles the connection to Mastodon. '''
-    _mastodon = None
-
-    def __init__(self, account, testing):
-        '''
-        Initialize
-        :param account:
-        :param testing:
-        '''
-        client_id = account['client_id']
-        client_secret = account['client_secret']
-        access_token = account['access_token']
-        api_base_url = account['url']
-
-        if not testing:
-            self._mastodon = Mastodon(
-                client_id=client_id,
-                client_secret=client_secret,
-                access_token=access_token,
-                api_base_url=api_base_url)
-        self._delay = 0 if 'delay' not in account else account['delay']
-        self._visibility = 'unlisted' if 'visibility' not in account or \
-            account['visibility'] not in ['public', 'unlisted', 'private'] \
-            else account['visibility']
-
-    def test_output(self, **kwargs):
-        '''
-        Print output for testing purposes
-        :param kwargs:
-        '''
-        output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Delay: '+str(self._delay)+'\n'+ \
-                 'Visibility: '+self._visibility+'\n'+ \
-                 'Content: '+kwargs['text']
-
-        return self.output_test(output)
-
-    def post(self, entry):
-        '''
-        Post entry to Mastadon
-        :param entry:
-        '''
-        maxlen = 500 - len(entry.link) - 1
-        text = mkrichtext(entry.title, entry.keywords, maxlen=maxlen)
-        text += ' ' + entry.link
-
-        to_return = False
-
-        if self.is_testing():
-            to_return = self.test_output(text=text)
-        else:
-            if self._delay > 0:
-                time.sleep(self._delay)
-
-            to_return = self._mastodon.status_post(
-                text, visibility=self._visibility)
-
-        return to_return
-
-
-class ShaarpyClient(GenericClient):
-    ''' The ShaarpyClient handles the connection to Shaarli. '''
-    _shaarpy = None
-
-    def __init__(self, account, testing):
-        '''
-        Initialize
-        :param account:
-        :param testing:
-        '''
-
-        if not testing:
-            self._shaarpy = Shaarpy()
-            self._shaarpy.login(account['username'], account['password'],
-                                account['url'])
-
-    def test_output(self, **kwargs):
-        '''
-        Print output for testing purposes
-        :param kwargs:
-        '''
-        output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Title: '+kwargs['entry'].title+'\n'+ \
-                 'Link: '+kwargs['entry'].link+'\n'+ \
-                 'Keywords: '+', '.join(kwargs['entry'].keywords)+'\n'+ \
-                 'Content: '+kwargs['text']
-
-        return self.output_test(output)
-
-    def post(self, entry):
-        '''
-        Post entry to Shaarli
-        :param entry:
-        '''
-        content = entry.content
-        # pylint: disable=broad-except
-        try:
-            soup = BeautifulSoup(entry.content, 'html.parser')
-            content = soup.text
-        except Exception:
-            pass
-        # pylint: enable=broad-except
-
-        # Note non-boolean return type!
-        to_return = {}
-
-        if self.is_testing():
-            if self.test_output(text=content, entry=entry):
-                to_return = {'result': 'success'}
-        else:
-            # pylint: disable=assignment-from-no-return,unexpected-keyword-arg
-            to_return = self._shaarpy.post_link(
-                entry.link,
-                entry.keywords,
-                title=entry.title,
-                desc=content)
-            # pylint: enable=assignment-from-no-return,unexpected-keyword-arg
-
-        return to_return
-
-
-class LinkedInClient(GenericClient):
-    ''' The LinkedInClient handles the connection to LinkedIn. '''
-    _linkedin = None
-    _visibility = None
-
-    def __init__(self, account, testing):
-        '''
-        Initialize
-        :param account:
-        :param testing:
-        '''
-
-        if not testing:
-            self._linkedin = linkedin.LinkedInApplication(
-                token=account['authentication_token'])
-        self._visibility = account['visibility']
-
-    def test_output(self, **kwargs):
-        '''
-        Print output for testing purposes
-        :param kwargs:
-        '''
-        output = '>>> '+self.get_name()+' posting:\n'+ \
-                 'Title: '+trim_string(kwargs['entry'].title, 200)+'\n'+ \
-                 'Link: '+kwargs['entry'].link+'\n'+ \
-                 'Visibility: '+self._visibility+'\n'+ \
-                 'Description: '+trim_string(kwargs['entry'].title, 256)+'\n'+ \
-                 'Comment: '+mkrichtext(kwargs['entry'].title,
-                                        kwargs['entry'].keywords,
-                                        maxlen=700)
-
-        return self.output_test(output)
-
-    def post(self, entry):
-        '''
-        Post entry to LinkedIn
-        :param entry:
-        '''
-        to_return = False
-
-        if self.is_testing():
-            to_return = self.test_output(entry=entry)
-        else:
-            to_return = self._linkedin.submit_share(
-                comment=mkrichtext(entry.title, entry.keywords, maxlen=700),
-                title=trim_string(entry.title, 200),
-                description=trim_string(entry.title, 256),
-                submitted_url=entry.link,
-                visibility_code=self._visibility)
-
-        return to_return
-
-
-# pylint: disable=too-few-public-methods
 class FeedSporaEntry:
     '''
     A FeedSpora entry.
@@ -894,6 +36,8 @@ class FeedSporaEntry:
     content = ''
     keywords = None
     media_url = None
+
+
 # pylint: enable=too-few-public-methods
 
 
@@ -968,6 +112,7 @@ class FeedSpora:
             to_return += ' ' + entry.published_date
 
         return to_return
+
     # pylint: enable=no-self-use
 
     def is_already_published(self, entry, client):
@@ -990,8 +135,8 @@ class FeedSpora:
             logging.info('Skipping already published entry in %s: %s',
                          client.get_name(), entry.title)
         else:
-            logging.info('Found entry to publish in %s: %s',
-                         client.get_name(), entry.title)
+            logging.info('Found entry to publish in %s: %s', client.get_name(),
+                         entry.title)
 
         return already_published
 
@@ -1023,6 +168,7 @@ class FeedSpora:
 
         for client in self._client:
             # pylint: disable=broad-except
+
             if not self.is_already_published(entry, client):
                 try:
                     posted_to_client = client.post_within_limits(entry)
@@ -1077,28 +223,35 @@ class FeedSpora:
         '''
         keywords = []
         # Add keywords from title
+
         for word in title.split():
             if word.startswith('#') and word[1:].lower() not in keywords:
                 keywords.append(word[1:].lower())
         # Add keywords from end of content (removing from content in the
         # process of gathering keywords)
+
         if content:
             content_keyword_start = len(keywords)
             tag_pattern = r'\s+#([\w]+)$'
             match_result = re.search(tag_pattern, content)
+
             while match_result:
                 tag = match_result.group(1).lower()
+
                 if tag not in keywords:
                     keywords.insert(content_keyword_start, tag)
                 content = re.sub(tag_pattern, '', content)
                 match_result = re.search(tag_pattern, content)
+
             if re.match(r'^#[\w]+$', content):
                 # Left with a single tag!
+
                 if content[1:].lower() not in keywords:
                     keywords.insert(content_keyword_start, content[1:].lower())
                     content = ''
 
         return content, keywords
+
     # pylint: enable=no-self-use
 
     # Define generator for Atom
@@ -1122,24 +275,30 @@ class FeedSpora:
             fse.link = entry.find('link')['href']
 
             # Content
+
             if entry.find('content'):
                 fse.content = entry.find('content').text
             # If no content, attempt to use summary
+
             if not fse.content and entry.find('summary'):
                 fse.content = entry.find('summary').text
+
             if fse.content is None:
                 fse.content = ''
 
             # Keywords from title and content, potentially modifying content
-            fse.content, fse.keywords = self.get_keyword_list(fse.title,
-                                                              fse.content)
+            fse.content, fse.keywords = self.get_keyword_list(
+                fse.title, fse.content)
             # Add keywords from category
+
             for keyword in entry.find_all('category'):
                 new_keyword = keyword['term'].replace(' ', '_').strip().lower()
+
                 if new_keyword not in fse.keywords:
                     fse.keywords.append(new_keyword)
 
             # Published_date implementation for Atom
+
             if entry.find('updated'):
                 fse.published_date = entry.find('updated').text
             elif entry.find('published'):
@@ -1153,14 +312,19 @@ class FeedSpora:
         :param entry:
         :param link:
         '''
+
         def content_img_src(entity):
             result = None
+
             for content in entity.contents:
                 img_tag = re.search(r'<img [^>]*src=["\']([^"\']+)["\']',
                                     content)
+
                 if img_tag:
                     result = img_tag.group(1)
+
                     break
+
             return result
 
         to_return = None
@@ -1172,19 +336,25 @@ class FeedSpora:
             to_return = content_img_src(entry.find('content'))
         elif entry.find('description'):
             to_return = content_img_src(entry.find('description'))
+
         if to_return and link:
             tag_pattern = r'^(https?://[^/]+)/'
             match_result = re.search(tag_pattern, to_return)
+
             if not match_result:
                 # Not a full URL, need to adjust using link
                 match_result = re.search(tag_pattern, link)
+
                 if match_result:
                     url_root = match_result.group(1)
+
                     if to_return.startswith("/"):
-                        to_return = url_root+to_return
+                        to_return = url_root + to_return
                     else:
-                        to_return = url_root+"/"+to_return
+                        to_return = url_root + "/" + to_return
+
         return to_return
+
     # pylint: enable=no-self-use
 
     # Define generator for RSS
@@ -1204,6 +374,7 @@ class FeedSpora:
             fse.link = entry.find('link').text
 
             # Content takes priority over Description
+
             if entry.find('content'):
                 fse.content = entry.find('content')[0].text
             else:
@@ -1213,11 +384,13 @@ class FeedSpora:
             fse.published_date = entry.find('pubdate').text
 
             # Keywords from title and content, potentially modifying content
-            fse.content, fse.keywords = self.get_keyword_list(fse.title,
-                                                              fse.content)
+            fse.content, fse.keywords = self.get_keyword_list(
+                fse.title, fse.content)
             # Add keywords from category
+
             for keyword in entry.find_all('category'):
                 new_keyword = keyword.text.replace(' ', '_').strip()
+
                 if new_keyword not in fse.keywords:
                     fse.keywords.append(new_keyword)
 
@@ -1235,10 +408,10 @@ class FeedSpora:
         # get feed content
         try:
             soup = self.retrieve_feed_soup(feed_url)
-        except (HTTPError, ValueError, OSError,
+        except (urllib.error.HTTPError, ValueError, OSError,
                 urllib.error.URLError) as error:
-            logging.error("Error while reading feed at %s: %s",
-                          feed_url, format(error))
+            logging.error("Error while reading feed at %s: %s", feed_url,
+                          format(error))
 
             return
 

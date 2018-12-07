@@ -6,16 +6,19 @@ Created on Nov 2, 2015
 '''
 import argparse
 import logging
+
 # pylint: disable=unused-import
+from feedspora.diaspora_client import DiaspyClient  # @UnusedImport
+from feedspora.facebook_client import FacebookClient  # @UnusedImport
 from feedspora.feedspora_runner import FeedSpora
-from feedspora.feedspora_runner import DiaspyClient  # @UnusedImport
-from feedspora.feedspora_runner import TweepyClient  # @UnusedImport
-from feedspora.feedspora_runner import FacebookClient  # @UnusedImport
-from feedspora.feedspora_runner import WPClient  # @UnusedImport
-from feedspora.feedspora_runner import MastodonClient  # @UnusedImport
-from feedspora.feedspora_runner import ShaarpyClient  # @UnusedImport
-from feedspora.feedspora_runner import LinkedInClient  # @UnusedImport
+from feedspora.linkedin_client import LinkedInClient  # @UnusedImport
+from feedspora.mastodon_client import MastodonClient  # @UnusedImport
+from feedspora.shaarpy_client import ShaarpyClient  # @UnusedImport
+from feedspora.tweepy_client import TweepyClient  # @UnusedImport
+from feedspora.wordpress_client import WPClient  # @UnusedImport
+
 # pylint: enable=unused-import
+
 
 def read_config_file(filename):
     '''
@@ -29,10 +32,12 @@ def read_config_file(filename):
             return load(config_file)
     except FileNotFoundError as excpt:
         error = format(excpt)
-    raise Exception("Couldn't load config file "+filename+":\n"+error)
+    raise Exception("Couldn't load config file " + filename + ":\n" + error)
+
 
 def main():
     '''Entry point if called as an executable'''
+
     def connect_account(account, testing):
         '''
         Initialize a client for the specified account
@@ -48,31 +53,36 @@ def main():
             client.set_testing_root(testing)
             feedspora.connect(client)
         except Exception as exception:
-            logging.error('Cannot connect %s : %s',
-                          account['name'], str(exception))
+            logging.error('Cannot connect %s : %s', account['name'],
+                          str(exception))
         # pylint: enable=broad-except
 
     # Parse input args
     parser = argparse.ArgumentParser(
         description='Post from Atom/RSS feeds to various client types.')
-    parser.add_argument('-t', '--testing', nargs='?',
-                        const='feedspora', default=None,
-                        help='execute test runs; no actual posting done')
+    parser.add_argument(
+        '-t',
+        '--testing',
+        nargs='?',
+        const='feedspora',
+        default=None,
+        help='execute test runs; no actual posting done')
     args = parser.parse_args()
 
     # root name of config and DB files, optionally modified by the --testing
     # argument value (if present)
     root_name = args.testing if args.testing else 'feedspora'
 
-    config = read_config_file(root_name+'.yml')
+    config = read_config_file(root_name + '.yml')
     feedspora = FeedSpora()
     feedspora.set_feed_urls(config['feeds'])
 
     for account in config['accounts']:
         if 'enabled' not in account or account['enabled']:
             connect_account(account, args.testing)
-    feedspora.set_db_file(root_name+'.db')
+    feedspora.set_db_file(root_name + '.db')
     feedspora.run()
+
 
 if __name__ == '__main__':
     main()

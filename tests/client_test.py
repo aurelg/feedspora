@@ -6,10 +6,14 @@ import re
 
 import pytest
 
-from feedspora.feedspora_runner import (DiaspyClient, FacebookClient,
-                                        FeedSpora, LinkedInClient,
-                                        MastodonClient, ShaarpyClient,
-                                        TweepyClient)
+from feedspora.diaspora_client import DiaspyClient
+from feedspora.facebook_client import FacebookClient
+from feedspora.feedspora_runner import FeedSpora
+from feedspora.linkedin_client import LinkedInClient
+from feedspora.mastodon_client import MastodonClient
+from feedspora.shaarpy_client import ShaarpyClient
+from feedspora.tweepy_client import TweepyClient
+from feedspora.wordpress_client import WPClient
 
 TBD = 'tests/'
 
@@ -107,6 +111,7 @@ def test_TweepyClient(entry_generator, expected):
         title_start = title_start[:title_start.rfind(' ')]
         assert returned['text'].startswith(title_start)
         assert returned['text'].endswith(expected['link'])
+
         for k in expected['keywords']:
             target = ' #{}'.format(k)
             assert returned['text'].index(target) > -1
