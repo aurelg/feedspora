@@ -90,7 +90,7 @@ def test_TweepyClient(entry_generator, expected):
                 return {'text': text}
 
         obj._api = fake_provider()
-        obj._link_cost = 22
+        obj._link_cost = 23
         obj._max_len = 280
 
     def check_entry(returned, expected):
@@ -99,8 +99,8 @@ def test_TweepyClient(entry_generator, expected):
         putative_urls = re.findall(r'[a-zA-Z0-9]+\.[a-zA-Z]{2,3}',
                                    returned_text)
         # Infer the 'inner links' Twitter may charge length for
-        adjust_with_inner_links = 22 + \
-            sum([22 - len(u) for u in putative_urls])
+        adjust_with_inner_links = 23 + \
+            sum([23 - len(u) for u in putative_urls])
         detected_length = len(returned_text) + adjust_with_inner_links
         assert not detected_length > 280
 
