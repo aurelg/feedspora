@@ -33,7 +33,10 @@ class FeedSporaEntry:
     link = ''
     published_date = None
     content = ''
-    tags = {}    
+    tags = {'title': [],
+            'content': [],
+            'category': [],
+            }
     media_url = None
 # pylint: enable=too-few-public-methods
 
@@ -222,9 +225,10 @@ class FeedSpora:
         for word in title.split():
             if word.startswith('#') and word[1:] not in title_tags:
                 title_tags.append(word[1:])
-                
+
         # Add tags from end of content (removing from content in the
         # process of gathering tags)
+        content_tags = []
         if content:
             tag_pattern = r'\s+#([\w]+)$'
             match_result = re.search(tag_pattern, content)
@@ -281,14 +285,14 @@ class FeedSpora:
                 fse.content = ''
 
             # Tags from title and content, each in their own list
-            fse.tags{'title'}, fse.tags{'content'} = self.get_tag_lists(
+            fse.tags['title'], fse.tags['content'] = self.get_tag_lists(
                 fse.title, fse.content)
 
             # Add tags from category
             for tag in entry.find_all('category'):
                 new_tag = tag['term'].replace(' ', '_').strip()
-                if new_tag not in fse.tags{'category'}:
-                    fse.tags{'category'}.append(new_tag)
+                if new_tag not in fse.tags['category']:
+                    fse.tags['category'].append(new_tag)
 
             # Published_date implementation for Atom
 
@@ -378,15 +382,15 @@ class FeedSpora:
             fse.published_date = entry.find('pubdate').text
 
             # tags from title and content
-            fse.tags{'title'}, fse.tags{'content'} = self.get_tag_lists(
+            fse.tags['title'], fse.tags['content'] = self.get_tag_lists(
                 fse.title, fse.content)
 
             # Add tags from category
             for tag in entry.find_all('category'):
                 new_tag = tag.text.replace(' ', '_').strip()
 
-                if new_tag not in fse.tags{'category'}:
-                    fse.tags{'category'}.append(new_tag)
+                if new_tag not in fse.tags['category']:
+                    fse.tags['category'].append(new_tag)
 
             # And for our final act, media
             fse.media_url = self.find_rss_image_url(entry, fse.link)

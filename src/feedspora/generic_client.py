@@ -4,8 +4,8 @@ GenericClient: baseclass providing features to specific clients.
 
 import json
 import logging
-import pyshorteners
 import re
+import pyshorteners
 
 
 class GenericClient:
@@ -196,8 +196,8 @@ class GenericClient:
         if 'tag_filter_opts' in account:
             self._tag_filter_opts = dict.fromkeys([
                 word.strip() for word in account['tag_filter_opts'].split(',')
-                ],True)
-        
+                ], True)
+
         if 'max_tags' in account:
             self._max_tags = account['max_tags']
 
@@ -383,16 +383,16 @@ class GenericClient:
         to_filter = self._tags
         # Next, title tags, if appropriate
         if 'ignore_title' not in self._tag_filter_opts and \
-           entry.tags{'title'}:
-            to_filter.extend(entry.tags{'title'})
+           entry.tags['title']:
+            to_filter.extend(entry.tags['title'])
         # Then, content tags, if appropriate
         if 'ignore_content' not in self._tag_filter_opts and \
-           entry.tags{'content'}:
-            to_filter.extend(entry.tags{'content'})
-        # Finally, category tags
+           entry.tags['content']:
+            to_filter.extend(entry.tags['content'])
+        # Finally, category tags, again if appropriate
         if 'ignore_category' not in self._tag_filter_opts and \
-           entry.tags{'category'}:
-            to_filter.extend(entry.tags{'category'})
+           entry.tags['category']:
+            to_filter.extend(entry.tags['category'])
 
         # And now we filter.  We NEVER want any duplicates, and that might
         # include non-case-sensitive duplication too, depending upon options
@@ -409,4 +409,4 @@ class GenericClient:
             if len(to_return) >= self._max_tags:
                 break
 
-        return to_return[]
+        return to_return
