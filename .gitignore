@@ -8,3 +8,5 @@ feedspora.yml
 .*.swp
 .cache
 MANIFEST
+.mypy_cache
+.coverage
