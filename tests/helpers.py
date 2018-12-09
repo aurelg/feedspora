@@ -22,6 +22,7 @@ def check_feed(capsys, feedtype):
 
     with patch("sys.argv", ["main", "--testing", feedtype]):
         main()
+
         # Retrieve stdout and stderr
         stdout = capsys.readouterr().out
         tested = json.loads(stdout)
@@ -34,9 +35,7 @@ def check_feed(capsys, feedtype):
         # For each feed client, check that the list of entries is the same
 
         for feedkey in expected.keys():
-
             print(f"Testing feed {feedkey}")
-
             # Check tested and expected have the same Clients
             assert expected[feedkey].keys() == tested[feedkey].keys(), \
                 "Clients: Tested: %s\nExpected: %s" % \
@@ -49,7 +48,6 @@ def check_feed(capsys, feedtype):
                         "Entries: Tested: %s\nExpected: %s" % \
                         (tested[feedkey][clientkey],
                          expected[feedkey][clientkey])
-
     # Cleanup db file
 
     if dbfile.exists():
