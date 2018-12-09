@@ -2,8 +2,6 @@
 LinkedIn client
 """
 
-import json
-
 from linkedin import linkedin
 
 from feedspora.generic_client import GenericClient
@@ -26,32 +24,27 @@ class LinkedInClient(GenericClient):
                 token=account['authentication_token'])
         self._visibility = account['visibility']
 
-    def test_output(self, **kwargs):
+    def get_dict_output(self, **kwargs):
         '''
-        Print output for testing purposes
+        Return dict output for testing purposes
         :param kwargs:
         '''
-        print(
-            json.dumps({
-                "client":
-                self.get_name(),
-                "title":
-                self._trim_string(kwargs['entry'].title, 200),
-                "link":
-                kwargs['entry'].link,
-                "visibility":
-                self._visibility,
-                "description":
-                self._trim_string(kwargs['entry'].title, 256),
-                "Comment":
-                self._mkrichtext(
-                    kwargs['entry'].title,
-                    kwargs['entry'].keywords,
-                    maxlen=700)
-            },
-                       indent=4))
 
-        return True
+        return {
+            "client":
+            self.get_name(),
+            "title":
+            self._trim_string(kwargs['entry'].title, 200),
+            "link":
+            kwargs['entry'].link,
+            "visibility":
+            self._visibility,
+            "description":
+            self._trim_string(kwargs['entry'].title, 256),
+            "Comment":
+            self._mkrichtext(
+                kwargs['entry'].title, kwargs['entry'].keywords, maxlen=700)
+        }
 
     def post(self, entry):
         '''
@@ -61,7 +54,7 @@ class LinkedInClient(GenericClient):
         to_return = False
 
         if self.is_testing():
-            to_return = self.test_output(entry=entry)
+            self.accumulate_testing_output(self.get_dict_output(entry=entry))
         else:
             to_return = self._linkedin.submit_share(
                 comment=self._mkrichtext(
