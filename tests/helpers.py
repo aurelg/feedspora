@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 from unittest.mock import patch
 
@@ -15,24 +16,39 @@ def check_feed(capsys, feedtype):
     if dbfile.exists():
         dbfile.unlink()
 
-    # load expected
+    # Load expected
     with open(f"{feedtype}.au") as fp:
-        expected = fp.read().split("\n")
+        expected = json.load(fp)
 
     with patch("sys.argv", ["main", "--testing", feedtype]):
         main()
-        # retrieve stdout and stderr
-        captured = capsys.readouterr()
-        # Compare
-        print(captured.err)
-        tested = captured.out.split("\n")
-        # Check their length
-        assert len(expected) == len(tested)
+        # Retrieve stdout and stderr
+        stdout = capsys.readouterr().out
+        tested = json.loads(stdout)
 
-        # Check line by line
+        # Check tested and expected have the same feeds
+        assert tested.keys() == expected.keys(), \
+            "Feeds: Tested: %s\nExpected: %s" % \
+            (tested.keys(), expected.keys())
 
-        for tested_line, expected_line in zip(tested, expected):
-            assert tested_line == expected_line
+        # For each feed client, check that the list of entries is the same
+
+        for feedkey in expected.keys():
+
+            print(f"Testing feed {feedkey}")
+
+            # Check tested and expected have the same Clients
+            assert expected[feedkey].keys() == tested[feedkey].keys(), \
+                "Clients: Tested: %s\nExpected: %s" % \
+                (tested[feedkey].keys(), expected[feedkey].keys())
+
+            for clientkey in expected[feedkey].keys():
+
+                assert expected[feedkey][clientkey] \
+                        == tested[feedkey][clientkey], \
+                        "Entries: Tested: %s\nExpected: %s" % \
+                        (tested[feedkey][clientkey],
+                         expected[feedkey][clientkey])
 
     # Cleanup db file
 

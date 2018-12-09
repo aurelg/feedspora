@@ -15,6 +15,7 @@ It currently supports Facebook, Twitter, Diaspora, Wordpress and Mastodon.
 @contact:    aurelien.grosdidier@gmail.com
 '''
 
+import json
 import logging
 import os
 import re
@@ -36,6 +37,8 @@ class FeedSporaEntry:
     content = ''
     keywords = None
     media_url = None
+    _testing = False
+    _testing_accumulator = None
 
 
 # pylint: enable=too-few-public-methods
@@ -57,6 +60,8 @@ class FeedSpora:
         Initialize
         '''
         logging.basicConfig(level=logging.INFO)
+        self._testing = False
+        self._testing_accumulator = None
 
     def set_feed_urls(self, feed_urls):
         '''
@@ -98,6 +103,15 @@ class FeedSpora:
             self._cur.execute(sql)
         else:
             logging.info("Found database file %s", self._db_file)
+
+    def set_testing(self, testing):
+        '''
+        Are we testing feedspora?
+        '''
+        self._testing = testing
+
+        if self._testing:
+            self._testing_accumulator = dict()
 
     # pylint: disable=no-self-use
     def entry_identifier(self, entry):
@@ -432,6 +446,14 @@ class FeedSpora:
             entry_count += 1
             self._publish_entry(entry_count, entry)
 
+        if self._testing:
+            output = {
+                client.get_name(): client.pop_testing_output()
+
+                for client in self._client
+            }
+            self._testing_accumulator[feed_url] = output
+
     def run(self):
         '''
         Run FeedSpora: initialize the database and process the list of
@@ -446,3 +468,6 @@ class FeedSpora:
 
         for feed_url in self._feed_urls:
             self._process_feed(feed_url)
+
+        if self._testing:
+            print(json.dumps(self._testing_accumulator, indent=4))
