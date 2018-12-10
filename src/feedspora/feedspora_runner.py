@@ -20,8 +20,8 @@ import logging
 import os
 import re
 import sqlite3
-import urllib
 
+import requests
 from bs4 import BeautifulSoup
 
 
@@ -174,14 +174,14 @@ class FeedSpora:
         :param entry:
         '''
 
-        if self._client is None:
-            logging.error("No client found, aborting publication")
+        if not self._client:
+            logging.error(
+                "No client found, aborting publication", exc_info=True)
 
             return
         logging.info('Publishing: %s', entry.title)
 
         for client in self._client:
-            # pylint: disable=broad-except
 
             if not self.is_already_published(entry, client):
                 try:
@@ -189,8 +189,11 @@ class FeedSpora:
                 except Exception as error:
                     logging.error(
                         "Error while publishing '%s' to client"
-                        " '%s' : %s", entry.title, client.__class__.__name__,
-                        format(error))
+                        " '%s' : %s",
+                        entry.title,
+                        client.__class__.__name__,
+                        format(error),
+                        exc_info=True)
 
                     continue
 
@@ -200,9 +203,11 @@ class FeedSpora:
                     except Exception as error:
                         logging.error(
                             "Error while storing '%s' to client"
-                            "'%s' : %s", entry.title,
-                            client.__class__.__name__, format(error))
-            # pylint: enable=broad-except
+                            "'%s' : %s",
+                            entry.title,
+                            client.__class__.__name__,
+                            format(error),
+                            exc_info=True)
 
     def retrieve_feed_soup(self, feed_url):
         '''
@@ -217,12 +222,11 @@ class FeedSpora:
         except FileNotFoundError:
             logging.info("File not found.")
             logging.info("Trying to read %s as a URL.", feed_url)
-            req = urllib.request.Request(
-                url=feed_url,
-                data=b'None',
-                method='GET',
-                headers={'User-Agent': self._ua})
-            feed_content = urllib.request.urlopen(req).read()
+            response = requests.get(feed_url, headers={'User-Agent': self._ua})
+
+            if not response.ok:
+                raise Exception(feed_content)
+            feed_content = response.text
         logging.info("Feed read.")
 
         return BeautifulSoup(feed_content, 'html.parser')
@@ -423,10 +427,13 @@ class FeedSpora:
         # get feed content
         try:
             soup = self.retrieve_feed_soup(feed_url)
-        except (urllib.error.HTTPError, ValueError, OSError,
-                urllib.error.URLError) as error:
-            logging.error("Error while reading feed at %s: %s", feed_url,
-                          format(error))
+        except (requests.exceptions.ConnectionError, ValueError,
+                OSError) as error:
+            logging.error(
+                "Error while reading feed at %s: %s",
+                feed_url,
+                format(error),
+                exc_info=True)
 
             return
 
@@ -461,7 +468,8 @@ class FeedSpora:
         '''
 
         if not self._client:
-            logging.error("No client found, aborting publication")
+            logging.error(
+                "No client found, aborting publication", exc_info=True)
 
             return
         self._init_db()
