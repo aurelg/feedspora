@@ -2,7 +2,6 @@
 Twitter client based on tweepy.
 """
 
-import json
 import logging
 import os
 import re
@@ -40,22 +39,17 @@ class TweepyClient(GenericClient):
 
         self.set_common_opts(account)
 
-    def test_output(self, **kwargs):
+    def get_dict_output(self, **kwargs):
         '''
-        Print output for testing purposes
+        Return dict output for testing purposes
         :param kwargs:
         '''
-        print(
-            json.dumps(
-                {
-                    "client": self.get_name(),
-                    "content": kwargs['text'],
-                    "media":
-                    kwargs['media_path'] if kwargs['media_path'] else None
-                },
-                indent=4))
 
-        return True
+        return {
+            "client": self.get_name(),
+            "content": kwargs['text'],
+            "media": kwargs['media_path'] if kwargs['media_path'] else None
+        }
 
     def post(self, entry):
         '''
@@ -150,7 +144,8 @@ class TweepyClient(GenericClient):
         to_return = False
 
         if self.is_testing():
-            to_return = self.test_output(text=text, media_path=media_path)
+            self.accumulate_testing_output(
+                self.get_dict_output(text=text, media_path=media_path))
         elif media_path:
             to_return = self._api.update_with_media(media_path, text)
         else:

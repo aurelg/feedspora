@@ -2,7 +2,6 @@
 GenericClient: baseclass providing features to specific clients.
 """
 
-import json
 import logging
 import re
 import pyshorteners
@@ -26,6 +25,7 @@ class GenericClient:
     _include_media = False
     _post_suffix = None
     _testing_root = None
+    _testing_output = None
 
     # pylint: enable=too-many-instance-attributes
 
@@ -117,22 +117,34 @@ class GenericClient:
 
         return self._testing_root is not None
 
+    def accumulate_testing_output(self, outdict):
+        '''
+        Record output for testing purpose
+        '''
+
+        if not self._testing_output:
+            self._testing_output = []
+        self._testing_output.append(outdict)
+
+    def pop_testing_output(self):
+        '''
+        Retrieve output and clear it for the next round
+        '''
+        to_return = self._testing_output
+        self._testing_output = []
+
+        return to_return
+
     # pylint: enable=no-self-use
 
-    def test_output(self, **kwargs):
+    def get_dict_output(self, **kwargs):
         '''
         Define output for testing purposes (potentially overridden on
         per-client basis - this is the default), then output that definition
         :param kwargs:
         '''
-        print(
-            json.dumps({
-                "client": self.get_name(),
-                "content": kwargs['text']
-            },
-                       indent=4))
 
-        return True
+        return {"client": self.get_name(), "content": kwargs['text']}
 
     def shorten_url(self, the_url):
         '''

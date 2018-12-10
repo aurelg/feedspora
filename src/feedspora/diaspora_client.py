@@ -52,7 +52,7 @@ class DiaspyClient(GenericClient):
                 text, aspect_ids='public', provider_display_name='FeedSpora')
             # pylint: enable=unexpected-keyword-arg
         elif self.is_testing():
-            to_return = self.test_output(text=text)
+            self.accumulate_testing_output(self.get_dict_output(text=text))
         else:
             logging.info("Diaspy stream is None, not posting anything")
 

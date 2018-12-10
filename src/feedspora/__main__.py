@@ -81,6 +81,7 @@ def main():
         if 'enabled' not in account or account['enabled']:
             connect_account(account, args.testing)
     feedspora.set_db_file(root_name + '.db')
+    feedspora.set_testing(args.testing is not None)
     feedspora.run()
 
 

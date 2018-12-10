@@ -14,12 +14,13 @@ It currently supports Facebook, Twitter, Diaspora, Wordpress and Mastodon.
 @contact:    aurelien.grosdidier@gmail.com
 '''
 
+import json
 import logging
 import os
 import re
 import sqlite3
-import urllib
 
+import requests
 from bs4 import BeautifulSoup
 
 # pylint: disable=too-few-public-methods
@@ -57,6 +58,8 @@ class FeedSpora:
         Initialize
         '''
         logging.basicConfig(level=logging.INFO)
+        self._testing = False
+        self._testing_accumulator = None
 
     def set_feed_urls(self, feed_urls):
         '''
@@ -98,6 +101,15 @@ class FeedSpora:
             self._cur.execute(sql)
         else:
             logging.info("Found database file %s", self._db_file)
+
+    def set_testing(self, testing):
+        '''
+        Are we testing feedspora?
+        '''
+        self._testing = testing
+
+        if self._testing:
+            self._testing_accumulator = dict()
 
     # pylint: disable=no-self-use
     def entry_identifier(self, entry):
@@ -160,14 +172,14 @@ class FeedSpora:
         :param entry:
         '''
 
-        if self._client is None:
-            logging.error("No client found, aborting publication")
+        if not self._client:
+            logging.error(
+                "No client found, aborting publication", exc_info=True)
 
             return
         logging.info('Publishing: %s', entry.title)
 
         for client in self._client:
-            # pylint: disable=broad-except
 
             if not self.is_already_published(entry, client):
                 try:
@@ -175,8 +187,11 @@ class FeedSpora:
                 except Exception as error:
                     logging.error(
                         "Error while publishing '%s' to client"
-                        " '%s' : %s", entry.title, client.__class__.__name__,
-                        format(error))
+                        " '%s' : %s",
+                        entry.title,
+                        client.__class__.__name__,
+                        format(error),
+                        exc_info=True)
 
                     continue
 
@@ -186,9 +201,11 @@ class FeedSpora:
                     except Exception as error:
                         logging.error(
                             "Error while storing '%s' to client"
-                            "'%s' : %s", entry.title,
-                            client.__class__.__name__, format(error))
-            # pylint: enable=broad-except
+                            "'%s' : %s",
+                            entry.title,
+                            client.__class__.__name__,
+                            format(error),
+                            exc_info=True)
 
     def retrieve_feed_soup(self, feed_url):
         '''
@@ -203,12 +220,11 @@ class FeedSpora:
         except FileNotFoundError:
             logging.info("File not found.")
             logging.info("Trying to read %s as a URL.", feed_url)
-            req = urllib.request.Request(
-                url=feed_url,
-                data=b'None',
-                method='GET',
-                headers={'User-Agent': self._ua})
-            feed_content = urllib.request.urlopen(req).read()
+            response = requests.get(feed_url, headers={'User-Agent': self._ua})
+
+            if not response.ok:
+                raise Exception(feed_content)
+            feed_content = response.text
         logging.info("Feed read.")
 
         return BeautifulSoup(feed_content, 'html.parser')
@@ -410,10 +426,13 @@ class FeedSpora:
         # get feed content
         try:
             soup = self.retrieve_feed_soup(feed_url)
-        except (urllib.error.HTTPError, ValueError, OSError,
-                urllib.error.URLError) as error:
-            logging.error("Error while reading feed at %s: %s", feed_url,
-                          format(error))
+        except (requests.exceptions.ConnectionError, ValueError,
+                OSError) as error:
+            logging.error(
+                "Error while reading feed at %s: %s",
+                feed_url,
+                format(error),
+                exc_info=True)
 
             return
 
@@ -433,6 +452,14 @@ class FeedSpora:
             entry_count += 1
             self._publish_entry(entry_count, entry)
 
+        if self._testing:
+            output = {
+                client.get_name(): client.pop_testing_output()
+
+                for client in self._client
+            }
+            self._testing_accumulator[feed_url] = output
+
     def run(self):
         '''
         Run FeedSpora: initialize the database and process the list of
@@ -440,10 +467,14 @@ class FeedSpora:
         '''
 
         if not self._client:
-            logging.error("No client found, aborting publication")
+            logging.error(
+                "No client found, aborting publication", exc_info=True)
 
             return
         self._init_db()
 
         for feed_url in self._feed_urls:
             self._process_feed(feed_url)
+
+        if self._testing:
+            print(json.dumps(self._testing_accumulator, indent=4))

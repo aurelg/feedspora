@@ -2,8 +2,6 @@
 Facebook client.
 """
 
-import json
-
 import facebook
 
 from feedspora.generic_client import GenericClient
@@ -37,22 +35,19 @@ class FacebookClient(GenericClient):
             self._post_as = profile['id']
         self.set_common_opts(account)
 
-    def test_output(self, **kwargs):
+    def get_dict_output(self, **kwargs):
         '''
-        Print output for testing purposes
+        Return dict output for testing purposes
         :param kwargs:
         '''
-        print(
-            json.dumps({
-                "client": self.get_name(),
-                "posting_as": self._post_as,
-                "name": kwargs['attachment']['name'],
-                "link": kwargs['attachment']['link'],
-                "content": kwargs['text']
-            },
-                       indent=4))
 
-        return True
+        return {
+            "client": self.get_name(),
+            "posting_as": self._post_as,
+            "name": kwargs['attachment']['name'],
+            "link": kwargs['attachment']['link'],
+            "content": kwargs['text']
+        }
 
     def post(self, entry):
         '''
@@ -66,7 +61,8 @@ class FacebookClient(GenericClient):
         to_return = False
 
         if self.is_testing():
-            to_return = self.test_output(text=text, attachment=attachment)
+            self.accumulate_testing_output(
+                self.get_dict_output(text=text, attachment=attachment))
         else:
             # pylint: disable=no-member
             to_return = self._graph.put_wall_post(text, attachment,

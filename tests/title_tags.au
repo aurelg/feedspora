@@ -1,53 +1,71 @@
 {
-    "client": "Diaspora_basic",
-    "content": "[How #Atomic #Punk Rules The Day](http://example.org/2003/12/13/atom04) |   #atomic #punk #day #extra"
-}
-{
-    "client": "Twitter_basic",
-    "content": "How #Atomic #Punk Rules The #Day | #extra http://example.org/2003/12/13/atom04",
-    "media": null
-}
-{
-    "client": "Facebook_basic",
-    "posting_as": "TESTER",
-    "name": "How #Atomic #Punk Rules The Day",
-    "link": "http://example.org/2003/12/13/atom04",
-    "content": "How #Atomic #Punk Rules The Day #atomic #punk #day #extra"
-}
-{
-    "client": "Mastodon_basic",
-    "delay": 0,
-    "visibility": "unlisted",
-    "content": "How #Atomic #Punk Rules The #Day | #extra http://example.org/2003/12/13/atom04"
-}
-{
-    "client": "Shaarpy_basic",
-    "title": "How #Atomic #Punk Rules The Day",
-    "link": "http://example.org/2003/12/13/atom04",
-    "tags": [
-        "atomic",
-        "punk",
-        "day",
-        "extra"
+  "title_tags.atom": {
+    "Twitter_basic": [
+      {
+        "client": "Twitter_basic",
+        "content": "How #Atomic #Punk Rules The #Day | #extra http://example.org/2003/12/13/atom04",
+        "media": null
+      }
     ],
-    "content": "\n\nThis is the atomic entry content.\n\n"
-}
-{
-    "client": "WordPress_basic",
-    "title": "How #Atomic #Punk Rules The Day",
-    "post_tag": [
-        "atomic",
-        "punk",
-        "day",
-        "extra"
+    "Mastodon_basic": [
+      {
+        "client": "Mastodon_basic",
+        "delay": 0,
+        "visibility": "unlisted",
+        "content": "How #Atomic #Punk Rules The #Day | #extra http://example.org/2003/12/13/atom04"
+      }
     ],
-    "Content": "http://example.org/2003/12/13/atom04"
-}
-{
-    "client": "LinkedIn_basic",
-    "title": "How #Atomic #Punk Rules The Day",
-    "link": "http://example.org/2003/12/13/atom04",
-    "visibility": "anyone",
-    "description": "How #Atomic #Punk Rules The Day",
-    "Comment": "How #Atomic #Punk Rules The #Day | #extra"
+    "Shaarpy_basic": [
+      {
+        "client": "Shaarpy_basic",
+        "title": "How #Atomic #Punk Rules The Day",
+        "link": "http://example.org/2003/12/13/atom04",
+        "tags": [
+          "Atomic",
+          "Punk",
+          "day",
+          "extra"
+        ],
+        "content": "\n\nThis is the atomic entry content.\n\n"
+      }
+    ],
+    "WordPress_basic": [
+      {
+        "client": "WordPress_basic",
+        "title": "How #Atomic #Punk Rules The Day",
+        "post_tag": [
+          "Atomic",
+          "Punk",
+          "day",
+          "extra"
+        ],
+        "Content": "http://example.org/2003/12/13/atom04"
+      }
+    ],
+    "Diaspora_basic": [
+      {
+        "client": "Diaspora_basic",
+        "content": "[How #Atomic #Punk Rules The Day](http://example.org/2003/12/13/atom04) |  #Atomic #Punk #day #extra"
+      }
+    ],
+    "LinkedIn_basic": [
+      {
+        "client": "LinkedIn_basic",
+        "title": "How #Atomic #Punk Rules The Day",
+        "link": "http://example.org/2003/12/13/atom04",
+        "visibility": "anyone",
+        "description": "How #Atomic #Punk Rules The Day",
+        "Comment": "How #Atomic #Punk Rules The #Day | #extra"
+      }
+    ],
+    "Facebook_basic": [
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "How #Atomic #Punk Rules The Day",
+        "link": "http://example.org/2003/12/13/atom04",
+        "content": "How #Atomic #Punk Rules The Day #Atomic #Punk #day #extra"
+      }
+    ]
+  }
 }
