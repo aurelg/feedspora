@@ -1,6 +1,10 @@
 import pytest
+import requests
+import requests_cache
 
 from helpers import check_feed
+
+requests_cache.install_cache()
 
 
 def test_post_basic(capsys):
