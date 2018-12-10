@@ -291,6 +291,7 @@ class FeedSpora:
                 fse.title, fse.content)
 
             # Add tags from category
+            fse.tags['category'] = []
             for tag in entry.find_all('category'):
                 new_tag = tag['term'].replace(' ', '_').strip()
                 if new_tag not in fse.tags['category']:
@@ -388,6 +389,7 @@ class FeedSpora:
                 fse.title, fse.content)
 
             # Add tags from category
+            fse.tags['category'] = []
             for tag in entry.find_all('category'):
                 new_tag = tag.text.replace(' ', '_').strip()
 

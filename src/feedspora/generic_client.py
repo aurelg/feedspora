@@ -194,9 +194,8 @@ class GenericClient:
 
         # Tag filtering options
         if 'tag_filter_opts' in account:
-            self._tag_filter_opts = dict.fromkeys([
-                word.strip() for word in account['tag_filter_opts'].split(',')
-                ], True)
+            self._tag_filter_opts = {key.strip(): True \
+                for key in account['tag_filter_opts'].split(',')}
 
         if 'max_tags' in account:
             self._max_tags = account['max_tags']
@@ -377,10 +376,9 @@ class GenericClient:
         to be used during posting
         :param entry:
         '''
-        to_return = []
 
         # First priority: user-defined tags
-        to_filter = self._tags
+        to_filter = self._tags[:]
         # Next, title tags, if appropriate
         if 'ignore_title' not in self._tag_filter_opts and \
            entry.tags['title']:
@@ -396,6 +394,7 @@ class GenericClient:
 
         # And now we filter.  We NEVER want any duplicates, and that might
         # include non-case-sensitive duplication too, depending upon options
+        to_return = []
         non_case_sensitive = []
         for tag in to_filter:
             if 'case-sensitive' in self._tag_filter_opts and \
@@ -411,6 +410,7 @@ class GenericClient:
 
         return to_return
 
+    # pylint: disable=no-self-use
     def remove_ending_tags(self, content):
         '''
         Trim any tags from the end of content, and return the modified content.
@@ -422,7 +422,6 @@ class GenericClient:
             match_result = re.search(tag_pattern, content)
 
             while match_result:
-                tag = match_result.group(1)
                 content = re.sub(tag_pattern, '', content)
                 match_result = re.search(tag_pattern, content)
 
@@ -431,4 +430,4 @@ class GenericClient:
                 content = ''
 
         return content
-
+    # pylint: enable=no-self-use

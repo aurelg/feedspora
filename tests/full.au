@@ -1,6 +1,6 @@
 {
     "client": "Diaspora_full",
-    "content": "[3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others](https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos) |  #hashtag1 #hashtag2 "
+    "content": "[3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others](https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos) |  #hashtag1 #hashtag2"
 }
 {
     "client": "Twitter_full",
@@ -24,13 +24,16 @@
     "client": "Shaarpy_full",
     "title": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
     "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
-    "keywords": [],
+    "tags": [],
     "content": ""
 }
 {
     "client": "WordPress_full",
     "title": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
-    "post_tag": [],
+    "post_tag": [
+        "hashtagA",
+        "hashtagB"
+    ],
     "Content": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos"
 }
 {
@@ -43,7 +46,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[1.1 - Mort num\u00e9rique: que faire des donn\u00e9es personnelles et des comptes Facebook apr\u00e8s un d\u00e9c\u00e8s ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)](http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html) |  #hashtag1 #hashtag2 "
+    "content": "[1.1 - Mort num\u00e9rique: que faire des donn\u00e9es personnelles et des comptes Facebook apr\u00e8s un d\u00e9c\u00e8s ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)](http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html) |  #hashtag1 #hashtag2"
 }
 {
     "client": "Twitter_full",
@@ -67,13 +70,16 @@
     "client": "Shaarpy_full",
     "title": "1.1 - Mort num\u00e9rique: que faire des donn\u00e9es personnelles et des comptes Facebook apr\u00e8s un d\u00e9c\u00e8s ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
     "link": "http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html",
-    "keywords": [],
+    "tags": [],
     "content": ""
 }
 {
     "client": "WordPress_full",
     "title": "1.1 - Mort num\u00e9rique: que faire des donn\u00e9es personnelles et des comptes Facebook apr\u00e8s un d\u00e9c\u00e8s ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
-    "post_tag": [],
+    "post_tag": [
+        "hashtagA",
+        "hashtagB"
+    ],
     "Content": "http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html"
 }
 {
@@ -86,7 +92,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Atom-Powered Robots Run Amok](http://example.org/2003/12/13/atom03) |  #hashtag1 #hashtag2  #animal #vegetable #mineral"
+    "content": "[Atom-Powered Robots Run Amok](http://example.org/2003/12/13/atom03) |  #hashtag1 #hashtag2 #animal #vegetable #mineral"
 }
 {
     "client": "Twitter_full",
@@ -110,7 +116,7 @@
     "client": "Shaarpy_full",
     "title": "Atom-Powered Robots Run Amok",
     "link": "http://example.org/2003/12/13/atom03",
-    "keywords": [
+    "tags": [
         "animal",
         "vegetable",
         "mineral"
@@ -121,6 +127,8 @@
     "client": "WordPress_full",
     "title": "Atom-Powered Robots Run Amok",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "animal",
         "vegetable",
         "mineral"
@@ -137,7 +145,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author](https://www.youtube.com/watch?v=24F6C1KfbjM) |  #hashtag1 #hashtag2  #bell #fry #lecture #myths #shannon #technology"
+    "content": "[Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author](https://www.youtube.com/watch?v=24F6C1KfbjM) |  #hashtag1 #hashtag2 #bell #fry #lecture #myths #shannon #technology"
 }
 {
     "client": "Facebook_full",
@@ -156,7 +164,7 @@
     "client": "Shaarpy_full",
     "title": "Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author",
     "link": "https://www.youtube.com/watch?v=24F6C1KfbjM",
-    "keywords": [
+    "tags": [
         "bell",
         "fry",
         "lecture",
@@ -170,6 +178,8 @@
     "client": "WordPress_full",
     "title": "Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "bell",
         "fry",
         "lecture",
@@ -189,7 +199,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[D\u00e9bat : Google est\u2011il l\u2019ami de\u00a0la\u00a0production et\u00a0la\u00a0circulation des\u00a0id\u00e9es\u00a0?](https://theconversation.com/debat-google-est-il-lami-de-la-production-et-la-circulation-des-idees-85940) |  #hashtag1 #hashtag2  #google"
+    "content": "[D\u00e9bat : Google est\u2011il l\u2019ami de\u00a0la\u00a0production et\u00a0la\u00a0circulation des\u00a0id\u00e9es\u00a0?](https://theconversation.com/debat-google-est-il-lami-de-la-production-et-la-circulation-des-idees-85940) |  #hashtag1 #hashtag2 #google"
 }
 {
     "client": "Facebook_full",
@@ -208,7 +218,7 @@
     "client": "Shaarpy_full",
     "title": "D\u00e9bat : Google est\u2011il l\u2019ami de\u00a0la\u00a0production et\u00a0la\u00a0circulation des\u00a0id\u00e9es\u00a0?",
     "link": "https://theconversation.com/debat-google-est-il-lami-de-la-production-et-la-circulation-des-idees-85940",
-    "keywords": [
+    "tags": [
         "google"
     ],
     "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?4cyK8w\" title=\"Permalink\">Permalink</a>"
@@ -217,6 +227,8 @@
     "client": "WordPress_full",
     "title": "D\u00e9bat : Google est\u2011il l\u2019ami de\u00a0la\u00a0production et\u00a0la\u00a0circulation des\u00a0id\u00e9es\u00a0?",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "google"
     ],
     "Content": "https://theconversation.com/debat-google-est-il-lami-de-la-production-et-la-circulation-des-idees-85940"
@@ -231,7 +243,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Digital, Num\u00e9rique : Terminologie](https://zythom.blogspot.fr/2017/10/terminologie.html) |  #hashtag1 #hashtag2  #digital #num\u00e9rique #terminologie"
+    "content": "[Digital, Num\u00e9rique : Terminologie](https://zythom.blogspot.fr/2017/10/terminologie.html) |  #hashtag1 #hashtag2 #digital #num\u00e9rique #terminologie"
 }
 {
     "client": "Facebook_full",
@@ -250,7 +262,7 @@
     "client": "Shaarpy_full",
     "title": "Digital, Num\u00e9rique : Terminologie",
     "link": "https://zythom.blogspot.fr/2017/10/terminologie.html",
-    "keywords": [
+    "tags": [
         "digital",
         "num\u00e9rique",
         "terminologie"
@@ -261,6 +273,8 @@
     "client": "WordPress_full",
     "title": "Digital, Num\u00e9rique : Terminologie",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "digital",
         "num\u00e9rique",
         "terminologie"
@@ -277,7 +291,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Le burnout, une pathologie de civilisation](https://www.franceinter.fr/emissions/la-tete-au-carre/la-tete-au-carre-27-septembre-2017) |  #hashtag1 #hashtag2  #burnout"
+    "content": "[Le burnout, une pathologie de civilisation](https://www.franceinter.fr/emissions/la-tete-au-carre/la-tete-au-carre-27-septembre-2017) |  #hashtag1 #hashtag2 #burnout"
 }
 {
     "client": "Facebook_full",
@@ -296,7 +310,7 @@
     "client": "Shaarpy_full",
     "title": "Le burnout, une pathologie de civilisation",
     "link": "https://www.franceinter.fr/emissions/la-tete-au-carre/la-tete-au-carre-27-septembre-2017",
-    "keywords": [
+    "tags": [
         "burnout"
     ],
     "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?nhyL4g\" title=\"Permalink\">Permalink</a>"
@@ -305,6 +319,8 @@
     "client": "WordPress_full",
     "title": "Le burnout, une pathologie de civilisation",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "burnout"
     ],
     "Content": "https://www.franceinter.fr/emissions/la-tete-au-carre/la-tete-au-carre-27-septembre-2017"
@@ -319,7 +335,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.](https://github.com/unixorn/awesome-zsh-plugins) |  #hashtag1 #hashtag2  #awesome #git #plugins #zsh"
+    "content": "[awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.](https://github.com/unixorn/awesome-zsh-plugins) |  #hashtag1 #hashtag2 #awesome #git #plugins #zsh"
 }
 {
     "client": "Facebook_full",
@@ -338,7 +354,7 @@
     "client": "Shaarpy_full",
     "title": "awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.",
     "link": "https://github.com/unixorn/awesome-zsh-plugins",
-    "keywords": [
+    "tags": [
         "awesome",
         "git",
         "plugins",
@@ -350,6 +366,8 @@
     "client": "WordPress_full",
     "title": "awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "awesome",
         "git",
         "plugins",
@@ -367,7 +385,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[antigen: The plugin manager for zsh](https://github.com/zsh-users/antigen) |  #hashtag1 #hashtag2  #antigen #git #manager #plugin #zsh"
+    "content": "[antigen: The plugin manager for zsh](https://github.com/zsh-users/antigen) |  #hashtag1 #hashtag2 #antigen #git #manager #plugin #zsh"
 }
 {
     "client": "Facebook_full",
@@ -386,7 +404,7 @@
     "client": "Shaarpy_full",
     "title": "antigen: The plugin manager for zsh",
     "link": "https://github.com/zsh-users/antigen",
-    "keywords": [
+    "tags": [
         "antigen",
         "git",
         "manager",
@@ -399,6 +417,8 @@
     "client": "WordPress_full",
     "title": "antigen: The plugin manager for zsh",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "antigen",
         "git",
         "manager",
@@ -417,7 +437,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[websocketd : WebSockets the UNIX way](http://websocketd.com/) |  #hashtag1 #hashtag2  #daemon #KISS #websocketd #websockets"
+    "content": "[websocketd : WebSockets the UNIX way](http://websocketd.com/) |  #hashtag1 #hashtag2 #daemon #KISS #websocketd #websockets"
 }
 {
     "client": "Facebook_full",
@@ -436,7 +456,7 @@
     "client": "Shaarpy_full",
     "title": "websocketd : WebSockets the UNIX way",
     "link": "http://websocketd.com/",
-    "keywords": [
+    "tags": [
         "daemon",
         "KISS",
         "websocketd",
@@ -448,6 +468,8 @@
     "client": "WordPress_full",
     "title": "websocketd : WebSockets the UNIX way",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "daemon",
         "KISS",
         "websocketd",
@@ -465,7 +487,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Word embeddings in 2017: Trends and future directions](http://ruder.io/word-embeddings-2017/) |  #hashtag1 #hashtag2  #embeddings #NLP #word"
+    "content": "[Word embeddings in 2017: Trends and future directions](http://ruder.io/word-embeddings-2017/) |  #hashtag1 #hashtag2 #embeddings #NLP #word"
 }
 {
     "client": "Facebook_full",
@@ -484,7 +506,7 @@
     "client": "Shaarpy_full",
     "title": "Word embeddings in 2017: Trends and future directions",
     "link": "http://ruder.io/word-embeddings-2017/",
-    "keywords": [
+    "tags": [
         "embeddings",
         "NLP",
         "word"
@@ -495,6 +517,8 @@
     "client": "WordPress_full",
     "title": "Word embeddings in 2017: Trends and future directions",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "embeddings",
         "NLP",
         "word"
@@ -511,7 +535,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[We are hiring a Postdoc | Social Media Collective cc @msrsmc](https://socialmediacollective.org/2017/10/21/postdoc/) |  #hashtag1 #hashtag2  #microsoft #postdoc #research #SocialMediaCollective"
+    "content": "[We are hiring a Postdoc | Social Media Collective cc @msrsmc](https://socialmediacollective.org/2017/10/21/postdoc/) |  #hashtag1 #hashtag2 #microsoft #postdoc #research #SocialMediaCollective"
 }
 {
     "client": "Facebook_full",
@@ -530,7 +554,7 @@
     "client": "Shaarpy_full",
     "title": "We are hiring a Postdoc | Social Media Collective cc @msrsmc",
     "link": "https://socialmediacollective.org/2017/10/21/postdoc/",
-    "keywords": [
+    "tags": [
         "microsoft",
         "postdoc",
         "research",
@@ -542,6 +566,8 @@
     "client": "WordPress_full",
     "title": "We are hiring a Postdoc | Social Media Collective cc @msrsmc",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "microsoft",
         "postdoc",
         "research",
@@ -559,7 +585,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Unmet needs for analyzing biological bigdata: A survey of 704 NSF principal investigators](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005755) |  #hashtag1 #hashtag2  #bigdata #biological #research"
+    "content": "[Unmet needs for analyzing biological bigdata: A survey of 704 NSF principal investigators](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005755) |  #hashtag1 #hashtag2 #bigdata #biological #research"
 }
 {
     "client": "Facebook_full",
@@ -578,7 +604,7 @@
     "client": "Shaarpy_full",
     "title": "Unmet needs for analyzing biological bigdata: A survey of 704 NSF principal investigators",
     "link": "http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005755",
-    "keywords": [
+    "tags": [
         "bigdata",
         "biological",
         "research"
@@ -589,6 +615,8 @@
     "client": "WordPress_full",
     "title": "Unmet needs for analyzing biological bigdata: A survey of 704 NSF principal investigators",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "bigdata",
         "biological",
         "research"
@@ -605,7 +633,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[La banale ob\u00e9issance, par @CynthiaFleury](https://www.humanite.fr/la-banale-obeissance-642048) |  #hashtag1 #hashtag2  #Fr\u00e9d\u00e9ricGros #ob\u00e9issance"
+    "content": "[La banale ob\u00e9issance, par @CynthiaFleury](https://www.humanite.fr/la-banale-obeissance-642048) |  #hashtag1 #hashtag2 #Fr\u00e9d\u00e9ricGros #ob\u00e9issance"
 }
 {
     "client": "Facebook_full",
@@ -624,7 +652,7 @@
     "client": "Shaarpy_full",
     "title": "La banale ob\u00e9issance, par @CynthiaFleury",
     "link": "https://www.humanite.fr/la-banale-obeissance-642048",
-    "keywords": [
+    "tags": [
         "Fr\u00e9d\u00e9ricGros",
         "ob\u00e9issance"
     ],
@@ -634,6 +662,8 @@
     "client": "WordPress_full",
     "title": "La banale ob\u00e9issance, par @CynthiaFleury",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "Fr\u00e9d\u00e9ricGros",
         "ob\u00e9issance"
     ],
@@ -649,7 +679,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Welcome to Bokeh](https://bokeh.pydata.org/en/latest/) |  #hashtag1 #hashtag2  #bokeh #dataviz #interactive #python"
+    "content": "[Welcome to Bokeh](https://bokeh.pydata.org/en/latest/) |  #hashtag1 #hashtag2 #bokeh #dataviz #interactive #python"
 }
 {
     "client": "Facebook_full",
@@ -668,7 +698,7 @@
     "client": "Shaarpy_full",
     "title": "Welcome to Bokeh",
     "link": "https://bokeh.pydata.org/en/latest/",
-    "keywords": [
+    "tags": [
         "bokeh",
         "dataviz",
         "interactive",
@@ -680,6 +710,8 @@
     "client": "WordPress_full",
     "title": "Welcome to Bokeh",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "bokeh",
         "dataviz",
         "interactive",
@@ -697,7 +729,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[peewee \u2014 peewee 2.10.2 documentation](http://docs.peewee-orm.com/en/latest/) |  #hashtag1 #hashtag2  #MySQL #orm #peewee #PostgreSQL #python #sqlite3"
+    "content": "[peewee \u2014 peewee 2.10.2 documentation](http://docs.peewee-orm.com/en/latest/) |  #hashtag1 #hashtag2 #MySQL #orm #peewee #PostgreSQL #python #sqlite3"
 }
 {
     "client": "Facebook_full",
@@ -716,7 +748,7 @@
     "client": "Shaarpy_full",
     "title": "peewee \u2014 peewee 2.10.2 documentation",
     "link": "http://docs.peewee-orm.com/en/latest/",
-    "keywords": [
+    "tags": [
         "MySQL",
         "orm",
         "peewee",
@@ -730,6 +762,8 @@
     "client": "WordPress_full",
     "title": "peewee \u2014 peewee 2.10.2 documentation",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "MySQL",
         "orm",
         "peewee",
@@ -749,7 +783,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+](https://www.twilio.com/blog/2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html) |  #hashtag1 #hashtag2  #python #sanic #uvloop #web"
+    "content": "[Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+](https://www.twilio.com/blog/2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html) |  #hashtag1 #hashtag2 #python #sanic #uvloop #web"
 }
 {
     "client": "Facebook_full",
@@ -768,7 +802,7 @@
     "client": "Shaarpy_full",
     "title": "Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+",
     "link": "https://www.twilio.com/blog/2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html",
-    "keywords": [
+    "tags": [
         "python",
         "sanic",
         "uvloop",
@@ -780,6 +814,8 @@
     "client": "WordPress_full",
     "title": "Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "python",
         "sanic",
         "uvloop",
@@ -797,7 +833,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Getting the Most out of Sqlite3 with Python](https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html) |  #hashtag1 #hashtag2  #optimization #python #sqlite3"
+    "content": "[Getting the Most out of Sqlite3 with Python](https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html) |  #hashtag1 #hashtag2 #optimization #python #sqlite3"
 }
 {
     "client": "Facebook_full",
@@ -816,7 +852,7 @@
     "client": "Shaarpy_full",
     "title": "Getting the Most out of Sqlite3 with Python",
     "link": "https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html",
-    "keywords": [
+    "tags": [
         "optimization",
         "python",
         "sqlite3"
@@ -827,6 +863,8 @@
     "client": "WordPress_full",
     "title": "Getting the Most out of Sqlite3 with Python",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "optimization",
         "python",
         "sqlite3"
@@ -843,7 +881,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Introverts, Emotional Processing, Self-Esteem and Salary Negotiations](http://cliffc.org/blog/2017/07/30/introverts-emotional-processing-self-esteem-and-salary-negotiations/) |  #hashtag1 #hashtag2  #cognition #delay #emotions #introversion"
+    "content": "[Introverts, Emotional Processing, Self-Esteem and Salary Negotiations](http://cliffc.org/blog/2017/07/30/introverts-emotional-processing-self-esteem-and-salary-negotiations/) |  #hashtag1 #hashtag2 #cognition #delay #emotions #introversion"
 }
 {
     "client": "Facebook_full",
@@ -862,7 +900,7 @@
     "client": "Shaarpy_full",
     "title": "Introverts, Emotional Processing, Self-Esteem and Salary Negotiations",
     "link": "http://cliffc.org/blog/2017/07/30/introverts-emotional-processing-self-esteem-and-salary-negotiations/",
-    "keywords": [
+    "tags": [
         "cognition",
         "delay",
         "emotions",
@@ -874,6 +912,8 @@
     "client": "WordPress_full",
     "title": "Introverts, Emotional Processing, Self-Esteem and Salary Negotiations",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "cognition",
         "delay",
         "emotions",
@@ -891,7 +931,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Poverty shrinks brains from birth : Nature News & Comment](http://www.nature.com/news/poverty-shrinks-brains-from-birth-1.17227) |  #hashtag1 #hashtag2  #brains #cognition #poverty"
+    "content": "[Poverty shrinks brains from birth : Nature News & Comment](http://www.nature.com/news/poverty-shrinks-brains-from-birth-1.17227) |  #hashtag1 #hashtag2 #brains #cognition #poverty"
 }
 {
     "client": "Facebook_full",
@@ -910,7 +950,7 @@
     "client": "Shaarpy_full",
     "title": "Poverty shrinks brains from birth : Nature News & Comment",
     "link": "http://www.nature.com/news/poverty-shrinks-brains-from-birth-1.17227",
-    "keywords": [
+    "tags": [
         "brains",
         "cognition",
         "poverty"
@@ -921,6 +961,8 @@
     "client": "WordPress_full",
     "title": "Poverty shrinks brains from birth : Nature News & Comment",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "brains",
         "cognition",
         "poverty"
@@ -937,7 +979,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[How Social Media Endangers Knowledge](https://www.wired.com/story/wikipedias-fate-shows-how-the-web-endangers-knowledge/) |  #hashtag1 #hashtag2  #knowledge #media #social"
+    "content": "[How Social Media Endangers Knowledge](https://www.wired.com/story/wikipedias-fate-shows-how-the-web-endangers-knowledge/) |  #hashtag1 #hashtag2 #knowledge #media #social"
 }
 {
     "client": "Facebook_full",
@@ -956,7 +998,7 @@
     "client": "Shaarpy_full",
     "title": "How Social Media Endangers Knowledge",
     "link": "https://www.wired.com/story/wikipedias-fate-shows-how-the-web-endangers-knowledge/",
-    "keywords": [
+    "tags": [
         "knowledge",
         "media",
         "social"
@@ -967,6 +1009,8 @@
     "client": "WordPress_full",
     "title": "How Social Media Endangers Knowledge",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "knowledge",
         "media",
         "social"
@@ -983,7 +1027,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Your technical skills are obsolete: now what?](https://codewithoutrules.com/2017/10/23/obsolete-skills/) |  #hashtag1 #hashtag2  #obsolete #skills #technical"
+    "content": "[Your technical skills are obsolete: now what?](https://codewithoutrules.com/2017/10/23/obsolete-skills/) |  #hashtag1 #hashtag2 #obsolete #skills #technical"
 }
 {
     "client": "Facebook_full",
@@ -1002,7 +1046,7 @@
     "client": "Shaarpy_full",
     "title": "Your technical skills are obsolete: now what?",
     "link": "https://codewithoutrules.com/2017/10/23/obsolete-skills/",
-    "keywords": [
+    "tags": [
         "obsolete",
         "skills",
         "technical"
@@ -1013,6 +1057,8 @@
     "client": "WordPress_full",
     "title": "Your technical skills are obsolete: now what?",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "obsolete",
         "skills",
         "technical"
@@ -1029,7 +1075,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Hannah Arendt - L'impasse de la modernit\u00e9](https://www.scienceshumaines.com/hannah-arendt-l-impasse-de-la-modernite_fr_30336.html) |  #hashtag1 #hashtag2  #arendt #impasse #modernit\u00e9"
+    "content": "[Hannah Arendt - L'impasse de la modernit\u00e9](https://www.scienceshumaines.com/hannah-arendt-l-impasse-de-la-modernite_fr_30336.html) |  #hashtag1 #hashtag2 #arendt #impasse #modernit\u00e9"
 }
 {
     "client": "Facebook_full",
@@ -1048,7 +1094,7 @@
     "client": "Shaarpy_full",
     "title": "Hannah Arendt - L'impasse de la modernit\u00e9",
     "link": "https://www.scienceshumaines.com/hannah-arendt-l-impasse-de-la-modernite_fr_30336.html",
-    "keywords": [
+    "tags": [
         "arendt",
         "impasse",
         "modernit\u00e9"
@@ -1059,6 +1105,8 @@
     "client": "WordPress_full",
     "title": "Hannah Arendt - L'impasse de la modernit\u00e9",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "arendt",
         "impasse",
         "modernit\u00e9"
@@ -1075,7 +1123,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[L\u2019autonomie est \u00e0 l\u2019ind\u00e9pendance ce que la libert\u00e9 est \u00e0 l\u2019insoumission](https://www.dailymotion.com/video/x65rs5r) |  #hashtag1 #hashtag2  #autonomie #ind\u00e9pendance #insoumission #libert\u00e9"
+    "content": "[L\u2019autonomie est \u00e0 l\u2019ind\u00e9pendance ce que la libert\u00e9 est \u00e0 l\u2019insoumission](https://www.dailymotion.com/video/x65rs5r) |  #hashtag1 #hashtag2 #autonomie #ind\u00e9pendance #insoumission #libert\u00e9"
 }
 {
     "client": "Facebook_full",
@@ -1094,7 +1142,7 @@
     "client": "Shaarpy_full",
     "title": "L\u2019autonomie est \u00e0 l\u2019ind\u00e9pendance ce que la libert\u00e9 est \u00e0 l\u2019insoumission",
     "link": "https://www.dailymotion.com/video/x65rs5r",
-    "keywords": [
+    "tags": [
         "autonomie",
         "ind\u00e9pendance",
         "insoumission",
@@ -1106,6 +1154,8 @@
     "client": "WordPress_full",
     "title": "L\u2019autonomie est \u00e0 l\u2019ind\u00e9pendance ce que la libert\u00e9 est \u00e0 l\u2019insoumission",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "autonomie",
         "ind\u00e9pendance",
         "insoumission",
@@ -1123,7 +1173,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.](https://github.com/NullArray/MIDA-Multitool) |  #hashtag1 #hashtag2  #enumeration #git #MIDA #pentesting #system"
+    "content": "[MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.](https://github.com/NullArray/MIDA-Multitool) |  #hashtag1 #hashtag2 #enumeration #git #MIDA #pentesting #system"
 }
 {
     "client": "Facebook_full",
@@ -1142,7 +1192,7 @@
     "client": "Shaarpy_full",
     "title": "MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.",
     "link": "https://github.com/NullArray/MIDA-Multitool",
-    "keywords": [
+    "tags": [
         "enumeration",
         "git",
         "MIDA",
@@ -1155,6 +1205,8 @@
     "client": "WordPress_full",
     "title": "MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "enumeration",
         "git",
         "MIDA",
@@ -1173,7 +1225,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Using Language Servers in Neovim](https://fortes.com/2017/language-server-neovim) |  #hashtag1 #hashtag2  #LanguageServerProtocol #LSP #microsoft #neovim"
+    "content": "[Using Language Servers in Neovim](https://fortes.com/2017/language-server-neovim) |  #hashtag1 #hashtag2 #LanguageServerProtocol #LSP #microsoft #neovim"
 }
 {
     "client": "Facebook_full",
@@ -1192,7 +1244,7 @@
     "client": "Shaarpy_full",
     "title": "Using Language Servers in Neovim",
     "link": "https://fortes.com/2017/language-server-neovim",
-    "keywords": [
+    "tags": [
         "LanguageServerProtocol",
         "LSP",
         "microsoft",
@@ -1204,6 +1256,8 @@
     "client": "WordPress_full",
     "title": "Using Language Servers in Neovim",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "LanguageServerProtocol",
         "LSP",
         "microsoft",
@@ -1221,7 +1275,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[smartcd: Alter your bash (or zsh) environment as you cd](https://github.com/cxreg/smartcd) |  #hashtag1 #hashtag2  #cli #git #smartcd"
+    "content": "[smartcd: Alter your bash (or zsh) environment as you cd](https://github.com/cxreg/smartcd) |  #hashtag1 #hashtag2 #cli #git #smartcd"
 }
 {
     "client": "Facebook_full",
@@ -1240,7 +1294,7 @@
     "client": "Shaarpy_full",
     "title": "smartcd: Alter your bash (or zsh) environment as you cd",
     "link": "https://github.com/cxreg/smartcd",
-    "keywords": [
+    "tags": [
         "cli",
         "git",
         "smartcd"
@@ -1251,6 +1305,8 @@
     "client": "WordPress_full",
     "title": "smartcd: Alter your bash (or zsh) environment as you cd",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "cli",
         "git",
         "smartcd"
@@ -1267,7 +1323,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Unix is my IDE](https://mkaz.tech/geek/unix-is-my-ide/) |  #hashtag1 #hashtag2  #fzf #ide #ripgrep #tmux #unix #vim"
+    "content": "[Unix is my IDE](https://mkaz.tech/geek/unix-is-my-ide/) |  #hashtag1 #hashtag2 #fzf #ide #ripgrep #tmux #unix #vim"
 }
 {
     "client": "Facebook_full",
@@ -1286,7 +1342,7 @@
     "client": "Shaarpy_full",
     "title": "Unix is my IDE",
     "link": "https://mkaz.tech/geek/unix-is-my-ide/",
-    "keywords": [
+    "tags": [
         "fzf",
         "ide",
         "ripgrep",
@@ -1300,6 +1356,8 @@
     "client": "WordPress_full",
     "title": "Unix is my IDE",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "fzf",
         "ide",
         "ripgrep",
@@ -1319,7 +1377,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Functional connectivity within and between intrinsic brain networks correlates with trait mind wandering](https://www.ncbi.nlm.nih.gov/pubmed/28705691) |  #hashtag1 #hashtag2  #creativity #DMN #intelligence #mind #neuroscience #wandering"
+    "content": "[Functional connectivity within and between intrinsic brain networks correlates with trait mind wandering](https://www.ncbi.nlm.nih.gov/pubmed/28705691) |  #hashtag1 #hashtag2 #creativity #DMN #intelligence #mind #neuroscience #wandering"
 }
 {
     "client": "Facebook_full",
@@ -1338,7 +1396,7 @@
     "client": "Shaarpy_full",
     "title": "Functional connectivity within and between intrinsic brain networks correlates with trait mind wandering",
     "link": "https://www.ncbi.nlm.nih.gov/pubmed/28705691",
-    "keywords": [
+    "tags": [
         "creativity",
         "DMN",
         "intelligence",
@@ -1352,6 +1410,8 @@
     "client": "WordPress_full",
     "title": "Functional connectivity within and between intrinsic brain networks correlates with trait mind wandering",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "creativity",
         "DMN",
         "intelligence",
@@ -1371,7 +1431,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Penser le sens du code source avec Gilbert Simondon](https://rmll.ubicast.tv/videos/sens_code_source_32101/#share) |  #hashtag1 #hashtag2  #code #RMLL2017 #simondon #source"
+    "content": "[Penser le sens du code source avec Gilbert Simondon](https://rmll.ubicast.tv/videos/sens_code_source_32101/#share) |  #hashtag1 #hashtag2 #code #RMLL2017 #simondon #source"
 }
 {
     "client": "Facebook_full",
@@ -1390,7 +1450,7 @@
     "client": "Shaarpy_full",
     "title": "Penser le sens du code source avec Gilbert Simondon",
     "link": "https://rmll.ubicast.tv/videos/sens_code_source_32101/#share",
-    "keywords": [
+    "tags": [
         "code",
         "RMLL2017",
         "simondon",
@@ -1402,6 +1462,8 @@
     "client": "WordPress_full",
     "title": "Penser le sens du code source avec Gilbert Simondon",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "code",
         "RMLL2017",
         "simondon",
@@ -1419,7 +1481,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[OpenPGP - Exporter les clefs secr\u00e8tes sur une Yubikey](https://blog.eleven-labs.com/fr/openpgp-clef-secrete-yubikey-partie-2/) |  #hashtag1 #hashtag2  #2FA #authentification #openpgp #UFA #yubikey"
+    "content": "[OpenPGP - Exporter les clefs secr\u00e8tes sur une Yubikey](https://blog.eleven-labs.com/fr/openpgp-clef-secrete-yubikey-partie-2/) |  #hashtag1 #hashtag2 #2FA #authentification #openpgp #UFA #yubikey"
 }
 {
     "client": "Facebook_full",
@@ -1438,7 +1500,7 @@
     "client": "Shaarpy_full",
     "title": "OpenPGP - Exporter les clefs secr\u00e8tes sur une Yubikey",
     "link": "https://blog.eleven-labs.com/fr/openpgp-clef-secrete-yubikey-partie-2/",
-    "keywords": [
+    "tags": [
         "2FA",
         "authentification",
         "openpgp",
@@ -1451,6 +1513,8 @@
     "client": "WordPress_full",
     "title": "OpenPGP - Exporter les clefs secr\u00e8tes sur une Yubikey",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "2FA",
         "authentification",
         "openpgp",
@@ -1469,7 +1533,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Awk processing by example](https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md) |  #hashtag1 #hashtag2  #awk #example #git #processing"
+    "content": "[Awk processing by example](https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md) |  #hashtag1 #hashtag2 #awk #example #git #processing"
 }
 {
     "client": "Facebook_full",
@@ -1488,7 +1552,7 @@
     "client": "Shaarpy_full",
     "title": "Awk processing by example",
     "link": "https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md",
-    "keywords": [
+    "tags": [
         "awk",
         "example",
         "git",
@@ -1500,6 +1564,8 @@
     "client": "WordPress_full",
     "title": "Awk processing by example",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "awk",
         "example",
         "git",
@@ -1517,7 +1583,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Screen sharing in Slack, made interactive](https://slackhq.com/screen-sharing-in-slack-made-interactive-cf8816efaa01) |  #hashtag1 #hashtag2  #screen #sharing #slack"
+    "content": "[Screen sharing in Slack, made interactive](https://slackhq.com/screen-sharing-in-slack-made-interactive-cf8816efaa01) |  #hashtag1 #hashtag2 #screen #sharing #slack"
 }
 {
     "client": "Facebook_full",
@@ -1536,7 +1602,7 @@
     "client": "Shaarpy_full",
     "title": "Screen sharing in Slack, made interactive",
     "link": "https://slackhq.com/screen-sharing-in-slack-made-interactive-cf8816efaa01",
-    "keywords": [
+    "tags": [
         "screen",
         "sharing",
         "slack"
@@ -1547,6 +1613,8 @@
     "client": "WordPress_full",
     "title": "Screen sharing in Slack, made interactive",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "screen",
         "sharing",
         "slack"
@@ -1563,7 +1631,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Intermittent Fasting Promotes White Adipose Browning and Decreases Obesity by Shaping the Gut\u00a0Microbiota](http://www.cell.com/cell-metabolism/fulltext/S1550-4131(17)30504-1) |  #hashtag1 #hashtag2  #fasting #obesity"
+    "content": "[Intermittent Fasting Promotes White Adipose Browning and Decreases Obesity by Shaping the Gut\u00a0Microbiota](http://www.cell.com/cell-metabolism/fulltext/S1550-4131(17)30504-1) |  #hashtag1 #hashtag2 #fasting #obesity"
 }
 {
     "client": "Facebook_full",
@@ -1582,7 +1650,7 @@
     "client": "Shaarpy_full",
     "title": "Intermittent Fasting Promotes White Adipose Browning and Decreases Obesity by Shaping the Gut\u00a0Microbiota",
     "link": "http://www.cell.com/cell-metabolism/fulltext/S1550-4131(17)30504-1",
-    "keywords": [
+    "tags": [
         "fasting",
         "obesity"
     ],
@@ -1592,6 +1660,8 @@
     "client": "WordPress_full",
     "title": "Intermittent Fasting Promotes White Adipose Browning and Decreases Obesity by Shaping the Gut\u00a0Microbiota",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "fasting",
         "obesity"
     ],
@@ -1607,7 +1677,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Programmable base editing of A\u2022T to G\u2022C in genomic DNA without DNA cleavage](https://www.nature.com/nature/journal/vaap/ncurrent/full/nature24644.html) |  #hashtag1 #hashtag2  #base #dna #editing"
+    "content": "[Programmable base editing of A\u2022T to G\u2022C in genomic DNA without DNA cleavage](https://www.nature.com/nature/journal/vaap/ncurrent/full/nature24644.html) |  #hashtag1 #hashtag2 #base #dna #editing"
 }
 {
     "client": "Facebook_full",
@@ -1626,7 +1696,7 @@
     "client": "Shaarpy_full",
     "title": "Programmable base editing of A\u2022T to G\u2022C in genomic DNA without DNA cleavage",
     "link": "https://www.nature.com/nature/journal/vaap/ncurrent/full/nature24644.html",
-    "keywords": [
+    "tags": [
         "base",
         "dna",
         "editing"
@@ -1637,6 +1707,8 @@
     "client": "WordPress_full",
     "title": "Programmable base editing of A\u2022T to G\u2022C in genomic DNA without DNA cleavage",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "base",
         "dna",
         "editing"
@@ -1653,7 +1725,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[RNA editing with CRISPR-Cas13](http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180) |  #hashtag1 #hashtag2  #cas13 #crispr #editing #RNA"
+    "content": "[RNA editing with CRISPR-Cas13](http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180) |  #hashtag1 #hashtag2 #cas13 #crispr #editing #RNA"
 }
 {
     "client": "Facebook_full",
@@ -1672,7 +1744,7 @@
     "client": "Shaarpy_full",
     "title": "RNA editing with CRISPR-Cas13",
     "link": "http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180",
-    "keywords": [
+    "tags": [
         "cas13",
         "crispr",
         "editing",
@@ -1684,6 +1756,8 @@
     "client": "WordPress_full",
     "title": "RNA editing with CRISPR-Cas13",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "cas13",
         "crispr",
         "editing",
@@ -1701,7 +1775,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[CRISPR 2.0 Is Here, and It\u2019s Way More Precise](https://www.technologyreview.com/s/609203/crispr-20-is-here-and-its-way-more-precise/) |  #hashtag1 #hashtag2  #base #CRISPR #editing #genetics"
+    "content": "[CRISPR 2.0 Is Here, and It\u2019s Way More Precise](https://www.technologyreview.com/s/609203/crispr-20-is-here-and-its-way-more-precise/) |  #hashtag1 #hashtag2 #base #CRISPR #editing #genetics"
 }
 {
     "client": "Facebook_full",
@@ -1720,7 +1794,7 @@
     "client": "Shaarpy_full",
     "title": "CRISPR 2.0 Is Here, and It\u2019s Way More Precise",
     "link": "https://www.technologyreview.com/s/609203/crispr-20-is-here-and-its-way-more-precise/",
-    "keywords": [
+    "tags": [
         "base",
         "CRISPR",
         "editing",
@@ -1732,6 +1806,8 @@
     "client": "WordPress_full",
     "title": "CRISPR 2.0 Is Here, and It\u2019s Way More Precise",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "base",
         "CRISPR",
         "editing",
@@ -1749,7 +1825,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[MIT neuroscientists build case for new theory of memory formation](http://news.mit.edu/2017/neuroscientists-build-case-new-theory-memory-formation-1023) |  #hashtag1 #hashtag2  #engrams #formation #memory #neuroscience #patterns #silent #synapses"
+    "content": "[MIT neuroscientists build case for new theory of memory formation](http://news.mit.edu/2017/neuroscientists-build-case-new-theory-memory-formation-1023) |  #hashtag1 #hashtag2 #engrams #formation #memory #neuroscience #patterns #silent #synapses"
 }
 {
     "client": "Facebook_full",
@@ -1768,7 +1844,7 @@
     "client": "Shaarpy_full",
     "title": "MIT neuroscientists build case for new theory of memory formation",
     "link": "http://news.mit.edu/2017/neuroscientists-build-case-new-theory-memory-formation-1023",
-    "keywords": [
+    "tags": [
         "engrams",
         "formation",
         "memory",
@@ -1783,6 +1859,8 @@
     "client": "WordPress_full",
     "title": "MIT neuroscientists build case for new theory of memory formation",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "engrams",
         "formation",
         "memory",
@@ -1803,7 +1881,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Why Does the Neocortex Have Columns, A Theory of Learning the Structure of the World](https://www.biorxiv.org/content/early/2017/09/28/162263) |  #hashtag1 #hashtag2  #cognition #columns #learning #neocortex #structure #world"
+    "content": "[Why Does the Neocortex Have Columns, A Theory of Learning the Structure of the World](https://www.biorxiv.org/content/early/2017/09/28/162263) |  #hashtag1 #hashtag2 #cognition #columns #learning #neocortex #structure #world"
 }
 {
     "client": "Facebook_full",
@@ -1822,7 +1900,7 @@
     "client": "Shaarpy_full",
     "title": "Why Does the Neocortex Have Columns, A Theory of Learning the Structure of the World",
     "link": "https://www.biorxiv.org/content/early/2017/09/28/162263",
-    "keywords": [
+    "tags": [
         "cognition",
         "columns",
         "learning",
@@ -1836,6 +1914,8 @@
     "client": "WordPress_full",
     "title": "Why Does the Neocortex Have Columns, A Theory of Learning the Structure of the World",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "cognition",
         "columns",
         "learning",
@@ -1855,7 +1935,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[OpenMined/PySyft: Encrypted DeepLearning Library](https://github.com/OpenMined/PySyft) |  #hashtag1 #hashtag2  #deeplearning #encryption #git #OpenMined #PySyft"
+    "content": "[OpenMined/PySyft: Encrypted DeepLearning Library](https://github.com/OpenMined/PySyft) |  #hashtag1 #hashtag2 #deeplearning #encryption #git #OpenMined #PySyft"
 }
 {
     "client": "Facebook_full",
@@ -1874,7 +1954,7 @@
     "client": "Shaarpy_full",
     "title": "OpenMined/PySyft: Encrypted DeepLearning Library",
     "link": "https://github.com/OpenMined/PySyft",
-    "keywords": [
+    "tags": [
         "deeplearning",
         "encryption",
         "git",
@@ -1887,6 +1967,8 @@
     "client": "WordPress_full",
     "title": "OpenMined/PySyft: Encrypted DeepLearning Library",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "deeplearning",
         "encryption",
         "git",
@@ -1905,7 +1987,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Write tests. Not too many. Mostly integration.](https://blog.kentcdodds.com/write-tests-not-too-many-mostly-integration-5e8c7fff591c) |  #hashtag1 #hashtag2  #integration #tests #write"
+    "content": "[Write tests. Not too many. Mostly integration.](https://blog.kentcdodds.com/write-tests-not-too-many-mostly-integration-5e8c7fff591c) |  #hashtag1 #hashtag2 #integration #tests #write"
 }
 {
     "client": "Facebook_full",
@@ -1924,7 +2006,7 @@
     "client": "Shaarpy_full",
     "title": "Write tests. Not too many. Mostly integration.",
     "link": "https://blog.kentcdodds.com/write-tests-not-too-many-mostly-integration-5e8c7fff591c",
-    "keywords": [
+    "tags": [
         "integration",
         "tests",
         "write"
@@ -1935,6 +2017,8 @@
     "client": "WordPress_full",
     "title": "Write tests. Not too many. Mostly integration.",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "integration",
         "tests",
         "write"
@@ -1951,7 +2035,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[This is the biggest lie people tell themselves](https://www.indy100.com/article/the-biggest-lie-people-tell-themselves-neurosciences-psychology-8018626) |  #hashtag1 #hashtag2  #biais #cognitive #selfdeception"
+    "content": "[This is the biggest lie people tell themselves](https://www.indy100.com/article/the-biggest-lie-people-tell-themselves-neurosciences-psychology-8018626) |  #hashtag1 #hashtag2 #biais #cognitive #selfdeception"
 }
 {
     "client": "Facebook_full",
@@ -1970,7 +2054,7 @@
     "client": "Shaarpy_full",
     "title": "This is the biggest lie people tell themselves",
     "link": "https://www.indy100.com/article/the-biggest-lie-people-tell-themselves-neurosciences-psychology-8018626",
-    "keywords": [
+    "tags": [
         "biais",
         "cognitive",
         "selfdeception"
@@ -1981,6 +2065,8 @@
     "client": "WordPress_full",
     "title": "This is the biggest lie people tell themselves",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "biais",
         "cognitive",
         "selfdeception"
@@ -1997,7 +2083,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Drive Serendipitous Discovery with Recommendation Engines](https://pages.dataiku.com/recommendation-engines-us) |  #hashtag1 #hashtag2  #engines #guide #recommendation"
+    "content": "[Drive Serendipitous Discovery with Recommendation Engines](https://pages.dataiku.com/recommendation-engines-us) |  #hashtag1 #hashtag2 #engines #guide #recommendation"
 }
 {
     "client": "Facebook_full",
@@ -2016,7 +2102,7 @@
     "client": "Shaarpy_full",
     "title": "Drive Serendipitous Discovery with Recommendation Engines",
     "link": "https://pages.dataiku.com/recommendation-engines-us",
-    "keywords": [
+    "tags": [
         "engines",
         "guide",
         "recommendation"
@@ -2027,6 +2113,8 @@
     "client": "WordPress_full",
     "title": "Drive Serendipitous Discovery with Recommendation Engines",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "engines",
         "guide",
         "recommendation"
@@ -2043,7 +2131,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Libert\u00e9, s\u00e9curit\u00e9, dignit\u00e9\u00a0: au-del\u00e0 du\u00a0salariat et\u00a0du\u00a0pr\u00e9cariat](https://theconversation.com/liberte-securite-dignite-au-dela-du-salariat-et-du-precariat-86387) |  #hashtag1 #hashtag2  #dignit\u00e9 #libert\u00e9 #pr\u00e9cariat #salariat #s\u00e9curit\u00e9"
+    "content": "[Libert\u00e9, s\u00e9curit\u00e9, dignit\u00e9\u00a0: au-del\u00e0 du\u00a0salariat et\u00a0du\u00a0pr\u00e9cariat](https://theconversation.com/liberte-securite-dignite-au-dela-du-salariat-et-du-precariat-86387) |  #hashtag1 #hashtag2 #dignit\u00e9 #libert\u00e9 #pr\u00e9cariat #salariat #s\u00e9curit\u00e9"
 }
 {
     "client": "Facebook_full",
@@ -2062,7 +2150,7 @@
     "client": "Shaarpy_full",
     "title": "Libert\u00e9, s\u00e9curit\u00e9, dignit\u00e9\u00a0: au-del\u00e0 du\u00a0salariat et\u00a0du\u00a0pr\u00e9cariat",
     "link": "https://theconversation.com/liberte-securite-dignite-au-dela-du-salariat-et-du-precariat-86387",
-    "keywords": [
+    "tags": [
         "dignit\u00e9",
         "libert\u00e9",
         "pr\u00e9cariat",
@@ -2075,6 +2163,8 @@
     "client": "WordPress_full",
     "title": "Libert\u00e9, s\u00e9curit\u00e9, dignit\u00e9\u00a0: au-del\u00e0 du\u00a0salariat et\u00a0du\u00a0pr\u00e9cariat",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "dignit\u00e9",
         "libert\u00e9",
         "pr\u00e9cariat",
@@ -2093,7 +2183,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Repenser la recherche scientifique au-del\u00e0 de la propri\u00e9t\u00e9](https://scinfolex.com/2017/10/26/repenser-la-recherche-scientifique-au-dela-de-la-propriete/) |  #hashtag1 #hashtag2  #droitdauteur #openaccess #proprieteintellectuelle #propri\u00e9t\u00e9 #recherche #scientifique"
+    "content": "[Repenser la recherche scientifique au-del\u00e0 de la propri\u00e9t\u00e9](https://scinfolex.com/2017/10/26/repenser-la-recherche-scientifique-au-dela-de-la-propriete/) |  #hashtag1 #hashtag2 #droitdauteur #openaccess #proprieteintellectuelle #propri\u00e9t\u00e9 #recherche #scientifique"
 }
 {
     "client": "Facebook_full",
@@ -2112,7 +2202,7 @@
     "client": "Shaarpy_full",
     "title": "Repenser la recherche scientifique au-del\u00e0 de la propri\u00e9t\u00e9",
     "link": "https://scinfolex.com/2017/10/26/repenser-la-recherche-scientifique-au-dela-de-la-propriete/",
-    "keywords": [
+    "tags": [
         "droitdauteur",
         "openaccess",
         "proprieteintellectuelle",
@@ -2126,6 +2216,8 @@
     "client": "WordPress_full",
     "title": "Repenser la recherche scientifique au-del\u00e0 de la propri\u00e9t\u00e9",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "droitdauteur",
         "openaccess",
         "proprieteintellectuelle",
@@ -2145,7 +2237,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[HannahArendt Du devoir de la de\u0301sobe\u0301issance civile](https://www.youtube.com/watch?v=F_w5bzl-12c) |  #hashtag1 #hashtag2  #arendt #civile #devoir #de\u0301sobe\u0301issance #hannaharendt"
+    "content": "[HannahArendt Du devoir de la de\u0301sobe\u0301issance civile](https://www.youtube.com/watch?v=F_w5bzl-12c) |  #hashtag1 #hashtag2 #arendt #civile #devoir #de\u0301sobe\u0301issance #hannaharendt"
 }
 {
     "client": "Facebook_full",
@@ -2164,7 +2256,7 @@
     "client": "Shaarpy_full",
     "title": "HannahArendt Du devoir de la de\u0301sobe\u0301issance civile",
     "link": "https://www.youtube.com/watch?v=F_w5bzl-12c",
-    "keywords": [
+    "tags": [
         "arendt",
         "civile",
         "devoir",
@@ -2177,6 +2269,8 @@
     "client": "WordPress_full",
     "title": "HannahArendt Du devoir de la de\u0301sobe\u0301issance civile",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "arendt",
         "civile",
         "devoir",
@@ -2195,7 +2289,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Assessing the threat the Reaper botnet poses to the Internet\u2014what we know now](https://arstechnica.com/information-technology/2017/10/assessing-the-threat-the-reaper-botnet-poses-to-the-internet-what-we-know-now/) |  #hashtag1 #hashtag2  #botnet #reaper"
+    "content": "[Assessing the threat the Reaper botnet poses to the Internet\u2014what we know now](https://arstechnica.com/information-technology/2017/10/assessing-the-threat-the-reaper-botnet-poses-to-the-internet-what-we-know-now/) |  #hashtag1 #hashtag2 #botnet #reaper"
 }
 {
     "client": "Facebook_full",
@@ -2214,7 +2308,7 @@
     "client": "Shaarpy_full",
     "title": "Assessing the threat the Reaper botnet poses to the Internet\u2014what we know now",
     "link": "https://arstechnica.com/information-technology/2017/10/assessing-the-threat-the-reaper-botnet-poses-to-the-internet-what-we-know-now/",
-    "keywords": [
+    "tags": [
         "botnet",
         "reaper"
     ],
@@ -2224,6 +2318,8 @@
     "client": "WordPress_full",
     "title": "Assessing the threat the Reaper botnet poses to the Internet\u2014what we know now",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "botnet",
         "reaper"
     ],
@@ -2239,7 +2335,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Google no longer lets you change domains to search different countries](https://www.theverge.com/2017/10/27/16561848/google-search-always-local-results-ignores-domain) |  #hashtag1 #hashtag2  #countries #domains #google"
+    "content": "[Google no longer lets you change domains to search different countries](https://www.theverge.com/2017/10/27/16561848/google-search-always-local-results-ignores-domain) |  #hashtag1 #hashtag2 #countries #domains #google"
 }
 {
     "client": "Facebook_full",
@@ -2258,7 +2354,7 @@
     "client": "Shaarpy_full",
     "title": "Google no longer lets you change domains to search different countries",
     "link": "https://www.theverge.com/2017/10/27/16561848/google-search-always-local-results-ignores-domain",
-    "keywords": [
+    "tags": [
         "countries",
         "domains",
         "google"
@@ -2269,6 +2365,8 @@
     "client": "WordPress_full",
     "title": "Google no longer lets you change domains to search different countries",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "countries",
         "domains",
         "google"
@@ -2285,7 +2383,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Temporal correlation detection using computational phase-change memory](https://www.nature.com/articles/s41467-017-01481-9) |  #hashtag1 #hashtag2  #architecture #computing #IBM #memory"
+    "content": "[Temporal correlation detection using computational phase-change memory](https://www.nature.com/articles/s41467-017-01481-9) |  #hashtag1 #hashtag2 #architecture #computing #IBM #memory"
 }
 {
     "client": "Facebook_full",
@@ -2304,7 +2402,7 @@
     "client": "Shaarpy_full",
     "title": "Temporal correlation detection using computational phase-change memory",
     "link": "https://www.nature.com/articles/s41467-017-01481-9",
-    "keywords": [
+    "tags": [
         "architecture",
         "computing",
         "IBM",
@@ -2316,6 +2414,8 @@
     "client": "WordPress_full",
     "title": "Temporal correlation detection using computational phase-change memory",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "architecture",
         "computing",
         "IBM",
@@ -2333,7 +2433,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[DatoCMS - A CMS for static website generators](https://www.datocms.com/) |  #hashtag1 #hashtag2  #cms #datocms #static #website"
+    "content": "[DatoCMS - A CMS for static website generators](https://www.datocms.com/) |  #hashtag1 #hashtag2 #cms #datocms #static #website"
 }
 {
     "client": "Facebook_full",
@@ -2352,7 +2452,7 @@
     "client": "Shaarpy_full",
     "title": "DatoCMS - A CMS for static website generators",
     "link": "https://www.datocms.com/",
-    "keywords": [
+    "tags": [
         "cms",
         "datocms",
         "static",
@@ -2364,6 +2464,8 @@
     "client": "WordPress_full",
     "title": "DatoCMS - A CMS for static website generators",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "cms",
         "datocms",
         "static",
@@ -2381,7 +2483,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[L'\u00e9thique serait-elle la grande oubli\u00e9e des algorithmes ?](https://blogrecherche.wp.imt.fr/2017/10/26/ethique-algorithmes/) |  #hashtag1 #hashtag2  #algorithmes #\u00e9thique"
+    "content": "[L'\u00e9thique serait-elle la grande oubli\u00e9e des algorithmes ?](https://blogrecherche.wp.imt.fr/2017/10/26/ethique-algorithmes/) |  #hashtag1 #hashtag2 #algorithmes #\u00e9thique"
 }
 {
     "client": "Facebook_full",
@@ -2400,7 +2502,7 @@
     "client": "Shaarpy_full",
     "title": "L'\u00e9thique serait-elle la grande oubli\u00e9e des algorithmes ?",
     "link": "https://blogrecherche.wp.imt.fr/2017/10/26/ethique-algorithmes/",
-    "keywords": [
+    "tags": [
         "algorithmes",
         "\u00e9thique"
     ],
@@ -2410,6 +2512,8 @@
     "client": "WordPress_full",
     "title": "L'\u00e9thique serait-elle la grande oubli\u00e9e des algorithmes ?",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "algorithmes",
         "\u00e9thique"
     ],
@@ -2425,7 +2529,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Le but du management, c\u2019est la cessation du management](https://www.linkedin.com/pulse/le-du-management-cest-la-cessation-loick-roche/) |  #hashtag1 #hashtag2  #management"
+    "content": "[Le but du management, c\u2019est la cessation du management](https://www.linkedin.com/pulse/le-du-management-cest-la-cessation-loick-roche/) |  #hashtag1 #hashtag2 #management"
 }
 {
     "client": "Facebook_full",
@@ -2444,7 +2548,7 @@
     "client": "Shaarpy_full",
     "title": "Le but du management, c\u2019est la cessation du management",
     "link": "https://www.linkedin.com/pulse/le-du-management-cest-la-cessation-loick-roche/",
-    "keywords": [
+    "tags": [
         "management"
     ],
     "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?uxot7w\" title=\"Permalink\">Permalink</a>"
@@ -2453,6 +2557,8 @@
     "client": "WordPress_full",
     "title": "Le but du management, c\u2019est la cessation du management",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "management"
     ],
     "Content": "https://www.linkedin.com/pulse/le-du-management-cest-la-cessation-loick-roche/"
@@ -2467,7 +2573,7 @@
 }
 {
     "client": "Diaspora_full",
-    "content": "[Quand le g\u00e9nie et le handicap se tutoient \u00e0 la t\u00eate des entreprises](https://www.letemps.ch/economie/2015/04/16/genie-handicap-se-tutoient-tete-entreprises) |  #hashtag1 #hashtag2  #asperger #autisme #g\u00e9nie #handicap #leadership #management"
+    "content": "[Quand le g\u00e9nie et le handicap se tutoient \u00e0 la t\u00eate des entreprises](https://www.letemps.ch/economie/2015/04/16/genie-handicap-se-tutoient-tete-entreprises) |  #hashtag1 #hashtag2 #asperger #autisme #g\u00e9nie #handicap #leadership #management"
 }
 {
     "client": "Facebook_full",
@@ -2486,7 +2592,7 @@
     "client": "Shaarpy_full",
     "title": "Quand le g\u00e9nie et le handicap se tutoient \u00e0 la t\u00eate des entreprises",
     "link": "https://www.letemps.ch/economie/2015/04/16/genie-handicap-se-tutoient-tete-entreprises",
-    "keywords": [
+    "tags": [
         "asperger",
         "autisme",
         "g\u00e9nie",
@@ -2500,6 +2606,8 @@
     "client": "WordPress_full",
     "title": "Quand le g\u00e9nie et le handicap se tutoient \u00e0 la t\u00eate des entreprises",
     "post_tag": [
+        "hashtagA",
+        "hashtagB",
         "asperger",
         "autisme",
         "g\u00e9nie",
