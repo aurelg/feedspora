@@ -26,3 +26,10 @@ def test_post_title_tags(capsys):
     Test the RSS configuration / feed
     """
     check_feed(capsys, "title_tags")
+
+
+def test_post_tag_opts(capsys):
+    """
+    Test the tag options implementation
+    """
+    check_feed(capsys, "tag_opts")

@@ -293,11 +293,11 @@ class FeedSpora:
             # Content
 
             if entry.find('content'):
-                fse.content = entry.find('content').text
+                fse.content = entry.find('content').text.strip()
             # If no content, attempt to use summary
 
             if not fse.content and entry.find('summary'):
-                fse.content = entry.find('summary').text
+                fse.content = entry.find('summary').text.strip()
 
             if fse.content is None:
                 fse.content = ''
@@ -393,9 +393,9 @@ class FeedSpora:
             # Content takes priority over Description
 
             if entry.find('content'):
-                fse.content = entry.find('content')[0].text
+                fse.content = entry.find('content')[0].text.strip()
             else:
-                fse.content = entry.find('description').text
+                fse.content = entry.find('description').text.strip()
 
             # PubDate
             fse.published_date = entry.find('pubdate').text

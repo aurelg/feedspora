@@ -5,7 +5,10 @@ accounts:
     pod: 'diaspora_pod_url'
     username: 'username'
     password: 'password'
-    keywords: '' # coma-separated list of keywords to use as hashtag, in addition to those retrieved from the feed.
+    max_posts: 1 # [optional] if > 0, defines the maximum number of entrys to post on a per-run basis.  If < 0, does not post, but puts the entry in the "published" database, allowing you to "seed" the database, especially useful when first starting up posting of a feed with a lot of entries.  If 0 or not specified, unlimited postings/run are allowed
+    max_tags: 2 # [optional] specifies the maximum number of hashtags that will be included in the post
+    tags: 'tagA, tagB' # [optional] comma-separated list of tags that will be added to every post (unless limited by length), which will supplement tags found in the feed entry
+    tag_filter_opts: '' # [optional] a comma-separated list of options that will be applied to filtering tags.  Supported options include 'ignore_title' (don't include tags found in the feed entry's title), 'ignore_content' (don't include tags found at the feed entry's content), 'ignore_category' (don't include tags found at the feed entry's category), and 'case-sensitive' (which will keep tags of the same value but different case)
 
   # You can generated your tokens/secrets for twitter from https://apps.twitter.com
   - name: 'Twitter'
@@ -18,6 +21,8 @@ accounts:
     url_shortener_opts: = {} [optional] supplements the url_shortener choice with any additional keys, etc.
     max_posts: 1 # [optional] if > 0, defines the maximum number of entrys to post on a per-run basis.  If < 0, does not post, but puts the entry in the "published" database, allowing you to "seed" the database, especially useful when first starting up posting of a feed with a lot of entries.  If 0 or not specified, unlimited postings/run are allowed
     max_tags: 2 # [optional] specifies the maximum number of hashtags that will be included in the posted tweet
+    tags: 'tagA, tagB' # [optional] comma-separated list of tags that will be added to every tweet (unless limited by length), which will supplement tags found in the feed entry
+    tag_filter_opts: '' # [optional] a comma-separated list of options that will be applied to filtering tags.  Supported options include 'ignore_title' (don't include tags found in the feed entry's title), 'ignore_content' (don't include tags found at the feed entry's content), 'ignore_category' (don't include tags found at the feed entry's category), and 'case-sensitive' (which will keep tags of the same value but different case)
     post_prefix: 'BEGIN-' # [optional] posted tweets will start with the specified text
     post_suffix: '-END' # [optional] posted tweet contents will end with the specified text, followed by the relevant link
     post_include_media: true # [optional] if specified, image media from RSS feed sources will attempt to be included as part of the posted tweet
@@ -30,6 +35,10 @@ accounts:
     # Make sure to grant the token the right to push posts to your timeline
     token: 'your_facebook_token'
     post_as: 'page or id to post, if different from that of the token' # optional
+    max_posts: 1 # [optional] if > 0, defines the maximum number of entrys to post on a per-run basis.  If < 0, does not post, but puts the entry in the "published" database, allowing you to "seed" the database, especially useful when first starting up posting of a feed with a lot of entries.  If 0 or not specified, unlimited postings/run are allowed
+    max_tags: 2 # [optional] specifies the maximum number of hashtags that will be included in the post
+    tags: 'tagA, tagB' # [optional] comma-separated list of tags that will be added to every post (unless limited by length), which will supplement tags found in the feed entry
+    tag_filter_opts: '' # [optional] a comma-separated list of options that will be applied to filtering tags.  Supported options include 'ignore_title' (don't include tags found in the feed entry's title), 'ignore_content' (don't include tags found at the feed entry's content), 'ignore_category' (don't include tags found at the feed entry's category), and 'case-sensitive' (which will keep tags of the same value but different case)
 
   - name: 'Mastodon'
     type: 'MastodonClient'
@@ -39,17 +48,29 @@ accounts:
     url: 'base_url_mastodon'
     delay: 120 # time between status update (seconds)
     visibility: '' # should be either 'unlisted', 'public', or 'private'
+    max_posts: 1 # [optional] if > 0, defines the maximum number of entrys to post on a per-run basis.  If < 0, does not post, but puts the entry in the "published" database, allowing you to "seed" the database, especially useful when first starting up posting of a feed with a lot of entries.  If 0 or not specified, unlimited postings/run are allowed
+    max_tags: 2 # [optional] specifies the maximum number of hashtags that will be included in the post
+    tags: 'tagA, tagB' # [optional] comma-separated list of tags that will be added to every post (unless limited by length), which will supplement tags found in the feed entry
+    tag_filter_opts: '' # [optional] a comma-separated list of options that will be applied to filtering tags.  Supported options include 'ignore_title' (don't include tags found in the feed entry's title), 'ignore_content' (don't include tags found at the feed entry's content), 'ignore_category' (don't include tags found at the feed entry's category), and 'case-sensitive' (which will keep tags of the same value but different case)
 
   - name: 'Shaarpy'
     type: 'ShaarpyClient'
     username: 'shaarli username'
     password: 'shaarli password'
     url: 'https://shaarli_url/u/shaarli_username/'
+    max_posts: 1 # [optional] if > 0, defines the maximum number of entrys to post on a per-run basis.  If < 0, does not post, but puts the entry in the "published" database, allowing you to "seed" the database, especially useful when first starting up posting of a feed with a lot of entries.  If 0 or not specified, unlimited postings/run are allowed
+    max_tags: 2 # [optional] specifies the maximum number of hashtags that will be included in the post
+    tags: 'tagA, tagB' # [optional] comma-separated list of tags that will be added to every post (unless limited by length), which will supplement tags found in the feed entry
+    tag_filter_opts: '' # [optional] a comma-separated list of options that will be applied to filtering tags.  Supported options include 'ignore_title' (don't include tags found in the feed entry's title), 'ignore_content' (don't include tags found at the feed entry's content), 'ignore_category' (don't include tags found at the feed entry's category), and 'case-sensitive' (which will keep tags of the same value but different case)
 
   - name: 'LinkedIn'
     type: 'LinkedInClient'
     authentication_token: 'authentication_token'
     visibility: '' # should be either 'connections-only' or 'anyone'
+    max_posts: 1 # [optional] if > 0, defines the maximum number of entrys to post on a per-run basis.  If < 0, does not post, but puts the entry in the "published" database, allowing you to "seed" the database, especially useful when first starting up posting of a feed with a lot of entries.  If 0 or not specified, unlimited postings/run are allowed
+    max_tags: 2 # [optional] specifies the maximum number of hashtags that will be included in the post
+    tags: 'tagA, tagB' # [optional] comma-separated list of tags that will be added to every post (unless limited by length), which will supplement tags found in the feed entry
+    tag_filter_opts: '' # [optional] a comma-separated list of options that will be applied to filtering tags.  Supported options include 'ignore_title' (don't include tags found in the feed entry's title), 'ignore_content' (don't include tags found at the feed entry's content), 'ignore_category' (don't include tags found at the feed entry's category), and 'case-sensitive' (which will keep tags of the same value but different case)
 
 feeds:
   - 'url_feed1'

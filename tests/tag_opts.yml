@@ -1,0 +1,66 @@
+accounts:
+
+  - name: 'Diaspora_tag_opts'
+    type: 'DiaspyClient'
+    pod: 'diaspora_pod_url'
+    username: 'username'
+    password: 'password'
+    max_tags: 3
+    tags: 'Diaspora'
+    tag_filter_opts: 'ignore_title'
+
+  - name: 'Twitter_tag_opts'
+    type: 'TweepyClient'
+    consumer_token: 'my_consumer_token'
+    consumer_secret: 'my_consumer_secret'
+    access_token: 'my_access_token'
+    access_token_secret: 'my_access_token_secret'
+    max_tags: 5
+    tags: 'Twitter, tweet'
+    tag_filter_opts: 'ignore_category'
+
+  - name: 'Facebook_tag_opts'
+    type: 'FacebookClient'
+    token: 'your_facebook_token'
+    max_tags: 7
+    tags: 'Facebook'
+    tag_filter_opts: 'ignore_content'
+
+  - name: 'Mastodon_tag_opts'
+    type: 'MastodonClient'
+    client_id: 'client_key'
+    client_secret: 'client_secret'
+    access_token: 'access_token'
+    url: 'base_url_mastodon'
+    max_tags: 9
+    tags: 'Mastodon, mammoth'
+    tag_filter_opts: 'case-sensitive'
+
+  - name: 'Shaarpy_tag_opts'
+    type: 'ShaarpyClient'
+    username: 'shaarli username'
+    password: 'shaarli password'
+    url: 'https://shaarli_url/u/shaarli_username/'
+    max_tags: 4
+    tags: 'Shaarpy, shaarli'
+    tag_filter_opts: 'ignore_title,ignore_category,case-sensitive'
+
+  - name: 'WordPress_tag_opts'
+    type: 'WPClient'
+    wpurl: 'some_random_url'
+    username: 'username'
+    password: 'password'
+    max_tags: 6
+    tags: 'WordPress'
+    tag_filter_opts: ''
+
+  - name: 'LinkedIn_tag_opts'
+    type: 'LinkedInClient'
+    authentication_token: 'authentication_token'
+    visibility: 'anyone'
+    max_tags: 8
+    tags: 'LinkedIn'
+    tag_filter_opts: 'ignore_content,ignore_category'
+
+feeds:
+  - 'tag_opts.atom'

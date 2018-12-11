@@ -422,14 +422,14 @@ class GenericClient:
 
         return to_return
 
-    # pylint: disable=no-self-use
     def remove_ending_tags(self, content):
         '''
-        Trim any tags from the end of content, and return the modified content.
+        Trim any tags from the end of content, and return the modified content,
+        unless the ignore_content tag filter option is set (then do nothing).
         :param content:
         '''
 
-        if content:
+        if content and 'ignore_content' not in self._tag_filter_opts:
             tag_pattern = r'\s+#([\w]+)$'
             match_result = re.search(tag_pattern, content)
 
@@ -442,4 +442,3 @@ class GenericClient:
                 content = ''
 
         return content
-    # pylint: enable=no-self-use

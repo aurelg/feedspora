@@ -1,0 +1,73 @@
+{
+  "tag_opts.atom": {
+    "Twitter_tag_opts": [
+      {
+        "client": "Twitter_tag_opts",
+        "content": "#TagA in the title, along with #tag1 | #Twitter #tweet #conA http://example.org/2018/12/10/atom007",
+        "media": null
+      }
+    ],
+    "Mastodon_tag_opts": [
+      {
+        "client": "Mastodon_tag_opts",
+        "delay": 0,
+        "visibility": "unlisted",
+        "content": "#TagA in the title, along with #tag1 | #Mastodon #mammoth #conA #conB #conC #cond http://example.org/2018/12/10/atom007"
+      }
+    ],
+    "Shaarpy_tag_opts": [
+      {
+        "client": "Shaarpy_tag_opts",
+        "title": "#TagA in the title, along with #tag1",
+        "link": "http://example.org/2018/12/10/atom007",
+        "tags": [
+          "Shaarpy",
+          "shaarli",
+          "conA",
+          "conB"
+        ],
+        "content": "This is the tag test entry content."
+      }
+    ],
+    "WordPress_tag_opts": [
+      {
+        "client": "WordPress_tag_opts",
+        "title": "#TagA in the title, along with #tag1",
+        "post_tag": [
+          "WordPress",
+          "TagA",
+          "tag1",
+          "conA",
+          "conB",
+          "conC"
+        ],
+        "Content": "http://example.org/2018/12/10/atom007"
+      }
+    ],
+    "Diaspora_tag_opts": [
+      {
+        "client": "Diaspora_tag_opts",
+        "content": "[#TagA in the title, along with #tag1](http://example.org/2018/12/10/atom007) |  #Diaspora #conA #conB"
+      }
+    ],
+    "LinkedIn_tag_opts": [
+      {
+        "client": "LinkedIn_tag_opts",
+        "title": "#TagA in the title, along with #tag1",
+        "link": "http://example.org/2018/12/10/atom007",
+        "visibility": "anyone",
+        "description": "#TagA in the title, along with #tag1",
+        "Comment": "#TagA in the title, along with #tag1 | #LinkedIn"
+      }
+    ],
+    "Facebook_tag_opts": [
+      {
+        "client": "Facebook_tag_opts",
+        "posting_as": "TESTER",
+        "name": "#TagA in the title, along with #tag1",
+        "link": "http://example.org/2018/12/10/atom007",
+        "content": "#TagA in the title, along with #tag1 #Facebook #TagA #tag1 #conC #conD"
+      }
+    ]
+  }
+}
