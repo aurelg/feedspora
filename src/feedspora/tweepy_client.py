@@ -2,7 +2,6 @@
 Twitter client based on tweepy.
 """
 
-import json
 import logging
 import os
 import re
@@ -40,22 +39,17 @@ class TweepyClient(GenericClient):
 
         self.set_common_opts(account)
 
-    def test_output(self, **kwargs):
+    def get_dict_output(self, **kwargs):
         '''
-        Print output for testing purposes
+        Return dict output for testing purposes
         :param kwargs:
         '''
-        print(
-            json.dumps(
-                {
-                    "client": self.get_name(),
-                    "content": kwargs['text'],
-                    "media":
-                    kwargs['media_path'] if kwargs['media_path'] else None
-                },
-                indent=4))
 
-        return True
+        return {
+            "client": self.get_name(),
+            "content": kwargs['text'],
+            "media": kwargs['media_path'] if kwargs['media_path'] else None
+        }
 
     def post(self, entry):
         '''
@@ -99,8 +93,26 @@ class TweepyClient(GenericClient):
 
             return to_return
 
-        # Shorten the link URL if configured/possible
-        post_url = self.shorten_url(entry.link)
+        def strip_html(before_strip):
+            '''
+            Strip HTML from the content
+            :param before_strip:
+            '''
+
+            to_return = None
+            if before_strip:
+                # Getting the stripped HTML might take multiple attempts
+                done = False
+                while not done:
+                    to_return = lxml.html.fromstring(
+                        before_strip).text_content().strip()
+                    done = to_return == before_strip
+                    if not done:
+                        before_strip = to_return
+                # Remove all tags from end of content!
+                to_return = self.remove_ending_tags(to_return)
+
+            return to_return
 
         putative_urls = re.findall(r'[a-zA-Z0-9]+\.[a-zA-Z]{2,3}', entry.title)
         # Infer the 'inner links' Twitter may charge length for
@@ -108,37 +120,27 @@ class TweepyClient(GenericClient):
             sum([self._link_cost - len(u) for u in putative_urls])
         maxlen = self._max_len - adjust_with_inner_links - 1  # for last ' '
 
-        used_tags = self.filter_tags(entry)
-
-        stripped_html = None
-        if entry.content:
-            # The content with all HTML stripped will be used later,
-            # but get it now
-            stripped_html = lxml.html.fromstring(
-                entry.content).text_content().strip()
-            # TODO: remove any relevant used_tags from end of content!
-
-
         # Let's build our tweet!
         text = ""
 
         # Apply optional prefix
-
         if self._post_prefix:
             text = self._post_prefix + " "
 
         # Process contents
         raw_contents = entry.title
 
+        stripped_html = strip_html(entry.content)
         if self._include_content and stripped_html:
             raw_contents += ": " + stripped_html
-        text += self._mkrichtext(raw_contents, used_tags, maxlen=maxlen)
+        text += self._mkrichtext(raw_contents, self.filter_tags(entry),
+                                 maxlen=maxlen)
 
         # Apply optional suffix
-
         if self._post_suffix:
             text += " " + self._post_suffix
-        text += " " + post_url
+        # Shorten the link URL if configured/possible
+        text += " " + self.shorten_url(entry.link)
 
         # Finally ready to post.  Let's find out how (media/text)
         media_path = None
@@ -150,7 +152,8 @@ class TweepyClient(GenericClient):
         to_return = False
 
         if self.is_testing():
-            to_return = self.test_output(text=text, media_path=media_path)
+            self.accumulate_testing_output(
+                self.get_dict_output(text=text, media_path=media_path))
         elif media_path:
             to_return = self._api.update_with_media(media_path, text)
         else:

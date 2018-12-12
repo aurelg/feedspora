@@ -2,7 +2,6 @@
 Mastodon client
 """
 
-import json
 import time
 
 from mastodon import Mastodon
@@ -37,21 +36,18 @@ class MastodonClient(GenericClient):
             else account['visibility']
         self.set_common_opts(account)
 
-    def test_output(self, **kwargs):
+    def get_dict_output(self, **kwargs):
         '''
-        Print output for testing purposes
+        Return dict output for testing purposes
         :param kwargs:
         '''
-        print(
-            json.dumps({
-                "client": self.get_name(),
-                "delay": self._delay,
-                "visibility": self._visibility,
-                "content": kwargs['text']
-            },
-                       indent=4))
 
-        return True
+        return {
+            "client": self.get_name(),
+            "delay": self._delay,
+            "visibility": self._visibility,
+            "content": kwargs['text']
+        }
 
     def post(self, entry):
         '''
@@ -67,7 +63,7 @@ class MastodonClient(GenericClient):
         to_return = False
 
         if self.is_testing():
-            to_return = self.test_output(text=text)
+            self.accumulate_testing_output(self.get_dict_output(text=text))
         else:
             if self._delay > 0:
                 time.sleep(self._delay)

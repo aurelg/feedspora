@@ -2,8 +2,6 @@
 Shaarpy client
 """
 
-import json
-
 from bs4 import BeautifulSoup
 from shaarpy.shaarpy import Shaarpy
 
@@ -27,22 +25,19 @@ class ShaarpyClient(GenericClient):
                                 account['url'])
         self.set_common_opts(account)
 
-    def test_output(self, **kwargs):
+    def get_dict_output(self, **kwargs):
         '''
-        Print output for testing purposes
+        Return dict output for testing purposes
         :param kwargs:
         '''
-        print(
-            json.dumps({
-                "client": self.get_name(),
-                "title": kwargs['entry'].title,
-                "link": self.shorten_url(kwargs['entry'].link),
-                "tags": self.filter_tags(kwargs['entry']),
-                "content": kwargs['text']
-            },
-                       indent=4))
 
-        return True
+        return {
+            "client": self.get_name(),
+            "title": kwargs['entry'].title,
+            "link": self.shorten_url(kwargs['entry'].link),
+            "tags": self.filter_tags(kwargs['entry']),
+            "content": kwargs['content']
+        }
 
     def post(self, entry):
         '''
@@ -50,6 +45,7 @@ class ShaarpyClient(GenericClient):
         :param entry:
         '''
         content = entry.content
+
         # pylint: disable=broad-except
         try:
             soup = BeautifulSoup(entry.content, 'html.parser')
@@ -58,11 +54,14 @@ class ShaarpyClient(GenericClient):
             pass
         # pylint: enable=broad-except
 
+        content = self.remove_ending_tags(content)
+
         # Note non-boolean return type!
         to_return = {}
 
         if self.is_testing():
-            to_return = self.test_output(text=content, entry=entry)
+            self.accumulate_testing_output(
+                self.get_dict_output(content=content, entry=entry))
         else:
             # For some reasons, this pylint directive is ignored?
             # pylint: disable=assignment-from-no-return

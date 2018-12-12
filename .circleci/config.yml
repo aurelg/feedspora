@@ -38,8 +38,6 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            # Hack/workaround to get latest shaarpy (should be in requirements.txt)
-            pip install git+https://github.com/aurelg/shaarpy.git
             pip install -r requirements.txt
 
       - save_cache:
@@ -57,14 +55,12 @@ jobs:
           name: Run pytest Tests
           command: |
             . venv/bin/activate
-            pip install pytest
-            pytest
+            make test
 
       - run:
           name: Run Analytics
           command: |
             . venv/bin/activate
-            pip install pylint
             pylint --verbose --exit-zero feedspora
 
       - store_artifacts:

@@ -2,7 +2,6 @@
 Wordpress client
 """
 
-import json
 from urllib.parse import urlparse
 
 import requests
@@ -52,21 +51,18 @@ class WPClient(GenericClient):
 
     # pylint: enable=no-self-use
 
-    def test_output(self, **kwargs):
+    def get_dict_output(self, **kwargs):
         '''
-        Print output for testing purposes
+        Return dict output for testing purposes
         :param kwargs:
         '''
-        print(
-            json.dumps({
-                "client": self.get_name(),
-                "title": kwargs['entry'].title,
-                "post_tag": self.filter_tags(kwargs['entry']),
-                "Content": self.shorten_url(kwargs['entry'].link)
-            },
-                       indent=4))
 
-        return True
+        return {
+            "client": self.get_name(),
+            "title": kwargs['entry'].title,
+            "post_tag": self.filter_tags(kwargs['entry']),
+            "Content": self.shorten_url(kwargs['entry'].link)
+        }
 
     def post(self, entry):
         '''
@@ -80,7 +76,7 @@ class WPClient(GenericClient):
         to_return = False
 
         if self.is_testing():
-            to_return = self.test_output(entry=entry)
+            self.accumulate_testing_output(self.get_dict_output(entry=entry))
         else:
             # get text with readability
             post = WordPressPost()

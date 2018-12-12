@@ -1,15 +1,26 @@
 {
-    "client": "Twitter_full",
-    "content": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
-    "media": null
-}
-{
-    "client": "Twitter_full",
-    "content": "1.1 - Mort num\u00e9rique: que faire des donn\u00e9es personnelles et des comptes Facebook apr\u00e8s un d\u00e9c\u00e8s ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat) http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html",
-    "media": null
-}
-{
-    "client": "Twitter_full",
-    "content": "Atom-Powered Robots Run Amok: This is the entry content. | #animal #vegetable #mineral http://example.org/2003/12/13/atom03",
-    "media": null
+  "./feed.atom": {
+    "Twitter_atom": [
+      {
+        "client": "Twitter_atom",
+        "content": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+        "media": null
+      },
+      {
+        "client": "Twitter_atom",
+        "content": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+        "media": null
+      },
+      {
+        "client": "Twitter_atom",
+        "content": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat) http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html",
+        "media": null
+      },
+      {
+        "client": "Twitter_atom",
+        "content": "Atom-Powered Robots Run Amok: This is the entry content. | #animal #vegetable #mineral http://example.org/2003/12/13/atom03",
+        "media": null
+      }
+    ]
+  }
 }

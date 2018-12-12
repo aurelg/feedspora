@@ -14,13 +14,15 @@ It currently supports Facebook, Twitter, Diaspora, Wordpress and Mastodon.
 @contact:    aurelien.grosdidier@gmail.com
 '''
 
+import json
 import logging
 import os
 import re
 import sqlite3
-import urllib
 
+import requests
 from bs4 import BeautifulSoup
+import lxml.html
 
 # pylint: disable=too-few-public-methods
 class FeedSporaEntry:
@@ -33,7 +35,10 @@ class FeedSporaEntry:
     link = ''
     published_date = None
     content = ''
-    tags = {}    
+    tags = {'title': [],
+            'content': [],
+            'category': [],
+            }
     media_url = None
 # pylint: enable=too-few-public-methods
 
@@ -54,6 +59,8 @@ class FeedSpora:
         Initialize
         '''
         logging.basicConfig(level=logging.INFO)
+        self._testing = False
+        self._testing_accumulator = None
 
     def set_feed_urls(self, feed_urls):
         '''
@@ -95,6 +102,15 @@ class FeedSpora:
             self._cur.execute(sql)
         else:
             logging.info("Found database file %s", self._db_file)
+
+    def set_testing(self, testing):
+        '''
+        Are we testing feedspora?
+        '''
+        self._testing = testing
+
+        if self._testing:
+            self._testing_accumulator = dict()
 
     # pylint: disable=no-self-use
     def entry_identifier(self, entry):
@@ -157,23 +173,27 @@ class FeedSpora:
         :param entry:
         '''
 
-        if self._client is None:
-            logging.error("No client found, aborting publication")
+        if not self._client:
+            logging.error(
+                "No client found, aborting publication", exc_info=True)
 
             return
         logging.info('Publishing: %s', entry.title)
 
         for client in self._client:
-            # pylint: disable=broad-except
 
             if not self.is_already_published(entry, client):
+                # pylint: disable=broad-except
                 try:
                     posted_to_client = client.post_within_limits(entry)
                 except Exception as error:
                     logging.error(
                         "Error while publishing '%s' to client"
-                        " '%s' : %s", entry.title, client.__class__.__name__,
-                        format(error))
+                        " '%s' : %s",
+                        entry.title,
+                        client.__class__.__name__,
+                        format(error),
+                        exc_info=True)
 
                     continue
 
@@ -183,9 +203,12 @@ class FeedSpora:
                     except Exception as error:
                         logging.error(
                             "Error while storing '%s' to client"
-                            "'%s' : %s", entry.title,
-                            client.__class__.__name__, format(error))
-            # pylint: enable=broad-except
+                            "'%s' : %s",
+                            entry.title,
+                            client.__class__.__name__,
+                            format(error),
+                            exc_info=True)
+                # pylint: enable=broad-except
 
     def retrieve_feed_soup(self, feed_url):
         '''
@@ -200,12 +223,11 @@ class FeedSpora:
         except FileNotFoundError:
             logging.info("File not found.")
             logging.info("Trying to read %s as a URL.", feed_url)
-            req = urllib.request.Request(
-                url=feed_url,
-                data=b'None',
-                method='GET',
-                headers={'User-Agent': self._ua})
-            feed_content = urllib.request.urlopen(req).read()
+            response = requests.get(feed_url, headers={'User-Agent': self._ua})
+
+            if not response.ok:
+                raise Exception(feed_content)
+            feed_content = response.text
         logging.info("Feed read.")
 
         return BeautifulSoup(feed_content, 'html.parser')
@@ -222,10 +244,13 @@ class FeedSpora:
         for word in title.split():
             if word.startswith('#') and word[1:] not in title_tags:
                 title_tags.append(word[1:])
-                
+
         # Add tags from end of content (removing from content in the
         # process of gathering tags)
+        content_tags = []
         if content:
+            # Remove tags to improve processing
+            content = lxml.html.fromstring(content).text_content().strip()
             tag_pattern = r'\s+#([\w]+)$'
             match_result = re.search(tag_pattern, content)
 
@@ -237,12 +262,14 @@ class FeedSpora:
                 content = re.sub(tag_pattern, '', content)
                 match_result = re.search(tag_pattern, content)
 
-            if re.match(r'^#[\w]+$', content):
+            tag_pattern = r'^\s*#([\w]+)$'
+            match_result = re.search(tag_pattern, content)
+            if match_result:
                 # Left with a single tag!
-
-                if content[1:] not in content_tags:
-                    content_tags.insert(0, content[1:])
-                    content = ''
+                tag = match_result.group(1)
+                if tag not in content_tags:
+                    content_tags.insert(0, tag)
+                content = ''
 
         return title_tags, content_tags
 
@@ -271,24 +298,25 @@ class FeedSpora:
             # Content
 
             if entry.find('content'):
-                fse.content = entry.find('content').text
+                fse.content = entry.find('content').text.strip()
             # If no content, attempt to use summary
 
             if not fse.content and entry.find('summary'):
-                fse.content = entry.find('summary').text
+                fse.content = entry.find('summary').text.strip()
 
             if fse.content is None:
                 fse.content = ''
 
             # Tags from title and content, each in their own list
-            fse.tags{'title'}, fse.tags{'content'} = self.get_tag_lists(
+            fse.tags['title'], fse.tags['content'] = self.get_tag_lists(
                 fse.title, fse.content)
 
             # Add tags from category
+            fse.tags['category'] = []
             for tag in entry.find_all('category'):
                 new_tag = tag['term'].replace(' ', '_').strip()
-                if new_tag not in fse.tags{'category'}:
-                    fse.tags{'category'}.append(new_tag)
+                if new_tag not in fse.tags['category']:
+                    fse.tags['category'].append(new_tag)
 
             # Published_date implementation for Atom
 
@@ -370,23 +398,24 @@ class FeedSpora:
             # Content takes priority over Description
 
             if entry.find('content'):
-                fse.content = entry.find('content')[0].text
+                fse.content = entry.find('content')[0].text.strip()
             else:
-                fse.content = entry.find('description').text
+                fse.content = entry.find('description').text.strip()
 
             # PubDate
             fse.published_date = entry.find('pubdate').text
 
             # tags from title and content
-            fse.tags{'title'}, fse.tags{'content'} = self.get_tag_lists(
+            fse.tags['title'], fse.tags['content'] = self.get_tag_lists(
                 fse.title, fse.content)
 
             # Add tags from category
+            fse.tags['category'] = []
             for tag in entry.find_all('category'):
                 new_tag = tag.text.replace(' ', '_').strip()
 
-                if new_tag not in fse.tags{'category'}:
-                    fse.tags{'category'}.append(new_tag)
+                if new_tag not in fse.tags['category']:
+                    fse.tags['category'].append(new_tag)
 
             # And for our final act, media
             fse.media_url = self.find_rss_image_url(entry, fse.link)
@@ -402,10 +431,13 @@ class FeedSpora:
         # get feed content
         try:
             soup = self.retrieve_feed_soup(feed_url)
-        except (urllib.error.HTTPError, ValueError, OSError,
-                urllib.error.URLError) as error:
-            logging.error("Error while reading feed at %s: %s", feed_url,
-                          format(error))
+        except (requests.exceptions.ConnectionError, ValueError,
+                OSError) as error:
+            logging.error(
+                "Error while reading feed at %s: %s",
+                feed_url,
+                format(error),
+                exc_info=True)
 
             return
 
@@ -425,6 +457,14 @@ class FeedSpora:
             entry_count += 1
             self._publish_entry(entry_count, entry)
 
+        if self._testing:
+            output = {
+                client.get_name(): client.pop_testing_output()
+
+                for client in self._client
+            }
+            self._testing_accumulator[feed_url] = output
+
     def run(self):
         '''
         Run FeedSpora: initialize the database and process the list of
@@ -432,10 +472,14 @@ class FeedSpora:
         '''
 
         if not self._client:
-            logging.error("No client found, aborting publication")
+            logging.error(
+                "No client found, aborting publication", exc_info=True)
 
             return
         self._init_db()
 
         for feed_url in self._feed_urls:
             self._process_feed(feed_url)
+
+        if self._testing:
+            print(json.dumps(self._testing_accumulator, indent=4))

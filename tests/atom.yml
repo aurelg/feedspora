@@ -1,6 +1,6 @@
 accounts:
 
-  - name: 'Twitter_full'
+  - name: 'Twitter_atom'
     type: 'TweepyClient'
     consumer_token: 'my_consumer_token'
     consumer_secret: 'my_consumer_secret'

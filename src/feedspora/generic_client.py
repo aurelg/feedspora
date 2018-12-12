@@ -2,10 +2,9 @@
 GenericClient: baseclass providing features to specific clients.
 """
 
-import json
 import logging
-import pyshorteners
 import re
+import pyshorteners
 
 
 class GenericClient:
@@ -26,6 +25,7 @@ class GenericClient:
     _include_media = False
     _post_suffix = None
     _testing_root = None
+    _testing_output = None
 
     # pylint: enable=too-many-instance-attributes
 
@@ -117,22 +117,34 @@ class GenericClient:
 
         return self._testing_root is not None
 
+    def accumulate_testing_output(self, outdict):
+        '''
+        Record output for testing purpose
+        '''
+
+        if not self._testing_output:
+            self._testing_output = []
+        self._testing_output.append(outdict)
+
+    def pop_testing_output(self):
+        '''
+        Retrieve output and clear it for the next round
+        '''
+        to_return = self._testing_output
+        self._testing_output = []
+
+        return to_return
+
     # pylint: enable=no-self-use
 
-    def test_output(self, **kwargs):
+    def get_dict_output(self, **kwargs):
         '''
         Define output for testing purposes (potentially overridden on
         per-client basis - this is the default), then output that definition
         :param kwargs:
         '''
-        print(
-            json.dumps({
-                "client": self.get_name(),
-                "content": kwargs['text']
-            },
-                       indent=4))
 
-        return True
+        return {"client": self.get_name(), "content": kwargs['text']}
 
     def shorten_url(self, the_url):
         '''
@@ -194,10 +206,9 @@ class GenericClient:
 
         # Tag filtering options
         if 'tag_filter_opts' in account:
-            self._tag_filter_opts = dict.fromkeys([
-                word.strip() for word in account['tag_filter_opts'].split(',')
-                ],True)
-        
+            self._tag_filter_opts = {key.strip(): True \
+                for key in account['tag_filter_opts'].split(',')}
+
         if 'max_tags' in account:
             self._max_tags = account['max_tags']
 
@@ -377,25 +388,25 @@ class GenericClient:
         to be used during posting
         :param entry:
         '''
-        to_return = []
 
         # First priority: user-defined tags
-        to_filter = self._tags
+        to_filter = self._tags[:]
         # Next, title tags, if appropriate
         if 'ignore_title' not in self._tag_filter_opts and \
-           entry.tags{'title'}:
-            to_filter.extend(entry.tags{'title'})
+           entry.tags['title']:
+            to_filter.extend(entry.tags['title'])
         # Then, content tags, if appropriate
         if 'ignore_content' not in self._tag_filter_opts and \
-           entry.tags{'content'}:
-            to_filter.extend(entry.tags{'content'})
-        # Finally, category tags
+           entry.tags['content']:
+            to_filter.extend(entry.tags['content'])
+        # Finally, category tags, again if appropriate
         if 'ignore_category' not in self._tag_filter_opts and \
-           entry.tags{'category'}:
-            to_filter.extend(entry.tags{'category'})
+           entry.tags['category']:
+            to_filter.extend(entry.tags['category'])
 
         # And now we filter.  We NEVER want any duplicates, and that might
         # include non-case-sensitive duplication too, depending upon options
+        to_return = []
         non_case_sensitive = []
         for tag in to_filter:
             if 'case-sensitive' in self._tag_filter_opts and \
@@ -409,4 +420,25 @@ class GenericClient:
             if len(to_return) >= self._max_tags:
                 break
 
-        return to_return[]
+        return to_return
+
+    def remove_ending_tags(self, content):
+        '''
+        Trim any tags from the end of content, and return the modified content,
+        unless the ignore_content tag filter option is set (then do nothing).
+        :param content:
+        '''
+
+        if content and 'ignore_content' not in self._tag_filter_opts:
+            tag_pattern = r'\s+#([\w]+)$'
+            match_result = re.search(tag_pattern, content)
+
+            while match_result:
+                content = re.sub(tag_pattern, '', content)
+                match_result = re.search(tag_pattern, content)
+
+            if re.match(r'^\s*#[\w]+$', content):
+                # Left with a single tag!
+                content = ''
+
+        return content

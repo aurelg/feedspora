@@ -9,3 +9,4 @@ feedspora.yml
 .cache
 MANIFEST
 .mypy_cache
+.coverage

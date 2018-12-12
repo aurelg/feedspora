@@ -1,0 +1,5 @@
+pylint==2.2.2
+pytest==4.0.0
+pytest-cov==2.6.0
+requests-cache==0.4.13
+responses==0.10.4
