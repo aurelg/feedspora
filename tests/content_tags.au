@@ -4,17 +4,17 @@
             {
                 "client": "Twitter_content_tags",
                 "content": "AD: \u0022Back In My Day We Had Nine Planets\u0022 T-Shirt: And we liked it that way! | #shirt #Pluto #solarsystem #Uranus http://tinyurl.com/yaucdhqf",
-                "media": "/data/media/random.jpg"
+                "media": "/tmp/random.jpg"
             },
             {
                 "client": "Twitter_content_tags",
                 "content": "AD: \u0022Code Monkey\u0022 T-Shirt | #monkeys #programmers #nerds #computers http://tinyurl.com/y9bupep9",
-                "media": "/data/media/random.jpg"
+                "media": "/tmp/random.jpg"
             },
             {
                 "client": "Twitter_content_tags",
                 "content": "AD: If you need more #shirt in your diet, this one by Tom Trager @ RedBubble would do nicely! | #MontyPythonsFlyingCircus #television #movies http://tinyurl.com/ycevoumm",
-                "media": "/data/media/random.jpg"
+                "media": "/tmp/random.jpg"
             }
         ]
     }
