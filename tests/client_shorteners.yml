@@ -1,0 +1,52 @@
+accounts:
+
+  - name: 'Diaspora_client_shorteners'
+    type: 'DiaspyClient'
+    pod: 'diaspora_pod_url'
+    username: 'username'
+    password: 'password'
+    url_shortener: 'Tinyurl'
+
+  - name: 'Twitter_client_shorteners'
+    type: 'TweepyClient'
+    consumer_token: 'my_consumer_token'
+    consumer_secret: 'my_consumer_secret'
+    access_token: 'my_access_token'
+    access_token_secret: 'my_access_token_secret'
+    url_shortener: 'Tinyurl'
+
+  - name: 'Facebook_client_shorteners'
+    type: 'FacebookClient'
+    token: 'your_facebook_token'
+    url_shortener: 'Tinyurl'
+
+  - name: 'Mastodon_client_shorteners'
+    type: 'MastodonClient'
+    client_id: 'client_key'
+    client_secret: 'client_secret'
+    access_token: 'access_token'
+    url: 'base_url_mastodon'
+    url_shortener: 'Tinyurl'
+
+  - name: 'Shaarpy_client_shorteners'
+    type: 'ShaarpyClient'
+    username: 'shaarli username'
+    password: 'shaarli password'
+    url: 'https://shaarli_url/u/shaarli_username/'
+    url_shortener: 'Tinyurl'
+
+  - name: 'WordPress_client_shorteners'
+    type: 'WPClient'
+    wpurl: 'some_random_url'
+    username: 'username'
+    password: 'password'
+    url_shortener: 'Tinyurl'
+
+  - name: 'LinkedIn_client_shorteners'
+    type: 'LinkedInClient'
+    authentication_token: 'authentication_token'
+    visibility: 'anyone'
+    url_shortener: 'Tinyurl'
+
+feeds:
+  - 'feed.atom'
