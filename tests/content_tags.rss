@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+  <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+    <channel>
+      <atom:link href="https://www.wildkidz.com/feed/factoid.php" rel="self" type="application/rss+xml" />
+      <title>WildKidz RSS</title>
+      <link>https://www.wildkidz.com</link>
+      <copyright>Copyright 2010-2018 WildKidz Unlimited</copyright>
+      <description>RSS feed of WildKidz Unlimited store items for Twitter</description>
+      <language>en-us</language>
+      <pubDate>Tue, 11 Dec 2018 17:22:33 PST</pubDate>
+      <lastBuildDate>Tue, 11 Dec 2018 17:22:33 PST</lastBuildDate>
+      <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+      <managingEditor>webmaster@wildkidz.com (WildKidz' Webmaster)</managingEditor>
+      <webMaster>webmaster@wildkidz.com (WildKidz' Webmaster)</webMaster>
+      <item>
+        <title>If you need more #shirt in your diet, this one by Tom Trager @ RedBubble would do nicely!</title>
+        <link>https://www.wildkidz.com/getLink.php?idx=926&amp;go</link>
+        <guid>https://www.wildkidz.com/getLink.php?idx=926&amp;go</guid>
+        <category>T-Shirt</category>
+        <description><![CDATA[
+          <a href='https://www.wildkidz.com/getLink.php?idx=926&amp;go'><img src='https://www.wildkidz.com/getImage.php?idx=926' title="Monty Python Quotes T-Shirt" alt="Monty Python Quotes T-Shirt" /></a> 
+          <br />#MontyPythonsFlyingCircus #television #movies #silly #humor #geek #nerd #graphic]]></description>
+        <pubDate>Tue, 11 Dec 2018 17:22:33 PST</pubDate>
+        <media:title type="html"><![CDATA[&quot;Monty Python Quotes&quot; T-Shirt]]></media:title>
+        <media:content url="https://www.wildkidz.com/getImage.php?idx=926" medium="image" />
+      </item>
+      <item>
+        <title>&quot;Code Monkey&quot; T-Shirt</title>
+        <link>https://www.wildkidz.com/getLink.php?idx=1317&amp;go</link>
+        <guid>https://www.wildkidz.com/getLink.php?idx=1317&amp;go</guid>
+        <category>T-Shirt</category>
+        <description><![CDATA[
+          <a href='https://www.wildkidz.com/getLink.php?idx=1317&amp;go'><img src='https://www.wildkidz.com/getImage.php?idx=1317' title="Code Monkey T-Shirt" alt="Code Monkey T-Shirt" /></a>
+          <br />#monkeys #programmers #nerds #computers #coders #softwaredevelopers #softwaredevelopment #programming #coding #techies #apes #chimps #chimpanzees #primates #animals #humorous #funny #graphics]]></description>
+        <pubDate>Sun, 02 Dec 2018 10:10:41 PST</pubDate>
+        <media:title type="html"><![CDATA[&quot;Code Monkey&quot; T-Shirt]]></media:title>
+        <media:content url="https://www.wildkidz.com/getImage.php?idx=1317" medium="image" />
+      </item>
+      <item>
+        <title>&quot;Back In My Day We Had Nine Planets&quot; T-Shirt</title>
+        <link>https://www.wildkidz.com/getLink.php?idx=733&amp;go</link>
+        <guid>https://www.wildkidz.com/getLink.php?idx=733&amp;go</guid>
+        <category>T-Shirt</category>
+        <description><![CDATA[
+          <a href='https://www.wildkidz.com/getLink.php?idx=733&amp;go'><img src='https://www.wildkidz.com/getImage.php?idx=733' title="Back In My Day We Had Nine Planets T-Shirt" alt="Back In My Day We Had Nine Planets T-Shirt" /></a>
+          <br />And we &lt;em&gt;liked&lt;/em&gt; it that way!
+          <br />#shirt #Pluto #solarsystem #Uranus #Earth #Jupiter #Mercury #planetary #Saturn #Sun #Venus #graphic #mars #Neptune]]></description>
+        <pubDate>Tue, 11 Dec 2018 17:41:31 PST</pubDate>
+        <media:title type="html"><![CDATA[&quot;Back In My Day We Had Nine Planets&quot; T-Shirt]]></media:title>
+        <media:content url="https://www.wildkidz.com/getImage.php?idx=733" medium="image" />
+        <media:description type="html"><![CDATA[And we &lt;em&gt;liked&lt;/em&gt; it that way!]]></media:description>
+      </item>
+    </channel>
+  </rss>

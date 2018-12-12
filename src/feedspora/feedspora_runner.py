@@ -22,6 +22,7 @@ import sqlite3
 
 import requests
 from bs4 import BeautifulSoup
+import lxml.html
 
 # pylint: disable=too-few-public-methods
 class FeedSporaEntry:
@@ -182,6 +183,7 @@ class FeedSpora:
         for client in self._client:
 
             if not self.is_already_published(entry, client):
+                # pylint: disable=broad-except
                 try:
                     posted_to_client = client.post_within_limits(entry)
                 except Exception as error:
@@ -206,6 +208,7 @@ class FeedSpora:
                             client.__class__.__name__,
                             format(error),
                             exc_info=True)
+                # pylint: enable=broad-except
 
     def retrieve_feed_soup(self, feed_url):
         '''
@@ -246,6 +249,8 @@ class FeedSpora:
         # process of gathering tags)
         content_tags = []
         if content:
+            # Remove tags to improve processing
+            content = lxml.html.fromstring(content).text_content().strip()
             tag_pattern = r'\s+#([\w]+)$'
             match_result = re.search(tag_pattern, content)
 
