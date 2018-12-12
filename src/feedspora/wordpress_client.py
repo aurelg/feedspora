@@ -62,7 +62,7 @@ class WPClient(GenericClient):
                 "client": self.get_name(),
                 "title": kwargs['entry'].title,
                 "post_tag": self.filter_tags(kwargs['entry']),
-                "Content": kwargs['entry'].link
+                "Content": self.shorten_url(kwargs['entry'].link)
             },
                        indent=4))
 
@@ -75,7 +75,7 @@ class WPClient(GenericClient):
         '''
 
         post_content = r"Source: <a href='{}'>{}</a><hr\>{}".format(
-            entry.link,
+            self.shorten_url(entry.link),
             urlparse(entry.link).netloc, self.get_content(entry.link))
         to_return = False
 

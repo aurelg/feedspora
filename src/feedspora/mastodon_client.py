@@ -58,10 +58,11 @@ class MastodonClient(GenericClient):
         Post entry to Mastadon
         :param entry:
         '''
-        maxlen = 500 - len(entry.link) - 1
+        use_link = self.shorten_url(entry.link)
+        maxlen = 500 - len(use_link) - 1
         text = self._mkrichtext(entry.title, self.filter_tags(entry),
                                 maxlen=maxlen)
-        text += ' ' + entry.link
+        text += ' ' + use_link
 
         to_return = False
 
