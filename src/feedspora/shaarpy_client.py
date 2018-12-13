@@ -33,9 +33,9 @@ class ShaarpyClient(GenericClient):
 
         return {
             "client": self.get_name(),
-            "title": self._post_prefix if self._post_prefix else '' + \
+            "title": (self._post_prefix if self._post_prefix else '') + \
                      kwargs['entry'].title + \
-                     self._post_suffix if self._post_suffix else '',
+                     (self._post_suffix if self._post_suffix else ''),
             "link": self.shorten_url(kwargs['entry'].link),
             "tags": self.filter_tags(kwargs['entry']),
             "content": kwargs['content']
