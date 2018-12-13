@@ -47,3 +47,10 @@ def test_post_client_shorteners(capsys):
     Test the client URL shortening implementation
     """
     check_feed(capsys, "client_shorteners")
+
+
+def test_post_prefix_suffix(capsys):
+    """
+    Test the client post prefix/suffix implementation
+    """
+    check_feed(capsys, "prefix_suffix")
