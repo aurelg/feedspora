@@ -65,8 +65,9 @@ class ShaarpyClient(GenericClient):
             self.accumulate_testing_output(
                 self.get_dict_output(content=content, entry=entry))
         else:
-            title = self._post_prefix if self._post_prefix else '' + \
-                    entry.title + self._post_suffix if self._post_suffix else ''
+            title = (self._post_prefix if self._post_prefix else '') + \
+                    entry.title + \
+                    (self._post_suffix if self._post_suffix else '')
             # For some reasons, this pylint directive is ignored?
             # pylint: disable=assignment-from-no-return
             to_return = self._shaarpy.post_link(
