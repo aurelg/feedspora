@@ -33,7 +33,9 @@ class ShaarpyClient(GenericClient):
 
         return {
             "client": self.get_name(),
-            "title": kwargs['entry'].title,
+            "title": self._post_prefix if self._post_prefix else '' + \
+                     kwargs['entry'].title + \
+                     self._post_suffix if self._post_suffix else '',
             "link": self.shorten_url(kwargs['entry'].link),
             "tags": self.filter_tags(kwargs['entry']),
             "content": kwargs['content']
@@ -63,11 +65,13 @@ class ShaarpyClient(GenericClient):
             self.accumulate_testing_output(
                 self.get_dict_output(content=content, entry=entry))
         else:
+            title = self._post_prefix if self._post_prefix else '' + \
+                    entry.title+self._post_suffix if self._post_suffix else ''
             # For some reasons, this pylint directive is ignored?
             # pylint: disable=assignment-from-no-return
             to_return = self._shaarpy.post_link(
                 self.shorten_url(entry.link), self.filter_tags(entry),
-                title=entry.title, desc=content)
+                title=title, desc=content)
             # pylint: enable=assignment-from-no-return
 
         return to_return
