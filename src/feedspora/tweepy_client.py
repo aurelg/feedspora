@@ -120,12 +120,8 @@ class TweepyClient(GenericClient):
             sum([self._link_cost - len(u) for u in putative_urls])
         maxlen = self._max_len - adjust_with_inner_links - 1  # for last ' '
 
-        # Let's build our tweet!
-        text = ""
-
-        # Apply optional prefix
-        if self._post_prefix:
-            text = self._post_prefix + " "
+        # Let's build our tweet!  Apply optional prefix
+        text = self._post_prefix if self._post_prefix else ''
 
         # Process contents
         raw_contents = entry.title
@@ -137,20 +133,18 @@ class TweepyClient(GenericClient):
                                  maxlen=maxlen)
 
         # Apply optional suffix
-        if self._post_suffix:
-            text += " " + self._post_suffix
+        text += self._post_suffix if self._post_suffix else ''
+
         # Shorten the link URL if configured/possible
         text += " " + self.shorten_url(entry.link)
 
         # Finally ready to post.  Let's find out how (media/text)
         media_path = None
-
         if self._include_media and entry.media_url:
             # Need to download image from that URL in order to post it!
             media_path = download_media(entry.media_url)
 
         to_return = False
-
         if self.is_testing():
             self.accumulate_testing_output(
                 self.get_dict_output(text=text, media_path=media_path))

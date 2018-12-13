@@ -43,10 +43,12 @@ class LinkedInClient(GenericClient):
             "description":
             self._trim_string(kwargs['entry'].title, 256),
             "Comment":
+            self._post_prefix if self._post_prefix else '' + \
             self._mkrichtext(
                 kwargs['entry'].title,
                 self.filter_tags(kwargs['entry']),
-                maxlen=700)
+                maxlen=700) + \
+            self._post_suffix if self._post_suffix else ''
         }
 
     def post(self, entry):
@@ -59,9 +61,12 @@ class LinkedInClient(GenericClient):
         if self.is_testing():
             self.accumulate_testing_output(self.get_dict_output(entry=entry))
         else:
+            comment = self._post_prefix if self._post_prefix else '' + \
+                      self._mkrichtext(entry.title, self.filter_tags(entry),
+                                       maxlen=700) + \
+                      self._post_suffix if self._post_suffix else ''
             to_return = self._linkedin.submit_share(
-                comment=self._mkrichtext(
-                    entry.title, self.filter_tags(entry), maxlen=700),
+                comment=comment,
                 title=self._trim_string(entry.title, 200),
                 description=self._trim_string(entry.title, 256),
                 submitted_url=self.shorten_url(entry.link),
