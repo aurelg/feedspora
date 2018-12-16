@@ -193,6 +193,7 @@ class GenericClient:
 
         return to_return
 
+    # pylint: disable=too-many-branches
     def set_common_opts(self, account):
         '''
         Set options common to all clients
@@ -249,6 +250,7 @@ class GenericClient:
             self._url_shortener_opts = account['url_shortener_opts']
         else:
             self._url_shortener_opts = dict()
+    # pylint: enable=too-many-branches
 
     # pylint: disable=no-self-use
     def _trim_string(self, text, maxlen, etc='...', etc_if_shorter_than=None):
