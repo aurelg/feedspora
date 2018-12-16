@@ -15,11 +15,11 @@ class GenericClient:
     # Special handling of default (0) value that allows unlimited postings
     _max_posts = 0
     _posts_done = 0
-    _tags = None
-    _tag_filter_opts = None
+    _tags = []
+    _tag_filter_opts = {}
     _max_tags = 100
     _url_shortener = None
-    _url_shortener_opts = None
+    _url_shortener_opts = {}
     _post_prefix = ''
     _include_content = False
     _include_media = False
@@ -199,14 +199,12 @@ class GenericClient:
         '''
 
         # Tags
-        self._tags = []
         if 'tags' in account:
             self._tags = [
                 word.strip() for word in account['tags'].split(',')
             ]
 
         # Tag filtering options
-        self._tag_filter_opts = dict()
         if 'tag_filter_opts' in account:
             self._tag_filter_opts = {key.strip(): True \
                 for key in account['tag_filter_opts'].split(',')}
@@ -242,7 +240,6 @@ class GenericClient:
         if 'url_shortener' in account:
             self._url_shortener = account['url_shortener'].lower()
 
-        self._url_shortener_opts = dict()
         if 'url_shortener_opts' in account:
             self._url_shortener_opts = account['url_shortener_opts']
 
