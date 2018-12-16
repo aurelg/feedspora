@@ -100,17 +100,16 @@ class TweepyClient(GenericClient):
             '''
 
             to_return = None
-            if before_strip:
-                # Getting the stripped HTML might take multiple attempts
-                done = False
-                while not done:
-                    to_return = lxml.html.fromstring(
-                        before_strip).text_content().strip()
-                    done = to_return == before_strip
-                    if not done:
-                        before_strip = to_return
-                # Remove all tags from end of content!
-                to_return = self.remove_ending_tags(to_return)
+            # Getting the stripped HTML might take multiple attempts
+            done = False
+            while not done:
+                to_return = lxml.html.fromstring(
+                    before_strip).text_content().strip()
+                done = to_return == before_strip
+                if not done:
+                    before_strip = to_return
+            # Remove all tags from end of content!
+            to_return = self.remove_ending_tags(to_return)
 
             return to_return
 
@@ -130,7 +129,7 @@ class TweepyClient(GenericClient):
         # Process contents
         raw_contents = entry.title
 
-        stripped_html = strip_html(entry.content)
+        stripped_html = strip_html(entry.content) if entry.content else None
         if self._include_content and stripped_html:
             raw_contents += ": " + stripped_html
         text += self._mkrichtext(raw_contents, self.filter_tags(entry),
