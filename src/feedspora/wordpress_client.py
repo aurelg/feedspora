@@ -59,7 +59,7 @@ class WPClient(GenericClient):
 
         return {
             "client": self.get_name(),
-            "title": self._post_prefix+kwargs['entry'].title+self._post_suffix
+            "title": self._post_prefix+kwargs['entry'].title+self._post_suffix,
             "post_tag": self.filter_tags(kwargs['entry']),
             "Content": self.shorten_url(kwargs['entry'].link)
         }

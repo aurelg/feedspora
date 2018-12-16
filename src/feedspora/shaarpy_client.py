@@ -33,7 +33,7 @@ class ShaarpyClient(GenericClient):
 
         return {
             "client": self.get_name(),
-            "title": self._post_prefix+kwargs['entry'].title+self._post_suffix
+            "title": self._post_prefix+kwargs['entry'].title+self._post_suffix,
             "link": self.shorten_url(kwargs['entry'].link),
             "tags": self.filter_tags(kwargs['entry']),
             "content": kwargs['content']
