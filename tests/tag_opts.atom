@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+	<title>Tag Test Feed</title>
+	<subtitle>A subtitle.</subtitle>
+	<link href="http://example.org/feed/" rel="self" />
+	<link href="http://example.org/" />
+	<id>urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6</id>
+	<updated>2018-11-30T18:30:02Z</updated>
+
+	<entry>
+		<title>#TagA in the title, along with #tag1</title>
+		<link href="http://example.org/2018/12/10/atom007" />
+		<link rel="alternate" type="text/html" href="http://example.org/2018/12/10/atom007.html"/>
+		<link rel="edit" href="http://example.org/2018/12/10/atom007/edit"/>
+		<id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</id>
+	        <updated>2018-12-10:30:02Z</updated>
+		<summary>Tag tests for everyone.</summary>
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+				<p>This is the tag test entry content.</p>
+			</div>
+                        #conA #conB #conC #cond
+		</content>
+		<author>
+			<name>Barbara Ann</name>
+			<email>bababa@beachboys.com</email>
+		</author>
+    <app:categories
+        xmlns:app="http://www.w3.org/2007/app"
+        xmlns:atom="http://www.w3.org/2005/Atom"
+        fixed="yes" scheme="http://example.com/cats/big3">
+      <category term="taga" />
+      <category term="conC" />
+      <category term="Tag1" />
+      <category term="conD" />
+    </app:categories>
+	</entry>
+
+</feed>

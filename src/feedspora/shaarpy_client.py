@@ -23,6 +23,7 @@ class ShaarpyClient(GenericClient):
             self._shaarpy = Shaarpy()
             self._shaarpy.login(account['username'], account['password'],
                                 account['url'])
+        self.set_common_opts(account)
 
     def get_dict_output(self, **kwargs):
         '''
@@ -34,8 +35,8 @@ class ShaarpyClient(GenericClient):
             "client": self.get_name(),
             "title": kwargs['entry'].title,
             "link": kwargs['entry'].link,
-            "keywords": kwargs['entry'].keywords,
-            "content": kwargs['text']
+            "tags": self.filter_tags(kwargs['entry']),
+            "content": kwargs['content']
         }
 
     def post(self, entry):
@@ -44,6 +45,7 @@ class ShaarpyClient(GenericClient):
         :param entry:
         '''
         content = entry.content
+
         # pylint: disable=broad-except
         try:
             soup = BeautifulSoup(entry.content, 'html.parser')
@@ -52,17 +54,20 @@ class ShaarpyClient(GenericClient):
             pass
         # pylint: enable=broad-except
 
+        content = self.remove_ending_tags(content)
+
         # Note non-boolean return type!
         to_return = {}
 
         if self.is_testing():
             self.accumulate_testing_output(
-                self.get_dict_output(text=content, entry=entry))
+                self.get_dict_output(content=content, entry=entry))
         else:
             # For some reasons, this pylint directive is ignored?
             # pylint: disable=assignment-from-no-return
             to_return = self._shaarpy.post_link(
-                entry.link, entry.keywords, title=entry.title, desc=content)
+                entry.link, self.filter_tags(entry),
+                title=entry.title, desc=content)
             # pylint: enable=assignment-from-no-return
 
         return to_return

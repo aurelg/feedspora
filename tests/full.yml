@@ -5,7 +5,7 @@ accounts:
     pod: 'diaspora_pod_url'
     username: 'username'
     password: 'password'
-    keywords: 'hashtag1,hashtag2'
+    tags: 'hashtag1,hashtag2'
 
   - name: 'Twitter_full'
     type: 'TweepyClient'
@@ -46,7 +46,7 @@ accounts:
     wpurl: 'some_random_url'
     username: 'username'
     password: 'password'
-    keywords: 'hashtagA,hashtagB'
+    tags: 'hashtagA,hashtagB'
 
   - name: 'LinkedIn_full'
     type: 'LinkedInClient'

@@ -4,7 +4,6 @@ GenericClient: baseclass providing features to specific clients.
 
 import logging
 import re
-
 import pyshorteners
 
 
@@ -16,10 +15,11 @@ class GenericClient:
     # Special handling of default (0) value that allows unlimited postings
     _max_posts = 0
     _posts_done = 0
-    _keywords = []
+    _tags = []
+    _tag_filter_opts = {}
+    _max_tags = 100
     _url_shortener = None
     _url_shortener_opts = {}
-    _max_tags = 100
     _post_prefix = None
     _include_content = False
     _include_media = False
@@ -198,20 +198,24 @@ class GenericClient:
         :param account:
         '''
 
-        # Keywords
-
-        if 'keywords' in account:
-            self._keywords = [
-                word.strip() for word in account['keywords'].split(',')
+        # Tags
+        if 'tags' in account:
+            self._tags = [
+                word.strip() for word in account['tags'].split(',')
             ]
+
+        # Tag filtering options
+        if 'tag_filter_opts' in account:
+            self._tag_filter_opts = {key.strip(): True \
+                for key in account['tag_filter_opts'].split(',')}
+
+        if 'max_tags' in account:
+            self._max_tags = account['max_tags']
 
         # Post/run limit. Negative value implies a seed-only operation.
 
         if 'max_posts' in account:
             self.set_max_posts(account['max_posts'])
-
-        if 'max_tags' in account:
-            self._max_tags = account['max_tags']
 
         # Include content?
 
@@ -274,15 +278,15 @@ class GenericClient:
     # pylint: disable=no-self-use
     def _mkrichtext(self,
                     text,
-                    keywords,
+                    tags,
                     maxlen=None,
                     etc='...',
                     separator=' |'):
         '''
-        Process the text to include hashtagged keywords and adhere to the
+        Process the text to include hashtags and adhere to the
         specified maximum length.
         :param text:
-        :param keywords:
+        :param tags:
         :param maxlen:
         :param etc:
         :param separator:
@@ -299,14 +303,14 @@ class GenericClient:
 
         to_return = text
 
-        # Tag/keyword order needs to be observed
+        # Tag order needs to be observed
         # Set manipulations ignore that, so use lists instead!
 
-        # Find inline and extra keywords
+        # Find inline and extra tags
         inline_kw = []
         extra_kw = []
 
-        for word in keywords:
+        for word in tags:
             # remove any illegal characters
             word = re.sub(r'[\-\.]', '', word)
 
@@ -317,7 +321,7 @@ class GenericClient:
             else:
                 extra_kw.append(word)
 
-        # Process inline keywords
+        # Process inline tags
 
         for word in inline_kw:
             pattern = (
@@ -327,7 +331,7 @@ class GenericClient:
                 to_return = re.sub(
                     pattern, repl, to_return, flags=re.IGNORECASE)
 
-        # Add separator and keywords, if needed
+        # Add separator and tags, if needed
         minlen_wo_xtra_kw = len(to_return)
 
         if extra_kw:
@@ -335,7 +339,7 @@ class GenericClient:
             to_return += fake_separator
             minlen_wo_xtra_kw = len(to_return)
 
-            # Add extra (ordered) keywords
+            # Add extra (ordered) tags
 
             for word in extra_kw:
                 # prevent duplication
@@ -375,3 +379,66 @@ class GenericClient:
     # pylint: enable=no-self-use
     # pylint: enable=too-many-locals
     # pylint: enable=too-many-arguments
+
+    def filter_tags(self, entry):
+        '''
+        Filter the client-specific tag list and entry tag lists
+        (title, content, category) according to the client-specific tag
+        filtering options, producing an ordered and size-limited tag list
+        to be used during posting
+        :param entry:
+        '''
+
+        # First priority: user-defined tags
+        to_filter = self._tags[:]
+        # Next, title tags, if appropriate
+        if 'ignore_title' not in self._tag_filter_opts and \
+           entry.tags['title']:
+            to_filter.extend(entry.tags['title'])
+        # Then, content tags, if appropriate
+        if 'ignore_content' not in self._tag_filter_opts and \
+           entry.tags['content']:
+            to_filter.extend(entry.tags['content'])
+        # Finally, category tags, again if appropriate
+        if 'ignore_category' not in self._tag_filter_opts and \
+           entry.tags['category']:
+            to_filter.extend(entry.tags['category'])
+
+        # And now we filter.  We NEVER want any duplicates, and that might
+        # include non-case-sensitive duplication too, depending upon options
+        to_return = []
+        non_case_sensitive = []
+        for tag in to_filter:
+            if 'case-sensitive' in self._tag_filter_opts and \
+               tag not in to_return:
+                to_return.append(tag)
+            elif 'case-sensitive' not in self._tag_filter_opts and \
+                 tag.lower() not in non_case_sensitive:
+                to_return.append(tag)
+                non_case_sensitive.append(tag.lower())
+            # We may have all that were specified
+            if len(to_return) >= self._max_tags:
+                break
+
+        return to_return
+
+    def remove_ending_tags(self, content):
+        '''
+        Trim any tags from the end of content, and return the modified content,
+        unless the ignore_content tag filter option is set (then do nothing).
+        :param content:
+        '''
+
+        if content and 'ignore_content' not in self._tag_filter_opts:
+            tag_pattern = r'\s+#([\w]+)$'
+            match_result = re.search(tag_pattern, content)
+
+            while match_result:
+                content = re.sub(tag_pattern, '', content)
+                match_result = re.search(tag_pattern, content)
+
+            if re.match(r'^\s*#[\w]+$', content):
+                # Left with a single tag!
+                content = ''
+
+        return content

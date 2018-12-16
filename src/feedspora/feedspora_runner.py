@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # encoding: utf-8
-# pylint: disable=too-many-lines
 '''
 FeedSpora is a bot that posts automatically RSS/Atom feeds to
 your social network account.
@@ -21,10 +20,11 @@ import os
 import re
 import sqlite3
 
+import lxml.html
 import requests
 from bs4 import BeautifulSoup
 
-
+# pylint: disable=too-few-public-methods
 class FeedSporaEntry:
     '''
     A FeedSpora entry.
@@ -35,12 +35,8 @@ class FeedSporaEntry:
     link = ''
     published_date = None
     content = ''
-    keywords = None
+    tags = None
     media_url = None
-    _testing = False
-    _testing_accumulator = None
-
-
 # pylint: enable=too-few-public-methods
 
 
@@ -184,6 +180,7 @@ class FeedSpora:
         for client in self._client:
 
             if not self.is_already_published(entry, client):
+                # pylint: disable=broad-except
                 try:
                     posted_to_client = client.post_within_limits(entry)
                 except Exception as error:
@@ -208,6 +205,7 @@ class FeedSpora:
                             client.__class__.__name__,
                             format(error),
                             exc_info=True)
+                # pylint: enable=broad-except
 
     def retrieve_feed_soup(self, feed_url):
         '''
@@ -232,43 +230,45 @@ class FeedSpora:
         return BeautifulSoup(feed_content, 'html.parser')
 
     # pylint: disable=no-self-use
-    def get_keyword_list(self, title, content):
+    def get_tag_lists(self, title, content):
         '''
-        Determine the list of keywords, in priority order from title and
-        content (content may be modified by this operation)
+        Determine the list of tags, both from title and content
         :param title:
         :param content:
         '''
-        keywords = []
-        # Add keywords from title
-
+        title_tags = []
+        # Add tags from title
         for word in title.split():
-            if word.startswith('#') and word[1:].lower() not in keywords:
-                keywords.append(word[1:].lower())
-        # Add keywords from end of content (removing from content in the
-        # process of gathering keywords)
+            if word.startswith('#') and word[1:] not in title_tags:
+                title_tags.append(word[1:])
 
+        # Add tags from end of content (removing from content in the
+        # process of gathering tags)
+        content_tags = []
         if content:
-            content_keyword_start = len(keywords)
+            # Remove tags to improve processing
+            content = lxml.html.fromstring(content).text_content().strip()
             tag_pattern = r'\s+#([\w]+)$'
             match_result = re.search(tag_pattern, content)
 
             while match_result:
-                tag = match_result.group(1).lower()
+                tag = match_result.group(1)
 
-                if tag not in keywords:
-                    keywords.insert(content_keyword_start, tag)
+                if tag not in content_tags:
+                    content_tags.insert(0, tag)
                 content = re.sub(tag_pattern, '', content)
                 match_result = re.search(tag_pattern, content)
 
-            if re.match(r'^#[\w]+$', content):
+            tag_pattern = r'^\s*#([\w]+)$'
+            match_result = re.search(tag_pattern, content)
+            if match_result:
                 # Left with a single tag!
+                tag = match_result.group(1)
+                if tag not in content_tags:
+                    content_tags.insert(0, tag)
+                content = ''
 
-                if content[1:].lower() not in keywords:
-                    keywords.insert(content_keyword_start, content[1:].lower())
-                    content = ''
-
-        return content, keywords
+        return title_tags, content_tags
 
     # pylint: enable=no-self-use
 
@@ -295,25 +295,26 @@ class FeedSpora:
             # Content
 
             if entry.find('content'):
-                fse.content = entry.find('content').text
+                fse.content = entry.find('content').text.strip()
             # If no content, attempt to use summary
 
             if not fse.content and entry.find('summary'):
-                fse.content = entry.find('summary').text
+                fse.content = entry.find('summary').text.strip()
 
             if fse.content is None:
                 fse.content = ''
 
-            # Keywords from title and content, potentially modifying content
-            fse.content, fse.keywords = self.get_keyword_list(
+            fse.tags = dict()
+            # Tags from title and content, each in their own list
+            fse.tags['title'], fse.tags['content'] = self.get_tag_lists(
                 fse.title, fse.content)
-            # Add keywords from category
 
-            for keyword in entry.find_all('category'):
-                new_keyword = keyword['term'].replace(' ', '_').strip().lower()
-
-                if new_keyword not in fse.keywords:
-                    fse.keywords.append(new_keyword)
+            # Add tags from category
+            fse.tags['category'] = []
+            for tag in entry.find_all('category'):
+                new_tag = tag['term'].replace(' ', '_').strip()
+                if new_tag not in fse.tags['category']:
+                    fse.tags['category'].append(new_tag)
 
             # Published_date implementation for Atom
 
@@ -395,23 +396,25 @@ class FeedSpora:
             # Content takes priority over Description
 
             if entry.find('content'):
-                fse.content = entry.find('content')[0].text
+                fse.content = entry.find('content')[0].text.strip()
             else:
-                fse.content = entry.find('description').text
+                fse.content = entry.find('description').text.strip()
 
             # PubDate
             fse.published_date = entry.find('pubdate').text
 
-            # Keywords from title and content, potentially modifying content
-            fse.content, fse.keywords = self.get_keyword_list(
+            fse.tags = dict()
+            # Tags from title and content, each in their own list
+            fse.tags['title'], fse.tags['content'] = self.get_tag_lists(
                 fse.title, fse.content)
-            # Add keywords from category
 
-            for keyword in entry.find_all('category'):
-                new_keyword = keyword.text.replace(' ', '_').strip()
+            # Add tags from category
+            fse.tags['category'] = []
+            for tag in entry.find_all('category'):
+                new_tag = tag.text.replace(' ', '_').strip()
 
-                if new_keyword not in fse.keywords:
-                    fse.keywords.append(new_keyword)
+                if new_tag not in fse.tags['category']:
+                    fse.tags['category'].append(new_tag)
 
             # And for our final act, media
             fse.media_url = self.find_rss_image_url(entry, fse.link)

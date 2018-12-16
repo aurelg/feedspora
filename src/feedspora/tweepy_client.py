@@ -93,8 +93,25 @@ class TweepyClient(GenericClient):
 
             return to_return
 
-        # Shorten the link URL if configured/possible
-        post_url = self.shorten_url(entry.link)
+        def strip_html(before_strip):
+            '''
+            Strip HTML from the content
+            :param before_strip:
+            '''
+
+            to_return = None
+            # Getting the stripped HTML might take multiple attempts
+            done = False
+            while not done:
+                to_return = lxml.html.fromstring(
+                    before_strip).text_content().strip()
+                done = to_return == before_strip
+                if not done:
+                    before_strip = to_return
+            # Remove all tags from end of content!
+            to_return = self.remove_ending_tags(to_return)
+
+            return to_return
 
         putative_urls = re.findall(r'[a-zA-Z0-9]+\.[a-zA-Z]{2,3}', entry.title)
         # Infer the 'inner links' Twitter may charge length for
@@ -102,43 +119,27 @@ class TweepyClient(GenericClient):
             sum([self._link_cost - len(u) for u in putative_urls])
         maxlen = self._max_len - adjust_with_inner_links - 1  # for last ' '
 
-        stripped_html = None
-
-        if entry.content:
-            # The content with all HTML stripped will be used later,
-            # but get it now
-            stripped_html = lxml.html.fromstring(
-                entry.content).text_content().strip()
-
-        # QUESTION: This should probably move into mkrichtext, but would
-        #           require mkrichtext to move within GenericClient (maybe
-        #           not a bad idea anyway)?
-        # Apply any tag limits specified
-        used_keywords = entry.keywords
-
-        if self._max_tags < len(used_keywords):
-            used_keywords = used_keywords[:self._max_tags]
-
         # Let's build our tweet!
         text = ""
 
         # Apply optional prefix
-
         if self._post_prefix:
             text = self._post_prefix + " "
 
         # Process contents
         raw_contents = entry.title
 
+        stripped_html = strip_html(entry.content) if entry.content else None
         if self._include_content and stripped_html:
             raw_contents += ": " + stripped_html
-        text += self._mkrichtext(raw_contents, used_keywords, maxlen=maxlen)
+        text += self._mkrichtext(raw_contents, self.filter_tags(entry),
+                                 maxlen=maxlen)
 
         # Apply optional suffix
-
         if self._post_suffix:
             text += " " + self._post_suffix
-        text += " " + post_url
+        # Shorten the link URL if configured/possible
+        text += " " + self.shorten_url(entry.link)
 
         # Finally ready to post.  Let's find out how (media/text)
         media_path = None
