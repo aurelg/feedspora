@@ -120,7 +120,7 @@ class TweepyClient(GenericClient):
         maxlen = self._max_len - adjust_with_inner_links - 1  # for last ' '
 
         # Let's build our tweet!  Apply optional prefix
-        text = self._post_prefix if self._post_prefix else ''
+        text = self._post_prefix
 
         # Process contents
         raw_contents = entry.title
@@ -132,7 +132,7 @@ class TweepyClient(GenericClient):
                                  maxlen=maxlen)
 
         # Apply optional suffix
-        text += self._post_suffix if self._post_suffix else ''
+        text += self._post_suffix
 
         # Shorten the link URL if configured/possible
         text += " " + self.shorten_url(entry.link)

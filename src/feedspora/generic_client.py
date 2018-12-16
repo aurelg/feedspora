@@ -15,15 +15,15 @@ class GenericClient:
     # Special handling of default (0) value that allows unlimited postings
     _max_posts = 0
     _posts_done = 0
-    _tags = []
-    _tag_filter_opts = {}
+    _tags = None
+    _tag_filter_opts = None
     _max_tags = 100
     _url_shortener = None
-    _url_shortener_opts = {}
-    _post_prefix = None
+    _url_shortener_opts = None
+    _post_prefix = ''
     _include_content = False
     _include_media = False
-    _post_suffix = None
+    _post_suffix = ''
     _testing_root = None
     _testing_output = None
 
