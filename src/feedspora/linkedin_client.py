@@ -37,7 +37,7 @@ class LinkedInClient(GenericClient):
             "title":
             self._trim_string(kwargs['entry'].title, 200),
             "link":
-            kwargs['entry'].link,
+            self.shorten_url(kwargs['entry'].link),
             "visibility":
             self._visibility,
             "description":
@@ -64,7 +64,7 @@ class LinkedInClient(GenericClient):
                     entry.title, self.filter_tags(entry), maxlen=700),
                 title=self._trim_string(entry.title, 200),
                 description=self._trim_string(entry.title, 256),
-                submitted_url=entry.link,
+                submitted_url=self.shorten_url(entry.link),
                 visibility_code=self._visibility)
 
         return to_return

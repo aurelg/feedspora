@@ -42,7 +42,7 @@ class DiaspyClient(GenericClient):
         :param entry:
         '''
 
-        text = '['+entry.title+']('+entry.link+')' + ' | ' + \
+        text = '['+entry.title+']('+self.shorten_url(entry.link)+')' + ' | ' + \
             ''.join([" #{}".format(k) for k in self.filter_tags(entry)])
         to_return = True
 

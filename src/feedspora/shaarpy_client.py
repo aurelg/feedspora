@@ -34,7 +34,7 @@ class ShaarpyClient(GenericClient):
         return {
             "client": self.get_name(),
             "title": kwargs['entry'].title,
-            "link": kwargs['entry'].link,
+            "link": self.shorten_url(kwargs['entry'].link),
             "tags": self.filter_tags(kwargs['entry']),
             "content": kwargs['content']
         }
@@ -66,7 +66,7 @@ class ShaarpyClient(GenericClient):
             # For some reasons, this pylint directive is ignored?
             # pylint: disable=assignment-from-no-return
             to_return = self._shaarpy.post_link(
-                entry.link, self.filter_tags(entry),
+                self.shorten_url(entry.link), self.filter_tags(entry),
                 title=entry.title, desc=content)
             # pylint: enable=assignment-from-no-return
 

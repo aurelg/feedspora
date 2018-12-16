@@ -40,3 +40,10 @@ def test_post_content_tags(capsys):
     Test the content_tags implementation
     """
     check_feed(capsys, "content_tags")
+
+
+def test_post_client_shorteners(capsys):
+    """
+    Test the client URL shortening implementation
+    """
+    check_feed(capsys, "client_shorteners")

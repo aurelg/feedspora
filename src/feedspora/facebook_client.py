@@ -56,7 +56,9 @@ class FacebookClient(GenericClient):
         '''
         text = entry.title + ''.join(
             [' #{}'.format(k) for k in self.filter_tags(entry)])
-        attachment = {'name': entry.title, 'link': entry.link}
+        attachment = {'name': entry.title,
+                      'link': self.shorten_url(entry.link)
+                      }
 
         to_return = False
 
