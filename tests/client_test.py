@@ -40,14 +40,13 @@ def check(client, entry_generator, expected, check_entry):
     for entry, expect in zip(entries, expected):
         # Check that items in the feed read from disk and the expected
         # datastructure are the same
-        source = expect['source']
-        assert entry.title == source['title']
-        assert entry.link == source['link']
+        expect_source = expect['source']
+        assert entry.title == expect_source['title']
+        assert entry.link == expect_source['link']
         # Important to test these in a list context, as ordering matters
-        assert list(entry.tags['title']) == list(source['tags']['title'])
-        assert list(entry.tags['content']) == list(source['tags']['content'])
-        #!# Why is the right side of this assertion always returning []?
-        #!#assert list(entry.tags['category']) == list(source['tags']['category'])
+        assert entry.tags['title'] == expect_source['tags']['title']
+        assert entry.tags['content'] == expect_source['tags']['content']
+        assert entry.tags['category'] == expect_source['tags']['category']
         client_key = str(type(client)).split('.')[-1][:-2]
         # Check that expected values are defined for 'title' and 'link'
         expect_key = client_key if client_key in expect else 'source'
@@ -212,12 +211,9 @@ def test_ShaarpyClient(entry_generator, expected):
     def check_entry(returned, expected):
         assert returned['title'].index(expected['title']) > -1
         assert returned['link'].index(expected['link']) > -1
-        #!# This fails on the second entry posting, apparently
-        #!# because returned['tags'] still has the value from the previous
-        #!# entry; somehow not getting re-initialized correctly
-        #!#assert returned['tags'] == expected['tags']['title'] + \
-        #!#                           expected['tags']['content'] + \
-        #!#                           expected['tags']['category']
+        assert returned['tags'] == expected['tags']['title'] + \
+                                   expected['tags']['content'] + \
+                                   expected['tags']['category']
 
     old_init = ShaarpyClient.__init__
     ShaarpyClient.__init__ = new_init

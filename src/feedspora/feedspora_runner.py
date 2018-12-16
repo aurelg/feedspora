@@ -20,9 +20,9 @@ import os
 import re
 import sqlite3
 
+import lxml.html
 import requests
 from bs4 import BeautifulSoup
-import lxml.html
 
 # pylint: disable=too-few-public-methods
 class FeedSporaEntry:
@@ -35,10 +35,7 @@ class FeedSporaEntry:
     link = ''
     published_date = None
     content = ''
-    tags = {'title': [],
-            'content': [],
-            'category': [],
-            }
+    tags = None
     media_url = None
 # pylint: enable=too-few-public-methods
 
@@ -307,6 +304,7 @@ class FeedSpora:
             if fse.content is None:
                 fse.content = ''
 
+            fse.tags = dict()
             # Tags from title and content, each in their own list
             fse.tags['title'], fse.tags['content'] = self.get_tag_lists(
                 fse.title, fse.content)
@@ -405,7 +403,8 @@ class FeedSpora:
             # PubDate
             fse.published_date = entry.find('pubdate').text
 
-            # tags from title and content
+            fse.tags = dict()
+            # Tags from title and content, each in their own list
             fse.tags['title'], fse.tags['content'] = self.get_tag_lists(
                 fse.title, fse.content)
 
