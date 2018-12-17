@@ -1,32 +1,56 @@
-#!/usr/bin/env python
+"""
+Test Atom/RSS feed retrieval and parsing
+"""
+
+import responses
 
 from feedspora.feedspora_runner import FeedSpora
 
 
+# pylint: disable=no-member
+@responses.activate
+# pylint: enable=no-member
 def test_retrieve_feed_soup():
-    # FIXME should also test URLs
-    sources = [
-        'feed.atom', 'feed.rss',
-        'https://my.framasoft.org/u/aurelieng/?do=rss',
-        'http://aurelien.latitude77.org/feed.atom'
-    ]
-    fs = FeedSpora()
+    """
+    Test file/url retrieval
+    """
+    req2file_mapping = {
+        "https://my.framasoft.org/u/aurelieng/?do=rss": "feed.rss",
+        "http://aurelien.latitude77.org/feed.atom": "feed.atom",
+    }
 
-    for s in sources:
-        fs.retrieve_feed_soup(s)
+    for req, filename in req2file_mapping.items():
+        with open(filename) as fhandler:
+            responses.add(responses.GET, req, body=fhandler.read(), status=200)
+
+    sources = [
+        "feed.atom", "feed.rss",
+        "https://my.framasoft.org/u/aurelieng/?do=rss",
+        "http://aurelien.latitude77.org/feed.atom"
+    ]
+    feedspora = FeedSpora()
+
+    for source in sources:
+        feedspora.retrieve_feed_soup(source)
 
 
 def test_atom_parser():
-    f = 'feed.atom'
-    fs = FeedSpora()
-    soup = fs.retrieve_feed_soup(f)
-    gen = fs.parse_atom(soup)
-    assert len([_ for _ in gen]) > 0
+    """
+    Test atom parsing
+    """
+    filename = "feed.atom"
+    feedspora = FeedSpora()
+    soup = feedspora.retrieve_feed_soup(filename)
+    gen = feedspora.parse_atom(soup)
+    assert [_ for _ in gen]
 
 
 def test_rss_parser():
-    f = 'feed.rss'
-    fs = FeedSpora()
-    soup = fs.retrieve_feed_soup(f)
-    gen = fs.parse_rss(soup)
-    assert len([_ for _ in gen]) > 0
+    """
+    test RSS parsing
+    """
+    filename = "feed.rss"
+    feedspora = FeedSpora()
+    soup = feedspora.retrieve_feed_soup(filename)
+    gen = feedspora.parse_rss(soup)
+    assert [_ for _ in gen]

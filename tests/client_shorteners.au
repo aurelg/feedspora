@@ -1,0 +1,194 @@
+{
+  "feed.atom": {
+    "Diaspora_client_shorteners": [
+      {
+        "client": "Diaspora_client_shorteners",
+        "content": "[3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others](http://tinyurl.com/ybcq7hp5) | "
+      },
+      {
+        "client": "Diaspora_client_shorteners",
+        "content": "[1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)](http://tinyurl.com/yc3eje8l) | "
+      },
+      {
+        "client": "Diaspora_client_shorteners",
+        "content": "[Atom-Powered Robots Run Amok](http://tinyurl.com/yavnlzkw) |  #animal #vegetable #mineral"
+      }
+    ],
+    "Twitter_client_shorteners": [
+      {
+        "client": "Twitter_client_shorteners",
+        "content": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others http://tinyurl.com/ybcq7hp5",
+        "media": null
+      },
+      {
+        "client": "Twitter_client_shorteners",
+        "content": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others http://tinyurl.com/ybcq7hp5",
+        "media": null
+      },
+      {
+        "client": "Twitter_client_shorteners",
+        "content": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat) http://tinyurl.com/yc3eje8l",
+        "media": null
+      },
+      {
+        "client": "Twitter_client_shorteners",
+        "content": "Atom-Powered Robots Run Amok | #animal #vegetable #mineral http://tinyurl.com/yavnlzkw",
+        "media": null
+      }
+    ],
+    "Facebook_client_shorteners": [
+      {
+        "client": "Facebook_client_shorteners",
+        "posting_as": "TESTER",
+        "name": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "link": "http://tinyurl.com/ybcq7hp5",
+        "content": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others"
+      },
+      {
+        "client": "Facebook_client_shorteners",
+        "posting_as": "TESTER",
+        "name": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "link": "http://tinyurl.com/ybcq7hp5",
+        "content": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others"
+      },
+      {
+        "client": "Facebook_client_shorteners",
+        "posting_as": "TESTER",
+        "name": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
+        "link": "http://tinyurl.com/yc3eje8l",
+        "content": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)"
+      },
+      {
+        "client": "Facebook_client_shorteners",
+        "posting_as": "TESTER",
+        "name": "Atom-Powered Robots Run Amok",
+        "link": "http://tinyurl.com/yavnlzkw",
+        "content": "Atom-Powered Robots Run Amok #animal #vegetable #mineral"
+      }
+    ],
+    "Mastodon_client_shorteners": [
+      {
+        "client": "Mastodon_client_shorteners",
+        "delay": 0,
+        "visibility": "unlisted",
+        "content": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others http://tinyurl.com/ybcq7hp5"
+      },
+      {
+        "client": "Mastodon_client_shorteners",
+        "delay": 0,
+        "visibility": "unlisted",
+        "content": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others http://tinyurl.com/ybcq7hp5"
+      },
+      {
+        "client": "Mastodon_client_shorteners",
+        "delay": 0,
+        "visibility": "unlisted",
+        "content": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat) http://tinyurl.com/yc3eje8l"
+      },
+      {
+        "client": "Mastodon_client_shorteners",
+        "delay": 0,
+        "visibility": "unlisted",
+        "content": "Atom-Powered Robots Run Amok | #animal #vegetable #mineral http://tinyurl.com/yavnlzkw"
+      }
+    ],
+    "Shaarpy_client_shorteners": [
+      {
+        "client": "Shaarpy_client_shorteners",
+        "title": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "link": "http://tinyurl.com/ybcq7hp5",
+        "tags": [],
+        "content": ""
+      },
+      {
+        "client": "Shaarpy_client_shorteners",
+        "title": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "link": "http://tinyurl.com/ybcq7hp5",
+        "tags": [],
+        "content": ""
+      },
+      {
+        "client": "Shaarpy_client_shorteners",
+        "title": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
+        "link": "http://tinyurl.com/yc3eje8l",
+        "tags": [],
+        "content": ""
+      },
+      {
+        "client": "Shaarpy_client_shorteners",
+        "title": "Atom-Powered Robots Run Amok",
+        "link": "http://tinyurl.com/yavnlzkw",
+        "tags": [
+          "animal",
+          "vegetable",
+          "mineral"
+        ],
+        "content": "This is the entry content."
+      }
+    ],
+    "WordPress_client_shorteners": [
+      {
+        "client": "WordPress_client_shorteners",
+        "title": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "post_tag": [],
+        "Content": "http://tinyurl.com/ybcq7hp5"
+      },
+      {
+        "client": "WordPress_client_shorteners",
+        "title": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "post_tag": [],
+        "Content": "http://tinyurl.com/ybcq7hp5"
+      },
+      {
+        "client": "WordPress_client_shorteners",
+        "title": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
+        "post_tag": [],
+        "Content": "http://tinyurl.com/yc3eje8l"
+      },
+      {
+        "client": "WordPress_client_shorteners",
+        "title": "Atom-Powered Robots Run Amok",
+        "post_tag": [
+          "animal",
+          "vegetable",
+          "mineral"
+        ],
+        "Content": "http://tinyurl.com/yavnlzkw"
+      }
+    ],
+    "LinkedIn_client_shorteners": [
+      {
+        "client": "LinkedIn_client_shorteners",
+        "title": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "link": "http://tinyurl.com/ybcq7hp5",
+        "visibility": "anyone",
+        "description": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "Comment": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others"
+      },
+      {
+        "client": "LinkedIn_client_shorteners",
+        "title": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "link": "http://tinyurl.com/ybcq7hp5",
+        "visibility": "anyone",
+        "description": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "Comment": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others"
+      },
+      {
+        "client": "LinkedIn_client_shorteners",
+        "title": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
+        "link": "http://tinyurl.com/yc3eje8l",
+        "visibility": "anyone",
+        "description": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
+        "Comment": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)"
+      },
+      {
+        "client": "LinkedIn_client_shorteners",
+        "title": "Atom-Powered Robots Run Amok",
+        "link": "http://tinyurl.com/yavnlzkw",
+        "visibility": "anyone",
+        "description": "Atom-Powered Robots Run Amok",
+        "Comment": "Atom-Powered Robots Run Amok | #animal #vegetable #mineral"
+      }
+    ]
+  }
+}

@@ -1,56 +1,56 @@
 {
   "title_tags.atom": {
-    "Twitter_basic": [
+    "Twitter_title_tags": [
       {
-        "client": "Twitter_basic",
+        "client": "Twitter_title_tags",
         "content": "How #Atomic #Punk Rules The #Day | #extra http://example.org/2003/12/13/atom04",
         "media": null
       }
     ],
-    "Mastodon_basic": [
+    "Mastodon_title_tags": [
       {
-        "client": "Mastodon_basic",
+        "client": "Mastodon_title_tags",
         "delay": 0,
         "visibility": "unlisted",
         "content": "How #Atomic #Punk Rules The #Day | #extra http://example.org/2003/12/13/atom04"
       }
     ],
-    "Shaarpy_basic": [
+    "Shaarpy_title_tags": [
       {
-        "client": "Shaarpy_basic",
+        "client": "Shaarpy_title_tags",
         "title": "How #Atomic #Punk Rules The Day",
         "link": "http://example.org/2003/12/13/atom04",
-        "keywords": [
-          "atomic",
-          "punk",
+        "tags": [
+          "Atomic",
+          "Punk",
           "day",
           "extra"
         ],
-        "content": "\n\nThis is the atomic entry content.\n\n"
+        "content": "This is the atomic entry content."
       }
     ],
-    "WordPress_basic": [
+    "WordPress_title_tags": [
       {
-        "client": "WordPress_basic",
+        "client": "WordPress_title_tags",
         "title": "How #Atomic #Punk Rules The Day",
         "post_tag": [
-          "atomic",
-          "punk",
+          "Atomic",
+          "Punk",
           "day",
           "extra"
         ],
         "Content": "http://example.org/2003/12/13/atom04"
       }
     ],
-    "Diaspora_basic": [
+    "Diaspora_title_tags": [
       {
-        "client": "Diaspora_basic",
-        "content": "[How #Atomic #Punk Rules The Day](http://example.org/2003/12/13/atom04) |   #atomic #punk #day #extra"
+        "client": "Diaspora_title_tags",
+        "content": "[How #Atomic #Punk Rules The Day](http://example.org/2003/12/13/atom04) |  #Atomic #Punk #day #extra"
       }
     ],
-    "LinkedIn_basic": [
+    "LinkedIn_title_tags": [
       {
-        "client": "LinkedIn_basic",
+        "client": "LinkedIn_title_tags",
         "title": "How #Atomic #Punk Rules The Day",
         "link": "http://example.org/2003/12/13/atom04",
         "visibility": "anyone",
@@ -58,13 +58,13 @@
         "Comment": "How #Atomic #Punk Rules The #Day | #extra"
       }
     ],
-    "Facebook_basic": [
+    "Facebook_title_tags": [
       {
-        "client": "Facebook_basic",
+        "client": "Facebook_title_tags",
         "posting_as": "TESTER",
         "name": "How #Atomic #Punk Rules The Day",
         "link": "http://example.org/2003/12/13/atom04",
-        "content": "How #Atomic #Punk Rules The Day #atomic #punk #day #extra"
+        "content": "How #Atomic #Punk Rules The Day #Atomic #Punk #day #extra"
       }
     ]
   }

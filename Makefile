@@ -1,7 +1,7 @@
 .PHONY: test
 test: pep8
 	export PYTHONPATH=$(pwd)/src;
-	cd tests \
+	export MEDIA_DIR=/tmp && cd tests \
 		&& pytest --cov-report term-missing --cov feedspora
 
 .PHONY: reqs

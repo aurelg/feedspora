@@ -33,6 +33,7 @@ class FacebookClient(GenericClient):
             self._post_as = account['post_as']
         elif not testing:
             self._post_as = profile['id']
+        self.set_common_opts(account)
 
     def get_dict_output(self, **kwargs):
         '''
@@ -53,9 +54,11 @@ class FacebookClient(GenericClient):
         Post entry to Facebook.
         :param entry:
         '''
-        text = entry.title + ''.join(
-            [' #{}'.format(k) for k in entry.keywords])
-        attachment = {'name': entry.title, 'link': entry.link}
+        text = self._post_prefix+entry.title+self._post_suffix + \
+               ''.join([' #{}'.format(k) for k in self.filter_tags(entry)])
+        attachment = {'name': entry.title,
+                      'link': self.shorten_url(entry.link)
+                      }
 
         to_return = False
 

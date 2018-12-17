@@ -26,13 +26,7 @@ class WPClient(GenericClient):
         if not testing:
             self.client = Client(account['wpurl'], account['username'],
                                  account['password'])
-        self.keywords = []
-        try:
-            self.keywords = [
-                word.strip() for word in account['keywords'].split(',')
-            ]
-        except KeyError:
-            pass
+        self.set_common_opts(account)
 
     # pylint: disable=no-self-use
     def get_content(self, url):
@@ -65,9 +59,9 @@ class WPClient(GenericClient):
 
         return {
             "client": self.get_name(),
-            "title": kwargs['entry'].title,
-            "post_tag": kwargs['entry'].keywords,
-            "Content": kwargs['entry'].link
+            "title": self._post_prefix+kwargs['entry'].title+self._post_suffix,
+            "post_tag": self.filter_tags(kwargs['entry']),
+            "Content": self.shorten_url(kwargs['entry'].link)
         }
 
     def post(self, entry):
@@ -77,7 +71,7 @@ class WPClient(GenericClient):
         '''
 
         post_content = r"Source: <a href='{}'>{}</a><hr\>{}".format(
-            entry.link,
+            self.shorten_url(entry.link),
             urlparse(entry.link).netloc, self.get_content(entry.link))
         to_return = False
 
@@ -86,10 +80,10 @@ class WPClient(GenericClient):
         else:
             # get text with readability
             post = WordPressPost()
-            post.title = entry.title
+            post.title = self._post_prefix+entry.title+self._post_suffix
             post.content = post_content
             post.terms_names = {
-                'post_tag': entry.keywords,
+                'post_tag': self.filter_tags(entry),
                 'category': ["AutomatedPost"]
             }
             post.post_status = 'publish'

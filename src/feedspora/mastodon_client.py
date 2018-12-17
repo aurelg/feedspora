@@ -34,6 +34,7 @@ class MastodonClient(GenericClient):
         self._visibility = 'unlisted' if 'visibility' not in account or \
             account['visibility'] not in ['public', 'unlisted', 'private'] \
             else account['visibility']
+        self.set_common_opts(account)
 
     def get_dict_output(self, **kwargs):
         '''
@@ -53,9 +54,13 @@ class MastodonClient(GenericClient):
         Post entry to Mastadon
         :param entry:
         '''
-        maxlen = 500 - len(entry.link) - 1
-        text = self._mkrichtext(entry.title, entry.keywords, maxlen=maxlen)
-        text += ' ' + entry.link
+        use_link = self.shorten_url(entry.link)
+        maxlen = 500 - len(use_link) - 1
+        text = self._post_prefix + \
+               self._mkrichtext(entry.title, self.filter_tags(entry),
+                                maxlen=maxlen) + \
+               self._post_suffix
+        text += ' ' + use_link
 
         to_return = False
 

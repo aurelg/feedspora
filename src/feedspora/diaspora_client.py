@@ -34,13 +34,7 @@ class DiaspyClient(GenericClient):
             except diaspy.errors.PostError as exception:
                 logging.error("Cannot get diaspy stream: %s", str(exception))
                 self.stream = None
-        self.keywords = []
-        try:
-            self.keywords = [
-                word.strip() for word in account['keywords'].split(',')
-            ]
-        except KeyError:
-            pass
+        self.set_common_opts(account)
 
     def post(self, entry):
         '''
@@ -48,9 +42,9 @@ class DiaspyClient(GenericClient):
         :param entry:
         '''
 
-        text = '['+entry.title+']('+entry.link+')' \
-            + ' | ' + ''.join([" #{}".format(k) for k in self.keywords]) \
-            + ' ' + ''.join([" #{}".format(k) for k in entry.keywords])
+        text = '['+self._post_prefix+entry.title+self._post_suffix+'](' + \
+               self.shorten_url(entry.link)+')' + ' | ' + \
+               ''.join([" #{}".format(k) for k in self.filter_tags(entry)])
         to_return = True
 
         if self.stream:
