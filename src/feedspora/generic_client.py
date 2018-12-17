@@ -15,15 +15,15 @@ class GenericClient:
     # Special handling of default (0) value that allows unlimited postings
     _max_posts = 0
     _posts_done = 0
-    _tags = []
-    _tag_filter_opts = {}
+    _tags = None
+    _tag_filter_opts = None
     _max_tags = 100
     _url_shortener = None
-    _url_shortener_opts = {}
-    _post_prefix = None
+    _url_shortener_opts = None
+    _post_prefix = ''
     _include_content = False
     _include_media = False
-    _post_suffix = None
+    _post_suffix = ''
     _testing_root = None
     _testing_output = None
 
@@ -155,7 +155,8 @@ class GenericClient:
         to_return = the_url
         # Default
         short_options = {'timeout': 3}
-        short_options.update(self._url_shortener_opts)
+        if self._url_shortener_opts:
+            short_options.update(self._url_shortener_opts)
 
         if the_url and self._url_shortener and self._url_shortener != 'none':
             try:
@@ -192,6 +193,7 @@ class GenericClient:
 
         return to_return
 
+    # pylint: disable=too-many-branches
     def set_common_opts(self, account):
         '''
         Set options common to all clients
@@ -203,11 +205,15 @@ class GenericClient:
             self._tags = [
                 word.strip() for word in account['tags'].split(',')
             ]
+        else:
+            self._tags = []
 
         # Tag filtering options
         if 'tag_filter_opts' in account:
             self._tag_filter_opts = {key.strip(): True \
                 for key in account['tag_filter_opts'].split(',')}
+        else:
+            self._tag_filter_opts = dict()
 
         if 'max_tags' in account:
             self._max_tags = account['max_tags']
@@ -242,6 +248,9 @@ class GenericClient:
 
         if 'url_shortener_opts' in account:
             self._url_shortener_opts = account['url_shortener_opts']
+        else:
+            self._url_shortener_opts = dict()
+    # pylint: enable=too-many-branches
 
     # pylint: disable=no-self-use
     def _trim_string(self, text, maxlen, etc='...', etc_if_shorter_than=None):
@@ -390,17 +399,20 @@ class GenericClient:
         '''
 
         # First priority: user-defined tags
-        to_filter = self._tags[:]
+        to_filter = self._tags[:] if self._tags else []
         # Next, title tags, if appropriate
-        if 'ignore_title' not in self._tag_filter_opts and \
+        if (not (self._tag_filter_opts and
+                 'ignore_title' in self._tag_filter_opts)) and \
            entry.tags['title']:
             to_filter.extend(entry.tags['title'])
         # Then, content tags, if appropriate
-        if 'ignore_content' not in self._tag_filter_opts and \
+        if (not (self._tag_filter_opts and
+                 'ignore_content' in self._tag_filter_opts)) and \
            entry.tags['content']:
             to_filter.extend(entry.tags['content'])
         # Finally, category tags, again if appropriate
-        if 'ignore_category' not in self._tag_filter_opts and \
+        if (not (self._tag_filter_opts and
+                 'ignore_category' in self._tag_filter_opts)) and \
            entry.tags['category']:
             to_filter.extend(entry.tags['category'])
 
@@ -409,10 +421,12 @@ class GenericClient:
         to_return = []
         non_case_sensitive = []
         for tag in to_filter:
-            if 'case-sensitive' in self._tag_filter_opts and \
+            if self._tag_filter_opts and \
+               'case-sensitive' in self._tag_filter_opts and \
                tag not in to_return:
                 to_return.append(tag)
-            elif 'case-sensitive' not in self._tag_filter_opts and \
+            elif (not (self._tag_filter_opts and
+                       'case-sensitive' in self._tag_filter_opts)) and \
                  tag.lower() not in non_case_sensitive:
                 to_return.append(tag)
                 non_case_sensitive.append(tag.lower())
@@ -429,7 +443,8 @@ class GenericClient:
         :param content:
         '''
 
-        if content and 'ignore_content' not in self._tag_filter_opts:
+        if content and (not (self._tag_filter_opts and
+                             'ignore_content' in self._tag_filter_opts)):
             tag_pattern = r'\s+#([\w]+)$'
             match_result = re.search(tag_pattern, content)
 

@@ -54,8 +54,8 @@ class FacebookClient(GenericClient):
         Post entry to Facebook.
         :param entry:
         '''
-        text = entry.title + ''.join(
-            [' #{}'.format(k) for k in self.filter_tags(entry)])
+        text = self._post_prefix+entry.title+self._post_suffix + \
+               ''.join([' #{}'.format(k) for k in self.filter_tags(entry)])
         attachment = {'name': entry.title,
                       'link': self.shorten_url(entry.link)
                       }

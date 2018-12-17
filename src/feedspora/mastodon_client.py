@@ -56,8 +56,10 @@ class MastodonClient(GenericClient):
         '''
         use_link = self.shorten_url(entry.link)
         maxlen = 500 - len(use_link) - 1
-        text = self._mkrichtext(entry.title, self.filter_tags(entry),
-                                maxlen=maxlen)
+        text = self._post_prefix + \
+               self._mkrichtext(entry.title, self.filter_tags(entry),
+                                maxlen=maxlen) + \
+               self._post_suffix
         text += ' ' + use_link
 
         to_return = False

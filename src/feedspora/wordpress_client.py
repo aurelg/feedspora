@@ -59,7 +59,7 @@ class WPClient(GenericClient):
 
         return {
             "client": self.get_name(),
-            "title": kwargs['entry'].title,
+            "title": self._post_prefix+kwargs['entry'].title+self._post_suffix,
             "post_tag": self.filter_tags(kwargs['entry']),
             "Content": self.shorten_url(kwargs['entry'].link)
         }
@@ -80,7 +80,7 @@ class WPClient(GenericClient):
         else:
             # get text with readability
             post = WordPressPost()
-            post.title = entry.title
+            post.title = self._post_prefix+entry.title+self._post_suffix
             post.content = post_content
             post.terms_names = {
                 'post_tag': self.filter_tags(entry),

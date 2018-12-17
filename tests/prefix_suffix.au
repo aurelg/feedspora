@@ -1,0 +1,194 @@
+{
+  "feed.atom": {
+    "Diaspora_prefix_suffix": [
+      {
+        "client": "Diaspora_prefix_suffix",
+        "content": "[->3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others<-](https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos) | "
+      },
+      {
+        "client": "Diaspora_prefix_suffix",
+        "content": "[->1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)<-](http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html) | "
+      },
+      {
+        "client": "Diaspora_prefix_suffix",
+        "content": "[->Atom-Powered Robots Run Amok<-](http://example.org/2003/12/13/atom03) |  #animal #vegetable #mineral"
+      }
+    ],
+    "Twitter_prefix_suffix": [
+      {
+        "client": "Twitter_prefix_suffix",
+        "content": "->3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others<- https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+        "media": null
+      },
+      {
+        "client": "Twitter_prefix_suffix",
+        "content": "->3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others<- https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+        "media": null
+      },
+      {
+        "client": "Twitter_prefix_suffix",
+        "content": "->1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)<- http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html",
+        "media": null
+      },
+      {
+        "client": "Twitter_prefix_suffix",
+        "content": "->Atom-Powered Robots Run Amok | #animal #vegetable #mineral<- http://example.org/2003/12/13/atom03",
+        "media": null
+      }
+    ],
+    "Facebook_prefix_suffix": [
+      {
+        "client": "Facebook_prefix_suffix",
+        "posting_as": "TESTER",
+        "name": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+        "content": "->3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others<-"
+      },
+      {
+        "client": "Facebook_prefix_suffix",
+        "posting_as": "TESTER",
+        "name": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+        "content": "->3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others<-"
+      },
+      {
+        "client": "Facebook_prefix_suffix",
+        "posting_as": "TESTER",
+        "name": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
+        "link": "http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html",
+        "content": "->1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)<-"
+      },
+      {
+        "client": "Facebook_prefix_suffix",
+        "posting_as": "TESTER",
+        "name": "Atom-Powered Robots Run Amok",
+        "link": "http://example.org/2003/12/13/atom03",
+        "content": "->Atom-Powered Robots Run Amok<- #animal #vegetable #mineral"
+      }
+    ],
+    "Mastodon_prefix_suffix": [
+      {
+        "client": "Mastodon_prefix_suffix",
+        "delay": 0,
+        "visibility": "unlisted",
+        "content": "->3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others<- https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos"
+      },
+      {
+        "client": "Mastodon_prefix_suffix",
+        "delay": 0,
+        "visibility": "unlisted",
+        "content": "->3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others<- https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos"
+      },
+      {
+        "client": "Mastodon_prefix_suffix",
+        "delay": 0,
+        "visibility": "unlisted",
+        "content": "->1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)<- http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html"
+      },
+      {
+        "client": "Mastodon_prefix_suffix",
+        "delay": 0,
+        "visibility": "unlisted",
+        "content": "->Atom-Powered Robots Run Amok | #animal #vegetable #mineral<- http://example.org/2003/12/13/atom03"
+      }
+    ],
+    "Shaarpy_prefix_suffix": [
+      {
+        "client": "Shaarpy_prefix_suffix",
+        "title": "->3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others<-",
+        "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+        "tags": [],
+        "content": ""
+      },
+      {
+        "client": "Shaarpy_prefix_suffix",
+        "title": "->3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others<-",
+        "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+        "tags": [],
+        "content": ""
+      },
+      {
+        "client": "Shaarpy_prefix_suffix",
+        "title": "->1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)<-",
+        "link": "http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html",
+        "tags": [],
+        "content": ""
+      },
+      {
+        "client": "Shaarpy_prefix_suffix",
+        "title": "->Atom-Powered Robots Run Amok<-",
+        "link": "http://example.org/2003/12/13/atom03",
+        "tags": [
+          "animal",
+          "vegetable",
+          "mineral"
+        ],
+        "content": "This is the entry content."
+      }
+    ],
+    "WordPress_prefix_suffix": [
+      {
+        "client": "WordPress_prefix_suffix",
+        "title": "->3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others<-",
+        "post_tag": [],
+        "Content": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos"
+      },
+      {
+        "client": "WordPress_prefix_suffix",
+        "title": "->3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others<-",
+        "post_tag": [],
+        "Content": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos"
+      },
+      {
+        "client": "WordPress_prefix_suffix",
+        "title": "->1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)<-",
+        "post_tag": [],
+        "Content": "http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html"
+      },
+      {
+        "client": "WordPress_prefix_suffix",
+        "title": "->Atom-Powered Robots Run Amok<-",
+        "post_tag": [
+          "animal",
+          "vegetable",
+          "mineral"
+        ],
+        "Content": "http://example.org/2003/12/13/atom03"
+      }
+    ],
+    "LinkedIn_prefix_suffix": [
+      {
+        "client": "LinkedIn_prefix_suffix",
+        "title": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+        "visibility": "anyone",
+        "description": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "Comment": "->3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others<-"
+      },
+      {
+        "client": "LinkedIn_prefix_suffix",
+        "title": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+        "visibility": "anyone",
+        "description": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "Comment": "->3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others<-"
+      },
+      {
+        "client": "LinkedIn_prefix_suffix",
+        "title": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
+        "link": "http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html",
+        "visibility": "anyone",
+        "description": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
+        "Comment": "->1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)<-"
+      },
+      {
+        "client": "LinkedIn_prefix_suffix",
+        "title": "Atom-Powered Robots Run Amok",
+        "link": "http://example.org/2003/12/13/atom03",
+        "visibility": "anyone",
+        "description": "Atom-Powered Robots Run Amok",
+        "Comment": "->Atom-Powered Robots Run Amok | #animal #vegetable #mineral<-"
+      }
+    ]
+  }
+}
