@@ -66,9 +66,8 @@ class ShaarpyClient(GenericClient):
         to_return = False
 
         if self.is_testing():
-            self.accumulate_testing_output(
+            to_return = self.accumulate_testing_output(
                 self.get_dict_output(content=content, entry=entry))
-            to_return = True
         else:
             title = self._post_prefix + entry.title + self._post_suffix
             try:
