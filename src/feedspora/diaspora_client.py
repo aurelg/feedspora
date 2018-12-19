@@ -1,6 +1,7 @@
 """
 Diaspora client.
 """
+import copy
 import logging
 
 import diaspy.connection
@@ -21,6 +22,7 @@ class DiaspyClient(GenericClient):
         :param account:
         :param testing:
         '''
+        self._account = copy.deepcopy(account)
 
         if not testing:
             self.connection = diaspy.connection.Connection(
@@ -42,7 +44,8 @@ class DiaspyClient(GenericClient):
         :param entry:
         '''
 
-        text = '['+self._post_prefix+entry.title+self._post_suffix+'](' + \
+        text = '[' + self._account['post_prefix'] + entry.title + \
+               self._account['post_suffix']+'](' + \
                self.shorten_url(entry.link)+')' + ' | ' + \
                ''.join([" #{}".format(k) for k in self.filter_tags(entry)])
         to_return = True

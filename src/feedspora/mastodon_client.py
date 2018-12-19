@@ -2,6 +2,7 @@
 Mastodon client
 """
 
+import copy
 import time
 
 from mastodon import Mastodon
@@ -19,6 +20,8 @@ class MastodonClient(GenericClient):
         :param account:
         :param testing:
         '''
+        self._account = copy.deepcopy(account)
+
         client_id = account['client_id']
         client_secret = account['client_secret']
         access_token = account['access_token']
@@ -43,7 +46,7 @@ class MastodonClient(GenericClient):
         '''
 
         return {
-            "client": self.get_name(),
+            "client": self._account['name'],
             "delay": self._delay,
             "visibility": self._visibility,
             "content": kwargs['text']
@@ -56,10 +59,10 @@ class MastodonClient(GenericClient):
         '''
         use_link = self.shorten_url(entry.link)
         maxlen = 500 - len(use_link) - 1
-        text = self._post_prefix + \
+        text = self._account['post_prefix'] + \
                self._mkrichtext(entry.title, self.filter_tags(entry),
                                 maxlen=maxlen) + \
-               self._post_suffix
+               self._account['post_suffix']
         text += ' ' + use_link
 
         to_return = False

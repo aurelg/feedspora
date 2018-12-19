@@ -2,6 +2,7 @@
 Twitter client based on tweepy.
 """
 
+import copy
 import logging
 import os
 import re
@@ -23,6 +24,8 @@ class TweepyClient(GenericClient):
         :param account:
         :param testing:
         '''
+        self._account = copy.deepcopy(account)
+
         # handle auth
         # See https://tweepy.readthedocs.org/en/v3.2.0/auth_tutorial.html
         # #auth-tutorial
@@ -46,7 +49,7 @@ class TweepyClient(GenericClient):
         '''
 
         return {
-            "client": self.get_name(),
+            "client": self._account['name'],
             "content": kwargs['text'],
             "media": kwargs['media_path'] if kwargs['media_path'] else None
         }
@@ -120,26 +123,26 @@ class TweepyClient(GenericClient):
         maxlen = self._max_len - adjust_with_inner_links - 1  # for last ' '
 
         # Let's build our tweet!  Apply optional prefix
-        text = self._post_prefix
+        text = self._account['post_prefix']
 
         # Process contents
         raw_contents = entry.title
 
         stripped_html = strip_html(entry.content) if entry.content else None
-        if self._include_content and stripped_html:
+        if self._account['post_include_content'] and stripped_html:
             raw_contents += ": " + stripped_html
         text += self._mkrichtext(raw_contents, self.filter_tags(entry),
                                  maxlen=maxlen)
 
         # Apply optional suffix
-        text += self._post_suffix
+        text += self._account['post_suffix']
 
         # Shorten the link URL if configured/possible
         text += " " + self.shorten_url(entry.link)
 
         # Finally ready to post.  Let's find out how (media/text)
         media_path = None
-        if self._include_media and entry.media_url:
+        if self._account['post_include_media'] and entry.media_url:
             # Need to download image from that URL in order to post it!
             media_path = download_media(entry.media_url)
 

@@ -49,7 +49,6 @@ def main():
         try:
             client_class = globals()[account['type']]
             client = client_class(account, testing)
-            client.set_name(account['name'])
             client.set_testing_root(testing)
             feedspora.connect(client)
         except Exception as exception:

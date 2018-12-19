@@ -2,6 +2,7 @@
 Wordpress client
 """
 
+import copy
 from urllib.parse import urlparse
 
 import requests
@@ -22,6 +23,7 @@ class WPClient(GenericClient):
         :param account:
         :param testing:
         '''
+        self._account = copy.deepcopy(account)
 
         if not testing:
             self.client = Client(account['wpurl'], account['username'],
@@ -58,8 +60,9 @@ class WPClient(GenericClient):
         '''
 
         return {
-            "client": self.get_name(),
-            "title": self._post_prefix+kwargs['entry'].title+self._post_suffix,
+            "client": self._account['name'],
+            "title": self._account['post_prefix']+kwargs['entry'].title + \
+                     self._account['post_suffix'],
             "post_tag": self.filter_tags(kwargs['entry']),
             "Content": self.shorten_url(kwargs['entry'].link)
         }
@@ -80,7 +83,8 @@ class WPClient(GenericClient):
         else:
             # get text with readability
             post = WordPressPost()
-            post.title = self._post_prefix+entry.title+self._post_suffix
+            post.title = self._account['post_prefix']+entry.title + \
+                         self._account['post_suffix']
             post.content = post_content
             post.terms_names = {
                 'post_tag': self.filter_tags(entry),

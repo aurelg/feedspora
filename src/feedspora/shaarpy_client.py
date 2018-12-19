@@ -1,6 +1,7 @@
 """
 Shaarpy client
 """
+import copy
 
 from bs4 import BeautifulSoup
 from shaarpy.shaarpy import Shaarpy
@@ -18,6 +19,7 @@ class ShaarpyClient(GenericClient):
         :param account:
         :param testing:
         '''
+        self._account = copy.deepcopy(account)
 
         if not testing:
             self._shaarpy = Shaarpy()
@@ -32,8 +34,9 @@ class ShaarpyClient(GenericClient):
         '''
 
         return {
-            "client": self.get_name(),
-            "title": self._post_prefix+kwargs['entry'].title+self._post_suffix,
+            "client": self._account['name'],
+            "title": self._account['post_prefix'] + \
+                     kwargs['entry'].title+self._account['post_suffix'],
             "link": self.shorten_url(kwargs['entry'].link),
             "tags": self.filter_tags(kwargs['entry']),
             "content": kwargs['content']
@@ -63,7 +66,8 @@ class ShaarpyClient(GenericClient):
             self.accumulate_testing_output(
                 self.get_dict_output(content=content, entry=entry))
         else:
-            title = self._post_prefix+entry.title+self._post_suffix
+            title = self._account['post_prefix'] + \
+                    entry.title+self._account['post_suffix']
             # For some reasons, this pylint directive is ignored?
             # pylint: disable=assignment-from-no-return
             to_return = self._shaarpy.post_link(
