@@ -1,7 +1,6 @@
 """
 Diaspora client.
 """
-import copy
 import logging
 
 import diaspy.connection
@@ -22,7 +21,7 @@ class DiaspyClient(GenericClient):
         :param account:
         :param testing:
         '''
-        self._account = copy.deepcopy(account)
+        self._account = account
 
         if not testing:
             self.connection = diaspy.connection.Connection(

@@ -1,7 +1,6 @@
 """
 LinkedIn client
 """
-import copy
 
 from linkedin import linkedin
 
@@ -19,7 +18,7 @@ class LinkedInClient(GenericClient):
         :param account:
         :param testing:
         '''
-        self._account = copy.deepcopy(account)
+        self._account = account
 
         if not testing:
             self._linkedin = linkedin.LinkedInApplication(

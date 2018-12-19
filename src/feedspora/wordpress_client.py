@@ -2,7 +2,6 @@
 Wordpress client
 """
 
-import copy
 from urllib.parse import urlparse
 
 import requests
@@ -23,7 +22,7 @@ class WPClient(GenericClient):
         :param account:
         :param testing:
         '''
-        self._account = copy.deepcopy(account)
+        self._account = account
 
         if not testing:
             self.client = Client(account['wpurl'], account['username'],

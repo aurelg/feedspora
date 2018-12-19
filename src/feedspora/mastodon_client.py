@@ -2,7 +2,6 @@
 Mastodon client
 """
 
-import copy
 import time
 
 from mastodon import Mastodon
@@ -20,7 +19,7 @@ class MastodonClient(GenericClient):
         :param account:
         :param testing:
         '''
-        self._account = copy.deepcopy(account)
+        self._account = account
 
         client_id = account['client_id']
         client_secret = account['client_secret']

@@ -2,7 +2,6 @@
 GenericClient: baseclass providing features to specific clients.
 """
 
-import copy
 import logging
 import re
 import pyshorteners
@@ -189,10 +188,10 @@ class GenericClient:
         :param account:
         '''
 
-        # Failsafe - should already have been initialized...
+        # Failsafe - should already have been initialized... except during tests
         if not self._account:
             if account:
-                self._account = copy.deepcopy(account)
+                self._account = account
             else:
                 self._account = dict()
 

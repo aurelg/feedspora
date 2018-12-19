@@ -1,7 +1,6 @@
 """
 Facebook client.
 """
-import copy
 import facebook
 
 from feedspora.generic_client import GenericClient
@@ -22,7 +21,7 @@ class FacebookClient(GenericClient):
         :param account:
         :param testing:
         '''
-        self._account = copy.deepcopy(account)
+        self._account = account
         profile = None
 
         if not testing:

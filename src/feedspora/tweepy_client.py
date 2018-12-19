@@ -2,7 +2,6 @@
 Twitter client based on tweepy.
 """
 
-import copy
 import logging
 import os
 import re
@@ -24,7 +23,7 @@ class TweepyClient(GenericClient):
         :param account:
         :param testing:
         '''
-        self._account = copy.deepcopy(account)
+        self._account = account
 
         # handle auth
         # See https://tweepy.readthedocs.org/en/v3.2.0/auth_tutorial.html

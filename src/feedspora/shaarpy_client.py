@@ -1,7 +1,6 @@
 """
 Shaarpy client
 """
-import copy
 
 import logging
 
@@ -21,7 +20,7 @@ class ShaarpyClient(GenericClient):
         :param account:
         :param testing:
         '''
-        self._account = copy.deepcopy(account)
+        self._account = account
 
         if not testing:
             self._shaarpy = Shaarpy()
