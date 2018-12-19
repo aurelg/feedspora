@@ -72,12 +72,11 @@ class ShaarpyClient(GenericClient):
         else:
             title = self._post_prefix + entry.title + self._post_suffix
             try:
-                self._shaarpy.post_link(
+                to_return = self._shaarpy.post_link(
                     self.shorten_url(entry.link),
                     self.filter_tags(entry),
                     title=title,
-                    desc=content)
-                to_return = True
+                    desc=content) or True
             except Exception as e:
                 logging.error(str(e), exc_info=True)
 
