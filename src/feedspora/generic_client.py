@@ -169,18 +169,16 @@ class GenericClient:
         :param account:
         '''
 
-        if 'max_posts' not in account:
-            self._account['max_posts'] = 0
-        if 'max_tags' not in account:
-            self._account['max_tags'] = 100
-        if 'post_prefix' not in account:
-            self._account['post_prefix'] = ''
-        if 'post_suffix' not in account:
-            self._account['post_suffix'] = ''
-        if 'post_include_content' not in account:
-            self._account['post_include_content'] = False
-        if 'post_include_media' not in account:
-            self._account['post_include_media'] = False
+        option_defaults = {'max_posts': 0,
+                           'max_tags': 100,
+                           'post_prefix': '',
+                           'post_suffix': '',
+                           'post_include_content': False,
+                           'post_include_media': False,
+                          }
+        for option, default_value in option_defaults.items():
+            if option not in account:
+                self._account[option] = default_value
 
 
     def set_common_opts(self, account):
