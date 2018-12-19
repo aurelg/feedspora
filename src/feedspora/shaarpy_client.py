@@ -3,10 +3,12 @@ Shaarpy client
 """
 import copy
 
+import logging
+
 from bs4 import BeautifulSoup
-from shaarpy.shaarpy import Shaarpy
 
 from feedspora.generic_client import GenericClient
+from shaarpy.shaarpy import Shaarpy
 
 
 class ShaarpyClient(GenericClient):
@@ -59,20 +61,22 @@ class ShaarpyClient(GenericClient):
 
         content = self.remove_ending_tags(content)
 
-        # Note non-boolean return type!
-        to_return = {}
+        to_return = False
 
         if self.is_testing():
-            self.accumulate_testing_output(
+            to_return = self.accumulate_testing_output(
                 self.get_dict_output(content=content, entry=entry))
         else:
             title = self._account['post_prefix'] + \
                     entry.title+self._account['post_suffix']
-            # For some reasons, this pylint directive is ignored?
-            # pylint: disable=assignment-from-no-return
-            to_return = self._shaarpy.post_link(
-                self.shorten_url(entry.link), self.filter_tags(entry),
-                title=title, desc=content)
-            # pylint: enable=assignment-from-no-return
+            try:
+                to_return = self._shaarpy.post_link(
+                    self.shorten_url(entry.link),
+                    self.filter_tags(entry),
+                    title=title,
+                    desc=content) or True
+                # pylint: enable=assignment-from-no-return
+            except Exception as e:
+                logging.error(str(e), exc_info=True)
 
         return to_return
