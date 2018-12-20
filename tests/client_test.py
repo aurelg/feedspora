@@ -69,7 +69,7 @@ def test_DiaspyClient(entry_generator, expected):
                 }
 
         obj.stream = fake_provider()
-        obj._tags = []
+        obj.set_common_opts({})
 
     def check_entry(returned, expect):
         assert returned['aspect_ids'] == 'public'
@@ -97,7 +97,7 @@ def test_TweepyClient(entry_generator, expected):
         obj._api = fake_provider()
         obj._link_cost = 23
         obj._max_len = 280
-        obj._tags = []
+        obj.set_common_opts({})
 
     def check_entry(returned, expected):
         # Check the length of the text - link + 22 (twitter cost)
@@ -139,7 +139,7 @@ def test_MastodonClient(entry_generator, expected):
         obj._mastodon = fake_provider()
         obj._visibility = 'public'
         obj._delay = 0
-        obj._tags = []
+        obj.set_common_opts({})
 
     def check_entry(returned, expected):
         assert returned['text'].index(expected['title']) > -1
@@ -175,7 +175,7 @@ def test_LinkedInClient(entry_generator, expected):
                 }
 
         obj._linkedin = fake_provider()
-        obj._tags = []
+        obj.set_common_opts({})
 
     def check_entry(returned, expected):
         assert returned['comment'].index(expected['title']) > -1
@@ -206,7 +206,7 @@ def test_ShaarpyClient(entry_generator, expected):
                 }
 
         obj._shaarpy = fake_provider()
-        obj._tags = []
+        obj.set_common_opts({})
 
     def check_entry(returned, expected):
         assert returned['title'].index(expected['title']) > -1
@@ -232,8 +232,7 @@ def test_FacebookClient(entry_generator, expected):
                 }
 
         obj._graph = fake_provider()
-        obj._post_as = 'me'
-        obj._tags = []
+        obj.set_common_opts({'post_as': 'me'})
 
     def check_entry(returned, expected):
         assert returned['text'].startswith(expected['title'])

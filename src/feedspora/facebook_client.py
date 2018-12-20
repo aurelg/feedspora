@@ -1,7 +1,6 @@
 """
 Facebook client.
 """
-
 import facebook
 
 from feedspora.generic_client import GenericClient
@@ -22,17 +21,18 @@ class FacebookClient(GenericClient):
         :param account:
         :param testing:
         '''
+        self._account = account
         profile = None
 
         if not testing:
             self._graph = facebook.GraphAPI(account['token'])
             profile = self._graph.get_object('me')
-        self._post_as = 'TESTER'
 
-        if 'post_as' in account:
-            self._post_as = account['post_as']
-        elif not testing:
-            self._post_as = profile['id']
+        if 'post_as' not in account:
+            if testing:
+                self._account['post_as'] = 'TESTER'
+            else:
+                self._account['post_as'] = profile['id']
         self.set_common_opts(account)
 
     def get_dict_output(self, **kwargs):
@@ -42,8 +42,8 @@ class FacebookClient(GenericClient):
         '''
 
         return {
-            "client": self.get_name(),
-            "posting_as": self._post_as,
+            "client": self._account['name'],
+            "posting_as": self._account['post_as'],
             "name": kwargs['attachment']['name'],
             "link": kwargs['attachment']['link'],
             "content": kwargs['text']
@@ -54,7 +54,8 @@ class FacebookClient(GenericClient):
         Post entry to Facebook.
         :param entry:
         '''
-        text = self._post_prefix+entry.title+self._post_suffix + \
+        text = self._account['post_prefix'] + entry.title + \
+               self._account['post_suffix'] + \
                ''.join([' #{}'.format(k) for k in self.filter_tags(entry)])
         attachment = {'name': entry.title,
                       'link': self.shorten_url(entry.link)
@@ -68,7 +69,7 @@ class FacebookClient(GenericClient):
         else:
             # pylint: disable=no-member
             to_return = self._graph.put_wall_post(text, attachment,
-                                                  self._post_as)
+                                                  self._account['post_as'])
             # pylint: enable=no-member
 
         return to_return
