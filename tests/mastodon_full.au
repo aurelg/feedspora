@@ -1,0 +1,334 @@
+{
+    "feed.atom": {
+        "Mastodon_full": [
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "1.1 - Mort num\u00e9rique: que faire des donn\u00e9es personnelles et des comptes Facebook apr\u00e8s un d\u00e9c\u00e8s ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat) http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Atom-Powered Robots Run Amok | #animal #vegetable #mineral http://example.org/2003/12/13/atom03"
+            }
+        ]
+    },
+    "feed.rss": {
+        "Mastodon_full": [
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#Shannon Luminary #Lecture Series - Stephen #Fry, actor, comedian, journalist, author | #bell #myths #technology https://www.youtube.com/watch?v=24F6C1KfbjM"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "D\u00e9bat : #Google est\u2011il l\u2019ami de\u00a0la\u00a0production et\u00a0la\u00a0circulation des\u00a0id\u00e9es\u00a0? https://theconversation.com/debat-google-est-il-lami-de-la-production-et-la-circulation-des-idees-85940"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#Digital, #Num\u00e9rique : #Terminologie https://zythom.blogspot.fr/2017/10/terminologie.html"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Le #burnout, une pathologie de civilisation https://www.franceinter.fr/emissions/la-tete-au-carre/la-tete-au-carre-27-septembre-2017"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "awesome-zsh-plugins: A collection of #ZSH frameworks, #plugins & themes inspired by the various #awesome list collections out there. | #git https://github.com/unixorn/awesome-zsh-plugins"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#antigen: The #plugin #manager for #zsh | #git https://github.com/zsh-users/antigen"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#websocketd : #WebSockets the UNIX way | #daemon #KISS http://websocketd.com/"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#Word #embeddings in 2017: Trends and future directions | #NLP http://ruder.io/word-embeddings-2017/"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "We are hiring a #Postdoc | Social Media Collective cc @msrsmc | #microsoft #research #SocialMediaCollective https://socialmediacollective.org/2017/10/21/postdoc/"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Unmet needs for analyzing #biological #bigdata: A survey of 704 NSF principal investigators | #research http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005755"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "La banale #ob\u00e9issance, par @CynthiaFleury | #Fr\u00e9d\u00e9ricGros https://www.humanite.fr/la-banale-obeissance-642048"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Welcome to #Bokeh | #dataviz #interactive #python https://bokeh.pydata.org/en/latest/"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#peewee \u2014 #peewee 2.10.2 documentation | #MySQL #orm #PostgreSQL #python #sqlite3 http://docs.peewee-orm.com/en/latest/"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Getting started with #Sanic: the asynchronous, #uvloop based #web framework for #Python 3.5+ https://www.twilio.com/blog/2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Getting the Most out of #Sqlite3 with #Python | #optimization https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Introverts, Emotional Processing, Self-Esteem and Salary Negotiations | #cognition #delay #emotions #introversion http://cliffc.org/blog/2017/07/30/introverts-emotional-processing-self-esteem-and-salary-negotiations/"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#Poverty shrinks #brains from birth : Nature News & Comment | #cognition http://www.nature.com/news/poverty-shrinks-brains-from-birth-1.17227"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "How #Social #Media Endangers #Knowledge https://www.wired.com/story/wikipedias-fate-shows-how-the-web-endangers-knowledge/"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Your #technical #skills are #obsolete: now what? https://codewithoutrules.com/2017/10/23/obsolete-skills/"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Hannah #Arendt - L'#impasse de la #modernit\u00e9 https://www.scienceshumaines.com/hannah-arendt-l-impasse-de-la-modernite_fr_30336.html"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "L\u2019autonomie est \u00e0 l\u2019ind\u00e9pendance ce que la #libert\u00e9 est \u00e0 l\u2019insoumission | #autonomie #ind\u00e9pendance #insoumission https://www.dailymotion.com/video/x65rs5r"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "MIDA-Multitool: Bash script purposed for #system #enumeration, vulnerability identification and privilege escalation. | #git #MIDA #pentesting https://github.com/NullArray/MIDA-Multitool"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Using Language Servers in #Neovim | #LanguageServerProtocol #LSP #microsoft https://fortes.com/2017/language-server-neovim"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#smartcd: Alter your bash (or zsh) environment as you cd | #cli #git https://github.com/cxreg/smartcd"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#Unix is my #IDE | #fzf #ripgrep #tmux #vim https://mkaz.tech/geek/unix-is-my-ide/"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Functional connectivity within and between intrinsic brain networks correlates with trait #mind #wandering | #creativity #DMN #intelligence #neuroscience https://www.ncbi.nlm.nih.gov/pubmed/28705691"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Penser le sens du #code #source avec Gilbert #Simondon | #RMLL2017 https://rmll.ubicast.tv/videos/sens_code_source_32101/#share"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#OpenPGP - Exporter les clefs secr\u00e8tes sur une #Yubikey | #2FA #authentification #UFA https://blog.eleven-labs.com/fr/openpgp-clef-secrete-yubikey-partie-2/"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#Awk #processing by #example | #git https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#Screen #sharing in #Slack, made interactive https://slackhq.com/screen-sharing-in-slack-made-interactive-cf8816efaa01"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Intermittent #Fasting Promotes White Adipose Browning and Decreases #Obesity by Shaping the Gut\u00a0Microbiota http://www.cell.com/cell-metabolism/fulltext/S1550-4131(17)30504-1"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Programmable #base #editing of A\u2022T to G\u2022C in genomic #DNA without #DNA cleavage https://www.nature.com/nature/journal/vaap/ncurrent/full/nature24644.html"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#RNA #editing with CRISPR-Cas13 | #cas13 #crispr http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#CRISPR 2.0 Is Here, and It\u2019s Way More Precise | #base #editing #genetics https://www.technologyreview.com/s/609203/crispr-20-is-here-and-its-way-more-precise/"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "MIT neuroscientists build case for new theory of #memory #formation | #engrams #neuroscience #patterns #silent #synapses http://news.mit.edu/2017/neuroscientists-build-case-new-theory-memory-formation-1023"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Why Does the #Neocortex Have #Columns, A Theory of #Learning the #Structure of the #World | #cognition https://www.biorxiv.org/content/early/2017/09/28/162263"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#OpenMined/#PySyft: Encrypted #DeepLearning Library | #encryption #git https://github.com/OpenMined/PySyft"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#Write #tests. Not too many. Mostly #integration. https://blog.kentcdodds.com/write-tests-not-too-many-mostly-integration-5e8c7fff591c"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "This is the biggest lie people tell themselves | #biais #cognitive #selfdeception https://www.indy100.com/article/the-biggest-lie-people-tell-themselves-neurosciences-psychology-8018626"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Drive Serendipitous Discovery with #Recommendation #Engines | #guide https://pages.dataiku.com/recommendation-engines-us"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#Libert\u00e9, #s\u00e9curit\u00e9, #dignit\u00e9\u00a0: au-del\u00e0 du\u00a0#salariat et\u00a0du\u00a0#pr\u00e9cariat https://theconversation.com/liberte-securite-dignite-au-dela-du-salariat-et-du-precariat-86387"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Repenser la #recherche #scientifique au-del\u00e0 de la #propri\u00e9t\u00e9 | #droitdauteur #openaccess #proprieteintellectuelle https://scinfolex.com/2017/10/26/repenser-la-recherche-scientifique-au-dela-de-la-propriete/"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#HannahArendt Du #devoir de la #de\u0301sobe\u0301issance #civile | #arendt https://www.youtube.com/watch?v=F_w5bzl-12c"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Assessing the threat the #Reaper #botnet poses to the Internet\u2014what we know now https://arstechnica.com/information-technology/2017/10/assessing-the-threat-the-reaper-botnet-poses-to-the-internet-what-we-know-now/"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#Google no longer lets you change #domains to search different #countries https://www.theverge.com/2017/10/27/16561848/google-search-always-local-results-ignores-domain"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Temporal correlation detection using computational phase-change #memory | #architecture #computing #IBM https://www.nature.com/articles/s41467-017-01481-9"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "#DatoCMS - A #CMS for #static #website generators https://www.datocms.com/"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "L'#\u00e9thique serait-elle la grande oubli\u00e9e des #algorithmes ? https://blogrecherche.wp.imt.fr/2017/10/26/ethique-algorithmes/"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Le but du #management, c\u2019est la cessation du #management https://www.linkedin.com/pulse/le-du-management-cest-la-cessation-loick-roche/"
+            },
+            {
+                "client": "Mastodon_full",
+                "delay": 10,
+                "visibility": "private",
+                "content": "Quand le #g\u00e9nie et le #handicap se tutoient \u00e0 la t\u00eate des entreprises | #asperger #autisme #leadership #management https://www.letemps.ch/economie/2015/04/16/genie-handicap-se-tutoient-tete-entreprises"
+            }
+        ]
+    }
+}

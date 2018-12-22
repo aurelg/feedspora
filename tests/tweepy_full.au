@@ -1,0 +1,280 @@
+{
+    "feed.atom": {
+        "Twitter_full": [
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- 3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others -END http://tinyurl.com/ybcq7hp5",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- 3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others -END http://tinyurl.com/ybcq7hp5",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- 1.1 - Mort num\u00e9rique: que faire des donn\u00e9es personnelles et des comptes Facebook apr\u00e8s un d\u00e9c\u00e8s ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat) -END http://tinyurl.com/yc3eje8l",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Atom-Powered Robots Run Amok: This is the entry content. | #animal #vegetable #mineral -END http://tinyurl.com/yavnlzkw",
+                "media": null
+            }
+        ]
+    },
+    "feed.rss": {
+        "Twitter_full": [
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Shannon Luminary #Lecture Series - Stephen #Fry, actor, comedian, journalist, author: \u2014 Permalink\n\u2014 Permalink | #bell #myths -END http://tinyurl.com/y8kz6e2n",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- D\u00e9bat : #Google est\u2011il l\u2019ami de\u00a0la\u00a0production et\u00a0la\u00a0circulation des\u00a0id\u00e9es\u00a0?: \u2014 Permalink\n\u2014 Permalink -END http://tinyurl.com/ycwjj9ck",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- #Digital, #Num\u00e9rique : #Terminologie: \u2014 Permalink\n\u2014 Permalink -END http://tinyurl.com/y7mmk5lq",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Le #burnout, une pathologie de civilisation: \u2014 Permalink\n\u2014 Permalink -END http://tinyurl.com/yayncxcy",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- awesome-zsh-plugins: A collection of #ZSH frameworks, #plugins & themes inspired by the various #awesome list collections out there.: \u2014 Permalink\n\u2014 Permalink | #git -END http://tinyurl.com/knrrjd5",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- #antigen: The #plugin #manager for zsh: \u2014 Permalink\n\u2014 Permalink | #git -END http://tinyurl.com/d9pbll3",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- #websocketd : #WebSockets the UNIX way: \u2014 Permalink\n\u2014 Permalink | #daemon #KISS -END http://websocketd.com/",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- #Word #embeddings in 2017: Trends and future directions: \u2014 Permalink\n\u2014 Permalink | #NLP -END http://tinyurl.com/ya58y8ql",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- We are hiring a #Postdoc | Social Media Collective cc @msrsmc: \u2014 Permalink\n\u2014 Permalink | #microsoft #research #SocialMediaCollective -END http://tinyurl.com/ydaa8z8o",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Unmet needs for analyzing #biological #bigdata: A survey of 704 NSF principal investigators: \u2014 Permalink\n\u2014 Permalink | #research -END http://tinyurl.com/yco4yxrb",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- La banale #ob\u00e9issance, par @CynthiaFleury: \u2014 Permalink\n\u2014 Permalink | #Fr\u00e9d\u00e9ricGros -END http://tinyurl.com/y9b4977c",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Welcome to #Bokeh: \u2014 Permalink\n\u2014 Permalink | #dataviz #interactive #python -END http://tinyurl.com/y8kdjr3d",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- #peewee \u2014 #peewee 2.10.2 documentation: \u2014 Permalink\n\u2014 Permalink | #MySQL #orm #PostgreSQL -END http://tinyurl.com/znahl84",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Getting started with #Sanic: the asynchronous, #uvloop based #web framework for #Python 3.5+: \u2014 Permalink\n\u2014 Permalink -END http://tinyurl.com/y7qasd9u",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Getting the Most out of #Sqlite3 with #Python: \u2014 Permalink\n\u2014 Permalink | #optimization -END http://tinyurl.com/y858waks",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Introverts, Emotional Processing, Self-Esteem and Salary Negotiations: \u2014 Permalink\n\u2014 Permalink | #cognition #delay #emotions #introversion -END http://tinyurl.com/yajz7ceb",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- #Poverty shrinks #brains from birth : Nature News & Comment: \u2014 Permalink\n\u2014 Permalink | #cognition -END http://tinyurl.com/ooapduo",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- How #Social #Media Endangers #Knowledge: \u2014 Permalink\n\u2014 Permalink -END http://tinyurl.com/yavt3uog",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Your #technical #skills are #obsolete: now what?: \u2014 Permalink\n\u2014 Permalink -END http://tinyurl.com/yctan88y",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Hannah #Arendt - L'#impasse de la #modernit\u00e9: \u2014 Permalink\n\u2014 Permalink -END http://tinyurl.com/y9sxa5kj",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- L\u2019autonomie est \u00e0 l\u2019ind\u00e9pendance ce que la #libert\u00e9 est \u00e0 l\u2019insoumission: \u2014 Permalink\n\u2014 Permalink | #autonomie #ind\u00e9pendance #insoumission -END http://tinyurl.com/yawo8y88",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- MIDA-Multitool: Bash script purposed for system #enumeration, vulnerability identification and privilege escalation.: \u2014 Permalink\n\u2014 Permalink | #git #MIDA #pentesting -END http://tinyurl.com/ybpf22pb",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Using Language Servers in #Neovim: \u2014 Permalink\n\u2014 Permalink | #LanguageServerProtocol #LSP #microsoft -END http://tinyurl.com/yb8dyr7c",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- #smartcd: Alter your bash (or zsh) environment as you cd: \u2014 Permalink\n\u2014 Permalink | #cli #git -END http://tinyurl.com/6abwvu6",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Unix is my #IDE: \u2014 Permalink\n\u2014 Permalink | #fzf #ripgrep #tmux -END http://tinyurl.com/ybe5y6jn",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Functional connectivity within and between intrinsic brain networks correlates with trait #mind wandering: \u2014 Permalink\n\u2014 Permalink | #creativity #DMN #intelligence -END http://tinyurl.com/ybysw9km",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Penser le sens du #code #source avec Gilbert #Simondon: \u2014 Permalink\n\u2014 Permalink | #RMLL2017 -END http://tinyurl.com/y8kuzkj8",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- #OpenPGP - Exporter les clefs secr\u00e8tes sur une Yubikey: \u2014 Permalink\n\u2014 Permalink | #2FA #authentification #UFA -END http://tinyurl.com/ybxqk5ef",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- #Awk #processing by #example: \u2014 Permalink\n\u2014 Permalink | #git -END http://tinyurl.com/yckpo9j2",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- #Screen #sharing in #Slack, made interactive: \u2014 Permalink\n\u2014 Permalink -END http://tinyurl.com/y8t2gokc",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Intermittent #Fasting Promotes White Adipose Browning and Decreases #Obesity by Shaping the Gut\u00a0Microbiota: \u2014 Permalink\n\u2014 Permalink -END http://tinyurl.com/y8trr4mq",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Programmable #base #editing of A\u2022T to G\u2022C in genomic #DNA without #DNA cleavage: \u2014 Permalink\n\u2014 Permalink -END http://tinyurl.com/ydyfpv5l",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- #RNA #editing with CRISPR-Cas13: \u2014 Permalink\n\u2014 Permalink | #cas13 #crispr -END http://tinyurl.com/y9yegtwa",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- #CRISPR 2.0 Is Here, and It\u2019s Way More Precise: \u2014 Permalink\n\u2014 Permalink | #base #editing #genetics -END http://tinyurl.com/y9p56x5t",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- MIT neuroscientists build case for new theory of #memory #formation: \u2014 Permalink\n\u2014 Permalink | #engrams #neuroscience -END http://tinyurl.com/y7ebkf8g",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Why Does the #Neocortex Have #Columns, A Theory of #Learning the Structure of the World: \u2014 Permalink\n\u2014 Permalink | #cognition -END http://tinyurl.com/ycpw5w98",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- #OpenMined/PySyft: Encrypted #DeepLearning Library: \u2014 Permalink\n\u2014 Permalink | #encryption #git -END http://tinyurl.com/yac7ro92",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- #Write #tests. Not too many. Mostly #integration.: \u2014 Permalink\n\u2014 Permalink -END http://tinyurl.com/ybv2d9rz",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- This is the biggest lie people tell themselves: \u2014 Permalink\n\u2014 Permalink | #biais #cognitive #selfdeception -END http://tinyurl.com/yccmkjv7",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Drive Serendipitous Discovery with #Recommendation #Engines: \u2014 Permalink\n\u2014 Permalink | #guide -END http://tinyurl.com/yakcktn9",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- #Libert\u00e9, s\u00e9curit\u00e9, #dignit\u00e9\u00a0: au-del\u00e0 du\u00a0#salariat et\u00a0du\u00a0#pr\u00e9cariat: \u2014 Permalink\n\u2014 Permalink -END http://tinyurl.com/y8dgl8ts",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Repenser la recherche scientifique au-del\u00e0 de la #propri\u00e9t\u00e9: \u2014 Permalink\n\u2014 Permalink | #droitdauteur #openaccess #proprieteintellectuelle -END http://tinyurl.com/y99ll4xr",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- HannahArendt Du #devoir de la #de\u0301sobe\u0301issance #civile: \u2014 Permalink\n\u2014 Permalink | #arendt -END http://tinyurl.com/y9r449jj",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Assessing the threat the #Reaper #botnet poses to the Internet\u2014what we know now: \u2014 Permalink\n\u2014 Permalink -END http://tinyurl.com/yaydp5ru",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- #Google no longer lets you change #domains to search different #countries: \u2014 Permalink\n\u2014 Permalink -END http://tinyurl.com/y8mtbxzn",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Temporal correlation detection using computational phase-change #memory: \u2014 Permalink\n\u2014 Permalink | #architecture #computing #IBM -END http://tinyurl.com/yah9d74v",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- #DatoCMS - A #CMS for #static #website generators: \u2014 Permalink\n\u2014 Permalink -END https://www.datocms.com/",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- L'#\u00e9thique serait-elle la grande oubli\u00e9e des #algorithmes ?: \u2014 Permalink\n\u2014 Permalink -END http://tinyurl.com/yatnltbx",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Le but du #management, c\u2019est la cessation du #management: \u2014 Permalink\n\u2014 Permalink -END http://tinyurl.com/y8w8tw68",
+                "media": null
+            },
+            {
+                "client": "Twitter_full",
+                "content": "BEGIN- Quand le #g\u00e9nie et le #handicap se tutoient \u00e0 la t\u00eate des entreprises: \u2014 Permalink\n\u2014 Permalink | #asperger #autisme -END http://tinyurl.com/y93bayts",
+                "media": null
+            }
+        ]
+    }
+}

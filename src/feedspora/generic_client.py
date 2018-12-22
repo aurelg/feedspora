@@ -3,7 +3,12 @@ GenericClient: baseclass providing features to specific clients.
 """
 
 import logging
+import os
+import posixpath
 import re
+import urllib.parse
+import urllib.request
+import lxml.html
 import pyshorteners
 
 
@@ -427,3 +432,83 @@ class GenericClient:
                 content = ''
 
         return content
+
+    # pylint: disable=no-self-use
+    def download_media(self, the_url):
+        '''
+        Download the media file referenced by the_url
+        Returns the path to the downloaded file
+        :param the_url:
+        '''
+
+        def get_filename_from_cd(content_disp):
+            '''
+            Get filename from Content-Disposition
+            :param content_disp:
+            '''
+
+            to_return = None
+
+            if content_disp:
+                fname = re.findall('filename=(.+)', content_disp)
+
+                if fname:
+                    to_return = fname[0]
+
+            return to_return
+
+
+        def get_filename_from_response(the_response):
+            '''
+            Attempt to get the filename from the response
+            :param the_response:
+            '''
+
+            url_parts = urllib.parse.urlparse(the_response.geturl())
+            to_return = posixpath.basename(url_parts.path)
+            # Sanity check
+            if not re.match(r'^\w+\.(jpg|gif|png)$', to_return, re.IGNORECASE):
+                # Nope, "bad" filename
+                logging.error("Invalid media filename '%s' - ignoring",
+                              to_return)
+                to_return = ''
+
+            return to_return
+
+
+        request = urllib.request.Request(the_url)
+        request.add_header('User-Agent', 'Mozilla/5.0')
+        response = urllib.request.urlopen(request)
+        filename = get_filename_from_cd(
+            request.get_header('Content-Disposition')) or \
+            get_filename_from_response(response) or \
+            'random.jpg'
+
+        media_dir = os.getenv('MEDIA_DIR', '/tmp')
+        full_path = media_dir + '/' + filename
+        logging.info("Downloading %s as %s...", the_url, full_path)
+        with open(full_path, 'wb') as file_chunk:
+            file_chunk.write(response.read())
+
+        return full_path
+    # pylint: enable=no-self-use
+
+    def strip_html(self, before_strip):
+        '''
+        Strip HTML from the content
+        :param before_strip:
+        '''
+
+        to_return = None
+        # Getting the stripped HTML might take multiple attempts
+        done = False
+        while not done:
+            to_return = lxml.html.fromstring(
+                before_strip).text_content().strip()
+            done = to_return == before_strip
+            if not done:
+                before_strip = to_return
+        # Remove all tags from end of content!
+        to_return = self.remove_ending_tags(to_return)
+
+        return to_return

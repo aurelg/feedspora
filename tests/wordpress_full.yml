@@ -1,0 +1,12 @@
+accounts:
+
+  - name: 'WordPress_full'
+    type: 'WPClient'
+    wpurl: 'some_random_url'
+    username: 'username'
+    password: 'password'
+    tags: 'hashtagA,hashtagB'
+
+feeds:
+  - 'feed.atom'
+  - 'feed.rss'

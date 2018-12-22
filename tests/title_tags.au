@@ -39,6 +39,7 @@
           "day",
           "extra"
         ],
+        "media_path": null,
         "Content": "http://example.org/2003/12/13/atom04"
       }
     ],

@@ -1,0 +1,442 @@
+{
+    "feed.atom": {
+        "LinkedIn_full": [
+            {
+                "client": "LinkedIn_full",
+                "title": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+                "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+                "visibility": "connections-only",
+                "description": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+                "Comment": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+                "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+                "visibility": "connections-only",
+                "description": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+                "Comment": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "1.1 - Mort num\u00e9rique: que faire des donn\u00e9es personnelles et des comptes Facebook apr\u00e8s un d\u00e9c\u00e8s ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
+                "link": "http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html",
+                "visibility": "connections-only",
+                "description": "1.1 - Mort num\u00e9rique: que faire des donn\u00e9es personnelles et des comptes Facebook apr\u00e8s un d\u00e9c\u00e8s ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
+                "Comment": "1.1 - Mort num\u00e9rique: que faire des donn\u00e9es personnelles et des comptes Facebook apr\u00e8s un d\u00e9c\u00e8s ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Atom-Powered Robots Run Amok",
+                "link": "http://example.org/2003/12/13/atom03",
+                "visibility": "connections-only",
+                "description": "Atom-Powered Robots Run Amok",
+                "Comment": "Atom-Powered Robots Run Amok | #animal #vegetable #mineral"
+            }
+        ]
+    },
+    "feed.rss": {
+        "LinkedIn_full": [
+            {
+                "client": "LinkedIn_full",
+                "title": "Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author",
+                "link": "https://www.youtube.com/watch?v=24F6C1KfbjM",
+                "visibility": "connections-only",
+                "description": "Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author",
+                "Comment": "#Shannon Luminary #Lecture Series - Stephen #Fry, actor, comedian, journalist, author | #bell #myths #technology"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "D\u00e9bat : Google est\u2011il l\u2019ami de\u00a0la\u00a0production et\u00a0la\u00a0circulation des\u00a0id\u00e9es\u00a0?",
+                "link": "https://theconversation.com/debat-google-est-il-lami-de-la-production-et-la-circulation-des-idees-85940",
+                "visibility": "connections-only",
+                "description": "D\u00e9bat : Google est\u2011il l\u2019ami de\u00a0la\u00a0production et\u00a0la\u00a0circulation des\u00a0id\u00e9es\u00a0?",
+                "Comment": "D\u00e9bat : #Google est\u2011il l\u2019ami de\u00a0la\u00a0production et\u00a0la\u00a0circulation des\u00a0id\u00e9es\u00a0?"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Digital, Num\u00e9rique : Terminologie",
+                "link": "https://zythom.blogspot.fr/2017/10/terminologie.html",
+                "visibility": "connections-only",
+                "description": "Digital, Num\u00e9rique : Terminologie",
+                "Comment": "#Digital, #Num\u00e9rique : #Terminologie"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Le burnout, une pathologie de civilisation",
+                "link": "https://www.franceinter.fr/emissions/la-tete-au-carre/la-tete-au-carre-27-septembre-2017",
+                "visibility": "connections-only",
+                "description": "Le burnout, une pathologie de civilisation",
+                "Comment": "Le #burnout, une pathologie de civilisation"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.",
+                "link": "https://github.com/unixorn/awesome-zsh-plugins",
+                "visibility": "connections-only",
+                "description": "awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.",
+                "Comment": "awesome-zsh-plugins: A collection of #ZSH frameworks, #plugins & themes inspired by the various #awesome list collections out there. | #git"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "antigen: The plugin manager for zsh",
+                "link": "https://github.com/zsh-users/antigen",
+                "visibility": "connections-only",
+                "description": "antigen: The plugin manager for zsh",
+                "Comment": "#antigen: The #plugin #manager for #zsh | #git"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "websocketd : WebSockets the UNIX way",
+                "link": "http://websocketd.com/",
+                "visibility": "connections-only",
+                "description": "websocketd : WebSockets the UNIX way",
+                "Comment": "#websocketd : #WebSockets the UNIX way | #daemon #KISS"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Word embeddings in 2017: Trends and future directions",
+                "link": "http://ruder.io/word-embeddings-2017/",
+                "visibility": "connections-only",
+                "description": "Word embeddings in 2017: Trends and future directions",
+                "Comment": "#Word #embeddings in 2017: Trends and future directions | #NLP"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "We are hiring a Postdoc | Social Media Collective cc @msrsmc",
+                "link": "https://socialmediacollective.org/2017/10/21/postdoc/",
+                "visibility": "connections-only",
+                "description": "We are hiring a Postdoc | Social Media Collective cc @msrsmc",
+                "Comment": "We are hiring a #Postdoc | Social Media Collective cc @msrsmc | #microsoft #research #SocialMediaCollective"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Unmet needs for analyzing biological bigdata: A survey of 704 NSF principal investigators",
+                "link": "http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005755",
+                "visibility": "connections-only",
+                "description": "Unmet needs for analyzing biological bigdata: A survey of 704 NSF principal investigators",
+                "Comment": "Unmet needs for analyzing #biological #bigdata: A survey of 704 NSF principal investigators | #research"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "La banale ob\u00e9issance, par @CynthiaFleury",
+                "link": "https://www.humanite.fr/la-banale-obeissance-642048",
+                "visibility": "connections-only",
+                "description": "La banale ob\u00e9issance, par @CynthiaFleury",
+                "Comment": "La banale #ob\u00e9issance, par @CynthiaFleury | #Fr\u00e9d\u00e9ricGros"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Welcome to Bokeh",
+                "link": "https://bokeh.pydata.org/en/latest/",
+                "visibility": "connections-only",
+                "description": "Welcome to Bokeh",
+                "Comment": "Welcome to #Bokeh | #dataviz #interactive #python"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "peewee \u2014 peewee 2.10.2 documentation",
+                "link": "http://docs.peewee-orm.com/en/latest/",
+                "visibility": "connections-only",
+                "description": "peewee \u2014 peewee 2.10.2 documentation",
+                "Comment": "#peewee \u2014 #peewee 2.10.2 documentation | #MySQL #orm #PostgreSQL #python #sqlite3"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+",
+                "link": "https://www.twilio.com/blog/2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html",
+                "visibility": "connections-only",
+                "description": "Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+",
+                "Comment": "Getting started with #Sanic: the asynchronous, #uvloop based #web framework for #Python 3.5+"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Getting the Most out of Sqlite3 with Python",
+                "link": "https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html",
+                "visibility": "connections-only",
+                "description": "Getting the Most out of Sqlite3 with Python",
+                "Comment": "Getting the Most out of #Sqlite3 with #Python | #optimization"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Introverts, Emotional Processing, Self-Esteem and Salary Negotiations",
+                "link": "http://cliffc.org/blog/2017/07/30/introverts-emotional-processing-self-esteem-and-salary-negotiations/",
+                "visibility": "connections-only",
+                "description": "Introverts, Emotional Processing, Self-Esteem and Salary Negotiations",
+                "Comment": "Introverts, Emotional Processing, Self-Esteem and Salary Negotiations | #cognition #delay #emotions #introversion"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Poverty shrinks brains from birth : Nature News & Comment",
+                "link": "http://www.nature.com/news/poverty-shrinks-brains-from-birth-1.17227",
+                "visibility": "connections-only",
+                "description": "Poverty shrinks brains from birth : Nature News & Comment",
+                "Comment": "#Poverty shrinks #brains from birth : Nature News & Comment | #cognition"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "How Social Media Endangers Knowledge",
+                "link": "https://www.wired.com/story/wikipedias-fate-shows-how-the-web-endangers-knowledge/",
+                "visibility": "connections-only",
+                "description": "How Social Media Endangers Knowledge",
+                "Comment": "How #Social #Media Endangers #Knowledge"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Your technical skills are obsolete: now what?",
+                "link": "https://codewithoutrules.com/2017/10/23/obsolete-skills/",
+                "visibility": "connections-only",
+                "description": "Your technical skills are obsolete: now what?",
+                "Comment": "Your #technical #skills are #obsolete: now what?"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Hannah Arendt - L'impasse de la modernit\u00e9",
+                "link": "https://www.scienceshumaines.com/hannah-arendt-l-impasse-de-la-modernite_fr_30336.html",
+                "visibility": "connections-only",
+                "description": "Hannah Arendt - L'impasse de la modernit\u00e9",
+                "Comment": "Hannah #Arendt - L'#impasse de la #modernit\u00e9"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "L\u2019autonomie est \u00e0 l\u2019ind\u00e9pendance ce que la libert\u00e9 est \u00e0 l\u2019insoumission",
+                "link": "https://www.dailymotion.com/video/x65rs5r",
+                "visibility": "connections-only",
+                "description": "L\u2019autonomie est \u00e0 l\u2019ind\u00e9pendance ce que la libert\u00e9 est \u00e0 l\u2019insoumission",
+                "Comment": "L\u2019autonomie est \u00e0 l\u2019ind\u00e9pendance ce que la #libert\u00e9 est \u00e0 l\u2019insoumission | #autonomie #ind\u00e9pendance #insoumission"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.",
+                "link": "https://github.com/NullArray/MIDA-Multitool",
+                "visibility": "connections-only",
+                "description": "MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.",
+                "Comment": "MIDA-Multitool: Bash script purposed for #system #enumeration, vulnerability identification and privilege escalation. | #git #MIDA #pentesting"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Using Language Servers in Neovim",
+                "link": "https://fortes.com/2017/language-server-neovim",
+                "visibility": "connections-only",
+                "description": "Using Language Servers in Neovim",
+                "Comment": "Using Language Servers in #Neovim | #LanguageServerProtocol #LSP #microsoft"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "smartcd: Alter your bash (or zsh) environment as you cd",
+                "link": "https://github.com/cxreg/smartcd",
+                "visibility": "connections-only",
+                "description": "smartcd: Alter your bash (or zsh) environment as you cd",
+                "Comment": "#smartcd: Alter your bash (or zsh) environment as you cd | #cli #git"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Unix is my IDE",
+                "link": "https://mkaz.tech/geek/unix-is-my-ide/",
+                "visibility": "connections-only",
+                "description": "Unix is my IDE",
+                "Comment": "#Unix is my #IDE | #fzf #ripgrep #tmux #vim"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Functional connectivity within and between intrinsic brain networks correlates with trait mind wandering",
+                "link": "https://www.ncbi.nlm.nih.gov/pubmed/28705691",
+                "visibility": "connections-only",
+                "description": "Functional connectivity within and between intrinsic brain networks correlates with trait mind wandering",
+                "Comment": "Functional connectivity within and between intrinsic brain networks correlates with trait #mind #wandering | #creativity #DMN #intelligence #neuroscience"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Penser le sens du code source avec Gilbert Simondon",
+                "link": "https://rmll.ubicast.tv/videos/sens_code_source_32101/#share",
+                "visibility": "connections-only",
+                "description": "Penser le sens du code source avec Gilbert Simondon",
+                "Comment": "Penser le sens du #code #source avec Gilbert #Simondon | #RMLL2017"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "OpenPGP - Exporter les clefs secr\u00e8tes sur une Yubikey",
+                "link": "https://blog.eleven-labs.com/fr/openpgp-clef-secrete-yubikey-partie-2/",
+                "visibility": "connections-only",
+                "description": "OpenPGP - Exporter les clefs secr\u00e8tes sur une Yubikey",
+                "Comment": "#OpenPGP - Exporter les clefs secr\u00e8tes sur une #Yubikey | #2FA #authentification #UFA"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Awk processing by example",
+                "link": "https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md",
+                "visibility": "connections-only",
+                "description": "Awk processing by example",
+                "Comment": "#Awk #processing by #example | #git"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Screen sharing in Slack, made interactive",
+                "link": "https://slackhq.com/screen-sharing-in-slack-made-interactive-cf8816efaa01",
+                "visibility": "connections-only",
+                "description": "Screen sharing in Slack, made interactive",
+                "Comment": "#Screen #sharing in #Slack, made interactive"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Intermittent Fasting Promotes White Adipose Browning and Decreases Obesity by Shaping the Gut\u00a0Microbiota",
+                "link": "http://www.cell.com/cell-metabolism/fulltext/S1550-4131(17)30504-1",
+                "visibility": "connections-only",
+                "description": "Intermittent Fasting Promotes White Adipose Browning and Decreases Obesity by Shaping the Gut\u00a0Microbiota",
+                "Comment": "Intermittent #Fasting Promotes White Adipose Browning and Decreases #Obesity by Shaping the Gut\u00a0Microbiota"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Programmable base editing of A\u2022T to G\u2022C in genomic DNA without DNA cleavage",
+                "link": "https://www.nature.com/nature/journal/vaap/ncurrent/full/nature24644.html",
+                "visibility": "connections-only",
+                "description": "Programmable base editing of A\u2022T to G\u2022C in genomic DNA without DNA cleavage",
+                "Comment": "Programmable #base #editing of A\u2022T to G\u2022C in genomic #DNA without #DNA cleavage"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "RNA editing with CRISPR-Cas13",
+                "link": "http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180",
+                "visibility": "connections-only",
+                "description": "RNA editing with CRISPR-Cas13",
+                "Comment": "#RNA #editing with CRISPR-Cas13 | #cas13 #crispr"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "CRISPR 2.0 Is Here, and It\u2019s Way More Precise",
+                "link": "https://www.technologyreview.com/s/609203/crispr-20-is-here-and-its-way-more-precise/",
+                "visibility": "connections-only",
+                "description": "CRISPR 2.0 Is Here, and It\u2019s Way More Precise",
+                "Comment": "#CRISPR 2.0 Is Here, and It\u2019s Way More Precise | #base #editing #genetics"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "MIT neuroscientists build case for new theory of memory formation",
+                "link": "http://news.mit.edu/2017/neuroscientists-build-case-new-theory-memory-formation-1023",
+                "visibility": "connections-only",
+                "description": "MIT neuroscientists build case for new theory of memory formation",
+                "Comment": "MIT neuroscientists build case for new theory of #memory #formation | #engrams #neuroscience #patterns #silent #synapses"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Why Does the Neocortex Have Columns, A Theory of Learning the Structure of the World",
+                "link": "https://www.biorxiv.org/content/early/2017/09/28/162263",
+                "visibility": "connections-only",
+                "description": "Why Does the Neocortex Have Columns, A Theory of Learning the Structure of the World",
+                "Comment": "Why Does the #Neocortex Have #Columns, A Theory of #Learning the #Structure of the #World | #cognition"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "OpenMined/PySyft: Encrypted DeepLearning Library",
+                "link": "https://github.com/OpenMined/PySyft",
+                "visibility": "connections-only",
+                "description": "OpenMined/PySyft: Encrypted DeepLearning Library",
+                "Comment": "#OpenMined/#PySyft: Encrypted #DeepLearning Library | #encryption #git"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Write tests. Not too many. Mostly integration.",
+                "link": "https://blog.kentcdodds.com/write-tests-not-too-many-mostly-integration-5e8c7fff591c",
+                "visibility": "connections-only",
+                "description": "Write tests. Not too many. Mostly integration.",
+                "Comment": "#Write #tests. Not too many. Mostly #integration."
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "This is the biggest lie people tell themselves",
+                "link": "https://www.indy100.com/article/the-biggest-lie-people-tell-themselves-neurosciences-psychology-8018626",
+                "visibility": "connections-only",
+                "description": "This is the biggest lie people tell themselves",
+                "Comment": "This is the biggest lie people tell themselves | #biais #cognitive #selfdeception"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Drive Serendipitous Discovery with Recommendation Engines",
+                "link": "https://pages.dataiku.com/recommendation-engines-us",
+                "visibility": "connections-only",
+                "description": "Drive Serendipitous Discovery with Recommendation Engines",
+                "Comment": "Drive Serendipitous Discovery with #Recommendation #Engines | #guide"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Libert\u00e9, s\u00e9curit\u00e9, dignit\u00e9\u00a0: au-del\u00e0 du\u00a0salariat et\u00a0du\u00a0pr\u00e9cariat",
+                "link": "https://theconversation.com/liberte-securite-dignite-au-dela-du-salariat-et-du-precariat-86387",
+                "visibility": "connections-only",
+                "description": "Libert\u00e9, s\u00e9curit\u00e9, dignit\u00e9\u00a0: au-del\u00e0 du\u00a0salariat et\u00a0du\u00a0pr\u00e9cariat",
+                "Comment": "#Libert\u00e9, #s\u00e9curit\u00e9, #dignit\u00e9\u00a0: au-del\u00e0 du\u00a0#salariat et\u00a0du\u00a0#pr\u00e9cariat"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Repenser la recherche scientifique au-del\u00e0 de la propri\u00e9t\u00e9",
+                "link": "https://scinfolex.com/2017/10/26/repenser-la-recherche-scientifique-au-dela-de-la-propriete/",
+                "visibility": "connections-only",
+                "description": "Repenser la recherche scientifique au-del\u00e0 de la propri\u00e9t\u00e9",
+                "Comment": "Repenser la #recherche #scientifique au-del\u00e0 de la #propri\u00e9t\u00e9 | #droitdauteur #openaccess #proprieteintellectuelle"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "HannahArendt Du devoir de la de\u0301sobe\u0301issance civile",
+                "link": "https://www.youtube.com/watch?v=F_w5bzl-12c",
+                "visibility": "connections-only",
+                "description": "HannahArendt Du devoir de la de\u0301sobe\u0301issance civile",
+                "Comment": "#HannahArendt Du #devoir de la #de\u0301sobe\u0301issance #civile | #arendt"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Assessing the threat the Reaper botnet poses to the Internet\u2014what we know now",
+                "link": "https://arstechnica.com/information-technology/2017/10/assessing-the-threat-the-reaper-botnet-poses-to-the-internet-what-we-know-now/",
+                "visibility": "connections-only",
+                "description": "Assessing the threat the Reaper botnet poses to the Internet\u2014what we know now",
+                "Comment": "Assessing the threat the #Reaper #botnet poses to the Internet\u2014what we know now"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Google no longer lets you change domains to search different countries",
+                "link": "https://www.theverge.com/2017/10/27/16561848/google-search-always-local-results-ignores-domain",
+                "visibility": "connections-only",
+                "description": "Google no longer lets you change domains to search different countries",
+                "Comment": "#Google no longer lets you change #domains to search different #countries"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Temporal correlation detection using computational phase-change memory",
+                "link": "https://www.nature.com/articles/s41467-017-01481-9",
+                "visibility": "connections-only",
+                "description": "Temporal correlation detection using computational phase-change memory",
+                "Comment": "Temporal correlation detection using computational phase-change #memory | #architecture #computing #IBM"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "DatoCMS - A CMS for static website generators",
+                "link": "https://www.datocms.com/",
+                "visibility": "connections-only",
+                "description": "DatoCMS - A CMS for static website generators",
+                "Comment": "#DatoCMS - A #CMS for #static #website generators"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "L'\u00e9thique serait-elle la grande oubli\u00e9e des algorithmes ?",
+                "link": "https://blogrecherche.wp.imt.fr/2017/10/26/ethique-algorithmes/",
+                "visibility": "connections-only",
+                "description": "L'\u00e9thique serait-elle la grande oubli\u00e9e des algorithmes ?",
+                "Comment": "L'#\u00e9thique serait-elle la grande oubli\u00e9e des #algorithmes ?"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Le but du management, c\u2019est la cessation du management",
+                "link": "https://www.linkedin.com/pulse/le-du-management-cest-la-cessation-loick-roche/",
+                "visibility": "connections-only",
+                "description": "Le but du management, c\u2019est la cessation du management",
+                "Comment": "Le but du #management, c\u2019est la cessation du #management"
+            },
+            {
+                "client": "LinkedIn_full",
+                "title": "Quand le g\u00e9nie et le handicap se tutoient \u00e0 la t\u00eate des entreprises",
+                "link": "https://www.letemps.ch/economie/2015/04/16/genie-handicap-se-tutoient-tete-entreprises",
+                "visibility": "connections-only",
+                "description": "Quand le g\u00e9nie et le handicap se tutoient \u00e0 la t\u00eate des entreprises",
+                "Comment": "Quand le #g\u00e9nie et le #handicap se tutoient \u00e0 la t\u00eate des entreprises | #asperger #autisme #leadership #management"
+            }
+        ]
+    }
+}

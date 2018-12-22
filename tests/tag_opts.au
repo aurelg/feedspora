@@ -41,6 +41,7 @@
           "conB",
           "conC"
         ],
+        "media_path": null,
         "Content": "http://example.org/2018/12/10/atom007"
       }
     ],

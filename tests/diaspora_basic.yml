@@ -1,0 +1,11 @@
+accounts:
+
+  - name: 'Diaspora_basic'
+    type: 'DiaspyClient'
+    pod: 'diaspora_pod_url'
+    username: 'username'
+    password: 'password'
+
+feeds:
+  - 'feed.atom'
+  - 'feed.rss'

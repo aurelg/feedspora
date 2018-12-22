@@ -1,0 +1,633 @@
+{
+  "feed.atom": {
+    "WordPress_basic": [
+      {
+        "client": "WordPress_basic",
+        "title": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "post_tag": [],
+        "media_path": null,
+        "Content": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "post_tag": [],
+        "media_path": null,
+        "Content": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
+        "post_tag": [],
+        "media_path": null,
+        "Content": "http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Atom-Powered Robots Run Amok",
+        "post_tag": [
+          "animal",
+          "vegetable",
+          "mineral"
+        ],
+        "media_path": null,
+        "Content": "http://example.org/2003/12/13/atom03"
+      }
+    ]
+  },
+  "feed.rss": {
+    "WordPress_basic": [
+      {
+        "client": "WordPress_basic",
+        "title": "Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author",
+        "post_tag": [
+          "bell",
+          "fry",
+          "lecture",
+          "myths",
+          "shannon",
+          "technology"
+        ],
+        "media_path": null,
+        "Content": "https://www.youtube.com/watch?v=24F6C1KfbjM"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Débat : Google est‑il l’ami de la production et la circulation des idées ?",
+        "post_tag": [
+          "google"
+        ],
+        "media_path": null,
+        "Content": "https://theconversation.com/debat-google-est-il-lami-de-la-production-et-la-circulation-des-idees-85940"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Digital, Numérique : Terminologie",
+        "post_tag": [
+          "digital",
+          "numérique",
+          "terminologie"
+        ],
+        "media_path": null,
+        "Content": "https://zythom.blogspot.fr/2017/10/terminologie.html"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Le burnout, une pathologie de civilisation",
+        "post_tag": [
+          "burnout"
+        ],
+        "media_path": null,
+        "Content": "https://www.franceinter.fr/emissions/la-tete-au-carre/la-tete-au-carre-27-septembre-2017"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.",
+        "post_tag": [
+          "awesome",
+          "git",
+          "plugins",
+          "zsh"
+        ],
+        "media_path": null,
+        "Content": "https://github.com/unixorn/awesome-zsh-plugins"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "antigen: The plugin manager for zsh",
+        "post_tag": [
+          "antigen",
+          "git",
+          "manager",
+          "plugin",
+          "zsh"
+        ],
+        "media_path": null,
+        "Content": "https://github.com/zsh-users/antigen"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "websocketd : WebSockets the UNIX way",
+        "post_tag": [
+          "daemon",
+          "KISS",
+          "websocketd",
+          "websockets"
+        ],
+        "media_path": null,
+        "Content": "http://websocketd.com/"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Word embeddings in 2017: Trends and future directions",
+        "post_tag": [
+          "embeddings",
+          "NLP",
+          "word"
+        ],
+        "media_path": null,
+        "Content": "http://ruder.io/word-embeddings-2017/"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "We are hiring a Postdoc | Social Media Collective cc @msrsmc",
+        "post_tag": [
+          "microsoft",
+          "postdoc",
+          "research",
+          "SocialMediaCollective"
+        ],
+        "media_path": null,
+        "Content": "https://socialmediacollective.org/2017/10/21/postdoc/"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Unmet needs for analyzing biological bigdata: A survey of 704 NSF principal investigators",
+        "post_tag": [
+          "bigdata",
+          "biological",
+          "research"
+        ],
+        "media_path": null,
+        "Content": "http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005755"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "La banale obéissance, par @CynthiaFleury",
+        "post_tag": [
+          "FrédéricGros",
+          "obéissance"
+        ],
+        "media_path": null,
+        "Content": "https://www.humanite.fr/la-banale-obeissance-642048"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Welcome to Bokeh",
+        "post_tag": [
+          "bokeh",
+          "dataviz",
+          "interactive",
+          "python"
+        ],
+        "media_path": null,
+        "Content": "https://bokeh.pydata.org/en/latest/"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "peewee — peewee 2.10.2 documentation",
+        "post_tag": [
+          "MySQL",
+          "orm",
+          "peewee",
+          "PostgreSQL",
+          "python",
+          "sqlite3"
+        ],
+        "media_path": null,
+        "Content": "http://docs.peewee-orm.com/en/latest/"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+",
+        "post_tag": [
+          "python",
+          "sanic",
+          "uvloop",
+          "web"
+        ],
+        "media_path": null,
+        "Content": "https://www.twilio.com/blog/2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Getting the Most out of Sqlite3 with Python",
+        "post_tag": [
+          "optimization",
+          "python",
+          "sqlite3"
+        ],
+        "media_path": null,
+        "Content": "https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Introverts, Emotional Processing, Self-Esteem and Salary Negotiations",
+        "post_tag": [
+          "cognition",
+          "delay",
+          "emotions",
+          "introversion"
+        ],
+        "media_path": null,
+        "Content": "http://cliffc.org/blog/2017/07/30/introverts-emotional-processing-self-esteem-and-salary-negotiations/"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Poverty shrinks brains from birth : Nature News & Comment",
+        "post_tag": [
+          "brains",
+          "cognition",
+          "poverty"
+        ],
+        "media_path": null,
+        "Content": "http://www.nature.com/news/poverty-shrinks-brains-from-birth-1.17227"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "How Social Media Endangers Knowledge",
+        "post_tag": [
+          "knowledge",
+          "media",
+          "social"
+        ],
+        "media_path": null,
+        "Content": "https://www.wired.com/story/wikipedias-fate-shows-how-the-web-endangers-knowledge/"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Your technical skills are obsolete: now what?",
+        "post_tag": [
+          "obsolete",
+          "skills",
+          "technical"
+        ],
+        "media_path": null,
+        "Content": "https://codewithoutrules.com/2017/10/23/obsolete-skills/"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Hannah Arendt - L'impasse de la modernité",
+        "post_tag": [
+          "arendt",
+          "impasse",
+          "modernité"
+        ],
+        "media_path": null,
+        "Content": "https://www.scienceshumaines.com/hannah-arendt-l-impasse-de-la-modernite_fr_30336.html"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "L’autonomie est à l’indépendance ce que la liberté est à l’insoumission",
+        "post_tag": [
+          "autonomie",
+          "indépendance",
+          "insoumission",
+          "liberté"
+        ],
+        "media_path": null,
+        "Content": "https://www.dailymotion.com/video/x65rs5r"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.",
+        "post_tag": [
+          "enumeration",
+          "git",
+          "MIDA",
+          "pentesting",
+          "system"
+        ],
+        "media_path": null,
+        "Content": "https://github.com/NullArray/MIDA-Multitool"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Using Language Servers in Neovim",
+        "post_tag": [
+          "LanguageServerProtocol",
+          "LSP",
+          "microsoft",
+          "neovim"
+        ],
+        "media_path": null,
+        "Content": "https://fortes.com/2017/language-server-neovim"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "smartcd: Alter your bash (or zsh) environment as you cd",
+        "post_tag": [
+          "cli",
+          "git",
+          "smartcd"
+        ],
+        "media_path": null,
+        "Content": "https://github.com/cxreg/smartcd"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Unix is my IDE",
+        "post_tag": [
+          "fzf",
+          "ide",
+          "ripgrep",
+          "tmux",
+          "unix",
+          "vim"
+        ],
+        "media_path": null,
+        "Content": "https://mkaz.tech/geek/unix-is-my-ide/"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Functional connectivity within and between intrinsic brain networks correlates with trait mind wandering",
+        "post_tag": [
+          "creativity",
+          "DMN",
+          "intelligence",
+          "mind",
+          "neuroscience",
+          "wandering"
+        ],
+        "media_path": null,
+        "Content": "https://www.ncbi.nlm.nih.gov/pubmed/28705691"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Penser le sens du code source avec Gilbert Simondon",
+        "post_tag": [
+          "code",
+          "RMLL2017",
+          "simondon",
+          "source"
+        ],
+        "media_path": null,
+        "Content": "https://rmll.ubicast.tv/videos/sens_code_source_32101/#share"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "OpenPGP - Exporter les clefs secrètes sur une Yubikey",
+        "post_tag": [
+          "2FA",
+          "authentification",
+          "openpgp",
+          "UFA",
+          "yubikey"
+        ],
+        "media_path": null,
+        "Content": "https://blog.eleven-labs.com/fr/openpgp-clef-secrete-yubikey-partie-2/"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Awk processing by example",
+        "post_tag": [
+          "awk",
+          "example",
+          "git",
+          "processing"
+        ],
+        "media_path": null,
+        "Content": "https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Screen sharing in Slack, made interactive",
+        "post_tag": [
+          "screen",
+          "sharing",
+          "slack"
+        ],
+        "media_path": null,
+        "Content": "https://slackhq.com/screen-sharing-in-slack-made-interactive-cf8816efaa01"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Intermittent Fasting Promotes White Adipose Browning and Decreases Obesity by Shaping the Gut Microbiota",
+        "post_tag": [
+          "fasting",
+          "obesity"
+        ],
+        "media_path": null,
+        "Content": "http://www.cell.com/cell-metabolism/fulltext/S1550-4131(17)30504-1"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Programmable base editing of A•T to G•C in genomic DNA without DNA cleavage",
+        "post_tag": [
+          "base",
+          "dna",
+          "editing"
+        ],
+        "media_path": null,
+        "Content": "https://www.nature.com/nature/journal/vaap/ncurrent/full/nature24644.html"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "RNA editing with CRISPR-Cas13",
+        "post_tag": [
+          "cas13",
+          "crispr",
+          "editing",
+          "RNA"
+        ],
+        "media_path": null,
+        "Content": "http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "CRISPR 2.0 Is Here, and It’s Way More Precise",
+        "post_tag": [
+          "base",
+          "CRISPR",
+          "editing",
+          "genetics"
+        ],
+        "media_path": null,
+        "Content": "https://www.technologyreview.com/s/609203/crispr-20-is-here-and-its-way-more-precise/"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "MIT neuroscientists build case for new theory of memory formation",
+        "post_tag": [
+          "engrams",
+          "formation",
+          "memory",
+          "neuroscience",
+          "patterns",
+          "silent",
+          "synapses"
+        ],
+        "media_path": null,
+        "Content": "http://news.mit.edu/2017/neuroscientists-build-case-new-theory-memory-formation-1023"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Why Does the Neocortex Have Columns, A Theory of Learning the Structure of the World",
+        "post_tag": [
+          "cognition",
+          "columns",
+          "learning",
+          "neocortex",
+          "structure",
+          "world"
+        ],
+        "media_path": null,
+        "Content": "https://www.biorxiv.org/content/early/2017/09/28/162263"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "OpenMined/PySyft: Encrypted DeepLearning Library",
+        "post_tag": [
+          "deeplearning",
+          "encryption",
+          "git",
+          "OpenMined",
+          "PySyft"
+        ],
+        "media_path": null,
+        "Content": "https://github.com/OpenMined/PySyft"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Write tests. Not too many. Mostly integration.",
+        "post_tag": [
+          "integration",
+          "tests",
+          "write"
+        ],
+        "media_path": null,
+        "Content": "https://blog.kentcdodds.com/write-tests-not-too-many-mostly-integration-5e8c7fff591c"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "This is the biggest lie people tell themselves",
+        "post_tag": [
+          "biais",
+          "cognitive",
+          "selfdeception"
+        ],
+        "media_path": null,
+        "Content": "https://www.indy100.com/article/the-biggest-lie-people-tell-themselves-neurosciences-psychology-8018626"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Drive Serendipitous Discovery with Recommendation Engines",
+        "post_tag": [
+          "engines",
+          "guide",
+          "recommendation"
+        ],
+        "media_path": null,
+        "Content": "https://pages.dataiku.com/recommendation-engines-us"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Liberté, sécurité, dignité : au-delà du salariat et du précariat",
+        "post_tag": [
+          "dignité",
+          "liberté",
+          "précariat",
+          "salariat",
+          "sécurité"
+        ],
+        "media_path": null,
+        "Content": "https://theconversation.com/liberte-securite-dignite-au-dela-du-salariat-et-du-precariat-86387"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Repenser la recherche scientifique au-delà de la propriété",
+        "post_tag": [
+          "droitdauteur",
+          "openaccess",
+          "proprieteintellectuelle",
+          "propriété",
+          "recherche",
+          "scientifique"
+        ],
+        "media_path": null,
+        "Content": "https://scinfolex.com/2017/10/26/repenser-la-recherche-scientifique-au-dela-de-la-propriete/"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "HannahArendt Du devoir de la désobéissance civile",
+        "post_tag": [
+          "arendt",
+          "civile",
+          "devoir",
+          "désobéissance",
+          "hannaharendt"
+        ],
+        "media_path": null,
+        "Content": "https://www.youtube.com/watch?v=F_w5bzl-12c"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Assessing the threat the Reaper botnet poses to the Internet—what we know now",
+        "post_tag": [
+          "botnet",
+          "reaper"
+        ],
+        "media_path": null,
+        "Content": "https://arstechnica.com/information-technology/2017/10/assessing-the-threat-the-reaper-botnet-poses-to-the-internet-what-we-know-now/"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Google no longer lets you change domains to search different countries",
+        "post_tag": [
+          "countries",
+          "domains",
+          "google"
+        ],
+        "media_path": null,
+        "Content": "https://www.theverge.com/2017/10/27/16561848/google-search-always-local-results-ignores-domain"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Temporal correlation detection using computational phase-change memory",
+        "post_tag": [
+          "architecture",
+          "computing",
+          "IBM",
+          "memory"
+        ],
+        "media_path": null,
+        "Content": "https://www.nature.com/articles/s41467-017-01481-9"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "DatoCMS - A CMS for static website generators",
+        "post_tag": [
+          "cms",
+          "datocms",
+          "static",
+          "website"
+        ],
+        "media_path": null,
+        "Content": "https://www.datocms.com/"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "L'éthique serait-elle la grande oubliée des algorithmes ?",
+        "post_tag": [
+          "algorithmes",
+          "éthique"
+        ],
+        "media_path": null,
+        "Content": "https://blogrecherche.wp.imt.fr/2017/10/26/ethique-algorithmes/"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Le but du management, c’est la cessation du management",
+        "post_tag": [
+          "management"
+        ],
+        "media_path": null,
+        "Content": "https://www.linkedin.com/pulse/le-du-management-cest-la-cessation-loick-roche/"
+      },
+      {
+        "client": "WordPress_basic",
+        "title": "Quand le génie et le handicap se tutoient à la tête des entreprises",
+        "post_tag": [
+          "asperger",
+          "autisme",
+          "génie",
+          "handicap",
+          "leadership",
+          "management"
+        ],
+        "media_path": null,
+        "Content": "https://www.letemps.ch/economie/2015/04/16/genie-handicap-se-tutoient-tete-entreprises"
+      }
+    ]
+  }
+}

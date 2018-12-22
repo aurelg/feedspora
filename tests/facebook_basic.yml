@@ -1,0 +1,9 @@
+accounts:
+
+  - name: 'Facebook_basic'
+    type: 'FacebookClient'
+    token: 'your_facebook_token'
+
+feeds:
+  - 'feed.atom'
+  - 'feed.rss'
