@@ -21,8 +21,9 @@ def check_feed(capsys, feedtype):
         expected = json.load(fp)
 
     with patch("sys.argv", ["main", "--testing", feedtype]):
+        # Clear collected out/err
+        capsys.readouterr()
         main()
-
         # Retrieve stdout and stderr
         stdout = capsys.readouterr().out
         tested = json.loads(stdout)
