@@ -66,7 +66,8 @@ class WPClient(GenericClient):
                      self._account['post_suffix'],
             "post_tag": self.filter_tags(kwargs['entry']),
             "media_path": kwargs['media_path'],
-            "Content": self.shorten_url(kwargs['entry'].link)
+            "content": kwargs['content'],
+            "url": self.shorten_url(kwargs['entry'].link)
         }
 
     def post(self, entry):
@@ -108,13 +109,14 @@ class WPClient(GenericClient):
 
             return response['id']
 
+
         article_content = ''
-        if 'post_use_feed_data' in self._account and \
-           self._account['post_use_feed_data']:
+        if 'post_link_content' in self._account and \
+           self._account['post_link_content']:
+            article_content = self.get_content(entry.link)
+        else:
             if self._account['post_include_content'] and entry.content:
                 article_content = self.strip_html(entry.content)
-        else:
-            article_content = self.get_content(entry.link)
 
         post_content = r"Source: <a href='{}'>{}</a><hr\>{}".format(
             self.shorten_url(entry.link),
@@ -128,8 +130,14 @@ class WPClient(GenericClient):
 
         to_return = False
         if self.is_testing():
+            content = article_content
+            if 'post_link_content' in self._account and \
+               self._account['post_link_content']:
+                content = "From "+self.shorten_url(entry.link)
+
             self.accumulate_testing_output(
-                self.get_dict_output(entry=entry, media_path=media_path))
+                self.get_dict_output(entry=entry, content=content,
+                                     media_path=media_path))
         else:
             # Upload media, if appropriate
             attachment_id = 0

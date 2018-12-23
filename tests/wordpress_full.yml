@@ -6,6 +6,21 @@ accounts:
     username: 'username'
     password: 'password'
     tags: 'hashtagA,hashtagB'
+    url_shortener: 'Tinyurl'
+    max_posts: 3
+    max_tags: 4
+    post_prefix: 'BEGIN- '
+    post_suffix: ' -END'
+    post_include_media: true
+    post_include_content: true
+
+  - name: 'WordPress_legacy_full'
+    type: 'WPClient'
+    wpurl: 'some_random_url'
+    username: 'username'
+    password: 'password'
+    tags: 'hashtagA,hashtagB'
+    post_link_content: true
 
 feeds:
   - 'feed.atom'

@@ -6,21 +6,24 @@
         "title": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
         "post_tag": [],
         "media_path": null,
-        "Content": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos"
+        "content": "",
+        "url": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos"
       },
       {
         "client": "WordPress_basic",
         "title": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
         "post_tag": [],
         "media_path": null,
-        "Content": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos"
+        "content": "",
+        "url": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos"
       },
       {
         "client": "WordPress_basic",
         "title": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
         "post_tag": [],
         "media_path": null,
-        "Content": "http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html"
+        "content": "",
+        "url": "http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html"
       },
       {
         "client": "WordPress_basic",
@@ -31,7 +34,8 @@
           "mineral"
         ],
         "media_path": null,
-        "Content": "http://example.org/2003/12/13/atom03"
+        "content": "",
+        "url": "http://example.org/2003/12/13/atom03"
       }
     ]
   },
@@ -49,7 +53,8 @@
           "technology"
         ],
         "media_path": null,
-        "Content": "https://www.youtube.com/watch?v=24F6C1KfbjM"
+        "content": "",
+        "url": "https://www.youtube.com/watch?v=24F6C1KfbjM"
       },
       {
         "client": "WordPress_basic",
@@ -58,7 +63,8 @@
           "google"
         ],
         "media_path": null,
-        "Content": "https://theconversation.com/debat-google-est-il-lami-de-la-production-et-la-circulation-des-idees-85940"
+        "content": "",
+        "url": "https://theconversation.com/debat-google-est-il-lami-de-la-production-et-la-circulation-des-idees-85940"
       },
       {
         "client": "WordPress_basic",
@@ -69,7 +75,8 @@
           "terminologie"
         ],
         "media_path": null,
-        "Content": "https://zythom.blogspot.fr/2017/10/terminologie.html"
+        "content": "",
+        "url": "https://zythom.blogspot.fr/2017/10/terminologie.html"
       },
       {
         "client": "WordPress_basic",
@@ -78,7 +85,8 @@
           "burnout"
         ],
         "media_path": null,
-        "Content": "https://www.franceinter.fr/emissions/la-tete-au-carre/la-tete-au-carre-27-septembre-2017"
+        "content": "",
+        "url": "https://www.franceinter.fr/emissions/la-tete-au-carre/la-tete-au-carre-27-septembre-2017"
       },
       {
         "client": "WordPress_basic",
@@ -90,7 +98,8 @@
           "zsh"
         ],
         "media_path": null,
-        "Content": "https://github.com/unixorn/awesome-zsh-plugins"
+        "content": "",
+        "url": "https://github.com/unixorn/awesome-zsh-plugins"
       },
       {
         "client": "WordPress_basic",
@@ -103,7 +112,8 @@
           "zsh"
         ],
         "media_path": null,
-        "Content": "https://github.com/zsh-users/antigen"
+        "content": "",
+        "url": "https://github.com/zsh-users/antigen"
       },
       {
         "client": "WordPress_basic",
@@ -115,7 +125,8 @@
           "websockets"
         ],
         "media_path": null,
-        "Content": "http://websocketd.com/"
+        "content": "",
+        "url": "http://websocketd.com/"
       },
       {
         "client": "WordPress_basic",
@@ -126,7 +137,8 @@
           "word"
         ],
         "media_path": null,
-        "Content": "http://ruder.io/word-embeddings-2017/"
+        "content": "",
+        "url": "http://ruder.io/word-embeddings-2017/"
       },
       {
         "client": "WordPress_basic",
@@ -138,7 +150,8 @@
           "SocialMediaCollective"
         ],
         "media_path": null,
-        "Content": "https://socialmediacollective.org/2017/10/21/postdoc/"
+        "content": "",
+        "url": "https://socialmediacollective.org/2017/10/21/postdoc/"
       },
       {
         "client": "WordPress_basic",
@@ -149,7 +162,8 @@
           "research"
         ],
         "media_path": null,
-        "Content": "http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005755"
+        "content": "",
+        "url": "http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005755"
       },
       {
         "client": "WordPress_basic",
@@ -159,7 +173,8 @@
           "obéissance"
         ],
         "media_path": null,
-        "Content": "https://www.humanite.fr/la-banale-obeissance-642048"
+        "content": "",
+        "url": "https://www.humanite.fr/la-banale-obeissance-642048"
       },
       {
         "client": "WordPress_basic",
@@ -171,7 +186,8 @@
           "python"
         ],
         "media_path": null,
-        "Content": "https://bokeh.pydata.org/en/latest/"
+        "content": "",
+        "url": "https://bokeh.pydata.org/en/latest/"
       },
       {
         "client": "WordPress_basic",
@@ -185,7 +201,8 @@
           "sqlite3"
         ],
         "media_path": null,
-        "Content": "http://docs.peewee-orm.com/en/latest/"
+        "content": "",
+        "url": "http://docs.peewee-orm.com/en/latest/"
       },
       {
         "client": "WordPress_basic",
@@ -197,7 +214,8 @@
           "web"
         ],
         "media_path": null,
-        "Content": "https://www.twilio.com/blog/2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html"
+        "content": "",
+        "url": "https://www.twilio.com/blog/2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html"
       },
       {
         "client": "WordPress_basic",
@@ -208,7 +226,8 @@
           "sqlite3"
         ],
         "media_path": null,
-        "Content": "https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html"
+        "content": "",
+        "url": "https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html"
       },
       {
         "client": "WordPress_basic",
@@ -220,7 +239,8 @@
           "introversion"
         ],
         "media_path": null,
-        "Content": "http://cliffc.org/blog/2017/07/30/introverts-emotional-processing-self-esteem-and-salary-negotiations/"
+        "content": "",
+        "url": "http://cliffc.org/blog/2017/07/30/introverts-emotional-processing-self-esteem-and-salary-negotiations/"
       },
       {
         "client": "WordPress_basic",
@@ -231,7 +251,8 @@
           "poverty"
         ],
         "media_path": null,
-        "Content": "http://www.nature.com/news/poverty-shrinks-brains-from-birth-1.17227"
+        "content": "",
+        "url": "http://www.nature.com/news/poverty-shrinks-brains-from-birth-1.17227"
       },
       {
         "client": "WordPress_basic",
@@ -242,7 +263,8 @@
           "social"
         ],
         "media_path": null,
-        "Content": "https://www.wired.com/story/wikipedias-fate-shows-how-the-web-endangers-knowledge/"
+        "content": "",
+        "url": "https://www.wired.com/story/wikipedias-fate-shows-how-the-web-endangers-knowledge/"
       },
       {
         "client": "WordPress_basic",
@@ -253,7 +275,8 @@
           "technical"
         ],
         "media_path": null,
-        "Content": "https://codewithoutrules.com/2017/10/23/obsolete-skills/"
+        "content": "",
+        "url": "https://codewithoutrules.com/2017/10/23/obsolete-skills/"
       },
       {
         "client": "WordPress_basic",
@@ -264,7 +287,8 @@
           "modernité"
         ],
         "media_path": null,
-        "Content": "https://www.scienceshumaines.com/hannah-arendt-l-impasse-de-la-modernite_fr_30336.html"
+        "content": "",
+        "url": "https://www.scienceshumaines.com/hannah-arendt-l-impasse-de-la-modernite_fr_30336.html"
       },
       {
         "client": "WordPress_basic",
@@ -276,7 +300,8 @@
           "liberté"
         ],
         "media_path": null,
-        "Content": "https://www.dailymotion.com/video/x65rs5r"
+        "content": "",
+        "url": "https://www.dailymotion.com/video/x65rs5r"
       },
       {
         "client": "WordPress_basic",
@@ -289,7 +314,8 @@
           "system"
         ],
         "media_path": null,
-        "Content": "https://github.com/NullArray/MIDA-Multitool"
+        "content": "",
+        "url": "https://github.com/NullArray/MIDA-Multitool"
       },
       {
         "client": "WordPress_basic",
@@ -301,7 +327,8 @@
           "neovim"
         ],
         "media_path": null,
-        "Content": "https://fortes.com/2017/language-server-neovim"
+        "content": "",
+        "url": "https://fortes.com/2017/language-server-neovim"
       },
       {
         "client": "WordPress_basic",
@@ -312,7 +339,8 @@
           "smartcd"
         ],
         "media_path": null,
-        "Content": "https://github.com/cxreg/smartcd"
+        "content": "",
+        "url": "https://github.com/cxreg/smartcd"
       },
       {
         "client": "WordPress_basic",
@@ -326,7 +354,8 @@
           "vim"
         ],
         "media_path": null,
-        "Content": "https://mkaz.tech/geek/unix-is-my-ide/"
+        "content": "",
+        "url": "https://mkaz.tech/geek/unix-is-my-ide/"
       },
       {
         "client": "WordPress_basic",
@@ -340,7 +369,8 @@
           "wandering"
         ],
         "media_path": null,
-        "Content": "https://www.ncbi.nlm.nih.gov/pubmed/28705691"
+        "content": "",
+        "url": "https://www.ncbi.nlm.nih.gov/pubmed/28705691"
       },
       {
         "client": "WordPress_basic",
@@ -352,7 +382,8 @@
           "source"
         ],
         "media_path": null,
-        "Content": "https://rmll.ubicast.tv/videos/sens_code_source_32101/#share"
+        "content": "",
+        "url": "https://rmll.ubicast.tv/videos/sens_code_source_32101/#share"
       },
       {
         "client": "WordPress_basic",
@@ -365,7 +396,8 @@
           "yubikey"
         ],
         "media_path": null,
-        "Content": "https://blog.eleven-labs.com/fr/openpgp-clef-secrete-yubikey-partie-2/"
+        "content": "",
+        "url": "https://blog.eleven-labs.com/fr/openpgp-clef-secrete-yubikey-partie-2/"
       },
       {
         "client": "WordPress_basic",
@@ -377,7 +409,8 @@
           "processing"
         ],
         "media_path": null,
-        "Content": "https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md"
+        "content": "",
+        "url": "https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md"
       },
       {
         "client": "WordPress_basic",
@@ -388,7 +421,8 @@
           "slack"
         ],
         "media_path": null,
-        "Content": "https://slackhq.com/screen-sharing-in-slack-made-interactive-cf8816efaa01"
+        "content": "",
+        "url": "https://slackhq.com/screen-sharing-in-slack-made-interactive-cf8816efaa01"
       },
       {
         "client": "WordPress_basic",
@@ -398,7 +432,8 @@
           "obesity"
         ],
         "media_path": null,
-        "Content": "http://www.cell.com/cell-metabolism/fulltext/S1550-4131(17)30504-1"
+        "content": "",
+        "url": "http://www.cell.com/cell-metabolism/fulltext/S1550-4131(17)30504-1"
       },
       {
         "client": "WordPress_basic",
@@ -409,7 +444,8 @@
           "editing"
         ],
         "media_path": null,
-        "Content": "https://www.nature.com/nature/journal/vaap/ncurrent/full/nature24644.html"
+        "content": "",
+        "url": "https://www.nature.com/nature/journal/vaap/ncurrent/full/nature24644.html"
       },
       {
         "client": "WordPress_basic",
@@ -421,7 +457,8 @@
           "RNA"
         ],
         "media_path": null,
-        "Content": "http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180"
+        "content": "",
+        "url": "http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180"
       },
       {
         "client": "WordPress_basic",
@@ -433,7 +470,8 @@
           "genetics"
         ],
         "media_path": null,
-        "Content": "https://www.technologyreview.com/s/609203/crispr-20-is-here-and-its-way-more-precise/"
+        "content": "",
+        "url": "https://www.technologyreview.com/s/609203/crispr-20-is-here-and-its-way-more-precise/"
       },
       {
         "client": "WordPress_basic",
@@ -448,7 +486,8 @@
           "synapses"
         ],
         "media_path": null,
-        "Content": "http://news.mit.edu/2017/neuroscientists-build-case-new-theory-memory-formation-1023"
+        "content": "",
+        "url": "http://news.mit.edu/2017/neuroscientists-build-case-new-theory-memory-formation-1023"
       },
       {
         "client": "WordPress_basic",
@@ -462,7 +501,8 @@
           "world"
         ],
         "media_path": null,
-        "Content": "https://www.biorxiv.org/content/early/2017/09/28/162263"
+        "content": "",
+        "url": "https://www.biorxiv.org/content/early/2017/09/28/162263"
       },
       {
         "client": "WordPress_basic",
@@ -475,7 +515,8 @@
           "PySyft"
         ],
         "media_path": null,
-        "Content": "https://github.com/OpenMined/PySyft"
+        "content": "",
+        "url": "https://github.com/OpenMined/PySyft"
       },
       {
         "client": "WordPress_basic",
@@ -486,7 +527,8 @@
           "write"
         ],
         "media_path": null,
-        "Content": "https://blog.kentcdodds.com/write-tests-not-too-many-mostly-integration-5e8c7fff591c"
+        "content": "",
+        "url": "https://blog.kentcdodds.com/write-tests-not-too-many-mostly-integration-5e8c7fff591c"
       },
       {
         "client": "WordPress_basic",
@@ -497,7 +539,8 @@
           "selfdeception"
         ],
         "media_path": null,
-        "Content": "https://www.indy100.com/article/the-biggest-lie-people-tell-themselves-neurosciences-psychology-8018626"
+        "content": "",
+        "url": "https://www.indy100.com/article/the-biggest-lie-people-tell-themselves-neurosciences-psychology-8018626"
       },
       {
         "client": "WordPress_basic",
@@ -508,7 +551,8 @@
           "recommendation"
         ],
         "media_path": null,
-        "Content": "https://pages.dataiku.com/recommendation-engines-us"
+        "content": "",
+        "url": "https://pages.dataiku.com/recommendation-engines-us"
       },
       {
         "client": "WordPress_basic",
@@ -521,7 +565,8 @@
           "sécurité"
         ],
         "media_path": null,
-        "Content": "https://theconversation.com/liberte-securite-dignite-au-dela-du-salariat-et-du-precariat-86387"
+        "content": "",
+        "url": "https://theconversation.com/liberte-securite-dignite-au-dela-du-salariat-et-du-precariat-86387"
       },
       {
         "client": "WordPress_basic",
@@ -535,7 +580,8 @@
           "scientifique"
         ],
         "media_path": null,
-        "Content": "https://scinfolex.com/2017/10/26/repenser-la-recherche-scientifique-au-dela-de-la-propriete/"
+        "content": "",
+        "url": "https://scinfolex.com/2017/10/26/repenser-la-recherche-scientifique-au-dela-de-la-propriete/"
       },
       {
         "client": "WordPress_basic",
@@ -548,7 +594,8 @@
           "hannaharendt"
         ],
         "media_path": null,
-        "Content": "https://www.youtube.com/watch?v=F_w5bzl-12c"
+        "content": "",
+        "url": "https://www.youtube.com/watch?v=F_w5bzl-12c"
       },
       {
         "client": "WordPress_basic",
@@ -558,7 +605,8 @@
           "reaper"
         ],
         "media_path": null,
-        "Content": "https://arstechnica.com/information-technology/2017/10/assessing-the-threat-the-reaper-botnet-poses-to-the-internet-what-we-know-now/"
+        "content": "",
+        "url": "https://arstechnica.com/information-technology/2017/10/assessing-the-threat-the-reaper-botnet-poses-to-the-internet-what-we-know-now/"
       },
       {
         "client": "WordPress_basic",
@@ -569,7 +617,8 @@
           "google"
         ],
         "media_path": null,
-        "Content": "https://www.theverge.com/2017/10/27/16561848/google-search-always-local-results-ignores-domain"
+        "content": "",
+        "url": "https://www.theverge.com/2017/10/27/16561848/google-search-always-local-results-ignores-domain"
       },
       {
         "client": "WordPress_basic",
@@ -581,7 +630,8 @@
           "memory"
         ],
         "media_path": null,
-        "Content": "https://www.nature.com/articles/s41467-017-01481-9"
+        "content": "",
+        "url": "https://www.nature.com/articles/s41467-017-01481-9"
       },
       {
         "client": "WordPress_basic",
@@ -593,7 +643,8 @@
           "website"
         ],
         "media_path": null,
-        "Content": "https://www.datocms.com/"
+        "content": "",
+        "url": "https://www.datocms.com/"
       },
       {
         "client": "WordPress_basic",
@@ -603,7 +654,8 @@
           "éthique"
         ],
         "media_path": null,
-        "Content": "https://blogrecherche.wp.imt.fr/2017/10/26/ethique-algorithmes/"
+        "content": "",
+        "url": "https://blogrecherche.wp.imt.fr/2017/10/26/ethique-algorithmes/"
       },
       {
         "client": "WordPress_basic",
@@ -612,7 +664,8 @@
           "management"
         ],
         "media_path": null,
-        "Content": "https://www.linkedin.com/pulse/le-du-management-cest-la-cessation-loick-roche/"
+        "content": "",
+        "url": "https://www.linkedin.com/pulse/le-du-management-cest-la-cessation-loick-roche/"
       },
       {
         "client": "WordPress_basic",
@@ -626,7 +679,8 @@
           "management"
         ],
         "media_path": null,
-        "Content": "https://www.letemps.ch/economie/2015/04/16/genie-handicap-se-tutoient-tete-entreprises"
+        "content": "",
+        "url": "https://www.letemps.ch/economie/2015/04/16/genie-handicap-se-tutoient-tete-entreprises"
       }
     ]
   }

@@ -40,7 +40,8 @@
           "extra"
         ],
         "media_path": null,
-        "Content": "http://example.org/2003/12/13/atom04"
+        "content": "",
+        "url": "http://example.org/2003/12/13/atom04"
       }
     ],
     "Diaspora_title_tags": [

@@ -42,7 +42,8 @@
           "conC"
         ],
         "media_path": null,
-        "Content": "http://example.org/2018/12/10/atom007"
+        "content": "",
+        "url": "http://example.org/2018/12/10/atom007"
       }
     ],
     "Diaspora_tag_opts": [
