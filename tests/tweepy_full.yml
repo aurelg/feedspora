@@ -1,0 +1,19 @@
+accounts:
+
+  - name: 'Twitter_full'
+    type: 'TweepyClient'
+    consumer_token: 'my_consumer_token'
+    consumer_secret: 'my_consumer_secret'
+    access_token: 'my_access_token'
+    access_token_secret: 'my_access_token_secret'
+    url_shortener: 'Tinyurl'
+    max_posts: 3
+    max_tags: 4
+    post_prefix: 'BEGIN- '
+    post_suffix: ' -END'
+    post_include_media: true
+    post_include_content: true
+
+feeds:
+  - 'feed.atom'
+  - 'feed.rss'

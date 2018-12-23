@@ -1,0 +1,10 @@
+accounts:
+
+  - name: 'LinkedIn_full'
+    type: 'LinkedInClient'
+    authentication_token: 'authentication_token'
+    visibility: 'connections-only'
+
+feeds:
+  - 'feed.atom'
+  - 'feed.rss'

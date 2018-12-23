@@ -1,0 +1,388 @@
+{
+  "feed.atom": {
+    "Facebook_basic": [
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+        "content": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+        "content": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
+        "link": "http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html",
+        "content": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Atom-Powered Robots Run Amok",
+        "link": "http://example.org/2003/12/13/atom03",
+        "content": "Atom-Powered Robots Run Amok #animal #vegetable #mineral"
+      }
+    ]
+  },
+  "feed.rss": {
+    "Facebook_basic": [
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author",
+        "link": "https://www.youtube.com/watch?v=24F6C1KfbjM",
+        "content": "Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author #bell #fry #lecture #myths #shannon #technology"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Débat : Google est‑il l’ami de la production et la circulation des idées ?",
+        "link": "https://theconversation.com/debat-google-est-il-lami-de-la-production-et-la-circulation-des-idees-85940",
+        "content": "Débat : Google est‑il l’ami de la production et la circulation des idées ? #google"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Digital, Numérique : Terminologie",
+        "link": "https://zythom.blogspot.fr/2017/10/terminologie.html",
+        "content": "Digital, Numérique : Terminologie #digital #numérique #terminologie"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Le burnout, une pathologie de civilisation",
+        "link": "https://www.franceinter.fr/emissions/la-tete-au-carre/la-tete-au-carre-27-septembre-2017",
+        "content": "Le burnout, une pathologie de civilisation #burnout"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.",
+        "link": "https://github.com/unixorn/awesome-zsh-plugins",
+        "content": "awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there. #awesome #git #plugins #zsh"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "antigen: The plugin manager for zsh",
+        "link": "https://github.com/zsh-users/antigen",
+        "content": "antigen: The plugin manager for zsh #antigen #git #manager #plugin #zsh"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "websocketd : WebSockets the UNIX way",
+        "link": "http://websocketd.com/",
+        "content": "websocketd : WebSockets the UNIX way #daemon #KISS #websocketd #websockets"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Word embeddings in 2017: Trends and future directions",
+        "link": "http://ruder.io/word-embeddings-2017/",
+        "content": "Word embeddings in 2017: Trends and future directions #embeddings #NLP #word"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "We are hiring a Postdoc | Social Media Collective cc @msrsmc",
+        "link": "https://socialmediacollective.org/2017/10/21/postdoc/",
+        "content": "We are hiring a Postdoc | Social Media Collective cc @msrsmc #microsoft #postdoc #research #SocialMediaCollective"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Unmet needs for analyzing biological bigdata: A survey of 704 NSF principal investigators",
+        "link": "http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005755",
+        "content": "Unmet needs for analyzing biological bigdata: A survey of 704 NSF principal investigators #bigdata #biological #research"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "La banale obéissance, par @CynthiaFleury",
+        "link": "https://www.humanite.fr/la-banale-obeissance-642048",
+        "content": "La banale obéissance, par @CynthiaFleury #FrédéricGros #obéissance"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Welcome to Bokeh",
+        "link": "https://bokeh.pydata.org/en/latest/",
+        "content": "Welcome to Bokeh #bokeh #dataviz #interactive #python"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "peewee — peewee 2.10.2 documentation",
+        "link": "http://docs.peewee-orm.com/en/latest/",
+        "content": "peewee — peewee 2.10.2 documentation #MySQL #orm #peewee #PostgreSQL #python #sqlite3"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+",
+        "link": "https://www.twilio.com/blog/2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html",
+        "content": "Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+ #python #sanic #uvloop #web"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Getting the Most out of Sqlite3 with Python",
+        "link": "https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html",
+        "content": "Getting the Most out of Sqlite3 with Python #optimization #python #sqlite3"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Introverts, Emotional Processing, Self-Esteem and Salary Negotiations",
+        "link": "http://cliffc.org/blog/2017/07/30/introverts-emotional-processing-self-esteem-and-salary-negotiations/",
+        "content": "Introverts, Emotional Processing, Self-Esteem and Salary Negotiations #cognition #delay #emotions #introversion"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Poverty shrinks brains from birth : Nature News & Comment",
+        "link": "http://www.nature.com/news/poverty-shrinks-brains-from-birth-1.17227",
+        "content": "Poverty shrinks brains from birth : Nature News & Comment #brains #cognition #poverty"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "How Social Media Endangers Knowledge",
+        "link": "https://www.wired.com/story/wikipedias-fate-shows-how-the-web-endangers-knowledge/",
+        "content": "How Social Media Endangers Knowledge #knowledge #media #social"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Your technical skills are obsolete: now what?",
+        "link": "https://codewithoutrules.com/2017/10/23/obsolete-skills/",
+        "content": "Your technical skills are obsolete: now what? #obsolete #skills #technical"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Hannah Arendt - L'impasse de la modernité",
+        "link": "https://www.scienceshumaines.com/hannah-arendt-l-impasse-de-la-modernite_fr_30336.html",
+        "content": "Hannah Arendt - L'impasse de la modernité #arendt #impasse #modernité"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "L’autonomie est à l’indépendance ce que la liberté est à l’insoumission",
+        "link": "https://www.dailymotion.com/video/x65rs5r",
+        "content": "L’autonomie est à l’indépendance ce que la liberté est à l’insoumission #autonomie #indépendance #insoumission #liberté"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.",
+        "link": "https://github.com/NullArray/MIDA-Multitool",
+        "content": "MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation. #enumeration #git #MIDA #pentesting #system"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Using Language Servers in Neovim",
+        "link": "https://fortes.com/2017/language-server-neovim",
+        "content": "Using Language Servers in Neovim #LanguageServerProtocol #LSP #microsoft #neovim"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "smartcd: Alter your bash (or zsh) environment as you cd",
+        "link": "https://github.com/cxreg/smartcd",
+        "content": "smartcd: Alter your bash (or zsh) environment as you cd #cli #git #smartcd"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Unix is my IDE",
+        "link": "https://mkaz.tech/geek/unix-is-my-ide/",
+        "content": "Unix is my IDE #fzf #ide #ripgrep #tmux #unix #vim"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Functional connectivity within and between intrinsic brain networks correlates with trait mind wandering",
+        "link": "https://www.ncbi.nlm.nih.gov/pubmed/28705691",
+        "content": "Functional connectivity within and between intrinsic brain networks correlates with trait mind wandering #creativity #DMN #intelligence #mind #neuroscience #wandering"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Penser le sens du code source avec Gilbert Simondon",
+        "link": "https://rmll.ubicast.tv/videos/sens_code_source_32101/#share",
+        "content": "Penser le sens du code source avec Gilbert Simondon #code #RMLL2017 #simondon #source"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "OpenPGP - Exporter les clefs secrètes sur une Yubikey",
+        "link": "https://blog.eleven-labs.com/fr/openpgp-clef-secrete-yubikey-partie-2/",
+        "content": "OpenPGP - Exporter les clefs secrètes sur une Yubikey #2FA #authentification #openpgp #UFA #yubikey"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Awk processing by example",
+        "link": "https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md",
+        "content": "Awk processing by example #awk #example #git #processing"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Screen sharing in Slack, made interactive",
+        "link": "https://slackhq.com/screen-sharing-in-slack-made-interactive-cf8816efaa01",
+        "content": "Screen sharing in Slack, made interactive #screen #sharing #slack"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Intermittent Fasting Promotes White Adipose Browning and Decreases Obesity by Shaping the Gut Microbiota",
+        "link": "http://www.cell.com/cell-metabolism/fulltext/S1550-4131(17)30504-1",
+        "content": "Intermittent Fasting Promotes White Adipose Browning and Decreases Obesity by Shaping the Gut Microbiota #fasting #obesity"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Programmable base editing of A•T to G•C in genomic DNA without DNA cleavage",
+        "link": "https://www.nature.com/nature/journal/vaap/ncurrent/full/nature24644.html",
+        "content": "Programmable base editing of A•T to G•C in genomic DNA without DNA cleavage #base #dna #editing"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "RNA editing with CRISPR-Cas13",
+        "link": "http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180",
+        "content": "RNA editing with CRISPR-Cas13 #cas13 #crispr #editing #RNA"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "CRISPR 2.0 Is Here, and It’s Way More Precise",
+        "link": "https://www.technologyreview.com/s/609203/crispr-20-is-here-and-its-way-more-precise/",
+        "content": "CRISPR 2.0 Is Here, and It’s Way More Precise #base #CRISPR #editing #genetics"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "MIT neuroscientists build case for new theory of memory formation",
+        "link": "http://news.mit.edu/2017/neuroscientists-build-case-new-theory-memory-formation-1023",
+        "content": "MIT neuroscientists build case for new theory of memory formation #engrams #formation #memory #neuroscience #patterns #silent #synapses"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Why Does the Neocortex Have Columns, A Theory of Learning the Structure of the World",
+        "link": "https://www.biorxiv.org/content/early/2017/09/28/162263",
+        "content": "Why Does the Neocortex Have Columns, A Theory of Learning the Structure of the World #cognition #columns #learning #neocortex #structure #world"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "OpenMined/PySyft: Encrypted DeepLearning Library",
+        "link": "https://github.com/OpenMined/PySyft",
+        "content": "OpenMined/PySyft: Encrypted DeepLearning Library #deeplearning #encryption #git #OpenMined #PySyft"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Write tests. Not too many. Mostly integration.",
+        "link": "https://blog.kentcdodds.com/write-tests-not-too-many-mostly-integration-5e8c7fff591c",
+        "content": "Write tests. Not too many. Mostly integration. #integration #tests #write"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "This is the biggest lie people tell themselves",
+        "link": "https://www.indy100.com/article/the-biggest-lie-people-tell-themselves-neurosciences-psychology-8018626",
+        "content": "This is the biggest lie people tell themselves #biais #cognitive #selfdeception"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Drive Serendipitous Discovery with Recommendation Engines",
+        "link": "https://pages.dataiku.com/recommendation-engines-us",
+        "content": "Drive Serendipitous Discovery with Recommendation Engines #engines #guide #recommendation"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Liberté, sécurité, dignité : au-delà du salariat et du précariat",
+        "link": "https://theconversation.com/liberte-securite-dignite-au-dela-du-salariat-et-du-precariat-86387",
+        "content": "Liberté, sécurité, dignité : au-delà du salariat et du précariat #dignité #liberté #précariat #salariat #sécurité"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Repenser la recherche scientifique au-delà de la propriété",
+        "link": "https://scinfolex.com/2017/10/26/repenser-la-recherche-scientifique-au-dela-de-la-propriete/",
+        "content": "Repenser la recherche scientifique au-delà de la propriété #droitdauteur #openaccess #proprieteintellectuelle #propriété #recherche #scientifique"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "HannahArendt Du devoir de la désobéissance civile",
+        "link": "https://www.youtube.com/watch?v=F_w5bzl-12c",
+        "content": "HannahArendt Du devoir de la désobéissance civile #arendt #civile #devoir #désobéissance #hannaharendt"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Assessing the threat the Reaper botnet poses to the Internet—what we know now",
+        "link": "https://arstechnica.com/information-technology/2017/10/assessing-the-threat-the-reaper-botnet-poses-to-the-internet-what-we-know-now/",
+        "content": "Assessing the threat the Reaper botnet poses to the Internet—what we know now #botnet #reaper"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Google no longer lets you change domains to search different countries",
+        "link": "https://www.theverge.com/2017/10/27/16561848/google-search-always-local-results-ignores-domain",
+        "content": "Google no longer lets you change domains to search different countries #countries #domains #google"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Temporal correlation detection using computational phase-change memory",
+        "link": "https://www.nature.com/articles/s41467-017-01481-9",
+        "content": "Temporal correlation detection using computational phase-change memory #architecture #computing #IBM #memory"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "DatoCMS - A CMS for static website generators",
+        "link": "https://www.datocms.com/",
+        "content": "DatoCMS - A CMS for static website generators #cms #datocms #static #website"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "L'éthique serait-elle la grande oubliée des algorithmes ?",
+        "link": "https://blogrecherche.wp.imt.fr/2017/10/26/ethique-algorithmes/",
+        "content": "L'éthique serait-elle la grande oubliée des algorithmes ? #algorithmes #éthique"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Le but du management, c’est la cessation du management",
+        "link": "https://www.linkedin.com/pulse/le-du-management-cest-la-cessation-loick-roche/",
+        "content": "Le but du management, c’est la cessation du management #management"
+      },
+      {
+        "client": "Facebook_basic",
+        "posting_as": "TESTER",
+        "name": "Quand le génie et le handicap se tutoient à la tête des entreprises",
+        "link": "https://www.letemps.ch/economie/2015/04/16/genie-handicap-se-tutoient-tete-entreprises",
+        "content": "Quand le génie et le handicap se tutoient à la tête des entreprises #asperger #autisme #génie #handicap #leadership #management"
+      }
+    ]
+  }
+}

@@ -2,12 +2,7 @@
 Twitter client based on tweepy.
 """
 
-import logging
-import os
 import re
-
-import lxml.html
-import requests
 import tweepy
 
 from feedspora.generic_client import GenericClient
@@ -59,62 +54,6 @@ class TweepyClient(GenericClient):
         :param entry:
         '''
 
-        def download_media(the_url):
-            '''
-            Download the media file referenced by the_url
-            Returns the path to the downloaded file
-            :param the_url:
-            '''
-
-            request = requests.get(the_url, allow_redirects=True)
-            filename = get_filename_from_cd(
-                request.headers.get('Content-Disposition'))
-
-            if not filename:
-                filename = 'random.jpg'
-            media_dir = os.getenv('MEDIA_DIR', '/tmp')
-            full_path = media_dir + '/' + filename
-            logging.info("Downloading %s as %s...", the_url, full_path)
-            open(full_path, 'wb').write(request.content)
-
-            return full_path
-
-        def get_filename_from_cd(content_disp):
-            '''
-            Get filename from Content-Disposition
-            :param content_disp:
-            '''
-
-            to_return = None
-
-            if content_disp:
-                fname = re.findall('filename=(.+)', content_disp)
-
-                if fname:
-                    to_return = fname[0]
-
-            return to_return
-
-        def strip_html(before_strip):
-            '''
-            Strip HTML from the content
-            :param before_strip:
-            '''
-
-            to_return = None
-            # Getting the stripped HTML might take multiple attempts
-            done = False
-            while not done:
-                to_return = lxml.html.fromstring(
-                    before_strip).text_content().strip()
-                done = to_return == before_strip
-                if not done:
-                    before_strip = to_return
-            # Remove all tags from end of content!
-            to_return = self.remove_ending_tags(to_return)
-
-            return to_return
-
         putative_urls = re.findall(r'[a-zA-Z0-9]+\.[a-zA-Z]{2,3}', entry.title)
         # Infer the 'inner links' Twitter may charge length for
         adjust_with_inner_links = self._link_cost + \
@@ -127,7 +66,8 @@ class TweepyClient(GenericClient):
         # Process contents
         raw_contents = entry.title
 
-        stripped_html = strip_html(entry.content) if entry.content else None
+        stripped_html = self.strip_html(entry.content) \
+                        if entry.content else None
         if self._account['post_include_content'] and stripped_html:
             raw_contents += ": " + stripped_html
         text += self._mkrichtext(raw_contents, self.filter_tags(entry),
@@ -143,7 +83,7 @@ class TweepyClient(GenericClient):
         media_path = None
         if self._account['post_include_media'] and entry.media_url:
             # Need to download image from that URL in order to post it!
-            media_path = download_media(entry.media_url)
+            media_path = self.download_media(entry.media_url)
 
         to_return = False
         if self.is_testing():

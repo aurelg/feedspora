@@ -1,0 +1,12 @@
+accounts:
+
+  - name: 'Diaspora_full'
+    type: 'DiaspyClient'
+    pod: 'diaspora_pod_url'
+    username: 'username'
+    password: 'password'
+    tags: 'hashtag1,hashtag2'
+
+feeds:
+  - 'feed.atom'
+  - 'feed.rss'

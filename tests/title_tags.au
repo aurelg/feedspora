@@ -39,7 +39,9 @@
           "day",
           "extra"
         ],
-        "Content": "http://example.org/2003/12/13/atom04"
+        "media_path": null,
+        "content": "",
+        "url": "http://example.org/2003/12/13/atom04"
       }
     ],
     "Diaspora_title_tags": [

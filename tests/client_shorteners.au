@@ -131,19 +131,25 @@
         "client": "WordPress_client_shorteners",
         "title": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
         "post_tag": [],
-        "Content": "http://tinyurl.com/ybcq7hp5"
+        "media_path": null,
+        "content": "",
+        "url": "http://tinyurl.com/ybcq7hp5"
       },
       {
         "client": "WordPress_client_shorteners",
         "title": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
         "post_tag": [],
-        "Content": "http://tinyurl.com/ybcq7hp5"
+        "media_path": null,
+        "content": "",
+        "url": "http://tinyurl.com/ybcq7hp5"
       },
       {
         "client": "WordPress_client_shorteners",
         "title": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
         "post_tag": [],
-        "Content": "http://tinyurl.com/yc3eje8l"
+        "media_path": null,
+        "content": "",
+        "url": "http://tinyurl.com/yc3eje8l"
       },
       {
         "client": "WordPress_client_shorteners",
@@ -153,7 +159,9 @@
           "vegetable",
           "mineral"
         ],
-        "Content": "http://tinyurl.com/yavnlzkw"
+        "media_path": null,
+        "content": "",
+        "url": "http://tinyurl.com/yavnlzkw"
       }
     ],
     "LinkedIn_client_shorteners": [
