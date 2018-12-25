@@ -224,26 +224,25 @@ def test_ShaarpyClient(entry_generator, expected):
 def test_FacebookClient(entry_generator, expected):
     def new_init(obj):
         class fake_provider():
-            def put_wall_post(self, text, attachment, post_as):
+            def put_object(self, post_id, area, **attachment):
                 return {
-                    'text': text,
-                    'attachment': attachment,
-                    'post_as': post_as
+                    'id': post_id,
+                    'link': attachment['link'],
+                    'message': attachment['message']
                 }
 
         obj._graph = fake_provider()
-        obj.set_common_opts({'post_as': 'me'})
+        obj.set_common_opts({'post_to_id': '411'})
 
     def check_entry(returned, expected):
-        assert returned['text'].startswith(expected['title'])
-        assert returned['attachment']['name'].index(expected['title']) > -1
-        assert returned['attachment']['link'].index(expected['link']) > -1
+        assert returned['message'].index(expected['title']) > -1
+        assert returned['message'].index(expected['link']) > -1
 
         for k in expected['tags']['title'] + \
                  expected['tags']['content'] + \
                  expected['tags']['category']:
-            assert returned['text'].index(' #{}'.format(k)) > -1, \
-                "{} not found in {}".format(' #{}'.format(k), returned['text'])
+            assert returned['message'].index(' #{}'.format(k)) > -1, \
+                "{} not found in {}".format(' #{}'.format(k), returned['message'])
 
     old_init = FacebookClient.__init__
     FacebookClient.__init__ = new_init

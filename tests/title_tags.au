@@ -63,10 +63,8 @@
     "Facebook_title_tags": [
       {
         "client": "Facebook_title_tags",
-        "posting_as": "TESTER",
-        "name": "How #Atomic #Punk Rules The Day",
-        "link": "http://example.org/2003/12/13/atom04",
-        "content": "How #Atomic #Punk Rules The Day #Atomic #Punk #day #extra"
+        "link": null,
+        "message": "How #Atomic #Punk Rules The Day #Atomic #Punk #day #extra http://example.org/2003/12/13/atom04"
       }
     ]
   }

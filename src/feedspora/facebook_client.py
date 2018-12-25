@@ -22,17 +22,10 @@ class FacebookClient(GenericClient):
         :param testing:
         '''
         self._account = account
-        profile = None
 
         if not testing:
             self._graph = facebook.GraphAPI(account['token'])
-            profile = self._graph.get_object('me')
 
-        if 'post_as' not in account:
-            if testing:
-                self._account['post_as'] = 'TESTER'
-            else:
-                self._account['post_as'] = profile['id']
         self.set_common_opts(account)
 
     def get_dict_output(self, **kwargs):
@@ -43,10 +36,8 @@ class FacebookClient(GenericClient):
 
         return {
             "client": self._account['name'],
-            "posting_as": self._account['post_as'],
-            "name": kwargs['attachment']['name'],
             "link": kwargs['attachment']['link'],
-            "content": kwargs['text']
+            "message": kwargs['attachment']['message']
         }
 
     def post(self, entry):
@@ -54,22 +45,48 @@ class FacebookClient(GenericClient):
         Post entry to Facebook.
         :param entry:
         '''
-        text = self._account['post_prefix'] + entry.title + \
-               self._account['post_suffix'] + \
-               ''.join([' #{}'.format(k) for k in self.filter_tags(entry)])
-        attachment = {'name': entry.title,
-                      'link': self.shorten_url(entry.link)
-                      }
+        # "Only owners of the URL have the ability to specify the picture,
+        #  name, thumbnail or description params." -- Facebook Law
+        # This greatly limits what we can reliably do/provide, obviously
+        stripped_html = self.strip_html(entry.content) \
+                        if entry.content else None
+        text = ''
+        if self._account['post_include_content'] and stripped_html or \
+           not self._account['post_include_media']:
+            text = self._account['post_prefix']
+            if not self._account['post_include_media']:
+                # Not including media (which pulls in the title as the link
+                # name), so we need to insert the title here
+                text += entry.title
+                if self._account['post_include_content'] and stripped_html:
+                    # More to come, so add a delimiter
+                    text += ': '
+            if self._account['post_include_content'] and stripped_html:
+                text += stripped_html
+            text += self._account['post_suffix']
+        text += ''.join([' #{}'.format(k) for k in self.filter_tags(entry)])
+        if not self._account['post_include_media']:
+            text += ' '+self.shorten_url(entry.link)
+        # Just in case...
+        text = text.strip()
+
+        # 'message' and 'link' are the only two components of a post
+        attachment = {'message': text}
+        if self._account['post_include_media']:
+            # In this case, specify the link, which will include its media
+            # (and the title as the link text, as previously mentioned)
+            attachment['link'] = self.shorten_url(entry.link)
+        else:
+            attachment['link'] = None
 
         to_return = False
-
         if self.is_testing():
             self.accumulate_testing_output(
                 self.get_dict_output(text=text, attachment=attachment))
         else:
-            # pylint: disable=no-member
-            to_return = self._graph.put_wall_post(text, attachment,
-                                                  self._account['post_as'])
-            # pylint: enable=no-member
+            to_return = self._graph.put_object(self._account['post_to_id'],
+                                               'feed', **attachment)
+            if 'id' not in to_return or to_return['id'] == 0:
+                to_return = ()
 
         return to_return

@@ -39,31 +39,23 @@
     "Facebook_client_shorteners": [
       {
         "client": "Facebook_client_shorteners",
-        "posting_as": "TESTER",
-        "name": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
-        "link": "http://tinyurl.com/ybcq7hp5",
-        "content": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others"
+        "link": null,
+        "message": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others http://tinyurl.com/ybcq7hp5"
       },
       {
         "client": "Facebook_client_shorteners",
-        "posting_as": "TESTER",
-        "name": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
-        "link": "http://tinyurl.com/ybcq7hp5",
-        "content": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others"
+        "link": null,
+        "message": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others http://tinyurl.com/ybcq7hp5"
       },
       {
         "client": "Facebook_client_shorteners",
-        "posting_as": "TESTER",
-        "name": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
-        "link": "http://tinyurl.com/yc3eje8l",
-        "content": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)"
+        "link": null,
+        "message": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat) http://tinyurl.com/yc3eje8l"
       },
       {
         "client": "Facebook_client_shorteners",
-        "posting_as": "TESTER",
-        "name": "Atom-Powered Robots Run Amok",
-        "link": "http://tinyurl.com/yavnlzkw",
-        "content": "Atom-Powered Robots Run Amok #animal #vegetable #mineral"
+        "link": null,
+        "message": "Atom-Powered Robots Run Amok #animal #vegetable #mineral http://tinyurl.com/yavnlzkw"
       }
     ],
     "Mastodon_client_shorteners": [
