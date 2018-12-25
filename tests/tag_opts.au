@@ -65,10 +65,8 @@
     "Facebook_tag_opts": [
       {
         "client": "Facebook_tag_opts",
-        "posting_as": "TESTER",
-        "name": "#TagA in the title, along with #tag1",
-        "link": "http://example.org/2018/12/10/atom007",
-        "content": "#TagA in the title, along with #tag1 #Facebook #TagA #tag1 #conC #conD"
+        "link": null,
+        "message": "#TagA in the title, along with #tag1 #Facebook #TagA #tag1 #conC #conD http://example.org/2018/12/10/atom007"
       }
     ]
   }
