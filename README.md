@@ -4,7 +4,7 @@ FeedSpora posts RSS/Atom feeds to your social network accounts. It currently sup
 
 # Installation
 
-- Install dependencies: `pip install -r requirements.txt` (you may want to get `shaarpy` from [its repo](https://github.com/aurelg/shaarpy)).
+- Install dependencies: `pip install -r requirements.txt`.
 - Then install FeedSpora with the usual `python setup.py install`.
 
 # Configuration
@@ -14,3 +14,6 @@ FeedSpora posts RSS/Atom feeds to your social network accounts. It currently sup
 # Usage
 
 - Publish all RSS/Atom entries to your account with: `python -m feedspora`
+
+# Detailed Information
+The [FeedSpora Wiki](https://github.com/aurelg/feedspora/wiki) contains many more details about configuration and other options.
