@@ -160,18 +160,14 @@ def test_MastodonClient(entry_generator, expected):
 def test_LinkedInClient(entry_generator, expected):
     def new_init(obj):
         class fake_provider():
-            def submit_share(self,
-                             comment,
-                             title,
-                             description,
-                             submitted_url,
-                             visibility_code='anyone'):
+            def submit_share(self, **kwargs):
 
                 return {
-                    'comment': comment,
-                    'title': title,
-                    'description': description,
-                    'submitted_url': submitted_url
+                    'updateUrl': 'http://www.bogus.com/fakeyResponse',
+                    'comment': kwargs['comment'],
+                    'title': kwargs['title'],
+                    'description': kwargs['description'],
+                    'submitted_url': kwargs['submitted_url']
                 }
 
         obj._linkedin = fake_provider()

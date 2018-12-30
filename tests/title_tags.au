@@ -55,9 +55,10 @@
         "client": "LinkedIn_title_tags",
         "title": "How #Atomic #Punk Rules The Day",
         "link": "http://example.org/2003/12/13/atom04",
+        "media": null,
         "visibility": "anyone",
         "description": "How #Atomic #Punk Rules The Day",
-        "Comment": "How #Atomic #Punk Rules The #Day | #extra"
+        "comment": "How #Atomic #Punk Rules The #Day | #extra"
       }
     ],
     "Facebook_title_tags": [

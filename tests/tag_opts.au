@@ -57,9 +57,10 @@
         "client": "LinkedIn_tag_opts",
         "title": "#TagA in the title, along with #tag1",
         "link": "http://example.org/2018/12/10/atom007",
+        "media": null,
         "visibility": "anyone",
         "description": "#TagA in the title, along with #tag1",
-        "Comment": "#TagA in the title, along with #tag1 | #LinkedIn"
+        "comment": "#TagA in the title, along with #tag1 | #LinkedIn"
       }
     ],
     "Facebook_tag_opts": [

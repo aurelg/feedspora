@@ -4,6 +4,13 @@ accounts:
     type: 'LinkedInClient'
     authentication_token: 'authentication_token'
     visibility: 'connections-only'
+    url_shortener: 'Tinyurl'
+    max_posts: 10
+    max_tags: 6
+    post_prefix: 'BEGIN- '
+    post_suffix: ' -END'
+    post_include_media: true
+    post_include_content: true
 
 feeds:
   - 'feed.atom'
