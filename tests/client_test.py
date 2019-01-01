@@ -61,11 +61,11 @@ def check(client, entry_generator, expected, check_entry):
 def test_DiaspyClient(entry_generator, expected):
     def new_init(obj):
         class fake_provider():
-            def post(self, text, aspect_ids=None, provider_display_name=None):
+            def post(self, **kwargs):
                 return {
-                    'text': text,
-                    'aspect_ids': aspect_ids,
-                    'provider_display_name': provider_display_name
+                    'text': kwargs['text'],
+                    'aspect_ids': kwargs['aspect_ids'],
+                    'provider_display_name': kwargs['provider_display_name']
                 }
 
         obj.stream = fake_provider()

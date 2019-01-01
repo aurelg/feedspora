@@ -6,6 +6,12 @@ accounts:
     username: 'username'
     password: 'password'
     tags: 'hashtag1,hashtag2'
+    max_posts: 5
+    max_tags: 5
+    post_prefix: 'BEGIN- '
+    post_suffix: ' -END'
+    post_include_media: true
+    post_include_content: true
 
 feeds:
   - 'feed.atom'

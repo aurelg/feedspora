@@ -3,15 +3,23 @@
     "Diaspora_client_shorteners": [
       {
         "client": "Diaspora_client_shorteners",
-        "content": "[3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others](http://tinyurl.com/ybcq7hp5) | "
+        "content": "[3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others](http://tinyurl.com/ybcq7hp5)",
+        "media": null
       },
       {
         "client": "Diaspora_client_shorteners",
-        "content": "[1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)](http://tinyurl.com/yc3eje8l) | "
+        "content": "[3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others](http://tinyurl.com/ybcq7hp5)",
+        "media": null
       },
       {
         "client": "Diaspora_client_shorteners",
-        "content": "[Atom-Powered Robots Run Amok](http://tinyurl.com/yavnlzkw) |  #animal #vegetable #mineral"
+        "content": "[1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)](http://tinyurl.com/yc3eje8l)",
+        "media": null
+      },
+      {
+        "client": "Diaspora_client_shorteners",
+        "content": "[Atom-Powered Robots Run Amok](http://tinyurl.com/yavnlzkw) | #animal #vegetable #mineral",
+        "media": null
       }
     ],
     "Twitter_client_shorteners": [

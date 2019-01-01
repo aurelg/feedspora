@@ -3,15 +3,23 @@
     "Diaspora_basic": [
       {
         "client": "Diaspora_basic",
-        "content": "[3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others](https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos) | "
+        "content": "[3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others](https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos)",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)](http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html) | "
+        "content": "[3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others](https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos)",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Atom-Powered Robots Run Amok](http://example.org/2003/12/13/atom03) |  #animal #vegetable #mineral"
+        "content": "[1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)](http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html)",
+        "media": null
+      },
+      {
+        "client": "Diaspora_basic",
+        "content": "[Atom-Powered Robots Run Amok](http://example.org/2003/12/13/atom03) | #animal #vegetable #mineral",
+        "media": null
       }
     ]
   },
@@ -19,203 +27,253 @@
     "Diaspora_basic": [
       {
         "client": "Diaspora_basic",
-        "content": "[Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author](https://www.youtube.com/watch?v=24F6C1KfbjM) |  #bell #fry #lecture #myths #shannon #technology"
+        "content": "[Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author](https://www.youtube.com/watch?v=24F6C1KfbjM) | #bell #fry #lecture #myths #shannon #technology",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Débat : Google est‑il l’ami de la production et la circulation des idées ?](https://theconversation.com/debat-google-est-il-lami-de-la-production-et-la-circulation-des-idees-85940) |  #google"
+        "content": "[Débat : Google est‑il l’ami de la production et la circulation des idées ?](https://theconversation.com/debat-google-est-il-lami-de-la-production-et-la-circulation-des-idees-85940) | #google",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Digital, Numérique : Terminologie](https://zythom.blogspot.fr/2017/10/terminologie.html) |  #digital #numérique #terminologie"
+        "content": "[Digital, Numérique : Terminologie](https://zythom.blogspot.fr/2017/10/terminologie.html) | #digital #numérique #terminologie",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Le burnout, une pathologie de civilisation](https://www.franceinter.fr/emissions/la-tete-au-carre/la-tete-au-carre-27-septembre-2017) |  #burnout"
+        "content": "[Le burnout, une pathologie de civilisation](https://www.franceinter.fr/emissions/la-tete-au-carre/la-tete-au-carre-27-septembre-2017) | #burnout",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.](https://github.com/unixorn/awesome-zsh-plugins) |  #awesome #git #plugins #zsh"
+        "content": "[awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.](https://github.com/unixorn/awesome-zsh-plugins) | #awesome #git #plugins #zsh",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[antigen: The plugin manager for zsh](https://github.com/zsh-users/antigen) |  #antigen #git #manager #plugin #zsh"
+        "content": "[antigen: The plugin manager for zsh](https://github.com/zsh-users/antigen) | #antigen #git #manager #plugin #zsh",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[websocketd : WebSockets the UNIX way](http://websocketd.com/) |  #daemon #KISS #websocketd #websockets"
+        "content": "[websocketd : WebSockets the UNIX way](http://websocketd.com/) | #daemon #KISS #websocketd #websockets",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Word embeddings in 2017: Trends and future directions](http://ruder.io/word-embeddings-2017/) |  #embeddings #NLP #word"
+        "content": "[Word embeddings in 2017: Trends and future directions](http://ruder.io/word-embeddings-2017/) | #embeddings #NLP #word",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[We are hiring a Postdoc | Social Media Collective cc @msrsmc](https://socialmediacollective.org/2017/10/21/postdoc/) |  #microsoft #postdoc #research #SocialMediaCollective"
+        "content": "[We are hiring a Postdoc | Social Media Collective cc @msrsmc](https://socialmediacollective.org/2017/10/21/postdoc/) | #microsoft #postdoc #research #SocialMediaCollective",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Unmet needs for analyzing biological bigdata: A survey of 704 NSF principal investigators](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005755) |  #bigdata #biological #research"
+        "content": "[Unmet needs for analyzing biological bigdata: A survey of 704 NSF principal investigators](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005755) | #bigdata #biological #research",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[La banale obéissance, par @CynthiaFleury](https://www.humanite.fr/la-banale-obeissance-642048) |  #FrédéricGros #obéissance"
+        "content": "[La banale obéissance, par @CynthiaFleury](https://www.humanite.fr/la-banale-obeissance-642048) | #FrédéricGros #obéissance",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Welcome to Bokeh](https://bokeh.pydata.org/en/latest/) |  #bokeh #dataviz #interactive #python"
+        "content": "[Welcome to Bokeh](https://bokeh.pydata.org/en/latest/) | #bokeh #dataviz #interactive #python",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[peewee — peewee 2.10.2 documentation](http://docs.peewee-orm.com/en/latest/) |  #MySQL #orm #peewee #PostgreSQL #python #sqlite3"
+        "content": "[peewee — peewee 2.10.2 documentation](http://docs.peewee-orm.com/en/latest/) | #MySQL #orm #peewee #PostgreSQL #python #sqlite3",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+](https://www.twilio.com/blog/2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html) |  #python #sanic #uvloop #web"
+        "content": "[Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+](https://www.twilio.com/blog/2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html) | #python #sanic #uvloop #web",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Getting the Most out of Sqlite3 with Python](https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html) |  #optimization #python #sqlite3"
+        "content": "[Getting the Most out of Sqlite3 with Python](https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html) | #optimization #python #sqlite3",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Introverts, Emotional Processing, Self-Esteem and Salary Negotiations](http://cliffc.org/blog/2017/07/30/introverts-emotional-processing-self-esteem-and-salary-negotiations/) |  #cognition #delay #emotions #introversion"
+        "content": "[Introverts, Emotional Processing, Self-Esteem and Salary Negotiations](http://cliffc.org/blog/2017/07/30/introverts-emotional-processing-self-esteem-and-salary-negotiations/) | #cognition #delay #emotions #introversion",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Poverty shrinks brains from birth : Nature News & Comment](http://www.nature.com/news/poverty-shrinks-brains-from-birth-1.17227) |  #brains #cognition #poverty"
+        "content": "[Poverty shrinks brains from birth : Nature News & Comment](http://www.nature.com/news/poverty-shrinks-brains-from-birth-1.17227) | #brains #cognition #poverty",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[How Social Media Endangers Knowledge](https://www.wired.com/story/wikipedias-fate-shows-how-the-web-endangers-knowledge/) |  #knowledge #media #social"
+        "content": "[How Social Media Endangers Knowledge](https://www.wired.com/story/wikipedias-fate-shows-how-the-web-endangers-knowledge/) | #knowledge #media #social",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Your technical skills are obsolete: now what?](https://codewithoutrules.com/2017/10/23/obsolete-skills/) |  #obsolete #skills #technical"
+        "content": "[Your technical skills are obsolete: now what?](https://codewithoutrules.com/2017/10/23/obsolete-skills/) | #obsolete #skills #technical",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Hannah Arendt - L'impasse de la modernité](https://www.scienceshumaines.com/hannah-arendt-l-impasse-de-la-modernite_fr_30336.html) |  #arendt #impasse #modernité"
+        "content": "[Hannah Arendt - L'impasse de la modernité](https://www.scienceshumaines.com/hannah-arendt-l-impasse-de-la-modernite_fr_30336.html) | #arendt #impasse #modernité",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[L’autonomie est à l’indépendance ce que la liberté est à l’insoumission](https://www.dailymotion.com/video/x65rs5r) |  #autonomie #indépendance #insoumission #liberté"
+        "content": "[L’autonomie est à l’indépendance ce que la liberté est à l’insoumission](https://www.dailymotion.com/video/x65rs5r) | #autonomie #indépendance #insoumission #liberté",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.](https://github.com/NullArray/MIDA-Multitool) |  #enumeration #git #MIDA #pentesting #system"
+        "content": "[MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.](https://github.com/NullArray/MIDA-Multitool) | #enumeration #git #MIDA #pentesting #system",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Using Language Servers in Neovim](https://fortes.com/2017/language-server-neovim) |  #LanguageServerProtocol #LSP #microsoft #neovim"
+        "content": "[Using Language Servers in Neovim](https://fortes.com/2017/language-server-neovim) | #LanguageServerProtocol #LSP #microsoft #neovim",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[smartcd: Alter your bash (or zsh) environment as you cd](https://github.com/cxreg/smartcd) |  #cli #git #smartcd"
+        "content": "[smartcd: Alter your bash (or zsh) environment as you cd](https://github.com/cxreg/smartcd) | #cli #git #smartcd",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Unix is my IDE](https://mkaz.tech/geek/unix-is-my-ide/) |  #fzf #ide #ripgrep #tmux #unix #vim"
+        "content": "[Unix is my IDE](https://mkaz.tech/geek/unix-is-my-ide/) | #fzf #ide #ripgrep #tmux #unix #vim",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Functional connectivity within and between intrinsic brain networks correlates with trait mind wandering](https://www.ncbi.nlm.nih.gov/pubmed/28705691) |  #creativity #DMN #intelligence #mind #neuroscience #wandering"
+        "content": "[Functional connectivity within and between intrinsic brain networks correlates with trait mind wandering](https://www.ncbi.nlm.nih.gov/pubmed/28705691) | #creativity #DMN #intelligence #mind #neuroscience #wandering",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Penser le sens du code source avec Gilbert Simondon](https://rmll.ubicast.tv/videos/sens_code_source_32101/#share) |  #code #RMLL2017 #simondon #source"
+        "content": "[Penser le sens du code source avec Gilbert Simondon](https://rmll.ubicast.tv/videos/sens_code_source_32101/#share) | #code #RMLL2017 #simondon #source",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[OpenPGP - Exporter les clefs secrètes sur une Yubikey](https://blog.eleven-labs.com/fr/openpgp-clef-secrete-yubikey-partie-2/) |  #2FA #authentification #openpgp #UFA #yubikey"
+        "content": "[OpenPGP - Exporter les clefs secrètes sur une Yubikey](https://blog.eleven-labs.com/fr/openpgp-clef-secrete-yubikey-partie-2/) | #2FA #authentification #openpgp #UFA #yubikey",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Awk processing by example](https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md) |  #awk #example #git #processing"
+        "content": "[Awk processing by example](https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md) | #awk #example #git #processing",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Screen sharing in Slack, made interactive](https://slackhq.com/screen-sharing-in-slack-made-interactive-cf8816efaa01) |  #screen #sharing #slack"
+        "content": "[Screen sharing in Slack, made interactive](https://slackhq.com/screen-sharing-in-slack-made-interactive-cf8816efaa01) | #screen #sharing #slack",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Intermittent Fasting Promotes White Adipose Browning and Decreases Obesity by Shaping the Gut Microbiota](http://www.cell.com/cell-metabolism/fulltext/S1550-4131(17)30504-1) |  #fasting #obesity"
+        "content": "[Intermittent Fasting Promotes White Adipose Browning and Decreases Obesity by Shaping the Gut Microbiota](http://www.cell.com/cell-metabolism/fulltext/S1550-4131(17)30504-1) | #fasting #obesity",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Programmable base editing of A•T to G•C in genomic DNA without DNA cleavage](https://www.nature.com/nature/journal/vaap/ncurrent/full/nature24644.html) |  #base #dna #editing"
+        "content": "[Programmable base editing of A•T to G•C in genomic DNA without DNA cleavage](https://www.nature.com/nature/journal/vaap/ncurrent/full/nature24644.html) | #base #dna #editing",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[RNA editing with CRISPR-Cas13](http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180) |  #cas13 #crispr #editing #RNA"
+        "content": "[RNA editing with CRISPR-Cas13](http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180) | #cas13 #crispr #editing #RNA",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[CRISPR 2.0 Is Here, and It’s Way More Precise](https://www.technologyreview.com/s/609203/crispr-20-is-here-and-its-way-more-precise/) |  #base #CRISPR #editing #genetics"
+        "content": "[CRISPR 2.0 Is Here, and It’s Way More Precise](https://www.technologyreview.com/s/609203/crispr-20-is-here-and-its-way-more-precise/) | #base #CRISPR #editing #genetics",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[MIT neuroscientists build case for new theory of memory formation](http://news.mit.edu/2017/neuroscientists-build-case-new-theory-memory-formation-1023) |  #engrams #formation #memory #neuroscience #patterns #silent #synapses"
+        "content": "[MIT neuroscientists build case for new theory of memory formation](http://news.mit.edu/2017/neuroscientists-build-case-new-theory-memory-formation-1023) | #engrams #formation #memory #neuroscience #patterns #silent #synapses",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Why Does the Neocortex Have Columns, A Theory of Learning the Structure of the World](https://www.biorxiv.org/content/early/2017/09/28/162263) |  #cognition #columns #learning #neocortex #structure #world"
+        "content": "[Why Does the Neocortex Have Columns, A Theory of Learning the Structure of the World](https://www.biorxiv.org/content/early/2017/09/28/162263) | #cognition #columns #learning #neocortex #structure #world",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[OpenMined/PySyft: Encrypted DeepLearning Library](https://github.com/OpenMined/PySyft) |  #deeplearning #encryption #git #OpenMined #PySyft"
+        "content": "[OpenMined/PySyft: Encrypted DeepLearning Library](https://github.com/OpenMined/PySyft) | #deeplearning #encryption #git #OpenMined #PySyft",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Write tests. Not too many. Mostly integration.](https://blog.kentcdodds.com/write-tests-not-too-many-mostly-integration-5e8c7fff591c) |  #integration #tests #write"
+        "content": "[Write tests. Not too many. Mostly integration.](https://blog.kentcdodds.com/write-tests-not-too-many-mostly-integration-5e8c7fff591c) | #integration #tests #write",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[This is the biggest lie people tell themselves](https://www.indy100.com/article/the-biggest-lie-people-tell-themselves-neurosciences-psychology-8018626) |  #biais #cognitive #selfdeception"
+        "content": "[This is the biggest lie people tell themselves](https://www.indy100.com/article/the-biggest-lie-people-tell-themselves-neurosciences-psychology-8018626) | #biais #cognitive #selfdeception",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Drive Serendipitous Discovery with Recommendation Engines](https://pages.dataiku.com/recommendation-engines-us) |  #engines #guide #recommendation"
+        "content": "[Drive Serendipitous Discovery with Recommendation Engines](https://pages.dataiku.com/recommendation-engines-us) | #engines #guide #recommendation",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Liberté, sécurité, dignité : au-delà du salariat et du précariat](https://theconversation.com/liberte-securite-dignite-au-dela-du-salariat-et-du-precariat-86387) |  #dignité #liberté #précariat #salariat #sécurité"
+        "content": "[Liberté, sécurité, dignité : au-delà du salariat et du précariat](https://theconversation.com/liberte-securite-dignite-au-dela-du-salariat-et-du-precariat-86387) | #dignité #liberté #précariat #salariat #sécurité",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Repenser la recherche scientifique au-delà de la propriété](https://scinfolex.com/2017/10/26/repenser-la-recherche-scientifique-au-dela-de-la-propriete/) |  #droitdauteur #openaccess #proprieteintellectuelle #propriété #recherche #scientifique"
+        "content": "[Repenser la recherche scientifique au-delà de la propriété](https://scinfolex.com/2017/10/26/repenser-la-recherche-scientifique-au-dela-de-la-propriete/) | #droitdauteur #openaccess #proprieteintellectuelle #propriété #recherche #scientifique",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[HannahArendt Du devoir de la désobéissance civile](https://www.youtube.com/watch?v=F_w5bzl-12c) |  #arendt #civile #devoir #désobéissance #hannaharendt"
+        "content": "[HannahArendt Du devoir de la désobéissance civile](https://www.youtube.com/watch?v=F_w5bzl-12c) | #arendt #civile #devoir #désobéissance #hannaharendt",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Assessing the threat the Reaper botnet poses to the Internet—what we know now](https://arstechnica.com/information-technology/2017/10/assessing-the-threat-the-reaper-botnet-poses-to-the-internet-what-we-know-now/) |  #botnet #reaper"
+        "content": "[Assessing the threat the Reaper botnet poses to the Internet—what we know now](https://arstechnica.com/information-technology/2017/10/assessing-the-threat-the-reaper-botnet-poses-to-the-internet-what-we-know-now/) | #botnet #reaper",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Google no longer lets you change domains to search different countries](https://www.theverge.com/2017/10/27/16561848/google-search-always-local-results-ignores-domain) |  #countries #domains #google"
+        "content": "[Google no longer lets you change domains to search different countries](https://www.theverge.com/2017/10/27/16561848/google-search-always-local-results-ignores-domain) | #countries #domains #google",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Temporal correlation detection using computational phase-change memory](https://www.nature.com/articles/s41467-017-01481-9) |  #architecture #computing #IBM #memory"
+        "content": "[Temporal correlation detection using computational phase-change memory](https://www.nature.com/articles/s41467-017-01481-9) | #architecture #computing #IBM #memory",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[DatoCMS - A CMS for static website generators](https://www.datocms.com/) |  #cms #datocms #static #website"
+        "content": "[DatoCMS - A CMS for static website generators](https://www.datocms.com/) | #cms #datocms #static #website",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[L'éthique serait-elle la grande oubliée des algorithmes ?](https://blogrecherche.wp.imt.fr/2017/10/26/ethique-algorithmes/) |  #algorithmes #éthique"
+        "content": "[L'éthique serait-elle la grande oubliée des algorithmes ?](https://blogrecherche.wp.imt.fr/2017/10/26/ethique-algorithmes/) | #algorithmes #éthique",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Le but du management, c’est la cessation du management](https://www.linkedin.com/pulse/le-du-management-cest-la-cessation-loick-roche/) |  #management"
+        "content": "[Le but du management, c’est la cessation du management](https://www.linkedin.com/pulse/le-du-management-cest-la-cessation-loick-roche/) | #management",
+        "media": null
       },
       {
         "client": "Diaspora_basic",
-        "content": "[Quand le génie et le handicap se tutoient à la tête des entreprises](https://www.letemps.ch/economie/2015/04/16/genie-handicap-se-tutoient-tete-entreprises) |  #asperger #autisme #génie #handicap #leadership #management"
+        "content": "[Quand le génie et le handicap se tutoient à la tête des entreprises](https://www.letemps.ch/economie/2015/04/16/genie-handicap-se-tutoient-tete-entreprises) | #asperger #autisme #génie #handicap #leadership #management",
+        "media": null
       }
     ]
   }
