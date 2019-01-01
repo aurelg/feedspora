@@ -49,7 +49,8 @@
     "Diaspora_tag_opts": [
       {
         "client": "Diaspora_tag_opts",
-        "content": "[#TagA in the title, along with #tag1](http://example.org/2018/12/10/atom007) |  #Diaspora #conA #conB"
+        "content": "[#TagA in the title, along with #tag1](http://example.org/2018/12/10/atom007) | #Diaspora #conA #conB",
+        "media": null
       }
     ],
     "LinkedIn_tag_opts": [

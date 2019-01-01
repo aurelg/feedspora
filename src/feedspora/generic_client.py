@@ -467,7 +467,8 @@ class GenericClient:
             url_parts = urllib.parse.urlparse(the_response.geturl())
             to_return = posixpath.basename(url_parts.path)
             # Sanity check
-            if not re.match(r'^\w+\.(jpg|gif|png)$', to_return, re.IGNORECASE):
+            if not re.match(r'^[\w-]+\.(jpg|jpeg|gif|png)$',
+                            to_return, re.IGNORECASE):
                 # Nope, "bad" filename
                 logging.error("Invalid media filename '%s' - ignoring",
                               to_return)

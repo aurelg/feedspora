@@ -47,7 +47,8 @@
     "Diaspora_title_tags": [
       {
         "client": "Diaspora_title_tags",
-        "content": "[How #Atomic #Punk Rules The Day](http://example.org/2003/12/13/atom04) |  #Atomic #Punk #day #extra"
+        "content": "[How #Atomic #Punk Rules The Day](http://example.org/2003/12/13/atom04) | #Atomic #Punk #day #extra",
+        "media": null
       }
     ],
     "LinkedIn_title_tags": [
