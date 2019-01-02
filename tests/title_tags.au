@@ -26,7 +26,8 @@
           "day",
           "extra"
         ],
-        "content": "This is the atomic entry content."
+        "content": "",
+        "audience": "public"
       }
     ],
     "WordPress_title_tags": [
