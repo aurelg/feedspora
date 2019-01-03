@@ -6,21 +6,24 @@
                 "title": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
                 "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
                 "tags": [],
-                "content": ""
+                "content": "",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
                 "title": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
                 "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
                 "tags": [],
-                "content": ""
+                "content": "",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
                 "title": "1.1 - Mort num\u00e9rique: que faire des donn\u00e9es personnelles et des comptes Facebook apr\u00e8s un d\u00e9c\u00e8s ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
                 "link": "http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html",
                 "tags": [],
-                "content": ""
+                "content": "",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -31,7 +34,8 @@
                     "vegetable",
                     "mineral"
                 ],
-                "content": "This is the entry content."
+                "content": "This is the entry content.",
+                "audience": "private"
             }
         ]
     },
@@ -49,7 +53,8 @@
                     "shannon",
                     "technology"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?OOrJ_g\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?OOrJ_g\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -58,7 +63,8 @@
                 "tags": [
                     "google"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?4cyK8w\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?4cyK8w\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -69,7 +75,8 @@
                     "num\u00e9rique",
                     "terminologie"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?9a5otg\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?9a5otg\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -78,7 +85,8 @@
                 "tags": [
                     "burnout"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?nhyL4g\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?nhyL4g\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -90,7 +98,8 @@
                     "plugins",
                     "zsh"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?IFK0uw\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?IFK0uw\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -103,7 +112,8 @@
                     "plugin",
                     "zsh"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?82NkSw\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?82NkSw\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -115,7 +125,8 @@
                     "websocketd",
                     "websockets"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?nVjmQg\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?nVjmQg\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -126,7 +137,8 @@
                     "NLP",
                     "word"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?mAihXA\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?mAihXA\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -138,7 +150,8 @@
                     "research",
                     "SocialMediaCollective"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?9jMjVQ\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?9jMjVQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -149,7 +162,8 @@
                     "biological",
                     "research"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?QS7iUQ\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?QS7iUQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -159,7 +173,8 @@
                     "Fr\u00e9d\u00e9ricGros",
                     "ob\u00e9issance"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?S45sbQ\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?S45sbQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -171,7 +186,8 @@
                     "interactive",
                     "python"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?Wjh-5Q\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?Wjh-5Q\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -185,7 +201,8 @@
                     "python",
                     "sqlite3"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?54Ux3Q\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?54Ux3Q\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -197,7 +214,8 @@
                     "uvloop",
                     "web"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?rSTcbQ\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?rSTcbQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -208,7 +226,8 @@
                     "python",
                     "sqlite3"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?wx9eZA\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?wx9eZA\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -220,7 +239,8 @@
                     "emotions",
                     "introversion"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?OnSP6g\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?OnSP6g\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -231,7 +251,8 @@
                     "cognition",
                     "poverty"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?7Hsjhg\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?7Hsjhg\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -242,7 +263,8 @@
                     "media",
                     "social"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?MA0nlQ\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?MA0nlQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -253,7 +275,8 @@
                     "skills",
                     "technical"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?OyUzNA\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?OyUzNA\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -264,7 +287,8 @@
                     "impasse",
                     "modernit\u00e9"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?jDjyMA\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?jDjyMA\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -276,7 +300,8 @@
                     "insoumission",
                     "libert\u00e9"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?iWi1Lg\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?iWi1Lg\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -289,7 +314,8 @@
                     "pentesting",
                     "system"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?hmOpSw\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?hmOpSw\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -301,7 +327,8 @@
                     "microsoft",
                     "neovim"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?jMMndw\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?jMMndw\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -312,7 +339,8 @@
                     "git",
                     "smartcd"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?ER04yQ\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?ER04yQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -326,7 +354,8 @@
                     "unix",
                     "vim"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?o1C-0w\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?o1C-0w\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -340,7 +369,8 @@
                     "neuroscience",
                     "wandering"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?zWs82g\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?zWs82g\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -352,7 +382,8 @@
                     "simondon",
                     "source"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?o-ejEg\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?o-ejEg\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -365,7 +396,8 @@
                     "UFA",
                     "yubikey"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?wbtA6A\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?wbtA6A\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -377,7 +409,8 @@
                     "git",
                     "processing"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?fAYP0A\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?fAYP0A\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -388,7 +421,8 @@
                     "sharing",
                     "slack"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?CYgJxQ\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?CYgJxQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -398,7 +432,8 @@
                     "fasting",
                     "obesity"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?ZwSWDQ\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?ZwSWDQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -409,7 +444,8 @@
                     "dna",
                     "editing"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?KPU8ow\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?KPU8ow\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -421,7 +457,8 @@
                     "editing",
                     "RNA"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?-8TsUw\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?-8TsUw\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -433,7 +470,8 @@
                     "editing",
                     "genetics"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?_pSrTQ\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?_pSrTQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -448,7 +486,8 @@
                     "silent",
                     "synapses"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?9DQlcQ\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?9DQlcQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -462,7 +501,8 @@
                     "structure",
                     "world"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?QynkdQ\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?QynkdQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -475,7 +515,8 @@
                     "OpenMined",
                     "PySyft"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?g2sjug\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?g2sjug\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -486,7 +527,8 @@
                     "tests",
                     "write"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?6ADmrQ\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?6ADmrQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -497,7 +539,8 @@
                     "cognitive",
                     "selfdeception"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?50cyTg\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?50cyTg\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -508,7 +551,8 @@
                     "guide",
                     "recommendation"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?O-gQHg\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?O-gQHg\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -521,7 +565,8 @@
                     "salariat",
                     "s\u00e9curit\u00e9"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?jPXRGg\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?jPXRGg\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -535,7 +580,8 @@
                     "recherche",
                     "scientifique"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?4s5TEw\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?4s5TEw\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -548,7 +594,8 @@
                     "de\u0301sobe\u0301issance",
                     "hannaharendt"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?554UDQ\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?554UDQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -558,7 +605,8 @@
                     "botnet",
                     "reaper"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?tOrkzQ\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?tOrkzQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -569,7 +617,8 @@
                     "domains",
                     "google"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?2tFmxA\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?2tFmxA\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -581,7 +630,8 @@
                     "IBM",
                     "memory"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?34Eh2g\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?34Eh2g\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -593,7 +643,8 @@
                     "static",
                     "website"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?sbqj0w\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?sbqj0w\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -603,7 +654,8 @@
                     "algorithmes",
                     "\u00e9thique"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?Bqdi1w\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?Bqdi1w\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -612,7 +664,8 @@
                 "tags": [
                     "management"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?uxot7w\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?uxot7w\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             },
             {
                 "client": "Shaarpy_full",
@@ -626,7 +679,8 @@
                     "leadership",
                     "management"
                 ],
-                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?DAfs6w\" title=\"Permalink\">Permalink</a>"
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?DAfs6w\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
             }
         ]
     }

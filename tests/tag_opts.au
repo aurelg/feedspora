@@ -26,7 +26,8 @@
           "conA",
           "conB"
         ],
-        "content": "This is the tag test entry content."
+        "content": "",
+        "audience": "public"
       }
     ],
     "WordPress_tag_opts": [

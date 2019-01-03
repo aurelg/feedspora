@@ -5,14 +5,14 @@ Shaarpy client
 import logging
 
 from bs4 import BeautifulSoup
-
-from feedspora.generic_client import GenericClient
 from shaarpy.shaarpy import Shaarpy
+from feedspora.generic_client import GenericClient
 
 
 class ShaarpyClient(GenericClient):
     ''' The ShaarpyClient handles the connection to Shaarli. '''
     _shaarpy = None
+    _post_private = False
 
     def __init__(self, account, testing):
         '''
@@ -21,6 +21,9 @@ class ShaarpyClient(GenericClient):
         :param testing:
         '''
         self._account = account
+        if 'post_audience' in account and \
+           account['post_audience'].lower() == 'private':
+            self._post_private = True
 
         if not testing:
             self._shaarpy = Shaarpy()
@@ -36,11 +39,11 @@ class ShaarpyClient(GenericClient):
 
         return {
             "client": self._account['name'],
-            "title": self._account['post_prefix'] + \
-                     kwargs['entry'].title+self._account['post_suffix'],
-            "link": self.shorten_url(kwargs['entry'].link),
-            "tags": self.filter_tags(kwargs['entry']),
-            "content": kwargs['content']
+            "link": kwargs['link'],
+            "tags": kwargs['tags'],
+            "title": kwargs['title'],
+            "content": kwargs['content'],
+            "audience": kwargs['audience']
         }
 
     def post(self, entry):
@@ -48,34 +51,42 @@ class ShaarpyClient(GenericClient):
         Post entry to Shaarli
         :param entry:
         '''
-        content = entry.content
+        title = self._account['post_prefix'] + \
+                entry.title+self._account['post_suffix']
+        link = self.shorten_url(entry.link)
+        tags = self.filter_tags(entry)
+        content = ''
+        if self._account['post_include_content'] and entry.content:
+            content = entry.content
 
-        # pylint: disable=broad-except
-        try:
-            soup = BeautifulSoup(entry.content, 'html.parser')
-            content = soup.text
-        except Exception:
-            pass
-        # pylint: enable=broad-except
+            # pylint: disable=broad-except
+            try:
+                soup = BeautifulSoup(entry.content, 'html.parser')
+                content = soup.text
+            except Exception:
+                pass
+            # pylint: enable=broad-except
 
-        content = self.remove_ending_tags(content)
+            content = self.remove_ending_tags(content)
 
         to_return = False
-
         if self.is_testing():
-            to_return = self.accumulate_testing_output(
-                self.get_dict_output(content=content, entry=entry))
+            post_args = {'link': link,
+                         'tags': tags,
+                         'title': title,
+                         'content': content,
+                         'audience': 'private' if self._post_private else \
+                                     'public'
+                         }
+            self.accumulate_testing_output(self.get_dict_output(**post_args))
         else:
-            title = self._account['post_prefix'] + \
-                    entry.title+self._account['post_suffix']
+            # pylint: disable=broad-except
             try:
-                to_return = self._shaarpy.post_link(
-                    self.shorten_url(entry.link),
-                    self.filter_tags(entry),
-                    title=title,
-                    desc=content) or True
-                # pylint: enable=assignment-from-no-return
-            except Exception as e:
-                logging.error(str(e), exc_info=True)
+                to_return = self._shaarpy.post_link(link, tags,
+                                                    title=title, desc=content,
+                                                    private=self._post_private)
+            except Exception as broad_exception:
+                logging.error(str(broad_exception), exc_info=True)
+            # pylint: enable=broad-except
 
         return to_return

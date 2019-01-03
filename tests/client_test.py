@@ -193,7 +193,8 @@ def test_LinkedInClient(entry_generator, expected):
 def test_ShaarpyClient(entry_generator, expected):
     def new_init(obj):
         class fake_provider():
-            def post_link(self, link, tags, title=None, desc=None):
+            def post_link(self, link, tags, title=None, desc=None,
+                          private=False):
                 return {
                     'link': link,
                     'tags': tags,
