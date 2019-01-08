@@ -133,7 +133,10 @@ def test_TweepyClient(entry_generator, expected):
 def test_MastodonClient(entry_generator, expected):
     def new_init(obj):
         class fake_provider():
-            def status_post(self, text, visibility=None):
+            def media_post(self, media_path=None):
+                return {'id': '0', 'media_path': media_path}
+
+            def status_post(self, text, media_ids=None, visibility=None):
                 return {'text': text, 'visibility': visibility}
 
         obj._mastodon = fake_provider()
