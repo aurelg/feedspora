@@ -12,7 +12,8 @@
         "client": "Mastodon_tag_opts",
         "delay": 0,
         "visibility": "unlisted",
-        "content": "#TagA in the title, along with #tag1 | #Mastodon #mammoth #conA #conB #conC #cond http://example.org/2018/12/10/atom007"
+        "content": "#TagA in the title, along with #tag1 | #Mastodon #mammoth #conA #conB #conC #cond http://example.org/2018/12/10/atom007",
+        "media": null
       }
     ],
     "Shaarpy_tag_opts": [

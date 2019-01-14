@@ -5,7 +5,6 @@ Wordpress client
 from urllib.parse import urlparse
 
 import os.path
-import mimetypes
 import requests
 from readability.readability import Document, Unparseable
 from wordpress_xmlrpc import Client, WordPressPost
@@ -76,20 +75,6 @@ class WPClient(GenericClient):
         :param entry:
         '''
 
-        def get_mimetype(media_path):
-            '''
-            Determine/return the mimetype of the specified file path object
-            '''
-
-            to_return = ''
-            try:
-                to_return = mimetypes.read_mime_types(media_path)
-            except UnicodeDecodeError:
-                to_return = mimetypes.guess_type(media_path)[0]
-
-            return to_return
-
-
         def upload_media(media_path):
             '''
             Upload the media using XML-RPC mechanisms
@@ -97,7 +82,7 @@ class WPClient(GenericClient):
             '''
             # prepare metadata
             upload_data = {'name': os.path.basename(media_path),
-                           'type': get_mimetype(media_path)
+                           'type': self.get_mimetype(media_path)
                            }
 
             # Read the binary file and let the XMLRPC library encode it

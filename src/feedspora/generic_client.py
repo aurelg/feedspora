@@ -6,6 +6,7 @@ import logging
 import os
 import posixpath
 import re
+import mimetypes
 import urllib.parse
 import urllib.request
 import lxml.html
@@ -357,10 +358,10 @@ class GenericClient:
                                          maxlen)
 
         return to_return
-
     # pylint: enable=no-self-use
     # pylint: enable=too-many-locals
     # pylint: enable=too-many-arguments
+
 
     def filter_tags(self, entry):
         '''
@@ -410,6 +411,7 @@ class GenericClient:
 
         return to_return
 
+
     def remove_ending_tags(self, content):
         '''
         Trim any tags from the end of content, and return the modified content,
@@ -432,6 +434,24 @@ class GenericClient:
                 content = ''
 
         return content
+
+
+    # pylint: disable=no-self-use
+    def get_mimetype(self, media_path):
+        '''
+        Determine/return the mimetype of the specified file path object
+        :param media_path:
+        '''
+
+        to_return = ''
+        try:
+            to_return = mimetypes.read_mime_types(media_path)
+        except UnicodeDecodeError:
+            to_return = mimetypes.guess_type(media_path)[0]
+
+        return to_return
+    # pylint: enable=no-self-use
+
 
     # pylint: disable=no-self-use
     def download_media(self, the_url):
