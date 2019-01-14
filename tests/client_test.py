@@ -61,15 +61,15 @@ def check(client, entry_generator, expected, check_entry):
 def test_DiaspyClient(entry_generator, expected):
     def new_init(obj):
         class fake_provider():
-            def post(self, text, aspect_ids=None, provider_display_name=None):
+            def post(self, **kwargs):
                 return {
-                    'text': text,
-                    'aspect_ids': aspect_ids,
-                    'provider_display_name': provider_display_name
+                    'text': kwargs['text'],
+                    'aspect_ids': kwargs['aspect_ids'],
+                    'provider_display_name': kwargs['provider_display_name']
                 }
 
         obj.stream = fake_provider()
-        obj._tags = []
+        obj.set_common_opts({})
 
     def check_entry(returned, expect):
         assert returned['aspect_ids'] == 'public'
@@ -97,7 +97,7 @@ def test_TweepyClient(entry_generator, expected):
         obj._api = fake_provider()
         obj._link_cost = 23
         obj._max_len = 280
-        obj._tags = []
+        obj.set_common_opts({})
 
     def check_entry(returned, expected):
         # Check the length of the text - link + 22 (twitter cost)
@@ -133,13 +133,16 @@ def test_TweepyClient(entry_generator, expected):
 def test_MastodonClient(entry_generator, expected):
     def new_init(obj):
         class fake_provider():
-            def status_post(self, text, visibility=None):
+            def media_post(self, media_path=None):
+                return {'id': '0', 'media_path': media_path}
+
+            def status_post(self, text, media_ids=None, visibility=None):
                 return {'text': text, 'visibility': visibility}
 
         obj._mastodon = fake_provider()
         obj._visibility = 'public'
         obj._delay = 0
-        obj._tags = []
+        obj.set_common_opts({})
 
     def check_entry(returned, expected):
         assert returned['text'].index(expected['title']) > -1
@@ -160,22 +163,18 @@ def test_MastodonClient(entry_generator, expected):
 def test_LinkedInClient(entry_generator, expected):
     def new_init(obj):
         class fake_provider():
-            def submit_share(self,
-                             comment,
-                             title,
-                             description,
-                             submitted_url,
-                             visibility_code='anyone'):
+            def submit_share(self, **kwargs):
 
                 return {
-                    'comment': comment,
-                    'title': title,
-                    'description': description,
-                    'submitted_url': submitted_url
+                    'updateUrl': 'http://www.bogus.com/fakeyResponse',
+                    'comment': kwargs['comment'],
+                    'title': kwargs['title'],
+                    'description': kwargs['description'],
+                    'submitted_url': kwargs['submitted_url']
                 }
 
         obj._linkedin = fake_provider()
-        obj._tags = []
+        obj.set_common_opts({})
 
     def check_entry(returned, expected):
         assert returned['comment'].index(expected['title']) > -1
@@ -197,7 +196,8 @@ def test_LinkedInClient(entry_generator, expected):
 def test_ShaarpyClient(entry_generator, expected):
     def new_init(obj):
         class fake_provider():
-            def post_link(self, link, tags, title=None, desc=None):
+            def post_link(self, link, tags, title=None, desc=None,
+                          private=False):
                 return {
                     'link': link,
                     'tags': tags,
@@ -206,7 +206,7 @@ def test_ShaarpyClient(entry_generator, expected):
                 }
 
         obj._shaarpy = fake_provider()
-        obj._tags = []
+        obj.set_common_opts({})
 
     def check_entry(returned, expected):
         assert returned['title'].index(expected['title']) > -1
@@ -224,27 +224,25 @@ def test_ShaarpyClient(entry_generator, expected):
 def test_FacebookClient(entry_generator, expected):
     def new_init(obj):
         class fake_provider():
-            def put_wall_post(self, text, attachment, post_as):
+            def put_object(self, post_id, area, **attachment):
                 return {
-                    'text': text,
-                    'attachment': attachment,
-                    'post_as': post_as
+                    'id': post_id,
+                    'link': attachment['link'],
+                    'message': attachment['message']
                 }
 
         obj._graph = fake_provider()
-        obj._post_as = 'me'
-        obj._tags = []
+        obj.set_common_opts({'post_to_id': '411'})
 
     def check_entry(returned, expected):
-        assert returned['text'].startswith(expected['title'])
-        assert returned['attachment']['name'].index(expected['title']) > -1
-        assert returned['attachment']['link'].index(expected['link']) > -1
+        assert returned['message'].index(expected['title']) > -1
+        assert returned['message'].index(expected['link']) > -1
 
         for k in expected['tags']['title'] + \
                  expected['tags']['content'] + \
                  expected['tags']['category']:
-            assert returned['text'].index(' #{}'.format(k)) > -1, \
-                "{} not found in {}".format(' #{}'.format(k), returned['text'])
+            assert returned['message'].index(' #{}'.format(k)) > -1, \
+                "{} not found in {}".format(' #{}'.format(k), returned['message'])
 
     old_init = FacebookClient.__init__
     FacebookClient.__init__ = new_init

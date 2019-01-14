@@ -1,0 +1,496 @@
+{
+  "feed.atom": {
+    "LinkedIn_basic": [
+      {
+        "client": "LinkedIn_basic",
+        "title": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+        "media": null,
+        "visibility": "anyone",
+        "description": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "comment": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+        "media": null,
+        "visibility": "anyone",
+        "description": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "comment": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
+        "link": "http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html",
+        "media": null,
+        "visibility": "anyone",
+        "description": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
+        "comment": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Atom-Powered Robots Run Amok",
+        "link": "http://example.org/2003/12/13/atom03",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Atom-Powered Robots Run Amok",
+        "comment": "Atom-Powered Robots Run Amok | #animal #vegetable #mineral"
+      }
+    ]
+  },
+  "feed.rss": {
+    "LinkedIn_basic": [
+      {
+        "client": "LinkedIn_basic",
+        "title": "Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author",
+        "link": "https://www.youtube.com/watch?v=24F6C1KfbjM",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author",
+        "comment": "#Shannon Luminary #Lecture Series - Stephen #Fry, actor, comedian, journalist, author | #bell #myths #technology"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Débat : Google est‑il l’ami de la production et la circulation des idées ?",
+        "link": "https://theconversation.com/debat-google-est-il-lami-de-la-production-et-la-circulation-des-idees-85940",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Débat : Google est‑il l’ami de la production et la circulation des idées ?",
+        "comment": "Débat : #Google est‑il l’ami de la production et la circulation des idées ?"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Digital, Numérique : Terminologie",
+        "link": "https://zythom.blogspot.fr/2017/10/terminologie.html",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Digital, Numérique : Terminologie",
+        "comment": "#Digital, #Numérique : #Terminologie"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Le burnout, une pathologie de civilisation",
+        "link": "https://www.franceinter.fr/emissions/la-tete-au-carre/la-tete-au-carre-27-septembre-2017",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Le burnout, une pathologie de civilisation",
+        "comment": "Le #burnout, une pathologie de civilisation"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.",
+        "link": "https://github.com/unixorn/awesome-zsh-plugins",
+        "media": null,
+        "visibility": "anyone",
+        "description": "awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.",
+        "comment": "awesome-zsh-plugins: A collection of #ZSH frameworks, #plugins & themes inspired by the various #awesome list collections out there. | #git"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "antigen: The plugin manager for zsh",
+        "link": "https://github.com/zsh-users/antigen",
+        "media": null,
+        "visibility": "anyone",
+        "description": "antigen: The plugin manager for zsh",
+        "comment": "#antigen: The #plugin #manager for #zsh | #git"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "websocketd : WebSockets the UNIX way",
+        "link": "http://websocketd.com/",
+        "media": null,
+        "visibility": "anyone",
+        "description": "websocketd : WebSockets the UNIX way",
+        "comment": "#websocketd : #WebSockets the UNIX way | #daemon #KISS"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Word embeddings in 2017: Trends and future directions",
+        "link": "http://ruder.io/word-embeddings-2017/",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Word embeddings in 2017: Trends and future directions",
+        "comment": "#Word #embeddings in 2017: Trends and future directions | #NLP"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "We are hiring a Postdoc | Social Media Collective cc @msrsmc",
+        "link": "https://socialmediacollective.org/2017/10/21/postdoc/",
+        "media": null,
+        "visibility": "anyone",
+        "description": "We are hiring a Postdoc | Social Media Collective cc @msrsmc",
+        "comment": "We are hiring a #Postdoc | Social Media Collective cc @msrsmc | #microsoft #research #SocialMediaCollective"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Unmet needs for analyzing biological bigdata: A survey of 704 NSF principal investigators",
+        "link": "http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005755",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Unmet needs for analyzing biological bigdata: A survey of 704 NSF principal investigators",
+        "comment": "Unmet needs for analyzing #biological #bigdata: A survey of 704 NSF principal investigators | #research"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "La banale obéissance, par @CynthiaFleury",
+        "link": "https://www.humanite.fr/la-banale-obeissance-642048",
+        "media": null,
+        "visibility": "anyone",
+        "description": "La banale obéissance, par @CynthiaFleury",
+        "comment": "La banale #obéissance, par @CynthiaFleury | #FrédéricGros"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Welcome to Bokeh",
+        "link": "https://bokeh.pydata.org/en/latest/",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Welcome to Bokeh",
+        "comment": "Welcome to #Bokeh | #dataviz #interactive #python"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "peewee — peewee 2.10.2 documentation",
+        "link": "http://docs.peewee-orm.com/en/latest/",
+        "media": null,
+        "visibility": "anyone",
+        "description": "peewee — peewee 2.10.2 documentation",
+        "comment": "#peewee — #peewee 2.10.2 documentation | #MySQL #orm #PostgreSQL #python #sqlite3"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+",
+        "link": "https://www.twilio.com/blog/2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+",
+        "comment": "Getting started with #Sanic: the asynchronous, #uvloop based #web framework for #Python 3.5+"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Getting the Most out of Sqlite3 with Python",
+        "link": "https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Getting the Most out of Sqlite3 with Python",
+        "comment": "Getting the Most out of #Sqlite3 with #Python | #optimization"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Introverts, Emotional Processing, Self-Esteem and Salary Negotiations",
+        "link": "http://cliffc.org/blog/2017/07/30/introverts-emotional-processing-self-esteem-and-salary-negotiations/",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Introverts, Emotional Processing, Self-Esteem and Salary Negotiations",
+        "comment": "Introverts, Emotional Processing, Self-Esteem and Salary Negotiations | #cognition #delay #emotions #introversion"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Poverty shrinks brains from birth : Nature News & Comment",
+        "link": "http://www.nature.com/news/poverty-shrinks-brains-from-birth-1.17227",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Poverty shrinks brains from birth : Nature News & Comment",
+        "comment": "#Poverty shrinks #brains from birth : Nature News & Comment | #cognition"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "How Social Media Endangers Knowledge",
+        "link": "https://www.wired.com/story/wikipedias-fate-shows-how-the-web-endangers-knowledge/",
+        "media": null,
+        "visibility": "anyone",
+        "description": "How Social Media Endangers Knowledge",
+        "comment": "How #Social #Media Endangers #Knowledge"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Your technical skills are obsolete: now what?",
+        "link": "https://codewithoutrules.com/2017/10/23/obsolete-skills/",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Your technical skills are obsolete: now what?",
+        "comment": "Your #technical #skills are #obsolete: now what?"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Hannah Arendt - L'impasse de la modernité",
+        "link": "https://www.scienceshumaines.com/hannah-arendt-l-impasse-de-la-modernite_fr_30336.html",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Hannah Arendt - L'impasse de la modernité",
+        "comment": "Hannah #Arendt - L'#impasse de la #modernité"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "L’autonomie est à l’indépendance ce que la liberté est à l’insoumission",
+        "link": "https://www.dailymotion.com/video/x65rs5r",
+        "media": null,
+        "visibility": "anyone",
+        "description": "L’autonomie est à l’indépendance ce que la liberté est à l’insoumission",
+        "comment": "L’autonomie est à l’indépendance ce que la #liberté est à l’insoumission | #autonomie #indépendance #insoumission"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.",
+        "link": "https://github.com/NullArray/MIDA-Multitool",
+        "media": null,
+        "visibility": "anyone",
+        "description": "MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.",
+        "comment": "MIDA-Multitool: Bash script purposed for #system #enumeration, vulnerability identification and privilege escalation. | #git #MIDA #pentesting"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Using Language Servers in Neovim",
+        "link": "https://fortes.com/2017/language-server-neovim",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Using Language Servers in Neovim",
+        "comment": "Using Language Servers in #Neovim | #LanguageServerProtocol #LSP #microsoft"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "smartcd: Alter your bash (or zsh) environment as you cd",
+        "link": "https://github.com/cxreg/smartcd",
+        "media": null,
+        "visibility": "anyone",
+        "description": "smartcd: Alter your bash (or zsh) environment as you cd",
+        "comment": "#smartcd: Alter your bash (or zsh) environment as you cd | #cli #git"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Unix is my IDE",
+        "link": "https://mkaz.tech/geek/unix-is-my-ide/",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Unix is my IDE",
+        "comment": "#Unix is my #IDE | #fzf #ripgrep #tmux #vim"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Functional connectivity within and between intrinsic brain networks correlates with trait mind wandering",
+        "link": "https://www.ncbi.nlm.nih.gov/pubmed/28705691",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Functional connectivity within and between intrinsic brain networks correlates with trait mind wandering",
+        "comment": "Functional connectivity within and between intrinsic brain networks correlates with trait #mind #wandering | #creativity #DMN #intelligence #neuroscience"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Penser le sens du code source avec Gilbert Simondon",
+        "link": "https://rmll.ubicast.tv/videos/sens_code_source_32101/#share",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Penser le sens du code source avec Gilbert Simondon",
+        "comment": "Penser le sens du #code #source avec Gilbert #Simondon | #RMLL2017"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "OpenPGP - Exporter les clefs secrètes sur une Yubikey",
+        "link": "https://blog.eleven-labs.com/fr/openpgp-clef-secrete-yubikey-partie-2/",
+        "media": null,
+        "visibility": "anyone",
+        "description": "OpenPGP - Exporter les clefs secrètes sur une Yubikey",
+        "comment": "#OpenPGP - Exporter les clefs secrètes sur une #Yubikey | #2FA #authentification #UFA"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Awk processing by example",
+        "link": "https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Awk processing by example",
+        "comment": "#Awk #processing by #example | #git"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Screen sharing in Slack, made interactive",
+        "link": "https://slackhq.com/screen-sharing-in-slack-made-interactive-cf8816efaa01",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Screen sharing in Slack, made interactive",
+        "comment": "#Screen #sharing in #Slack, made interactive"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Intermittent Fasting Promotes White Adipose Browning and Decreases Obesity by Shaping the Gut Microbiota",
+        "link": "http://www.cell.com/cell-metabolism/fulltext/S1550-4131(17)30504-1",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Intermittent Fasting Promotes White Adipose Browning and Decreases Obesity by Shaping the Gut Microbiota",
+        "comment": "Intermittent #Fasting Promotes White Adipose Browning and Decreases #Obesity by Shaping the Gut Microbiota"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Programmable base editing of A•T to G•C in genomic DNA without DNA cleavage",
+        "link": "https://www.nature.com/nature/journal/vaap/ncurrent/full/nature24644.html",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Programmable base editing of A•T to G•C in genomic DNA without DNA cleavage",
+        "comment": "Programmable #base #editing of A•T to G•C in genomic #DNA without #DNA cleavage"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "RNA editing with CRISPR-Cas13",
+        "link": "http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180",
+        "media": null,
+        "visibility": "anyone",
+        "description": "RNA editing with CRISPR-Cas13",
+        "comment": "#RNA #editing with CRISPR-Cas13 | #cas13 #crispr"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "CRISPR 2.0 Is Here, and It’s Way More Precise",
+        "link": "https://www.technologyreview.com/s/609203/crispr-20-is-here-and-its-way-more-precise/",
+        "media": null,
+        "visibility": "anyone",
+        "description": "CRISPR 2.0 Is Here, and It’s Way More Precise",
+        "comment": "#CRISPR 2.0 Is Here, and It’s Way More Precise | #base #editing #genetics"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "MIT neuroscientists build case for new theory of memory formation",
+        "link": "http://news.mit.edu/2017/neuroscientists-build-case-new-theory-memory-formation-1023",
+        "media": null,
+        "visibility": "anyone",
+        "description": "MIT neuroscientists build case for new theory of memory formation",
+        "comment": "MIT neuroscientists build case for new theory of #memory #formation | #engrams #neuroscience #patterns #silent #synapses"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Why Does the Neocortex Have Columns, A Theory of Learning the Structure of the World",
+        "link": "https://www.biorxiv.org/content/early/2017/09/28/162263",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Why Does the Neocortex Have Columns, A Theory of Learning the Structure of the World",
+        "comment": "Why Does the #Neocortex Have #Columns, A Theory of #Learning the #Structure of the #World | #cognition"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "OpenMined/PySyft: Encrypted DeepLearning Library",
+        "link": "https://github.com/OpenMined/PySyft",
+        "media": null,
+        "visibility": "anyone",
+        "description": "OpenMined/PySyft: Encrypted DeepLearning Library",
+        "comment": "#OpenMined/#PySyft: Encrypted #DeepLearning Library | #encryption #git"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Write tests. Not too many. Mostly integration.",
+        "link": "https://blog.kentcdodds.com/write-tests-not-too-many-mostly-integration-5e8c7fff591c",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Write tests. Not too many. Mostly integration.",
+        "comment": "#Write #tests. Not too many. Mostly #integration."
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "This is the biggest lie people tell themselves",
+        "link": "https://www.indy100.com/article/the-biggest-lie-people-tell-themselves-neurosciences-psychology-8018626",
+        "media": null,
+        "visibility": "anyone",
+        "description": "This is the biggest lie people tell themselves",
+        "comment": "This is the biggest lie people tell themselves | #biais #cognitive #selfdeception"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Drive Serendipitous Discovery with Recommendation Engines",
+        "link": "https://pages.dataiku.com/recommendation-engines-us",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Drive Serendipitous Discovery with Recommendation Engines",
+        "comment": "Drive Serendipitous Discovery with #Recommendation #Engines | #guide"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Liberté, sécurité, dignité : au-delà du salariat et du précariat",
+        "link": "https://theconversation.com/liberte-securite-dignite-au-dela-du-salariat-et-du-precariat-86387",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Liberté, sécurité, dignité : au-delà du salariat et du précariat",
+        "comment": "#Liberté, #sécurité, #dignité : au-delà du #salariat et du #précariat"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Repenser la recherche scientifique au-delà de la propriété",
+        "link": "https://scinfolex.com/2017/10/26/repenser-la-recherche-scientifique-au-dela-de-la-propriete/",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Repenser la recherche scientifique au-delà de la propriété",
+        "comment": "Repenser la #recherche #scientifique au-delà de la #propriété | #droitdauteur #openaccess #proprieteintellectuelle"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "HannahArendt Du devoir de la désobéissance civile",
+        "link": "https://www.youtube.com/watch?v=F_w5bzl-12c",
+        "media": null,
+        "visibility": "anyone",
+        "description": "HannahArendt Du devoir de la désobéissance civile",
+        "comment": "#HannahArendt Du #devoir de la #désobéissance #civile | #arendt"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Assessing the threat the Reaper botnet poses to the Internet—what we know now",
+        "link": "https://arstechnica.com/information-technology/2017/10/assessing-the-threat-the-reaper-botnet-poses-to-the-internet-what-we-know-now/",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Assessing the threat the Reaper botnet poses to the Internet—what we know now",
+        "comment": "Assessing the threat the #Reaper #botnet poses to the Internet—what we know now"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Google no longer lets you change domains to search different countries",
+        "link": "https://www.theverge.com/2017/10/27/16561848/google-search-always-local-results-ignores-domain",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Google no longer lets you change domains to search different countries",
+        "comment": "#Google no longer lets you change #domains to search different #countries"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Temporal correlation detection using computational phase-change memory",
+        "link": "https://www.nature.com/articles/s41467-017-01481-9",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Temporal correlation detection using computational phase-change memory",
+        "comment": "Temporal correlation detection using computational phase-change #memory | #architecture #computing #IBM"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "DatoCMS - A CMS for static website generators",
+        "link": "https://www.datocms.com/",
+        "media": null,
+        "visibility": "anyone",
+        "description": "DatoCMS - A CMS for static website generators",
+        "comment": "#DatoCMS - A #CMS for #static #website generators"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "L'éthique serait-elle la grande oubliée des algorithmes ?",
+        "link": "https://blogrecherche.wp.imt.fr/2017/10/26/ethique-algorithmes/",
+        "media": null,
+        "visibility": "anyone",
+        "description": "L'éthique serait-elle la grande oubliée des algorithmes ?",
+        "comment": "L'#éthique serait-elle la grande oubliée des #algorithmes ?"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Le but du management, c’est la cessation du management",
+        "link": "https://www.linkedin.com/pulse/le-du-management-cest-la-cessation-loick-roche/",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Le but du management, c’est la cessation du management",
+        "comment": "Le but du #management, c’est la cessation du #management"
+      },
+      {
+        "client": "LinkedIn_basic",
+        "title": "Quand le génie et le handicap se tutoient à la tête des entreprises",
+        "link": "https://www.letemps.ch/economie/2015/04/16/genie-handicap-se-tutoient-tete-entreprises",
+        "media": null,
+        "visibility": "anyone",
+        "description": "Quand le génie et le handicap se tutoient à la tête des entreprises",
+        "comment": "Quand le #génie et le #handicap se tutoient à la tête des entreprises | #asperger #autisme #leadership #management"
+      }
+    ]
+  }
+}

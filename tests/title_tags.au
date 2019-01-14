@@ -12,7 +12,8 @@
         "client": "Mastodon_title_tags",
         "delay": 0,
         "visibility": "unlisted",
-        "content": "How #Atomic #Punk Rules The #Day | #extra http://example.org/2003/12/13/atom04"
+        "content": "How #Atomic #Punk Rules The #Day | #extra http://example.org/2003/12/13/atom04",
+        "media": null
       }
     ],
     "Shaarpy_title_tags": [
@@ -26,7 +27,8 @@
           "day",
           "extra"
         ],
-        "content": "This is the atomic entry content."
+        "content": "",
+        "audience": "public"
       }
     ],
     "WordPress_title_tags": [
@@ -39,13 +41,16 @@
           "day",
           "extra"
         ],
-        "Content": "http://example.org/2003/12/13/atom04"
+        "media_path": null,
+        "content": "",
+        "url": "http://example.org/2003/12/13/atom04"
       }
     ],
     "Diaspora_title_tags": [
       {
         "client": "Diaspora_title_tags",
-        "content": "[How #Atomic #Punk Rules The Day](http://example.org/2003/12/13/atom04) |  #Atomic #Punk #day #extra"
+        "content": "[How #Atomic #Punk Rules The Day](http://example.org/2003/12/13/atom04) | #Atomic #Punk #day #extra",
+        "media": null
       }
     ],
     "LinkedIn_title_tags": [
@@ -53,18 +58,17 @@
         "client": "LinkedIn_title_tags",
         "title": "How #Atomic #Punk Rules The Day",
         "link": "http://example.org/2003/12/13/atom04",
+        "media": null,
         "visibility": "anyone",
         "description": "How #Atomic #Punk Rules The Day",
-        "Comment": "How #Atomic #Punk Rules The #Day | #extra"
+        "comment": "How #Atomic #Punk Rules The #Day | #extra"
       }
     ],
     "Facebook_title_tags": [
       {
         "client": "Facebook_title_tags",
-        "posting_as": "TESTER",
-        "name": "How #Atomic #Punk Rules The Day",
-        "link": "http://example.org/2003/12/13/atom04",
-        "content": "How #Atomic #Punk Rules The Day #Atomic #Punk #day #extra"
+        "link": null,
+        "message": "How #Atomic #Punk Rules The Day #Atomic #Punk #day #extra http://example.org/2003/12/13/atom04"
       }
     ]
   }

@@ -18,6 +18,7 @@ class LinkedInClient(GenericClient):
         :param account:
         :param testing:
         '''
+        self._account = account
 
         if not testing:
             self._linkedin = linkedin.LinkedInApplication(
@@ -32,22 +33,13 @@ class LinkedInClient(GenericClient):
         '''
 
         return {
-            "client":
-            self.get_name(),
-            "title":
-            self._trim_string(kwargs['entry'].title, 200),
-            "link":
-            self.shorten_url(kwargs['entry'].link),
-            "visibility":
-            self._visibility,
-            "description":
-            self._trim_string(kwargs['entry'].title, 256),
-            "Comment": self._post_prefix + \
-            self._mkrichtext(
-                kwargs['entry'].title,
-                self.filter_tags(kwargs['entry']),
-                maxlen=700) + \
-            self._post_suffix
+            "client": self._account['name'],
+            "comment": kwargs['comment'],
+            "title": kwargs['title'],
+            "description": kwargs['description'],
+            "link": kwargs['submitted_url'],
+            "media": kwargs['submitted_image_url'],
+            "visibility": self._visibility
         }
 
     def post(self, entry):
@@ -55,20 +47,36 @@ class LinkedInClient(GenericClient):
         Post entry to LinkedIn
         :param entry:
         '''
-        to_return = False
+        stripped_html = self.strip_html(entry.content) \
+                        if entry.content else None
+        raw_contents = entry.title
+        if self._account['post_include_content'] and stripped_html:
+            raw_contents += ': '+stripped_html
+        comment = self._account['post_prefix'] + \
+                  self._mkrichtext(raw_contents, self.filter_tags(entry),
+                                   maxlen=700) + \
+                  self._account['post_suffix']
+        # Just in case...
+        comment = comment.strip()
 
+        post_args = {'comment': comment,
+                     'title': self._trim_string(entry.title, 200),
+                     'description': self._trim_string(entry.title, 256),
+                     'submitted_url': self.shorten_url(entry.link),
+                     'submitted_image_url': None,
+                     'visibility_code': self._visibility
+                     }
+        if self._account['post_include_media'] and entry.media_url:
+            post_args['submitted_image_url'] = entry.media_url
+
+        to_return = False
         if self.is_testing():
-            self.accumulate_testing_output(self.get_dict_output(entry=entry))
+            self.accumulate_testing_output(
+                self.get_dict_output(**post_args))
         else:
-            comment = self._post_prefix + \
-                      self._mkrichtext(entry.title, self.filter_tags(entry),
-                                       maxlen=700) + \
-                      self._post_suffix
-            to_return = self._linkedin.submit_share(
-                comment=comment,
-                title=self._trim_string(entry.title, 200),
-                description=self._trim_string(entry.title, 256),
-                submitted_url=self.shorten_url(entry.link),
-                visibility_code=self._visibility)
+            to_return = self._linkedin.submit_share(**post_args)
+            if 'updateUrl' not in to_return:
+                # Failure - pass it on
+                to_return = {}
 
         return to_return

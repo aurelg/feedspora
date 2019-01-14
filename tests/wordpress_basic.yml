@@ -1,0 +1,11 @@
+accounts:
+
+  - name: 'WordPress_basic'
+    type: 'WPClient'
+    wpurl: 'some_random_url'
+    username: 'username'
+    password: 'password'
+
+feeds:
+  - 'feed.atom'
+  - 'feed.rss'

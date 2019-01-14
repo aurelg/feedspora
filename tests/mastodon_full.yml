@@ -1,0 +1,16 @@
+accounts:
+
+  - name: 'Mastodon_full'
+    type: 'MastodonClient'
+    client_id: 'client_key'
+    client_secret: 'client_secret'
+    access_token: 'access_token'
+    url: 'base_url_mastodon'
+    delay: 10
+    visibility: 'private'
+    post_include_content: true
+    post_include_media: true
+
+feeds:
+  - 'feed.atom'
+  - 'feed.rss'

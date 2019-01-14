@@ -137,16 +137,16 @@ class FeedSpora:
               "client_id=:client_id"
         self._cur.execute(sql, {
             "feedspora_id": pub_item,
-            "client_id": client.get_name()
+            "client_id": client.get_account()['name']
         })
         already_published = self._cur.fetchone() is not None
 
         if already_published:
             logging.info('Skipping already published entry in %s: %s',
-                         client.get_name(), entry.title)
+                         client.get_account()['name'], entry.title)
         else:
-            logging.info('Found entry to publish in %s: %s', client.get_name(),
-                         entry.title)
+            logging.info('Found entry to publish in %s: %s',
+                         client.get_account()['name'], entry.title)
 
         return already_published
 
@@ -160,7 +160,7 @@ class FeedSpora:
         logging.info('Storing in database of published items: %s', pub_item)
         self._cur.execute(
             "INSERT INTO posts (feedspora_id, client_id) "
-            "values (?,?)", (pub_item, client.get_name()))
+            "values (?,?)", (pub_item, client.get_account()['name']))
         self._conn.commit()
 
     def _publish_entry(self, item_num, entry):
@@ -458,7 +458,7 @@ class FeedSpora:
 
         if self._testing:
             output = {
-                client.get_name(): client.pop_testing_output()
+                client.get_account()['name']: client.pop_testing_output()
 
                 for client in self._client
             }
@@ -475,6 +475,7 @@ class FeedSpora:
                 "No client found, aborting publication", exc_info=True)
 
             return
+
         self._init_db()
 
         for feed_url in self._feed_urls:

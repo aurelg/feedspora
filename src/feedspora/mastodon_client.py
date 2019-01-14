@@ -2,9 +2,11 @@
 Mastodon client
 """
 
+import logging
 import time
 
 from mastodon import Mastodon
+from mastodon.Mastodon import MastodonIllegalArgumentError, MastodonAPIError
 
 from feedspora.generic_client import GenericClient
 
@@ -12,6 +14,7 @@ from feedspora.generic_client import GenericClient
 class MastodonClient(GenericClient):
     ''' The MastodonClient handles the connection to Mastodon. '''
     _mastodon = None
+    _invoke_delay = False
 
     def __init__(self, account, testing):
         '''
@@ -19,6 +22,8 @@ class MastodonClient(GenericClient):
         :param account:
         :param testing:
         '''
+        self._account = account
+
         client_id = account['client_id']
         client_secret = account['client_secret']
         access_token = account['access_token']
@@ -43,34 +48,73 @@ class MastodonClient(GenericClient):
         '''
 
         return {
-            "client": self.get_name(),
+            "client": self._account['name'],
             "delay": self._delay,
             "visibility": self._visibility,
-            "content": kwargs['text']
+            "content": kwargs['text'],
+            "media": kwargs['media_path']
         }
 
     def post(self, entry):
         '''
-        Post entry to Mastadon
+        Post entry to Mastodon
         :param entry:
         '''
         use_link = self.shorten_url(entry.link)
-        maxlen = 500 - len(use_link) - 1
-        text = self._post_prefix + \
-               self._mkrichtext(entry.title, self.filter_tags(entry),
-                                maxlen=maxlen) + \
-               self._post_suffix
-        text += ' ' + use_link
+        maxlen = 500 - len(use_link) - len(self._account['post_prefix']) - \
+                 len(self._account['post_suffix']) - 1
+        text = self._account['post_prefix']
+
+        # Process contents (title and perhaps stripped item entry contents)
+        raw_contents = entry.title
+        stripped_html = self.strip_html(entry.content) \
+                        if entry.content else None
+        if self._account['post_include_content'] and stripped_html:
+            raw_contents += ": " + stripped_html
+        text += self._mkrichtext(raw_contents, self.filter_tags(entry),
+                                 maxlen=maxlen)
+
+        # Apply optional suffix
+        text += self._account['post_suffix']
+
+        # Finally, add the (potentially shortened) link
+        text += " " + use_link
+
+        # Add media if appropriate
+        media_path = None
+        if self._account['post_include_media'] and entry.media_url:
+            # Need to download image from that URL in order to post it!
+            media_path = self.download_media(entry.media_url)
 
         to_return = False
-
         if self.is_testing():
-            self.accumulate_testing_output(self.get_dict_output(text=text))
+            self.accumulate_testing_output(
+                self.get_dict_output(text=text,
+                                     media_path=media_path))
         else:
-            if self._delay > 0:
+            if self._delay > 0 and self._invoke_delay:
+                logging.info("Delaying post for %d seconds...", self._delay)
                 time.sleep(self._delay)
 
+            # Post media first (if appropriate)
+            media_id = 0
+            if media_path:
+                try:
+                    media_result = self._mastodon.media_post(media_path)
+                    if 'id' in media_result:
+                        # Successfully posted - get the ID
+                        media_id = media_result['id']
+                except (MastodonIllegalArgumentError,
+                        MastodonAPIError) as exception:
+                    logging.info("Error encountered while posting %s: %s",
+                                 media_path, str(exception))
+
             to_return = self._mastodon.status_post(
-                text, visibility=self._visibility)
+                text, media_ids=([media_id] if media_id else None),
+                visibility=self._visibility)
+
+        if to_return and 'id' in to_return:
+            # Enable the posting delay for the next post attempt
+            self._invoke_delay = True
 
         return to_return

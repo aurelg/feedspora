@@ -3,66 +3,38 @@ GenericClient: baseclass providing features to specific clients.
 """
 
 import logging
+import os
+import posixpath
 import re
+import mimetypes
+import urllib.parse
+import urllib.request
+import lxml.html
 import pyshorteners
 
 
 class GenericClient:
     ''' Implements the case functionalities expected from clients '''
 
-    # pylint: disable=too-many-instance-attributes
-    _name = None
-    # Special handling of default (0) value that allows unlimited postings
-    _max_posts = 0
     _posts_done = 0
-    _tags = None
-    _tag_filter_opts = None
-    _max_tags = 100
-    _url_shortener = None
-    _url_shortener_opts = None
-    _post_prefix = ''
-    _include_content = False
-    _include_media = False
-    _post_suffix = ''
     _testing_root = None
     _testing_output = None
+    _account = None
 
-    # pylint: enable=too-many-instance-attributes
-
-    def set_name(self, name):
+    def get_account(self):
         '''
-        Client name setter
-        :param name:
-        '''
-        self._name = name
-
-    def get_name(self):
-        '''
-        Client name getter
+        Return account dict
+        (Really only needed so that non-client code can access a public method)
         '''
 
-        return self._name
-
-    def set_max_posts(self, max_posts):
-        '''
-        Client max posts setter
-        :param max_posts:
-        '''
-        self._max_posts = max_posts
-
-    def get_max_posts(self):
-        '''
-        Client max posts getter
-        '''
-
-        return self._max_posts
+        return self._account
 
     def is_post_limited(self):
         '''
         Client has a post limit set
         '''
 
-        return self._max_posts != 0
+        return self._account['max_posts'] != 0
 
     def post_within_limits(self, entry_to_post):
         '''
@@ -72,7 +44,7 @@ class GenericClient:
         to_return = False
 
         if not self.is_post_limited() or \
-           self._posts_done < self.get_max_posts():
+           self._posts_done < self._account['max_posts']:
             to_return = self.post(entry_to_post)
 
             if to_return:
@@ -94,7 +66,7 @@ class GenericClient:
         :param item_num:
         '''
 
-        return self._max_posts < 0 and item_num + self._max_posts <= 0
+        return self._account['max_posts'] < 0 and item_num + self._account['max_posts'] <= 0
 
     def set_testing_root(self, testing_root):
         '''
@@ -144,7 +116,7 @@ class GenericClient:
         :param kwargs:
         '''
 
-        return {"client": self.get_name(), "content": kwargs['text']}
+        return {"client": self._account['name'], "content": kwargs['text']}
 
     def shorten_url(self, the_url):
         '''
@@ -155,25 +127,27 @@ class GenericClient:
         to_return = the_url
         # Default
         short_options = {'timeout': 3}
-        if self._url_shortener_opts:
-            short_options.update(self._url_shortener_opts)
+        if 'url_shortener_opts' in self._account:
+            short_options.update(self._account['url_shortener_opts'])
 
-        if the_url and self._url_shortener and self._url_shortener != 'none':
+        if the_url and 'url_shortener' in self._account and \
+           self._account['url_shortener'] != 'none':
             try:
                 shortener = pyshorteners.Shortener(**short_options)
                 # Verify a legal choice
                 # pylint: disable=no-member
-                assert self._url_shortener in shortener.available_shorteners
+                assert self._account['url_shortener'] in \
+                    shortener.available_shorteners
                 # pylint: enable=no-member
-                to_return = getattr(shortener,
-                                    self._url_shortener).short(the_url)
+                to_return = getattr(
+                    shortener, self._account['url_shortener']).short(the_url)
                 # Sanity check!
 
                 if len(to_return) > len(the_url):
                     # Not shorter?  You're fired!
                     raise RuntimeError(
                         'Shortener %s produced a longer URL ' +
-                        'than the original!', self._url_shortener)
+                        'than the original!', self._account['url_shortener'])
             # pylint: disable=broad-except
             except Exception as exception:
                 # Shortening attempt failed somehow (we don't care how, except
@@ -182,75 +156,75 @@ class GenericClient:
                 if isinstance(exception, AssertionError):
                     all_shorteners = ' '.join(shortener.available_shorteners)
                     logging.error('URL shortener %s is unimplemented!',
-                                  self._url_shortener)
+                                  self._account['url_shortener'])
                     logging.info('Available URL shorteners: %s',
                                  all_shorteners)
                 else:
-                    logging.error('Cannot shorten URL %s with %s: %s', the_url,
-                                  self._url_shortener, str(exception))
+                    logging.error('Cannot shorten URL %s with %s: %s',
+                                  the_url, self._account['url_shortener'],
+                                  str(exception))
                 to_return = the_url
             # pylint: enable=broad-except
 
         return to_return
 
-    # pylint: disable=too-many-branches
-    def set_common_opts(self, account):
+    def set_option_defaults(self, account):
         '''
-        Set options common to all clients
+        Set default values for options common to all clients
         :param account:
         '''
 
+        option_defaults = {'max_posts': 0,
+                           'max_tags': 100,
+                           'post_prefix': '',
+                           'post_suffix': '',
+                           'post_include_content': False,
+                           'post_include_media': False,
+                          }
+        for option, default_value in option_defaults.items():
+            if option not in account:
+                self._account[option] = default_value
+
+
+    def set_common_opts(self, account):
+        '''
+        Set options common to all clients
+        This should only entail setting any defaults or changing any
+        formats that need such or data manipulations required
+        :param account:
+        '''
+
+        # Failsafe - should already have been initialized... except during tests
+        if not self._account:
+            if account:
+                self._account = account
+            else:
+                self._account = dict()
+
+        self.set_option_defaults(account)
+
+        # Format changes/data manipulations
         # Tags
         if 'tags' in account:
-            self._tags = [
+            self._account['tags'] = [
                 word.strip() for word in account['tags'].split(',')
             ]
         else:
-            self._tags = []
+            self._account['tags'] = []
 
         # Tag filtering options
         if 'tag_filter_opts' in account:
-            self._tag_filter_opts = {key.strip(): True \
+            self._account['tag_filter_opts'] = {key.strip(): True \
                 for key in account['tag_filter_opts'].split(',')}
         else:
-            self._tag_filter_opts = dict()
+            self._account['tag_filter_opts'] = dict()
 
-        if 'max_tags' in account:
-            self._max_tags = account['max_tags']
-
-        # Post/run limit. Negative value implies a seed-only operation.
-
-        if 'max_posts' in account:
-            self.set_max_posts(account['max_posts'])
-
-        # Include content?
-
-        if 'post_include_content' in account:
-            self._include_content = account['post_include_content']
-
-        # Include media?
-
-        if 'post_include_media' in account:
-            self._include_media = account['post_include_media']
-
-        # Post prefix
-
-        if 'post_prefix' in account:
-            self._post_prefix = account['post_prefix']
-
-        # Post suffix
-
-        if 'post_suffix' in account:
-            self._post_suffix = account['post_suffix']
-
+        # URL shortener
         if 'url_shortener' in account:
-            self._url_shortener = account['url_shortener'].lower()
-
-        if 'url_shortener_opts' in account:
-            self._url_shortener_opts = account['url_shortener_opts']
-        else:
-            self._url_shortener_opts = dict()
-    # pylint: enable=too-many-branches
+            self._account['url_shortener'] = account['url_shortener'].lower()
+        # URL shortener opts
+        if 'url_shortener_opts' not in account:
+            self._account['url_shortener_opts'] = dict()
 
     # pylint: disable=no-self-use
     def _trim_string(self, text, maxlen, etc='...', etc_if_shorter_than=None):
@@ -384,10 +358,10 @@ class GenericClient:
                                          maxlen)
 
         return to_return
-
     # pylint: enable=no-self-use
     # pylint: enable=too-many-locals
     # pylint: enable=too-many-arguments
+
 
     def filter_tags(self, entry):
         '''
@@ -399,20 +373,20 @@ class GenericClient:
         '''
 
         # First priority: user-defined tags
-        to_filter = self._tags[:] if self._tags else []
+        to_filter = self._account['tags'][:] if self._account['tags'] else []
         # Next, title tags, if appropriate
-        if (not (self._tag_filter_opts and
-                 'ignore_title' in self._tag_filter_opts)) and \
+        if (not (self._account['tag_filter_opts'] and
+                 'ignore_title' in self._account['tag_filter_opts'])) and \
            entry.tags['title']:
             to_filter.extend(entry.tags['title'])
         # Then, content tags, if appropriate
-        if (not (self._tag_filter_opts and
-                 'ignore_content' in self._tag_filter_opts)) and \
+        if (not (self._account['tag_filter_opts'] and
+                 'ignore_content' in self._account['tag_filter_opts'])) and \
            entry.tags['content']:
             to_filter.extend(entry.tags['content'])
         # Finally, category tags, again if appropriate
-        if (not (self._tag_filter_opts and
-                 'ignore_category' in self._tag_filter_opts)) and \
+        if (not (self._account['tag_filter_opts'] and
+                 'ignore_category' in self._account['tag_filter_opts'])) and \
            entry.tags['category']:
             to_filter.extend(entry.tags['category'])
 
@@ -421,20 +395,22 @@ class GenericClient:
         to_return = []
         non_case_sensitive = []
         for tag in to_filter:
-            if self._tag_filter_opts and \
-               'case-sensitive' in self._tag_filter_opts and \
+            if self._account['tag_filter_opts'] and \
+               'case-sensitive' in self._account['tag_filter_opts'] and \
                tag not in to_return:
                 to_return.append(tag)
-            elif (not (self._tag_filter_opts and
-                       'case-sensitive' in self._tag_filter_opts)) and \
+            elif (not (self._account['tag_filter_opts'] and
+                       'case-sensitive' in \
+                       self._account['tag_filter_opts'])) and \
                  tag.lower() not in non_case_sensitive:
                 to_return.append(tag)
                 non_case_sensitive.append(tag.lower())
             # We may have all that were specified
-            if len(to_return) >= self._max_tags:
+            if len(to_return) >= self._account['max_tags']:
                 break
 
         return to_return
+
 
     def remove_ending_tags(self, content):
         '''
@@ -443,8 +419,9 @@ class GenericClient:
         :param content:
         '''
 
-        if content and (not (self._tag_filter_opts and
-                             'ignore_content' in self._tag_filter_opts)):
+        if content and (not
+                        (self._account['tag_filter_opts'] and \
+                         'ignore_content' in self._account['tag_filter_opts'])):
             tag_pattern = r'\s+#([\w]+)$'
             match_result = re.search(tag_pattern, content)
 
@@ -457,3 +434,102 @@ class GenericClient:
                 content = ''
 
         return content
+
+
+    # pylint: disable=no-self-use
+    def get_mimetype(self, media_path):
+        '''
+        Determine/return the mimetype of the specified file path object
+        :param media_path:
+        '''
+
+        to_return = ''
+        try:
+            to_return = mimetypes.read_mime_types(media_path)
+        except UnicodeDecodeError:
+            to_return = mimetypes.guess_type(media_path)[0]
+
+        return to_return
+    # pylint: enable=no-self-use
+
+
+    # pylint: disable=no-self-use
+    def download_media(self, the_url):
+        '''
+        Download the media file referenced by the_url
+        Returns the path to the downloaded file
+        :param the_url:
+        '''
+
+        def get_filename_from_cd(content_disp):
+            '''
+            Get filename from Content-Disposition
+            :param content_disp:
+            '''
+
+            to_return = None
+
+            if content_disp:
+                fname = re.findall('filename=(.+)', content_disp)
+
+                if fname:
+                    to_return = fname[0]
+
+            return to_return
+
+
+        def get_filename_from_response(the_response):
+            '''
+            Attempt to get the filename from the response
+            :param the_response:
+            '''
+
+            url_parts = urllib.parse.urlparse(the_response.geturl())
+            to_return = posixpath.basename(url_parts.path)
+            # Sanity check
+            if not re.match(r'^[\w-]+\.(jpg|jpeg|gif|png)$',
+                            to_return, re.IGNORECASE):
+                # Nope, "bad" filename
+                logging.error("Invalid media filename '%s' - ignoring",
+                              to_return)
+                to_return = ''
+
+            return to_return
+
+
+        request = urllib.request.Request(the_url)
+        request.add_header('User-Agent', 'Mozilla/5.0')
+        response = urllib.request.urlopen(request)
+        filename = get_filename_from_cd(
+            request.get_header('Content-Disposition')) or \
+            get_filename_from_response(response) or \
+            'random.jpg'
+
+        media_dir = os.getenv('MEDIA_DIR', '/tmp')
+        full_path = media_dir + '/' + filename
+        logging.info("Downloading %s as %s...", the_url, full_path)
+        with open(full_path, 'wb') as file_chunk:
+            file_chunk.write(response.read())
+
+        return full_path
+    # pylint: enable=no-self-use
+
+    def strip_html(self, before_strip):
+        '''
+        Strip HTML from the content
+        :param before_strip:
+        '''
+
+        to_return = None
+        # Getting the stripped HTML might take multiple attempts
+        done = False
+        while not done:
+            to_return = lxml.html.fromstring(
+                before_strip).text_content().strip()
+            done = to_return == before_strip
+            if not done:
+                before_strip = to_return
+        # Remove all tags from end of content!
+        to_return = self.remove_ending_tags(to_return)
+
+        return to_return

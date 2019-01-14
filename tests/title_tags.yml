@@ -16,6 +16,7 @@ accounts:
   - name: 'Facebook_title_tags'
     type: 'FacebookClient'
     token: 'your_facebook_token'
+    post_to_id: '411'
 
   - name: 'Mastodon_title_tags'
     type: 'MastodonClient'

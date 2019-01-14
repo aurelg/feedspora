@@ -1,0 +1,280 @@
+{
+    "feed.atom": {
+        "Diaspora_full": [
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others](https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos) -END | #hashtag1 #hashtag2",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others](https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos) -END | #hashtag1 #hashtag2",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [1.1 - Mort num\u00e9rique: que faire des donn\u00e9es personnelles et des comptes Facebook apr\u00e8s un d\u00e9c\u00e8s ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)](http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html) -END | #hashtag1 #hashtag2",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Atom-Powered Robots Run Amok](http://example.org/2003/12/13/atom03): This is the entry content. -END | #hashtag1 #hashtag2 #animal #vegetable #mineral",
+                "media": null
+            }
+        ]
+    },
+    "feed.rss": {
+        "Diaspora_full": [
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author](https://www.youtube.com/watch?v=24F6C1KfbjM): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #bell #fry #lecture",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [D\u00e9bat : Google est\u2011il l\u2019ami de\u00a0la\u00a0production et\u00a0la\u00a0circulation des\u00a0id\u00e9es\u00a0?](https://theconversation.com/debat-google-est-il-lami-de-la-production-et-la-circulation-des-idees-85940): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #google",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Digital, Num\u00e9rique : Terminologie](https://zythom.blogspot.fr/2017/10/terminologie.html): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #digital #num\u00e9rique #terminologie",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Le burnout, une pathologie de civilisation](https://www.franceinter.fr/emissions/la-tete-au-carre/la-tete-au-carre-27-septembre-2017): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #burnout",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.](https://github.com/unixorn/awesome-zsh-plugins): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #awesome #git #plugins",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [antigen: The plugin manager for zsh](https://github.com/zsh-users/antigen): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #antigen #git #manager",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [websocketd : WebSockets the UNIX way](http://websocketd.com/): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #daemon #KISS #websocketd",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Word embeddings in 2017: Trends and future directions](http://ruder.io/word-embeddings-2017/): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #embeddings #NLP #word",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [We are hiring a Postdoc | Social Media Collective cc @msrsmc](https://socialmediacollective.org/2017/10/21/postdoc/): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #microsoft #postdoc #research",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Unmet needs for analyzing biological bigdata: A survey of 704 NSF principal investigators](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005755): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #bigdata #biological #research",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [La banale ob\u00e9issance, par @CynthiaFleury](https://www.humanite.fr/la-banale-obeissance-642048): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #Fr\u00e9d\u00e9ricGros #ob\u00e9issance",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Welcome to Bokeh](https://bokeh.pydata.org/en/latest/): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #bokeh #dataviz #interactive",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [peewee \u2014 peewee 2.10.2 documentation](http://docs.peewee-orm.com/en/latest/): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #MySQL #orm #peewee",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+](https://www.twilio.com/blog/2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #python #sanic #uvloop",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Getting the Most out of Sqlite3 with Python](https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #optimization #python #sqlite3",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Introverts, Emotional Processing, Self-Esteem and Salary Negotiations](http://cliffc.org/blog/2017/07/30/introverts-emotional-processing-self-esteem-and-salary-negotiations/): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #cognition #delay #emotions",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Poverty shrinks brains from birth : Nature News & Comment](http://www.nature.com/news/poverty-shrinks-brains-from-birth-1.17227): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #brains #cognition #poverty",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [How Social Media Endangers Knowledge](https://www.wired.com/story/wikipedias-fate-shows-how-the-web-endangers-knowledge/): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #knowledge #media #social",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Your technical skills are obsolete: now what?](https://codewithoutrules.com/2017/10/23/obsolete-skills/): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #obsolete #skills #technical",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Hannah Arendt - L'impasse de la modernit\u00e9](https://www.scienceshumaines.com/hannah-arendt-l-impasse-de-la-modernite_fr_30336.html): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #arendt #impasse #modernit\u00e9",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [L\u2019autonomie est \u00e0 l\u2019ind\u00e9pendance ce que la libert\u00e9 est \u00e0 l\u2019insoumission](https://www.dailymotion.com/video/x65rs5r): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #autonomie #ind\u00e9pendance #insoumission",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.](https://github.com/NullArray/MIDA-Multitool): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #enumeration #git #MIDA",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Using Language Servers in Neovim](https://fortes.com/2017/language-server-neovim): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #LanguageServerProtocol #LSP #microsoft",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [smartcd: Alter your bash (or zsh) environment as you cd](https://github.com/cxreg/smartcd): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #cli #git #smartcd",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Unix is my IDE](https://mkaz.tech/geek/unix-is-my-ide/): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #fzf #ide #ripgrep",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Functional connectivity within and between intrinsic brain networks correlates with trait mind wandering](https://www.ncbi.nlm.nih.gov/pubmed/28705691): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #creativity #DMN #intelligence",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Penser le sens du code source avec Gilbert Simondon](https://rmll.ubicast.tv/videos/sens_code_source_32101/#share): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #code #RMLL2017 #simondon",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [OpenPGP - Exporter les clefs secr\u00e8tes sur une Yubikey](https://blog.eleven-labs.com/fr/openpgp-clef-secrete-yubikey-partie-2/): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #2FA #authentification #openpgp",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Awk processing by example](https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #awk #example #git",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Screen sharing in Slack, made interactive](https://slackhq.com/screen-sharing-in-slack-made-interactive-cf8816efaa01): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #screen #sharing #slack",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Intermittent Fasting Promotes White Adipose Browning and Decreases Obesity by Shaping the Gut\u00a0Microbiota](http://www.cell.com/cell-metabolism/fulltext/S1550-4131(17)30504-1): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #fasting #obesity",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Programmable base editing of A\u2022T to G\u2022C in genomic DNA without DNA cleavage](https://www.nature.com/nature/journal/vaap/ncurrent/full/nature24644.html): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #base #dna #editing",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [RNA editing with CRISPR-Cas13](http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #cas13 #crispr #editing",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [CRISPR 2.0 Is Here, and It\u2019s Way More Precise](https://www.technologyreview.com/s/609203/crispr-20-is-here-and-its-way-more-precise/): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #base #CRISPR #editing",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [MIT neuroscientists build case for new theory of memory formation](http://news.mit.edu/2017/neuroscientists-build-case-new-theory-memory-formation-1023): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #engrams #formation #memory",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Why Does the Neocortex Have Columns, A Theory of Learning the Structure of the World](https://www.biorxiv.org/content/early/2017/09/28/162263): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #cognition #columns #learning",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [OpenMined/PySyft: Encrypted DeepLearning Library](https://github.com/OpenMined/PySyft): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #deeplearning #encryption #git",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Write tests. Not too many. Mostly integration.](https://blog.kentcdodds.com/write-tests-not-too-many-mostly-integration-5e8c7fff591c): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #integration #tests #write",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [This is the biggest lie people tell themselves](https://www.indy100.com/article/the-biggest-lie-people-tell-themselves-neurosciences-psychology-8018626): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #biais #cognitive #selfdeception",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Drive Serendipitous Discovery with Recommendation Engines](https://pages.dataiku.com/recommendation-engines-us): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #engines #guide #recommendation",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Libert\u00e9, s\u00e9curit\u00e9, dignit\u00e9\u00a0: au-del\u00e0 du\u00a0salariat et\u00a0du\u00a0pr\u00e9cariat](https://theconversation.com/liberte-securite-dignite-au-dela-du-salariat-et-du-precariat-86387): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #dignit\u00e9 #libert\u00e9 #pr\u00e9cariat",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Repenser la recherche scientifique au-del\u00e0 de la propri\u00e9t\u00e9](https://scinfolex.com/2017/10/26/repenser-la-recherche-scientifique-au-dela-de-la-propriete/): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #droitdauteur #openaccess #proprieteintellectuelle",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [HannahArendt Du devoir de la de\u0301sobe\u0301issance civile](https://www.youtube.com/watch?v=F_w5bzl-12c): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #arendt #civile #devoir",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Assessing the threat the Reaper botnet poses to the Internet\u2014what we know now](https://arstechnica.com/information-technology/2017/10/assessing-the-threat-the-reaper-botnet-poses-to-the-internet-what-we-know-now/): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #botnet #reaper",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Google no longer lets you change domains to search different countries](https://www.theverge.com/2017/10/27/16561848/google-search-always-local-results-ignores-domain): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #countries #domains #google",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Temporal correlation detection using computational phase-change memory](https://www.nature.com/articles/s41467-017-01481-9): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #architecture #computing #IBM",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [DatoCMS - A CMS for static website generators](https://www.datocms.com/): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #cms #datocms #static",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [L'\u00e9thique serait-elle la grande oubli\u00e9e des algorithmes ?](https://blogrecherche.wp.imt.fr/2017/10/26/ethique-algorithmes/): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #algorithmes #\u00e9thique",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Le but du management, c\u2019est la cessation du management](https://www.linkedin.com/pulse/le-du-management-cest-la-cessation-loick-roche/): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #management",
+                "media": null
+            },
+            {
+                "client": "Diaspora_full",
+                "content": "BEGIN- [Quand le g\u00e9nie et le handicap se tutoient \u00e0 la t\u00eate des entreprises](https://www.letemps.ch/economie/2015/04/16/genie-handicap-se-tutoient-tete-entreprises): \u2014 Permalink\n\u2014 Permalink -END | #hashtag1 #hashtag2 #asperger #autisme #g\u00e9nie",
+                "media": null
+            }
+        ]
+    }
+}

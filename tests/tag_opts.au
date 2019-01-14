@@ -12,7 +12,8 @@
         "client": "Mastodon_tag_opts",
         "delay": 0,
         "visibility": "unlisted",
-        "content": "#TagA in the title, along with #tag1 | #Mastodon #mammoth #conA #conB #conC #cond http://example.org/2018/12/10/atom007"
+        "content": "#TagA in the title, along with #tag1 | #Mastodon #mammoth #conA #conB #conC #cond http://example.org/2018/12/10/atom007",
+        "media": null
       }
     ],
     "Shaarpy_tag_opts": [
@@ -26,7 +27,8 @@
           "conA",
           "conB"
         ],
-        "content": "This is the tag test entry content."
+        "content": "",
+        "audience": "public"
       }
     ],
     "WordPress_tag_opts": [
@@ -41,13 +43,16 @@
           "conB",
           "conC"
         ],
-        "Content": "http://example.org/2018/12/10/atom007"
+        "media_path": null,
+        "content": "",
+        "url": "http://example.org/2018/12/10/atom007"
       }
     ],
     "Diaspora_tag_opts": [
       {
         "client": "Diaspora_tag_opts",
-        "content": "[#TagA in the title, along with #tag1](http://example.org/2018/12/10/atom007) |  #Diaspora #conA #conB"
+        "content": "[#TagA in the title, along with #tag1](http://example.org/2018/12/10/atom007) | #Diaspora #conA #conB",
+        "media": null
       }
     ],
     "LinkedIn_tag_opts": [
@@ -55,18 +60,17 @@
         "client": "LinkedIn_tag_opts",
         "title": "#TagA in the title, along with #tag1",
         "link": "http://example.org/2018/12/10/atom007",
+        "media": null,
         "visibility": "anyone",
         "description": "#TagA in the title, along with #tag1",
-        "Comment": "#TagA in the title, along with #tag1 | #LinkedIn"
+        "comment": "#TagA in the title, along with #tag1 | #LinkedIn"
       }
     ],
     "Facebook_tag_opts": [
       {
         "client": "Facebook_tag_opts",
-        "posting_as": "TESTER",
-        "name": "#TagA in the title, along with #tag1",
-        "link": "http://example.org/2018/12/10/atom007",
-        "content": "#TagA in the title, along with #tag1 #Facebook #TagA #tag1 #conC #conD"
+        "link": null,
+        "message": "#TagA in the title, along with #tag1 #Facebook #TagA #tag1 #conC #conD http://example.org/2018/12/10/atom007"
       }
     ]
   }

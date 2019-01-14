@@ -1,0 +1,687 @@
+{
+    "feed.atom": {
+        "Shaarpy_full": [
+            {
+                "client": "Shaarpy_full",
+                "title": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+                "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+                "tags": [],
+                "content": "",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+                "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+                "tags": [],
+                "content": "",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "1.1 - Mort num\u00e9rique: que faire des donn\u00e9es personnelles et des comptes Facebook apr\u00e8s un d\u00e9c\u00e8s ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
+                "link": "http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html",
+                "tags": [],
+                "content": "",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Atom-Powered Robots Run Amok",
+                "link": "http://example.org/2003/12/13/atom03",
+                "tags": [
+                    "animal",
+                    "vegetable",
+                    "mineral"
+                ],
+                "content": "This is the entry content.",
+                "audience": "private"
+            }
+        ]
+    },
+    "feed.rss": {
+        "Shaarpy_full": [
+            {
+                "client": "Shaarpy_full",
+                "title": "Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author",
+                "link": "https://www.youtube.com/watch?v=24F6C1KfbjM",
+                "tags": [
+                    "bell",
+                    "fry",
+                    "lecture",
+                    "myths",
+                    "shannon",
+                    "technology"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?OOrJ_g\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "D\u00e9bat : Google est\u2011il l\u2019ami de\u00a0la\u00a0production et\u00a0la\u00a0circulation des\u00a0id\u00e9es\u00a0?",
+                "link": "https://theconversation.com/debat-google-est-il-lami-de-la-production-et-la-circulation-des-idees-85940",
+                "tags": [
+                    "google"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?4cyK8w\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Digital, Num\u00e9rique : Terminologie",
+                "link": "https://zythom.blogspot.fr/2017/10/terminologie.html",
+                "tags": [
+                    "digital",
+                    "num\u00e9rique",
+                    "terminologie"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?9a5otg\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Le burnout, une pathologie de civilisation",
+                "link": "https://www.franceinter.fr/emissions/la-tete-au-carre/la-tete-au-carre-27-septembre-2017",
+                "tags": [
+                    "burnout"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?nhyL4g\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.",
+                "link": "https://github.com/unixorn/awesome-zsh-plugins",
+                "tags": [
+                    "awesome",
+                    "git",
+                    "plugins",
+                    "zsh"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?IFK0uw\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "antigen: The plugin manager for zsh",
+                "link": "https://github.com/zsh-users/antigen",
+                "tags": [
+                    "antigen",
+                    "git",
+                    "manager",
+                    "plugin",
+                    "zsh"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?82NkSw\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "websocketd : WebSockets the UNIX way",
+                "link": "http://websocketd.com/",
+                "tags": [
+                    "daemon",
+                    "KISS",
+                    "websocketd",
+                    "websockets"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?nVjmQg\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Word embeddings in 2017: Trends and future directions",
+                "link": "http://ruder.io/word-embeddings-2017/",
+                "tags": [
+                    "embeddings",
+                    "NLP",
+                    "word"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?mAihXA\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "We are hiring a Postdoc | Social Media Collective cc @msrsmc",
+                "link": "https://socialmediacollective.org/2017/10/21/postdoc/",
+                "tags": [
+                    "microsoft",
+                    "postdoc",
+                    "research",
+                    "SocialMediaCollective"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?9jMjVQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Unmet needs for analyzing biological bigdata: A survey of 704 NSF principal investigators",
+                "link": "http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005755",
+                "tags": [
+                    "bigdata",
+                    "biological",
+                    "research"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?QS7iUQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "La banale ob\u00e9issance, par @CynthiaFleury",
+                "link": "https://www.humanite.fr/la-banale-obeissance-642048",
+                "tags": [
+                    "Fr\u00e9d\u00e9ricGros",
+                    "ob\u00e9issance"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?S45sbQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Welcome to Bokeh",
+                "link": "https://bokeh.pydata.org/en/latest/",
+                "tags": [
+                    "bokeh",
+                    "dataviz",
+                    "interactive",
+                    "python"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?Wjh-5Q\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "peewee \u2014 peewee 2.10.2 documentation",
+                "link": "http://docs.peewee-orm.com/en/latest/",
+                "tags": [
+                    "MySQL",
+                    "orm",
+                    "peewee",
+                    "PostgreSQL",
+                    "python",
+                    "sqlite3"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?54Ux3Q\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+",
+                "link": "https://www.twilio.com/blog/2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html",
+                "tags": [
+                    "python",
+                    "sanic",
+                    "uvloop",
+                    "web"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?rSTcbQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Getting the Most out of Sqlite3 with Python",
+                "link": "https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html",
+                "tags": [
+                    "optimization",
+                    "python",
+                    "sqlite3"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?wx9eZA\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Introverts, Emotional Processing, Self-Esteem and Salary Negotiations",
+                "link": "http://cliffc.org/blog/2017/07/30/introverts-emotional-processing-self-esteem-and-salary-negotiations/",
+                "tags": [
+                    "cognition",
+                    "delay",
+                    "emotions",
+                    "introversion"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?OnSP6g\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Poverty shrinks brains from birth : Nature News & Comment",
+                "link": "http://www.nature.com/news/poverty-shrinks-brains-from-birth-1.17227",
+                "tags": [
+                    "brains",
+                    "cognition",
+                    "poverty"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?7Hsjhg\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "How Social Media Endangers Knowledge",
+                "link": "https://www.wired.com/story/wikipedias-fate-shows-how-the-web-endangers-knowledge/",
+                "tags": [
+                    "knowledge",
+                    "media",
+                    "social"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?MA0nlQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Your technical skills are obsolete: now what?",
+                "link": "https://codewithoutrules.com/2017/10/23/obsolete-skills/",
+                "tags": [
+                    "obsolete",
+                    "skills",
+                    "technical"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?OyUzNA\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Hannah Arendt - L'impasse de la modernit\u00e9",
+                "link": "https://www.scienceshumaines.com/hannah-arendt-l-impasse-de-la-modernite_fr_30336.html",
+                "tags": [
+                    "arendt",
+                    "impasse",
+                    "modernit\u00e9"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?jDjyMA\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "L\u2019autonomie est \u00e0 l\u2019ind\u00e9pendance ce que la libert\u00e9 est \u00e0 l\u2019insoumission",
+                "link": "https://www.dailymotion.com/video/x65rs5r",
+                "tags": [
+                    "autonomie",
+                    "ind\u00e9pendance",
+                    "insoumission",
+                    "libert\u00e9"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?iWi1Lg\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.",
+                "link": "https://github.com/NullArray/MIDA-Multitool",
+                "tags": [
+                    "enumeration",
+                    "git",
+                    "MIDA",
+                    "pentesting",
+                    "system"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?hmOpSw\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Using Language Servers in Neovim",
+                "link": "https://fortes.com/2017/language-server-neovim",
+                "tags": [
+                    "LanguageServerProtocol",
+                    "LSP",
+                    "microsoft",
+                    "neovim"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?jMMndw\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "smartcd: Alter your bash (or zsh) environment as you cd",
+                "link": "https://github.com/cxreg/smartcd",
+                "tags": [
+                    "cli",
+                    "git",
+                    "smartcd"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?ER04yQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Unix is my IDE",
+                "link": "https://mkaz.tech/geek/unix-is-my-ide/",
+                "tags": [
+                    "fzf",
+                    "ide",
+                    "ripgrep",
+                    "tmux",
+                    "unix",
+                    "vim"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?o1C-0w\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Functional connectivity within and between intrinsic brain networks correlates with trait mind wandering",
+                "link": "https://www.ncbi.nlm.nih.gov/pubmed/28705691",
+                "tags": [
+                    "creativity",
+                    "DMN",
+                    "intelligence",
+                    "mind",
+                    "neuroscience",
+                    "wandering"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?zWs82g\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Penser le sens du code source avec Gilbert Simondon",
+                "link": "https://rmll.ubicast.tv/videos/sens_code_source_32101/#share",
+                "tags": [
+                    "code",
+                    "RMLL2017",
+                    "simondon",
+                    "source"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?o-ejEg\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "OpenPGP - Exporter les clefs secr\u00e8tes sur une Yubikey",
+                "link": "https://blog.eleven-labs.com/fr/openpgp-clef-secrete-yubikey-partie-2/",
+                "tags": [
+                    "2FA",
+                    "authentification",
+                    "openpgp",
+                    "UFA",
+                    "yubikey"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?wbtA6A\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Awk processing by example",
+                "link": "https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md",
+                "tags": [
+                    "awk",
+                    "example",
+                    "git",
+                    "processing"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?fAYP0A\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Screen sharing in Slack, made interactive",
+                "link": "https://slackhq.com/screen-sharing-in-slack-made-interactive-cf8816efaa01",
+                "tags": [
+                    "screen",
+                    "sharing",
+                    "slack"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?CYgJxQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Intermittent Fasting Promotes White Adipose Browning and Decreases Obesity by Shaping the Gut\u00a0Microbiota",
+                "link": "http://www.cell.com/cell-metabolism/fulltext/S1550-4131(17)30504-1",
+                "tags": [
+                    "fasting",
+                    "obesity"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?ZwSWDQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Programmable base editing of A\u2022T to G\u2022C in genomic DNA without DNA cleavage",
+                "link": "https://www.nature.com/nature/journal/vaap/ncurrent/full/nature24644.html",
+                "tags": [
+                    "base",
+                    "dna",
+                    "editing"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?KPU8ow\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "RNA editing with CRISPR-Cas13",
+                "link": "http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180",
+                "tags": [
+                    "cas13",
+                    "crispr",
+                    "editing",
+                    "RNA"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?-8TsUw\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "CRISPR 2.0 Is Here, and It\u2019s Way More Precise",
+                "link": "https://www.technologyreview.com/s/609203/crispr-20-is-here-and-its-way-more-precise/",
+                "tags": [
+                    "base",
+                    "CRISPR",
+                    "editing",
+                    "genetics"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?_pSrTQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "MIT neuroscientists build case for new theory of memory formation",
+                "link": "http://news.mit.edu/2017/neuroscientists-build-case-new-theory-memory-formation-1023",
+                "tags": [
+                    "engrams",
+                    "formation",
+                    "memory",
+                    "neuroscience",
+                    "patterns",
+                    "silent",
+                    "synapses"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?9DQlcQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Why Does the Neocortex Have Columns, A Theory of Learning the Structure of the World",
+                "link": "https://www.biorxiv.org/content/early/2017/09/28/162263",
+                "tags": [
+                    "cognition",
+                    "columns",
+                    "learning",
+                    "neocortex",
+                    "structure",
+                    "world"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?QynkdQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "OpenMined/PySyft: Encrypted DeepLearning Library",
+                "link": "https://github.com/OpenMined/PySyft",
+                "tags": [
+                    "deeplearning",
+                    "encryption",
+                    "git",
+                    "OpenMined",
+                    "PySyft"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?g2sjug\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Write tests. Not too many. Mostly integration.",
+                "link": "https://blog.kentcdodds.com/write-tests-not-too-many-mostly-integration-5e8c7fff591c",
+                "tags": [
+                    "integration",
+                    "tests",
+                    "write"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?6ADmrQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "This is the biggest lie people tell themselves",
+                "link": "https://www.indy100.com/article/the-biggest-lie-people-tell-themselves-neurosciences-psychology-8018626",
+                "tags": [
+                    "biais",
+                    "cognitive",
+                    "selfdeception"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?50cyTg\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Drive Serendipitous Discovery with Recommendation Engines",
+                "link": "https://pages.dataiku.com/recommendation-engines-us",
+                "tags": [
+                    "engines",
+                    "guide",
+                    "recommendation"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?O-gQHg\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Libert\u00e9, s\u00e9curit\u00e9, dignit\u00e9\u00a0: au-del\u00e0 du\u00a0salariat et\u00a0du\u00a0pr\u00e9cariat",
+                "link": "https://theconversation.com/liberte-securite-dignite-au-dela-du-salariat-et-du-precariat-86387",
+                "tags": [
+                    "dignit\u00e9",
+                    "libert\u00e9",
+                    "pr\u00e9cariat",
+                    "salariat",
+                    "s\u00e9curit\u00e9"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?jPXRGg\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Repenser la recherche scientifique au-del\u00e0 de la propri\u00e9t\u00e9",
+                "link": "https://scinfolex.com/2017/10/26/repenser-la-recherche-scientifique-au-dela-de-la-propriete/",
+                "tags": [
+                    "droitdauteur",
+                    "openaccess",
+                    "proprieteintellectuelle",
+                    "propri\u00e9t\u00e9",
+                    "recherche",
+                    "scientifique"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?4s5TEw\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "HannahArendt Du devoir de la de\u0301sobe\u0301issance civile",
+                "link": "https://www.youtube.com/watch?v=F_w5bzl-12c",
+                "tags": [
+                    "arendt",
+                    "civile",
+                    "devoir",
+                    "de\u0301sobe\u0301issance",
+                    "hannaharendt"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?554UDQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Assessing the threat the Reaper botnet poses to the Internet\u2014what we know now",
+                "link": "https://arstechnica.com/information-technology/2017/10/assessing-the-threat-the-reaper-botnet-poses-to-the-internet-what-we-know-now/",
+                "tags": [
+                    "botnet",
+                    "reaper"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?tOrkzQ\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Google no longer lets you change domains to search different countries",
+                "link": "https://www.theverge.com/2017/10/27/16561848/google-search-always-local-results-ignores-domain",
+                "tags": [
+                    "countries",
+                    "domains",
+                    "google"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?2tFmxA\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Temporal correlation detection using computational phase-change memory",
+                "link": "https://www.nature.com/articles/s41467-017-01481-9",
+                "tags": [
+                    "architecture",
+                    "computing",
+                    "IBM",
+                    "memory"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?34Eh2g\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "DatoCMS - A CMS for static website generators",
+                "link": "https://www.datocms.com/",
+                "tags": [
+                    "cms",
+                    "datocms",
+                    "static",
+                    "website"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?sbqj0w\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "L'\u00e9thique serait-elle la grande oubli\u00e9e des algorithmes ?",
+                "link": "https://blogrecherche.wp.imt.fr/2017/10/26/ethique-algorithmes/",
+                "tags": [
+                    "algorithmes",
+                    "\u00e9thique"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?Bqdi1w\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Le but du management, c\u2019est la cessation du management",
+                "link": "https://www.linkedin.com/pulse/le-du-management-cest-la-cessation-loick-roche/",
+                "tags": [
+                    "management"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?uxot7w\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            },
+            {
+                "client": "Shaarpy_full",
+                "title": "Quand le g\u00e9nie et le handicap se tutoient \u00e0 la t\u00eate des entreprises",
+                "link": "https://www.letemps.ch/economie/2015/04/16/genie-handicap-se-tutoient-tete-entreprises",
+                "tags": [
+                    "asperger",
+                    "autisme",
+                    "g\u00e9nie",
+                    "handicap",
+                    "leadership",
+                    "management"
+                ],
+                "content": "\u2014 Permalink\n\u2014 <a href=\"https://my.framasoft.org/u/aurelieng/?DAfs6w\" title=\"Permalink\">Permalink</a>",
+                "audience": "private"
+            }
+        ]
+    }
+}

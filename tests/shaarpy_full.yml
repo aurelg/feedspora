@@ -1,0 +1,13 @@
+accounts:
+
+  - name: 'Shaarpy_full'
+    type: 'ShaarpyClient'
+    username: 'shaarli username'
+    password: 'shaarli password'
+    url: 'https://shaarli_url/u/shaarli_username/'
+    post_audience: 'private'
+    post_include_content: true
+
+feeds:
+  - 'feed.atom'
+  - 'feed.rss'

@@ -1,0 +1,687 @@
+{
+  "feed.atom": {
+    "Shaarpy_basic": [
+      {
+        "client": "Shaarpy_basic",
+        "title": "3.3 - SEC.gov | Statement.on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+        "tags": [],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "3.3 - SEC.gov | Statement on Potentially Unlawful Promotion of Initial Coin Offerings and Other Investments by Celebrities and Others",
+        "link": "https://www.sec.gov/news/public-statement/statement-potentially-unlawful-promotion-icos",
+        "tags": [],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "1.1 - Mort numérique: que faire des données personnelles et des comptes Facebook après un décès ? - Le blog de Thierry Vallat, avocat au Barreau de Paris (et sur Twitter: MeThierryVallat)",
+        "link": "http://www.thierryvallatavocat.com/2017/10/mort-numerique-que-faire-des-donnees-personnelles-et-des-comptes-facebook-apres-un-deces.html",
+        "tags": [],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Atom-Powered Robots Run Amok",
+        "link": "http://example.org/2003/12/13/atom03",
+        "tags": [
+          "animal",
+          "vegetable",
+          "mineral"
+        ],
+        "content": "",
+        "audience": "public"
+      }
+    ]
+  },
+  "feed.rss": {
+    "Shaarpy_basic": [
+      {
+        "client": "Shaarpy_basic",
+        "title": "Shannon Luminary Lecture Series - Stephen Fry, actor, comedian, journalist, author",
+        "link": "https://www.youtube.com/watch?v=24F6C1KfbjM",
+        "tags": [
+          "bell",
+          "fry",
+          "lecture",
+          "myths",
+          "shannon",
+          "technology"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Débat : Google est‑il l’ami de la production et la circulation des idées ?",
+        "link": "https://theconversation.com/debat-google-est-il-lami-de-la-production-et-la-circulation-des-idees-85940",
+        "tags": [
+          "google"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Digital, Numérique : Terminologie",
+        "link": "https://zythom.blogspot.fr/2017/10/terminologie.html",
+        "tags": [
+          "digital",
+          "numérique",
+          "terminologie"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Le burnout, une pathologie de civilisation",
+        "link": "https://www.franceinter.fr/emissions/la-tete-au-carre/la-tete-au-carre-27-septembre-2017",
+        "tags": [
+          "burnout"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "awesome-zsh-plugins: A collection of ZSH frameworks, plugins & themes inspired by the various awesome list collections out there.",
+        "link": "https://github.com/unixorn/awesome-zsh-plugins",
+        "tags": [
+          "awesome",
+          "git",
+          "plugins",
+          "zsh"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "antigen: The plugin manager for zsh",
+        "link": "https://github.com/zsh-users/antigen",
+        "tags": [
+          "antigen",
+          "git",
+          "manager",
+          "plugin",
+          "zsh"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "websocketd : WebSockets the UNIX way",
+        "link": "http://websocketd.com/",
+        "tags": [
+          "daemon",
+          "KISS",
+          "websocketd",
+          "websockets"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Word embeddings in 2017: Trends and future directions",
+        "link": "http://ruder.io/word-embeddings-2017/",
+        "tags": [
+          "embeddings",
+          "NLP",
+          "word"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "We are hiring a Postdoc | Social Media Collective cc @msrsmc",
+        "link": "https://socialmediacollective.org/2017/10/21/postdoc/",
+        "tags": [
+          "microsoft",
+          "postdoc",
+          "research",
+          "SocialMediaCollective"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Unmet needs for analyzing biological bigdata: A survey of 704 NSF principal investigators",
+        "link": "http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005755",
+        "tags": [
+          "bigdata",
+          "biological",
+          "research"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "La banale obéissance, par @CynthiaFleury",
+        "link": "https://www.humanite.fr/la-banale-obeissance-642048",
+        "tags": [
+          "FrédéricGros",
+          "obéissance"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Welcome to Bokeh",
+        "link": "https://bokeh.pydata.org/en/latest/",
+        "tags": [
+          "bokeh",
+          "dataviz",
+          "interactive",
+          "python"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "peewee — peewee 2.10.2 documentation",
+        "link": "http://docs.peewee-orm.com/en/latest/",
+        "tags": [
+          "MySQL",
+          "orm",
+          "peewee",
+          "PostgreSQL",
+          "python",
+          "sqlite3"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+",
+        "link": "https://www.twilio.com/blog/2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html",
+        "tags": [
+          "python",
+          "sanic",
+          "uvloop",
+          "web"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Getting the Most out of Sqlite3 with Python",
+        "link": "https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html",
+        "tags": [
+          "optimization",
+          "python",
+          "sqlite3"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Introverts, Emotional Processing, Self-Esteem and Salary Negotiations",
+        "link": "http://cliffc.org/blog/2017/07/30/introverts-emotional-processing-self-esteem-and-salary-negotiations/",
+        "tags": [
+          "cognition",
+          "delay",
+          "emotions",
+          "introversion"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Poverty shrinks brains from birth : Nature News & Comment",
+        "link": "http://www.nature.com/news/poverty-shrinks-brains-from-birth-1.17227",
+        "tags": [
+          "brains",
+          "cognition",
+          "poverty"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "How Social Media Endangers Knowledge",
+        "link": "https://www.wired.com/story/wikipedias-fate-shows-how-the-web-endangers-knowledge/",
+        "tags": [
+          "knowledge",
+          "media",
+          "social"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Your technical skills are obsolete: now what?",
+        "link": "https://codewithoutrules.com/2017/10/23/obsolete-skills/",
+        "tags": [
+          "obsolete",
+          "skills",
+          "technical"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Hannah Arendt - L'impasse de la modernité",
+        "link": "https://www.scienceshumaines.com/hannah-arendt-l-impasse-de-la-modernite_fr_30336.html",
+        "tags": [
+          "arendt",
+          "impasse",
+          "modernité"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "L’autonomie est à l’indépendance ce que la liberté est à l’insoumission",
+        "link": "https://www.dailymotion.com/video/x65rs5r",
+        "tags": [
+          "autonomie",
+          "indépendance",
+          "insoumission",
+          "liberté"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "MIDA-Multitool: Bash script purposed for system enumeration, vulnerability identification and privilege escalation.",
+        "link": "https://github.com/NullArray/MIDA-Multitool",
+        "tags": [
+          "enumeration",
+          "git",
+          "MIDA",
+          "pentesting",
+          "system"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Using Language Servers in Neovim",
+        "link": "https://fortes.com/2017/language-server-neovim",
+        "tags": [
+          "LanguageServerProtocol",
+          "LSP",
+          "microsoft",
+          "neovim"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "smartcd: Alter your bash (or zsh) environment as you cd",
+        "link": "https://github.com/cxreg/smartcd",
+        "tags": [
+          "cli",
+          "git",
+          "smartcd"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Unix is my IDE",
+        "link": "https://mkaz.tech/geek/unix-is-my-ide/",
+        "tags": [
+          "fzf",
+          "ide",
+          "ripgrep",
+          "tmux",
+          "unix",
+          "vim"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Functional connectivity within and between intrinsic brain networks correlates with trait mind wandering",
+        "link": "https://www.ncbi.nlm.nih.gov/pubmed/28705691",
+        "tags": [
+          "creativity",
+          "DMN",
+          "intelligence",
+          "mind",
+          "neuroscience",
+          "wandering"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Penser le sens du code source avec Gilbert Simondon",
+        "link": "https://rmll.ubicast.tv/videos/sens_code_source_32101/#share",
+        "tags": [
+          "code",
+          "RMLL2017",
+          "simondon",
+          "source"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "OpenPGP - Exporter les clefs secrètes sur une Yubikey",
+        "link": "https://blog.eleven-labs.com/fr/openpgp-clef-secrete-yubikey-partie-2/",
+        "tags": [
+          "2FA",
+          "authentification",
+          "openpgp",
+          "UFA",
+          "yubikey"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Awk processing by example",
+        "link": "https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md",
+        "tags": [
+          "awk",
+          "example",
+          "git",
+          "processing"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Screen sharing in Slack, made interactive",
+        "link": "https://slackhq.com/screen-sharing-in-slack-made-interactive-cf8816efaa01",
+        "tags": [
+          "screen",
+          "sharing",
+          "slack"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Intermittent Fasting Promotes White Adipose Browning and Decreases Obesity by Shaping the Gut Microbiota",
+        "link": "http://www.cell.com/cell-metabolism/fulltext/S1550-4131(17)30504-1",
+        "tags": [
+          "fasting",
+          "obesity"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Programmable base editing of A•T to G•C in genomic DNA without DNA cleavage",
+        "link": "https://www.nature.com/nature/journal/vaap/ncurrent/full/nature24644.html",
+        "tags": [
+          "base",
+          "dna",
+          "editing"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "RNA editing with CRISPR-Cas13",
+        "link": "http://science.sciencemag.org/content/early/2017/10/24/science.aaq0180",
+        "tags": [
+          "cas13",
+          "crispr",
+          "editing",
+          "RNA"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "CRISPR 2.0 Is Here, and It’s Way More Precise",
+        "link": "https://www.technologyreview.com/s/609203/crispr-20-is-here-and-its-way-more-precise/",
+        "tags": [
+          "base",
+          "CRISPR",
+          "editing",
+          "genetics"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "MIT neuroscientists build case for new theory of memory formation",
+        "link": "http://news.mit.edu/2017/neuroscientists-build-case-new-theory-memory-formation-1023",
+        "tags": [
+          "engrams",
+          "formation",
+          "memory",
+          "neuroscience",
+          "patterns",
+          "silent",
+          "synapses"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Why Does the Neocortex Have Columns, A Theory of Learning the Structure of the World",
+        "link": "https://www.biorxiv.org/content/early/2017/09/28/162263",
+        "tags": [
+          "cognition",
+          "columns",
+          "learning",
+          "neocortex",
+          "structure",
+          "world"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "OpenMined/PySyft: Encrypted DeepLearning Library",
+        "link": "https://github.com/OpenMined/PySyft",
+        "tags": [
+          "deeplearning",
+          "encryption",
+          "git",
+          "OpenMined",
+          "PySyft"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Write tests. Not too many. Mostly integration.",
+        "link": "https://blog.kentcdodds.com/write-tests-not-too-many-mostly-integration-5e8c7fff591c",
+        "tags": [
+          "integration",
+          "tests",
+          "write"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "This is the biggest lie people tell themselves",
+        "link": "https://www.indy100.com/article/the-biggest-lie-people-tell-themselves-neurosciences-psychology-8018626",
+        "tags": [
+          "biais",
+          "cognitive",
+          "selfdeception"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Drive Serendipitous Discovery with Recommendation Engines",
+        "link": "https://pages.dataiku.com/recommendation-engines-us",
+        "tags": [
+          "engines",
+          "guide",
+          "recommendation"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Liberté, sécurité, dignité : au-delà du salariat et du précariat",
+        "link": "https://theconversation.com/liberte-securite-dignite-au-dela-du-salariat-et-du-precariat-86387",
+        "tags": [
+          "dignité",
+          "liberté",
+          "précariat",
+          "salariat",
+          "sécurité"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Repenser la recherche scientifique au-delà de la propriété",
+        "link": "https://scinfolex.com/2017/10/26/repenser-la-recherche-scientifique-au-dela-de-la-propriete/",
+        "tags": [
+          "droitdauteur",
+          "openaccess",
+          "proprieteintellectuelle",
+          "propriété",
+          "recherche",
+          "scientifique"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "HannahArendt Du devoir de la désobéissance civile",
+        "link": "https://www.youtube.com/watch?v=F_w5bzl-12c",
+        "tags": [
+          "arendt",
+          "civile",
+          "devoir",
+          "désobéissance",
+          "hannaharendt"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Assessing the threat the Reaper botnet poses to the Internet—what we know now",
+        "link": "https://arstechnica.com/information-technology/2017/10/assessing-the-threat-the-reaper-botnet-poses-to-the-internet-what-we-know-now/",
+        "tags": [
+          "botnet",
+          "reaper"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Google no longer lets you change domains to search different countries",
+        "link": "https://www.theverge.com/2017/10/27/16561848/google-search-always-local-results-ignores-domain",
+        "tags": [
+          "countries",
+          "domains",
+          "google"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Temporal correlation detection using computational phase-change memory",
+        "link": "https://www.nature.com/articles/s41467-017-01481-9",
+        "tags": [
+          "architecture",
+          "computing",
+          "IBM",
+          "memory"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "DatoCMS - A CMS for static website generators",
+        "link": "https://www.datocms.com/",
+        "tags": [
+          "cms",
+          "datocms",
+          "static",
+          "website"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "L'éthique serait-elle la grande oubliée des algorithmes ?",
+        "link": "https://blogrecherche.wp.imt.fr/2017/10/26/ethique-algorithmes/",
+        "tags": [
+          "algorithmes",
+          "éthique"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Le but du management, c’est la cessation du management",
+        "link": "https://www.linkedin.com/pulse/le-du-management-cest-la-cessation-loick-roche/",
+        "tags": [
+          "management"
+        ],
+        "content": "",
+        "audience": "public"
+      },
+      {
+        "client": "Shaarpy_basic",
+        "title": "Quand le génie et le handicap se tutoient à la tête des entreprises",
+        "link": "https://www.letemps.ch/economie/2015/04/16/genie-handicap-se-tutoient-tete-entreprises",
+        "tags": [
+          "asperger",
+          "autisme",
+          "génie",
+          "handicap",
+          "leadership",
+          "management"
+        ],
+        "content": "",
+        "audience": "public"
+      }
+    ]
+  }
+}
