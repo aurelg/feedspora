@@ -7,14 +7,6 @@ class CommonConfig:
     _config = None
     _posts_done = 0
 
-    def __init__(self, config):
-        '''
-        Initialize
-        :param config:
-        '''
-        self._config = config
-        self.set_common_opts(config)
-
     def get_config(self):
         '''
         Return config dict
