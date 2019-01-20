@@ -454,5 +454,3 @@ class GenericClient(CommonConfig):
                 content = ''
 
         return content
-
-

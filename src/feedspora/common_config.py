@@ -4,6 +4,9 @@ GenericClient and GenericFeed.
 """
 
 class CommonConfig:
+    """
+    Configuration aspects that are common to both clients and feeds.
+    """
     _config = None
     _posts_done = 0
 
@@ -38,7 +41,6 @@ class CommonConfig:
         for option, default_value in option_defaults.items():
             if option not in config:
                 self._config[option] = default_value
-
 
     def set_common_opts(self, config):
         '''
@@ -79,4 +81,3 @@ class CommonConfig:
         # URL shortener opts
         if 'url_shortener_opts' not in config:
             self._config['url_shortener_opts'] = dict()
-

@@ -44,7 +44,7 @@ class FeedSpora:
     ''' FeedSpora itself. '''
 
     _client = None
-    _feed_urls = None
+    _feed = None
     _db_file = "feedspora.db"
     _conn = None
     _cur = None
@@ -82,9 +82,9 @@ class FeedSpora:
         :param feed:
         '''
 
-        if self._feed_urls is None:
-            self._feed_urls = []
-        self._feed_urls.append(feed)
+        if self._feed is None:
+            self._feed = []
+        self._feed.append(feed)
 
     def _init_db(self):
         '''
@@ -421,14 +421,15 @@ class FeedSpora:
             fse.media_url = self.find_rss_image_url(entry, fse.link)
             yield fse
 
-    def _process_feed(self, feed_url):
+    def _process_feed(self, feed):
         '''
         Handle RSS/Atom feed
         It retrieves the feed content and publish entries that haven't been
         published yet.
-        :param feed_url:
+        :param feed:
         '''
         # get feed content
+        feed_url = feed.get_path()
         try:
             soup = self.retrieve_feed_soup(feed_url)
         except (requests.exceptions.ConnectionError, ValueError,
@@ -475,8 +476,8 @@ class FeedSpora:
 
         self._init_db()
 
-        for feed_url in self._feed_urls:
-            self._process_feed(feed_url)
+        for feed in self._feed:
+            self._process_feed(feed)
 
         if self._testing:
             print(json.dumps(self._testing_accumulator, indent=4))
