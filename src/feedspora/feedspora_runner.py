@@ -59,13 +59,6 @@ class FeedSpora:
         self._testing = False
         self._testing_accumulator = None
 
-    def set_feed_urls(self, feed_urls):
-        '''
-        Set feeds URL
-        :param feed_urls:
-        '''
-        self._feed_urls = feed_urls
-
     def set_db_file(self, db_file):
         '''
         Set database file to track entries that have been already published
@@ -73,15 +66,25 @@ class FeedSpora:
         '''
         self._db_file = db_file
 
-    def connect(self, client):
+    def connect_client(self, client):
         '''
-        Connects to your account.
+        Connects to your client.
         :param client:
         '''
 
         if self._client is None:
             self._client = []
         self._client.append(client)
+
+    def connect_feed(self, feed):
+        '''
+        Connects to your feed.
+        :param feed:
+        '''
+
+        if self._feed_urls is None:
+            self._feed_urls = []
+        self._feed_urls.append(feed)
 
     def _init_db(self):
         '''
@@ -137,16 +140,16 @@ class FeedSpora:
               "client_id=:client_id"
         self._cur.execute(sql, {
             "feedspora_id": pub_item,
-            "client_id": client.get_account()['name']
+            "client_id": client.get_config()['name']
         })
         already_published = self._cur.fetchone() is not None
 
         if already_published:
             logging.info('Skipping already published entry in %s: %s',
-                         client.get_account()['name'], entry.title)
+                         client.get_config()['name'], entry.title)
         else:
             logging.info('Found entry to publish in %s: %s',
-                         client.get_account()['name'], entry.title)
+                         client.get_config()['name'], entry.title)
 
         return already_published
 
@@ -160,7 +163,7 @@ class FeedSpora:
         logging.info('Storing in database of published items: %s', pub_item)
         self._cur.execute(
             "INSERT INTO posts (feedspora_id, client_id) "
-            "values (?,?)", (pub_item, client.get_account()['name']))
+            "values (?,?)", (pub_item, client.get_config()['name']))
         self._conn.commit()
 
     def _publish_entry(self, item_num, entry):
@@ -269,7 +272,6 @@ class FeedSpora:
                 content = ''
 
         return title_tags, content_tags
-
     # pylint: enable=no-self-use
 
     # Define generator for Atom
@@ -374,7 +376,6 @@ class FeedSpora:
                         to_return = url_root + "/" + to_return
 
         return to_return
-
     # pylint: enable=no-self-use
 
     # Define generator for RSS
@@ -437,28 +438,25 @@ class FeedSpora:
                 feed_url,
                 format(error),
                 exc_info=True)
-
             return
 
         # Choose which generator to use, or abort.
-
         if soup.find('entry'):
             entry_generator = self.parse_atom(soup)
         elif soup.find('item'):
             entry_generator = self.parse_rss(soup)
         else:
             print("No entry/item found in %s" % feed_url)
-
             return
-        entry_count = 0
 
+        entry_count = 0
         for entry in entry_generator:
             entry_count += 1
             self._publish_entry(entry_count, entry)
 
         if self._testing:
             output = {
-                client.get_account()['name']: client.pop_testing_output()
+                client.get_config()['name']: client.pop_testing_output()
 
                 for client in self._client
             }
@@ -473,7 +471,6 @@ class FeedSpora:
         if not self._client:
             logging.error(
                 "No client found, aborting publication", exc_info=True)
-
             return
 
         self._init_db()

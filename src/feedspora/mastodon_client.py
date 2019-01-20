@@ -16,18 +16,18 @@ class MastodonClient(GenericClient):
     _mastodon = None
     _invoke_delay = False
 
-    def __init__(self, account, testing):
+    def __init__(self, config, testing):
         '''
         Initialize
-        :param account:
+        :param config:
         :param testing:
         '''
-        self._account = account
+        self._config = config
 
-        client_id = account['client_id']
-        client_secret = account['client_secret']
-        access_token = account['access_token']
-        api_base_url = account['url']
+        client_id = config['client_id']
+        client_secret = config['client_secret']
+        access_token = config['access_token']
+        api_base_url = config['url']
 
         if not testing:
             self._mastodon = Mastodon(
@@ -35,11 +35,11 @@ class MastodonClient(GenericClient):
                 client_secret=client_secret,
                 access_token=access_token,
                 api_base_url=api_base_url)
-        self._delay = 0 if 'delay' not in account else account['delay']
-        self._visibility = 'unlisted' if 'visibility' not in account or \
-            account['visibility'] not in ['public', 'unlisted', 'private'] \
-            else account['visibility']
-        self.set_common_opts(account)
+        self._delay = 0 if 'delay' not in config else config['delay']
+        self._visibility = 'unlisted' if 'visibility' not in config or \
+            config['visibility'] not in ['public', 'unlisted', 'private'] \
+            else config['visibility']
+        self.set_common_opts(config)
 
     def get_dict_output(self, **kwargs):
         '''
@@ -48,7 +48,7 @@ class MastodonClient(GenericClient):
         '''
 
         return {
-            "client": self._account['name'],
+            "client": self._config['name'],
             "delay": self._delay,
             "visibility": self._visibility,
             "content": kwargs['text'],
@@ -61,28 +61,28 @@ class MastodonClient(GenericClient):
         :param entry:
         '''
         use_link = self.shorten_url(entry.link)
-        maxlen = 500 - len(use_link) - len(self._account['post_prefix']) - \
-                 len(self._account['post_suffix']) - 1
-        text = self._account['post_prefix']
+        maxlen = 500 - len(use_link) - len(self._config['post_prefix']) - \
+                 len(self._config['post_suffix']) - 1
+        text = self._config['post_prefix']
 
         # Process contents (title and perhaps stripped item entry contents)
         raw_contents = entry.title
         stripped_html = self.strip_html(entry.content) \
                         if entry.content else None
-        if self._account['post_include_content'] and stripped_html:
+        if self._config['post_include_content'] and stripped_html:
             raw_contents += ": " + stripped_html
         text += self._mkrichtext(raw_contents, self.filter_tags(entry),
                                  maxlen=maxlen)
 
         # Apply optional suffix
-        text += self._account['post_suffix']
+        text += self._config['post_suffix']
 
         # Finally, add the (potentially shortened) link
         text += " " + use_link
 
         # Add media if appropriate
         media_path = None
-        if self._account['post_include_media'] and entry.media_url:
+        if self._config['post_include_media'] and entry.media_url:
             # Need to download image from that URL in order to post it!
             media_path = self.download_media(entry.media_url)
 

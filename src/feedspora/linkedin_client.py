@@ -12,19 +12,19 @@ class LinkedInClient(GenericClient):
     _linkedin = None
     _visibility = None
 
-    def __init__(self, account, testing):
+    def __init__(self, config, testing):
         '''
         Initialize
-        :param account:
+        :param config:
         :param testing:
         '''
-        self._account = account
+        self._config = config
 
         if not testing:
             self._linkedin = linkedin.LinkedInApplication(
-                token=account['authentication_token'])
-        self._visibility = account['visibility']
-        self.set_common_opts(account)
+                token=config['authentication_token'])
+        self._visibility = config['visibility']
+        self.set_common_opts(config)
 
     def get_dict_output(self, **kwargs):
         '''
@@ -33,7 +33,7 @@ class LinkedInClient(GenericClient):
         '''
 
         return {
-            "client": self._account['name'],
+            "client": self._config['name'],
             "comment": kwargs['comment'],
             "title": kwargs['title'],
             "description": kwargs['description'],
@@ -50,12 +50,12 @@ class LinkedInClient(GenericClient):
         stripped_html = self.strip_html(entry.content) \
                         if entry.content else None
         raw_contents = entry.title
-        if self._account['post_include_content'] and stripped_html:
+        if self._config['post_include_content'] and stripped_html:
             raw_contents += ': '+stripped_html
-        comment = self._account['post_prefix'] + \
+        comment = self._config['post_prefix'] + \
                   self._mkrichtext(raw_contents, self.filter_tags(entry),
                                    maxlen=700) + \
-                  self._account['post_suffix']
+                  self._config['post_suffix']
         # Just in case...
         comment = comment.strip()
 
@@ -66,7 +66,7 @@ class LinkedInClient(GenericClient):
                      'submitted_image_url': None,
                      'visibility_code': self._visibility
                      }
-        if self._account['post_include_media'] and entry.media_url:
+        if self._config['post_include_media'] and entry.media_url:
             post_args['submitted_image_url'] = entry.media_url
 
         to_return = False
