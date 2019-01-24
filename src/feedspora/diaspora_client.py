@@ -49,25 +49,27 @@ class DiaspyClient(GenericClient):
             "media": kwargs['photo']
         }
 
-    def post(self, entry):
+    def post(self, feed, entry):
         '''
         Post entry to Diaspora.
+        :param feed:
         :param entry:
         '''
 
-        text = self._config['post_prefix'] + \
-               '['+entry.title +']('+self.shorten_url(entry.link)+')'
-        stripped_html = self.strip_html(entry.content) \
+        text = self.resolve_option(feed, 'post_prefix') + \
+               '['+entry.title +']('+self.shorten_url(feed, entry.link)+')'
+        stripped_html = self.strip_html(feed, entry.content) \
                         if entry.content else None
-        if self._config['post_include_content'] and stripped_html:
+        if self.resolve_option(feed, 'post_include_content') and stripped_html:
             text += ": " + stripped_html
-        text += self._config['post_suffix']
-        post_tags = ''.join([" #{}".format(k) for k in self.filter_tags(entry)])
+        text += self.resolve_option(feed, 'post_suffix')
+        post_tags = ''.join([" #{}".format(k)
+                             for k in self.filter_tags(feed, entry)])
         if post_tags:
             text += ' |'+post_tags
 
         media_path = None
-        if self._config['post_include_media'] and entry.media_url:
+        if self.resolve_option(feed, 'post_include_media') and entry.media_url:
             # Need to download image from that URL in order to post it!
             media_path = self.download_media(entry.media_url)
 

@@ -40,42 +40,47 @@ class FacebookClient(GenericClient):
             "message": kwargs['attachment']['message']
         }
 
-    def post(self, entry):
+    def post(self, feed, entry):
         '''
         Post entry to Facebook.
+        :param feed:
         :param entry:
         '''
         # "Only owners of the URL have the ability to specify the picture,
         #  name, thumbnail or description params." -- Facebook Law
         # This greatly limits what we can reliably do/provide, obviously
-        stripped_html = self.strip_html(entry.content) \
+        stripped_html = self.strip_html(feed, entry.content) \
                         if entry.content else None
         text = ''
-        if self._config['post_include_content'] and stripped_html or \
-           not self._config['post_include_media']:
-            text = self._config['post_prefix']
-            if not self._config['post_include_media']:
+        if self.resolve_option(feed, 'post_include_content') and \
+           stripped_html or \
+           not self.resolve_option(feed, 'post_include_media'):
+            text = self.resolve_option(feed, 'post_prefix')
+            if not self.resolve_option(feed, 'post_include_media'):
                 # Not including media (which pulls in the title as the link
                 # name), so we need to insert the title here
                 text += entry.title
-                if self._config['post_include_content'] and stripped_html:
+                if self.resolve_option(feed, 'post_include_content') and \
+                   stripped_html:
                     # More to come, so add a delimiter
                     text += ': '
-            if self._config['post_include_content'] and stripped_html:
+            if self.resolve_option(feed, 'post_include_content') and \
+               stripped_html:
                 text += stripped_html
-            text += self._config['post_suffix']
-        text += ''.join([' #{}'.format(k) for k in self.filter_tags(entry)])
-        if not self._config['post_include_media']:
-            text += ' '+self.shorten_url(entry.link)
+            text += self.resolve_option(feed, 'post_suffix')
+        text += ''.join([' #{}'.format(k)
+                         for k in self.filter_tags(feed, entry)])
+        if not self.resolve_option(feed, 'post_include_media'):
+            text += ' '+self.shorten_url(feed, entry.link)
         # Just in case...
         text = text.strip()
 
         # 'message' and 'link' are the only two components of a post
         attachment = {'message': text}
-        if self._config['post_include_media']:
+        if self.resolve_option(feed, 'post_include_media'):
             # In this case, specify the link, which will include its media
             # (and the title as the link text, as previously mentioned)
-            attachment['link'] = self.shorten_url(entry.link)
+            attachment['link'] = self.shorten_url(feed, entry.link)
         else:
             attachment['link'] = None
 

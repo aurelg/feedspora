@@ -42,31 +42,32 @@ class LinkedInClient(GenericClient):
             "visibility": self._visibility
         }
 
-    def post(self, entry):
+    def post(self, feed, entry):
         '''
         Post entry to LinkedIn
+        :param feed:
         :param entry:
         '''
-        stripped_html = self.strip_html(entry.content) \
+        stripped_html = self.strip_html(feed, entry.content) \
                         if entry.content else None
         raw_contents = entry.title
-        if self._config['post_include_content'] and stripped_html:
+        if self.resolve_option(feed, 'post_include_content') and stripped_html:
             raw_contents += ': '+stripped_html
-        comment = self._config['post_prefix'] + \
-                  self._mkrichtext(raw_contents, self.filter_tags(entry),
+        comment = self.resolve_option(feed, 'post_prefix') + \
+                  self._mkrichtext(raw_contents, self.filter_tags(feed, entry),
                                    maxlen=700) + \
-                  self._config['post_suffix']
+                  self.resolve_option(feed, 'post_suffix')
         # Just in case...
         comment = comment.strip()
 
         post_args = {'comment': comment,
                      'title': self._trim_string(entry.title, 200),
                      'description': self._trim_string(entry.title, 256),
-                     'submitted_url': self.shorten_url(entry.link),
+                     'submitted_url': self.shorten_url(feed, entry.link),
                      'submitted_image_url': None,
                      'visibility_code': self._visibility
                      }
-        if self._config['post_include_media'] and entry.media_url:
+        if self.resolve_option(feed, 'post_include_media') and entry.media_url:
             post_args['submitted_image_url'] = entry.media_url
 
         to_return = False

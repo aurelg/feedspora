@@ -55,34 +55,36 @@ class MastodonClient(GenericClient):
             "media": kwargs['media_path']
         }
 
-    def post(self, entry):
+    def post(self, feed, entry):
         '''
         Post entry to Mastodon
+        :param feed:
         :param entry:
         '''
-        use_link = self.shorten_url(entry.link)
-        maxlen = 500 - len(use_link) - len(self._config['post_prefix']) - \
-                 len(self._config['post_suffix']) - 1
-        text = self._config['post_prefix']
+        use_link = self.shorten_url(feed, entry.link)
+        maxlen = 500 - len(use_link) - \
+                 len(self.resolve_option(feed, 'post_prefix')) - \
+                 len(self.resolve_option(feed, 'post_suffix')) - 1
+        text = self.resolve_option(feed, 'post_prefix')
 
         # Process contents (title and perhaps stripped item entry contents)
         raw_contents = entry.title
-        stripped_html = self.strip_html(entry.content) \
+        stripped_html = self.strip_html(feed, entry.content) \
                         if entry.content else None
-        if self._config['post_include_content'] and stripped_html:
+        if self.resolve_option(feed, 'post_include_content') and stripped_html:
             raw_contents += ": " + stripped_html
-        text += self._mkrichtext(raw_contents, self.filter_tags(entry),
+        text += self._mkrichtext(raw_contents, self.filter_tags(feed, entry),
                                  maxlen=maxlen)
 
         # Apply optional suffix
-        text += self._config['post_suffix']
+        text += self.resolve_option(feed, 'post_suffix')
 
         # Finally, add the (potentially shortened) link
         text += " " + use_link
 
         # Add media if appropriate
         media_path = None
-        if self._config['post_include_media'] and entry.media_url:
+        if self.resolve_option(feed, 'post_include_media') and entry.media_url:
             # Need to download image from that URL in order to post it!
             media_path = self.download_media(entry.media_url)
 

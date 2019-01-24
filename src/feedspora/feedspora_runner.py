@@ -17,28 +17,7 @@ It currently supports Facebook, Twitter, Diaspora, Wordpress and Mastodon.
 import json
 import logging
 import os
-import re
 import sqlite3
-
-import lxml.html
-import requests
-from bs4 import BeautifulSoup
-
-# pylint: disable=too-few-public-methods
-class FeedSporaEntry:
-    '''
-    A FeedSpora entry.
-    This class is generated from each entry/item in an Atom/RSS feed,
-    then posted to your client accounts
-    '''
-    title = ''
-    link = ''
-    published_date = None
-    content = ''
-    tags = None
-    media_url = None
-# pylint: enable=too-few-public-methods
-
 
 class FeedSpora:
     ''' FeedSpora itself. '''
@@ -48,8 +27,6 @@ class FeedSpora:
     _db_file = "feedspora.db"
     _conn = None
     _cur = None
-    _ua = "Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101 " \
-          "Firefox/42.0"
 
     def __init__(self):
         '''
@@ -125,7 +102,6 @@ class FeedSpora:
             to_return += ' ' + entry.published_date
 
         return to_return
-
     # pylint: enable=no-self-use
 
     def is_already_published(self, entry, client):
@@ -166,11 +142,13 @@ class FeedSpora:
             "values (?,?)", (pub_item, client.get_config()['name']))
         self._conn.commit()
 
-    def _publish_entry(self, item_num, entry):
+    def _publish_entry(self, entry, entry_count, feed, feed_count):
         '''
         Publish a FeedSporaEntry to your all your registered account.
-        :param item_num:
         :param entry:
+        :param entry_count:
+        :param feed:
+        :param feed_count:
         '''
 
         if not self._client:
@@ -180,12 +158,12 @@ class FeedSpora:
             return
         logging.info('Publishing: %s', entry.title)
 
+        entry_published = False
         for client in self._client:
-
             if not self.is_already_published(entry, client):
                 # pylint: disable=broad-except
                 try:
-                    posted_to_client = client.post_within_limits(entry)
+                    posted_to_client = client.post_within_limits(entry, feed)
                 except Exception as error:
                     logging.error(
                         "Error while publishing '%s' to client"
@@ -197,7 +175,11 @@ class FeedSpora:
 
                     continue
 
-                if posted_to_client or client.seeding_published_db(item_num):
+                if posted_to_client:
+                    entry_published = True
+
+                if posted_to_client or \
+                   client.seeding_published_db(entry_count, feed, feed_count):
                     try:
                         self.add_to_published_entries(entry, client)
                     except Exception as error:
@@ -210,258 +192,38 @@ class FeedSpora:
                             exc_info=True)
                 # pylint: enable=broad-except
 
-    def retrieve_feed_soup(self, feed_url):
+        if entry_published:
+            feed.increment_posts_done()
+
+    def _process_feed(self, entry_count, feed):
         '''
-        Retrieve and parse the specified feed.
-        :param feed_url: can either be a URL or a path to a local file
-        '''
-        feed_content = None
-        try:
-            logging.info("Trying to read %s as a file.", feed_url)
-            with open(feed_url, encoding='utf-8') as feed_file:
-                feed_content = ''.join(feed_file.readlines())
-        except FileNotFoundError:
-            logging.info("File not found.")
-            logging.info("Trying to read %s as a URL.", feed_url)
-            response = requests.get(feed_url, headers={'User-Agent': self._ua})
-
-            if not response.ok:
-                raise Exception(feed_content)
-            feed_content = response.text
-        logging.info("Feed read.")
-
-        return BeautifulSoup(feed_content, 'html.parser')
-
-    # pylint: disable=no-self-use
-    def get_tag_lists(self, title, content):
-        '''
-        Determine the list of tags, both from title and content
-        :param title:
-        :param content:
-        '''
-        title_tags = []
-        # Add tags from title
-        for word in title.split():
-            if word.startswith('#') and word[1:] not in title_tags:
-                title_tags.append(word[1:])
-
-        # Add tags from end of content (removing from content in the
-        # process of gathering tags)
-        content_tags = []
-        if content:
-            # Remove tags to improve processing
-            content = lxml.html.fromstring(content).text_content().strip()
-            tag_pattern = r'\s+#([\w]+)$'
-            match_result = re.search(tag_pattern, content)
-
-            while match_result:
-                tag = match_result.group(1)
-
-                if tag not in content_tags:
-                    content_tags.insert(0, tag)
-                content = re.sub(tag_pattern, '', content)
-                match_result = re.search(tag_pattern, content)
-
-            tag_pattern = r'^\s*#([\w]+)$'
-            match_result = re.search(tag_pattern, content)
-            if match_result:
-                # Left with a single tag!
-                tag = match_result.group(1)
-                if tag not in content_tags:
-                    content_tags.insert(0, tag)
-                content = ''
-
-        return title_tags, content_tags
-    # pylint: enable=no-self-use
-
-    # Define generator for Atom
-    def parse_atom(self, soup):
-        '''
-        Generate FeedSpora entries out of an Atom feed.
-        :param soup:
-        '''
-
-        for entry in soup.find_all('entry')[::-1]:
-            fse = FeedSporaEntry()
-
-            # Title
-            try:
-                fse.title = BeautifulSoup(
-                    entry.find('title').text, 'html.parser').find('a').text
-            except AttributeError:
-                fse.title = entry.find('title').text
-
-            # Link
-            fse.link = entry.find('link')['href']
-
-            # Content
-
-            if entry.find('content'):
-                fse.content = entry.find('content').text.strip()
-            # If no content, attempt to use summary
-
-            if not fse.content and entry.find('summary'):
-                fse.content = entry.find('summary').text.strip()
-
-            if fse.content is None:
-                fse.content = ''
-
-            fse.tags = dict()
-            # Tags from title and content, each in their own list
-            fse.tags['title'], fse.tags['content'] = self.get_tag_lists(
-                fse.title, fse.content)
-
-            # Add tags from category
-            fse.tags['category'] = []
-            for tag in entry.find_all('category'):
-                new_tag = tag['term'].replace(' ', '_').strip()
-                if new_tag not in fse.tags['category']:
-                    fse.tags['category'].append(new_tag)
-
-            # Published_date implementation for Atom
-
-            if entry.find('updated'):
-                fse.published_date = entry.find('updated').text
-            elif entry.find('published'):
-                fse.published_date = entry.find('published').text
-            yield fse
-
-    # pylint: disable=no-self-use
-    def find_rss_image_url(self, entry, link):
-        '''
-        Extract specified image URL, if it exists in the item (entry)
-        :param entry:
-        :param link:
-        '''
-
-        def content_img_src(entity):
-            result = None
-
-            compiled_pattern = re.compile(r'<img [^>]*src=["\']([^"\']+)["\']')
-
-            for content in entity.contents:
-                img_tag = compiled_pattern.search(content)
-
-                if img_tag:
-                    result = img_tag.group(1)
-
-                    break
-
-            return result
-
-        to_return = None
-
-        if entry.find('media:content') and \
-           entry.find('media:content')['medium'] == 'image':
-            to_return = entry.find('media:content')['url']
-        elif entry.find('content'):
-            to_return = content_img_src(entry.find('content'))
-        elif entry.find('description'):
-            to_return = content_img_src(entry.find('description'))
-
-        if to_return and link:
-            tag_pattern = r'^(https?://[^/]+)/'
-            match_result = re.search(tag_pattern, to_return)
-
-            if not match_result:
-                # Not a full URL, need to adjust using link
-                match_result = re.search(tag_pattern, link)
-
-                if match_result:
-                    url_root = match_result.group(1)
-
-                    if to_return.startswith("/"):
-                        to_return = url_root + to_return
-                    else:
-                        to_return = url_root + "/" + to_return
-
-        return to_return
-    # pylint: enable=no-self-use
-
-    # Define generator for RSS
-    def parse_rss(self, soup):
-        '''
-        Generate FeedSpora entries out of an RSS feed.
-        :param soup:
-        '''
-
-        for entry in soup.find_all('item')[::-1]:
-            fse = FeedSporaEntry()
-
-            # Title
-            fse.title = entry.find('title').text
-
-            # Link
-            fse.link = entry.find('link').text
-
-            # Content takes priority over Description
-
-            if entry.find('content'):
-                fse.content = entry.find('content')[0].text.strip()
-            else:
-                fse.content = entry.find('description').text.strip()
-
-            # PubDate
-            fse.published_date = entry.find('pubdate').text
-
-            fse.tags = dict()
-            # Tags from title and content, each in their own list
-            fse.tags['title'], fse.tags['content'] = self.get_tag_lists(
-                fse.title, fse.content)
-
-            # Add tags from category
-            fse.tags['category'] = []
-            for tag in entry.find_all('category'):
-                new_tag = tag.text.replace(' ', '_').strip()
-
-                if new_tag not in fse.tags['category']:
-                    fse.tags['category'].append(new_tag)
-
-            # And for our final act, media
-            fse.media_url = self.find_rss_image_url(entry, fse.link)
-            yield fse
-
-    def _process_feed(self, feed):
-        '''
-        Handle RSS/Atom feed
-        It retrieves the feed content and publish entries that haven't been
+        Handle the feed content and publish entries that haven't been
         published yet.
+        :param entry_count:
         :param feed:
         '''
-        # get feed content
-        feed_url = feed.get_path()
-        try:
-            soup = self.retrieve_feed_soup(feed_url)
-        except (requests.exceptions.ConnectionError, ValueError,
-                OSError) as error:
-            logging.error(
-                "Error while reading feed at %s: %s",
-                feed_url,
-                format(error),
-                exc_info=True)
-            return
 
-        # Choose which generator to use, or abort.
-        if soup.find('entry'):
-            entry_generator = self.parse_atom(soup)
-        elif soup.find('item'):
-            entry_generator = self.parse_rss(soup)
-        else:
-            print("No entry/item found in %s" % feed_url)
-            return
+        entry_generator = feed.feed_generator()
+        if entry_generator:
+            feed_count = 0
+            for entry in entry_generator:
+                entry_count += 1
+                feed_count += 1
+                self._publish_entry(entry, entry_count, feed, feed_count)
+                if feed.max_posts_done():
+                    # If feed limit reached, we're done here; break out
+                    logging.info("Configured feed limit of %d reached.",
+                                 feed.get_config()['max_posts'])
+                    break
 
-        entry_count = 0
-        for entry in entry_generator:
-            entry_count += 1
-            self._publish_entry(entry_count, entry)
+            if self._testing:
+                output = {
+                    client.get_config()['name']: client.pop_testing_output()
 
-        if self._testing:
-            output = {
-                client.get_config()['name']: client.pop_testing_output()
-
-                for client in self._client
-            }
-            self._testing_accumulator[feed_url] = output
+                    for client in self._client
+                }
+                self._testing_accumulator[feed.get_path()] = output
+        return entry_count
 
     def run(self):
         '''
@@ -476,8 +238,9 @@ class FeedSpora:
 
         self._init_db()
 
+        entry_count = 0
         for feed in self._feed:
-            self._process_feed(feed)
+            entry_count = self._process_feed(entry_count, feed)
 
         if self._testing:
             print(json.dumps(self._testing_accumulator, indent=4))

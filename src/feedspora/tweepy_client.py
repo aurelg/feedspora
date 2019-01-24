@@ -48,7 +48,7 @@ class TweepyClient(GenericClient):
             "media": kwargs['media_path'] if kwargs['media_path'] else None
         }
 
-    def post(self, entry):
+    def post(self, feed, entry):
         '''
         Post entry to Twitter.
         :param entry:
@@ -61,27 +61,27 @@ class TweepyClient(GenericClient):
         maxlen = self._max_len - adjust_with_inner_links - 1  # for last ' '
 
         # Let's build our tweet!  Apply optional prefix
-        text = self._config['post_prefix']
+        text = self.resolve_option(feed, 'post_prefix')
 
         # Process contents
         raw_contents = entry.title
 
-        stripped_html = self.strip_html(entry.content) \
+        stripped_html = self.strip_html(feed, entry.content) \
                         if entry.content else None
-        if self._config['post_include_content'] and stripped_html:
+        if self.resolve_option(feed, 'post_include_content') and stripped_html:
             raw_contents += ": " + stripped_html
-        text += self._mkrichtext(raw_contents, self.filter_tags(entry),
+        text += self._mkrichtext(raw_contents, self.filter_tags(feed, entry),
                                  maxlen=maxlen)
 
         # Apply optional suffix
-        text += self._config['post_suffix']
+        text += self.resolve_option(feed, 'post_suffix')
 
         # Shorten the link URL if configured/possible
-        text += " " + self.shorten_url(entry.link)
+        text += " " + self.shorten_url(feed, entry.link)
 
         # Finally ready to post.  Let's find out how (media/text)
         media_path = None
-        if self._config['post_include_media'] and entry.media_url:
+        if self.resolve_option(feed, 'post_include_media') and entry.media_url:
             # Need to download image from that URL in order to post it!
             media_path = self.download_media(entry.media_url)
 

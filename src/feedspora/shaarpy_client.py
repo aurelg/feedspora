@@ -46,17 +46,18 @@ class ShaarpyClient(GenericClient):
             "audience": kwargs['audience']
         }
 
-    def post(self, entry):
+    def post(self, feed, entry):
         '''
         Post entry to Shaarli
+        :param feed:
         :param entry:
         '''
-        title = self._config['post_prefix'] + \
-                entry.title+self._config['post_suffix']
-        link = self.shorten_url(entry.link)
-        tags = self.filter_tags(entry)
+        title = self.resolve_option(feed, 'post_prefix') + \
+                entry.title+self.resolve_option(feed, 'post_suffix')
+        link = self.shorten_url(feed, entry.link)
+        tags = self.filter_tags(feed, entry)
         content = ''
-        if self._config['post_include_content'] and entry.content:
+        if self.resolve_option(feed, 'post_include_content') and entry.content:
             content = entry.content
 
             # pylint: disable=broad-except
@@ -67,7 +68,7 @@ class ShaarpyClient(GenericClient):
                 pass
             # pylint: enable=broad-except
 
-            content = self.remove_ending_tags(content)
+            content = self.remove_ending_tags(feed, content)
 
         to_return = False
         if self.is_testing():
