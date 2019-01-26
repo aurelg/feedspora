@@ -25,11 +25,13 @@ def detailed_cmp(tested, expected):
     not_in_list = list_cmp(tested, expected)
     if not_in_list:
         logging.error("Missing from 'expected' list:\n%s",
-                      ''.join(["\n    {}".format(x) for x in not_in_list]))
+                      ''.join(["\n    {}".format(json.dumps(x)) \
+                                                 for x in not_in_list]))
     not_in_list = list_cmp(expected, tested)
     if not_in_list:
         logging.error("Missing from 'tested' list:\n%s",
-                      ''.join(["\n    {}".format(x) for x in not_in_list]))
+                      ''.join(["\n    {}".format(json.dumps(x)) \
+                                                 for x in not_in_list]))
 
 
 def check_feed(capsys, feedtype):

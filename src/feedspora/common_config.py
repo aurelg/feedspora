@@ -80,7 +80,7 @@ class CommonConfig:
         # Tags
         if 'tags' in config:
             self._config['tags'] = [
-                word.strip() for word in config['tags'].split(',')
+                word.strip() for word in config['tags'].split(',') if word
             ]
         elif not is_override:
             self._config['tags'] = []
@@ -88,7 +88,7 @@ class CommonConfig:
         # Tag filtering options
         if 'tag_filter_opts' in config:
             self._config['tag_filter_opts'] = {key.strip(): True \
-                for key in config['tag_filter_opts'].split(',')}
+                for key in config['tag_filter_opts'].split(',') if key}
         elif not is_override:
             self._config['tag_filter_opts'] = dict()
 
