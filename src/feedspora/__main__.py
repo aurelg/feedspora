@@ -11,6 +11,7 @@ import logging
 from feedspora.diaspora_client import DiaspyClient  # @UnusedImport
 from feedspora.facebook_client import FacebookClient  # @UnusedImport
 from feedspora.feedspora_runner import FeedSpora
+from feedspora.generic_feed import GenericFeed
 from feedspora.linkedin_client import LinkedInClient  # @UnusedImport
 from feedspora.mastodon_client import MastodonClient  # @UnusedImport
 from feedspora.shaarpy_client import ShaarpyClient  # @UnusedImport
@@ -38,7 +39,7 @@ def read_config_file(filename):
 def main():
     '''Entry point if called as an executable'''
 
-    def connect_account(account, testing):
+    def connect_client(account, testing):
         '''
         Initialize a client for the specified account
         Then register it in FeedSpora
@@ -50,11 +51,19 @@ def main():
             client_class = globals()[account['type']]
             client = client_class(account, testing)
             client.set_testing_root(testing)
-            feedspora.connect(client)
+            feedspora.connect_client(client)
         except Exception as exception:
             logging.error('Cannot connect %s : %s', account['name'],
                           str(exception))
         # pylint: enable=broad-except
+
+    def connect_feed(feed_data):
+        '''
+        Initialize a feed and register it in FeedSpora
+        :param feed_data:
+        '''
+        feed = GenericFeed(feed_data)
+        feedspora.connect_feed(feed)
 
     # Parse input args
     parser = argparse.ArgumentParser(
@@ -74,11 +83,14 @@ def main():
 
     config = read_config_file(root_name + '.yml')
     feedspora = FeedSpora()
-    feedspora.set_feed_urls(config['feeds'])
+
+    for feed in config['feeds']:
+        if 'enabled' not in feed or feed['enabled']:
+            connect_feed(feed)
 
     for account in config['accounts']:
         if 'enabled' not in account or account['enabled']:
-            connect_account(account, args.testing)
+            connect_client(account, args.testing)
     feedspora.set_db_file(root_name + '.db')
     feedspora.set_testing(args.testing is not None)
     feedspora.run()

@@ -57,6 +57,9 @@ accounts:
     # posting options and their usage
 
 feeds:
-  - 'url_feed1'
-  - 'atom_file_name_feed_2'
-  - 'rss_file_name_feed_3'
+  # Consult the FeedSpora Wiki (https://github.com/aurelg/feedspora/wiki) for
+  # full details on the configuration options below and additional supported
+  # posting options and their usage
+  - path: 'url_feed1'
+  - path: 'atom_file_name_feed_2'
+  - path: 'rss_file_name_feed_3'

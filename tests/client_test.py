@@ -8,7 +8,7 @@ import pytest
 
 from feedspora.diaspora_client import DiaspyClient
 from feedspora.facebook_client import FacebookClient
-from feedspora.feedspora_runner import FeedSpora
+from feedspora.generic_feed import GenericFeed
 from feedspora.linkedin_client import LinkedInClient
 from feedspora.mastodon_client import MastodonClient
 from feedspora.shaarpy_client import ShaarpyClient
@@ -18,11 +18,11 @@ from feedspora.wordpress_client import WPClient
 
 @pytest.fixture
 def entry_generator():
-    f = 'feed.atom'
-    fs = FeedSpora()
-    soup = fs.retrieve_feed_soup(f)
+    feed_path = 'feed.atom'
+    generic_feed = GenericFeed(feed_path)
+    soup = generic_feed.retrieve_feed_soup(feed_path)
 
-    return fs.parse_atom(soup)
+    return generic_feed.parse_atom(soup)
 
 
 @pytest.fixture
@@ -33,6 +33,7 @@ def expected():
 
 def check(client, entry_generator, expected, check_entry):
 
+    feed = None # TODO: get actual value
     entries = [x for x in entry_generator][::-1]
     assert len(entries) > 0
     assert len(entries) == len(expected)
@@ -53,7 +54,7 @@ def check(client, entry_generator, expected, check_entry):
         assert expect[expect_key]['title'] != ''
         assert expect[expect_key]['link'] != ''
         # Test the client post return
-        returned = client.post(entry)
+        returned = client.post(feed, entry)
         assert returned is not None
         check_entry(returned, expect[expect_key])
 

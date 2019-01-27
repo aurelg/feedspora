@@ -14,22 +14,22 @@ class ShaarpyClient(GenericClient):
     _shaarpy = None
     _post_private = False
 
-    def __init__(self, account, testing):
+    def __init__(self, config, testing):
         '''
         Initialize
-        :param account:
+        :param config:
         :param testing:
         '''
-        self._account = account
-        if 'post_audience' in account and \
-           account['post_audience'].lower() == 'private':
+        self._config = config
+        if 'post_audience' in config and \
+           config['post_audience'].lower() == 'private':
             self._post_private = True
 
         if not testing:
             self._shaarpy = Shaarpy()
-            self._shaarpy.login(account['username'], account['password'],
-                                account['url'])
-        self.set_common_opts(account)
+            self._shaarpy.login(config['username'], config['password'],
+                                config['url'])
+        self.set_common_opts(config)
 
     def get_dict_output(self, **kwargs):
         '''
@@ -38,7 +38,7 @@ class ShaarpyClient(GenericClient):
         '''
 
         return {
-            "client": self._account['name'],
+            "client": self._config['name'],
             "link": kwargs['link'],
             "tags": kwargs['tags'],
             "title": kwargs['title'],
@@ -46,17 +46,18 @@ class ShaarpyClient(GenericClient):
             "audience": kwargs['audience']
         }
 
-    def post(self, entry):
+    def post(self, feed, entry):
         '''
         Post entry to Shaarli
+        :param feed:
         :param entry:
         '''
-        title = self._account['post_prefix'] + \
-                entry.title+self._account['post_suffix']
-        link = self.shorten_url(entry.link)
-        tags = self.filter_tags(entry)
+        title = self.resolve_option(feed, 'post_prefix') + \
+                entry.title+self.resolve_option(feed, 'post_suffix')
+        link = self.shorten_url(feed, entry.link)
+        tags = self.filter_tags(feed, entry)
         content = ''
-        if self._account['post_include_content'] and entry.content:
+        if self.resolve_option(feed, 'post_include_content') and entry.content:
             content = entry.content
 
             # pylint: disable=broad-except
@@ -67,7 +68,7 @@ class ShaarpyClient(GenericClient):
                 pass
             # pylint: enable=broad-except
 
-            content = self.remove_ending_tags(content)
+            content = self.remove_ending_tags(feed, content)
 
         to_return = False
         if self.is_testing():

@@ -12,61 +12,13 @@ import urllib.request
 import lxml.html
 import pyshorteners
 
+from feedspora.common_config import CommonConfig
 
-class GenericClient:
-    ''' Implements the case functionalities expected from clients '''
+class GenericClient(CommonConfig):
+    ''' Implements the base functionalities expected from clients '''
 
-    _posts_done = 0
     _testing_root = None
     _testing_output = None
-    _account = None
-
-    def get_account(self):
-        '''
-        Return account dict
-        (Really only needed so that non-client code can access a public method)
-        '''
-
-        return self._account
-
-    def is_post_limited(self):
-        '''
-        Client has a post limit set
-        '''
-
-        return self._account['max_posts'] != 0
-
-    def post_within_limits(self, entry_to_post):
-        '''
-        Client post entry, as long as within specified limits
-        :param entry_to_post:
-        '''
-        to_return = False
-
-        if not self.is_post_limited() or \
-           self._posts_done < self._account['max_posts']:
-            to_return = self.post(entry_to_post)
-
-            if to_return:
-                self._posts_done += 1
-
-        return to_return
-
-    def post(self, entry):
-        '''
-        Placeholder for post, override it in subclasses
-        :param entry:
-        '''
-        raise NotImplementedError("Please implement!")
-
-    def seeding_published_db(self, item_num):
-        '''
-        Override to post not being published, but marking it as published
-        in the DB anyway ("seeding" the published DB)
-        :param item_num:
-        '''
-
-        return self._account['max_posts'] < 0 and item_num + self._account['max_posts'] <= 0
 
     def set_testing_root(self, testing_root):
         '''
@@ -107,8 +59,6 @@ class GenericClient:
 
         return to_return
 
-    # pylint: enable=no-self-use
-
     def get_dict_output(self, **kwargs):
         '''
         Define output for testing purposes (potentially overridden on
@@ -116,115 +66,28 @@ class GenericClient:
         :param kwargs:
         '''
 
-        return {"client": self._account['name'], "content": kwargs['text']}
+        return {"client": self._config['name'], "content": kwargs['text']}
 
-    def shorten_url(self, the_url):
+    def resolve_option(self, feed, option):
         '''
-        Apply configured URL shortener (if present) to the provided link and
-        return the result.  If anything goes awry, return the unmodified link.
-        :param the_url:
+        Resolve a named option between a client and a feed and return the
+        value of that resolved option.
         '''
-        to_return = the_url
-        # Default
-        short_options = {'timeout': 3}
-        if 'url_shortener_opts' in self._account:
-            short_options.update(self._account['url_shortener_opts'])
 
-        if the_url and 'url_shortener' in self._account and \
-           self._account['url_shortener'] != 'none':
-            try:
-                shortener = pyshorteners.Shortener(**short_options)
-                # Verify a legal choice
-                # pylint: disable=no-member
-                assert self._account['url_shortener'] in \
-                    shortener.available_shorteners
-                # pylint: enable=no-member
-                to_return = getattr(
-                    shortener, self._account['url_shortener']).short(the_url)
-                # Sanity check!
-
-                if len(to_return) > len(the_url):
-                    # Not shorter?  You're fired!
-                    raise RuntimeError(
-                        'Shortener %s produced a longer URL ' +
-                        'than the original!', self._account['url_shortener'])
-            # pylint: disable=broad-except
-            except Exception as exception:
-                # Shortening attempt failed somehow (we don't care how, except
-                # for messaging purposes) - revert to non-shortened link
-
-                if isinstance(exception, AssertionError):
-                    all_shorteners = ' '.join(shortener.available_shorteners)
-                    logging.error('URL shortener %s is unimplemented!',
-                                  self._account['url_shortener'])
-                    logging.info('Available URL shorteners: %s',
-                                 all_shorteners)
-                else:
-                    logging.error('Cannot shorten URL %s with %s: %s',
-                                  the_url, self._account['url_shortener'],
-                                  str(exception))
-                to_return = the_url
-            # pylint: enable=broad-except
-
+        to_return = None
+        if feed and feed.get_config() and option in feed.get_config():
+            to_return = feed.get_config()[option]
+        elif option in self._config:
+            to_return = self._config[option]
         return to_return
 
-    def set_option_defaults(self, account):
+    def post(self, feed, entry):
         '''
-        Set default values for options common to all clients
-        :param account:
+        Placeholder for post, override it in subclasses
+        :param feed:
+        :param entry:
         '''
-
-        option_defaults = {'max_posts': 0,
-                           'max_tags': 100,
-                           'post_prefix': '',
-                           'post_suffix': '',
-                           'post_include_content': False,
-                           'post_include_media': False,
-                          }
-        for option, default_value in option_defaults.items():
-            if option not in account:
-                self._account[option] = default_value
-
-
-    def set_common_opts(self, account):
-        '''
-        Set options common to all clients
-        This should only entail setting any defaults or changing any
-        formats that need such or data manipulations required
-        :param account:
-        '''
-
-        # Failsafe - should already have been initialized... except during tests
-        if not self._account:
-            if account:
-                self._account = account
-            else:
-                self._account = dict()
-
-        self.set_option_defaults(account)
-
-        # Format changes/data manipulations
-        # Tags
-        if 'tags' in account:
-            self._account['tags'] = [
-                word.strip() for word in account['tags'].split(',')
-            ]
-        else:
-            self._account['tags'] = []
-
-        # Tag filtering options
-        if 'tag_filter_opts' in account:
-            self._account['tag_filter_opts'] = {key.strip(): True \
-                for key in account['tag_filter_opts'].split(',')}
-        else:
-            self._account['tag_filter_opts'] = dict()
-
-        # URL shortener
-        if 'url_shortener' in account:
-            self._account['url_shortener'] = account['url_shortener'].lower()
-        # URL shortener opts
-        if 'url_shortener_opts' not in account:
-            self._account['url_shortener_opts'] = dict()
+        raise NotImplementedError("Please implement!")
 
     # pylint: disable=no-self-use
     def _trim_string(self, text, maxlen, etc='...', etc_if_shorter_than=None):
@@ -253,7 +116,6 @@ class GenericClient:
                 to_return += etc
 
         return to_return
-
     # pylint: enable=no-self-use
 
     # pylint: disable=too-many-locals
@@ -305,7 +167,6 @@ class GenericClient:
                 extra_kw.append(word)
 
         # Process inline tags
-
         for word in inline_kw:
             pattern = (
                 r'%s(%s)%s' % (before_tag, re.escape('%s' % word), after_tag))
@@ -323,7 +184,6 @@ class GenericClient:
             minlen_wo_xtra_kw = len(to_return)
 
             # Add extra (ordered) tags
-
             for word in extra_kw:
                 # prevent duplication
                 pattern = (r'%s#(%s)%s' % (before_tag, re.escape('%s' % word),
@@ -333,7 +193,6 @@ class GenericClient:
                     to_return += " #" + word
 
         # If the text is too long, cut it and, if needed, add suffix
-
         if maxlen is not None:
             to_return = self._trim_string(
                 to_return,
@@ -342,7 +201,6 @@ class GenericClient:
                 etc_if_shorter_than=minlen_wo_xtra_kw)
 
         # Restore separator
-
         if extra_kw:
             to_return = to_return.replace(fake_separator, separator)
 
@@ -361,80 +219,6 @@ class GenericClient:
     # pylint: enable=no-self-use
     # pylint: enable=too-many-locals
     # pylint: enable=too-many-arguments
-
-
-    def filter_tags(self, entry):
-        '''
-        Filter the client-specific tag list and entry tag lists
-        (title, content, category) according to the client-specific tag
-        filtering options, producing an ordered and size-limited tag list
-        to be used during posting
-        :param entry:
-        '''
-
-        # First priority: user-defined tags
-        to_filter = self._account['tags'][:] if self._account['tags'] else []
-        # Next, title tags, if appropriate
-        if (not (self._account['tag_filter_opts'] and
-                 'ignore_title' in self._account['tag_filter_opts'])) and \
-           entry.tags['title']:
-            to_filter.extend(entry.tags['title'])
-        # Then, content tags, if appropriate
-        if (not (self._account['tag_filter_opts'] and
-                 'ignore_content' in self._account['tag_filter_opts'])) and \
-           entry.tags['content']:
-            to_filter.extend(entry.tags['content'])
-        # Finally, category tags, again if appropriate
-        if (not (self._account['tag_filter_opts'] and
-                 'ignore_category' in self._account['tag_filter_opts'])) and \
-           entry.tags['category']:
-            to_filter.extend(entry.tags['category'])
-
-        # And now we filter.  We NEVER want any duplicates, and that might
-        # include non-case-sensitive duplication too, depending upon options
-        to_return = []
-        non_case_sensitive = []
-        for tag in to_filter:
-            if self._account['tag_filter_opts'] and \
-               'case-sensitive' in self._account['tag_filter_opts'] and \
-               tag not in to_return:
-                to_return.append(tag)
-            elif (not (self._account['tag_filter_opts'] and
-                       'case-sensitive' in \
-                       self._account['tag_filter_opts'])) and \
-                 tag.lower() not in non_case_sensitive:
-                to_return.append(tag)
-                non_case_sensitive.append(tag.lower())
-            # We may have all that were specified
-            if len(to_return) >= self._account['max_tags']:
-                break
-
-        return to_return
-
-
-    def remove_ending_tags(self, content):
-        '''
-        Trim any tags from the end of content, and return the modified content,
-        unless the ignore_content tag filter option is set (then do nothing).
-        :param content:
-        '''
-
-        if content and (not
-                        (self._account['tag_filter_opts'] and \
-                         'ignore_content' in self._account['tag_filter_opts'])):
-            tag_pattern = r'\s+#([\w]+)$'
-            match_result = re.search(tag_pattern, content)
-
-            while match_result:
-                content = re.sub(tag_pattern, '', content)
-                match_result = re.search(tag_pattern, content)
-
-            if re.match(r'^\s*#[\w]+$', content):
-                # Left with a single tag!
-                content = ''
-
-        return content
-
 
     # pylint: disable=no-self-use
     def get_mimetype(self, media_path):
@@ -496,7 +280,6 @@ class GenericClient:
 
             return to_return
 
-
         request = urllib.request.Request(the_url)
         request.add_header('User-Agent', 'Mozilla/5.0')
         response = urllib.request.urlopen(request)
@@ -514,9 +297,172 @@ class GenericClient:
         return full_path
     # pylint: enable=no-self-use
 
-    def strip_html(self, before_strip):
+    def post_within_limits(self, entry_to_post, feed):
+        '''
+        Client post entry, as long as within specified limits of both client
+        and feed
+        :param entry_to_post:
+        :param feed:
+        '''
+        to_return = False
+
+        # The client config and feed config need to be taken into
+        # consideration independently; don't use resolve_option
+        post_from_feed = not feed.is_post_limited() or \
+                         feed.get_posts_done() < feed.get_config()['max_posts']
+        post_to_client = not self.is_post_limited() or \
+                         self.get_posts_done() < self.get_config()['max_posts']
+        if post_from_feed and post_to_client:
+            to_return = self.post(feed, entry_to_post)
+
+            if to_return:
+                self.increment_posts_done()
+
+        return to_return
+
+    def seeding_published_db(self, entry_count, feed, feed_count):
+        '''
+        Override to post not being published, but marking it as published
+        in the DB anyway ("seeding" the published DB)
+        :param entry_count:
+        :param feed:
+        :param feed_count:
+        '''
+        # The client config and feed config need to be taken into
+        # consideration independently; don't use resolve_option
+        seed_client = self.get_config()['max_posts'] < 0 and \
+                      entry_count + self.get_config()['max_posts'] <= 0
+        seed_feed = feed.get_config()['max_posts'] < 0 and \
+                    feed_count + feed.get_config()['max_posts'] <= 0
+
+        return seed_client or seed_feed
+
+    def shorten_url(self, feed, the_url):
+        '''
+        Apply configured URL shortener (if present) to the provided link and
+        return the result.  If anything goes awry, return the unmodified link.
+        :param feed:
+        :param the_url:
+        '''
+        to_return = the_url
+        # Default
+        short_options = {'timeout': 3}
+        add_options = self.resolve_option(feed, 'url_shortener_opts')
+        if add_options:
+            short_options.update(add_options)
+
+        url_shortener = self.resolve_option(feed, 'url_shortener')
+        if the_url and url_shortener and url_shortener != 'none':
+            try:
+                shortener = pyshorteners.Shortener(**short_options)
+                # Verify a legal choice
+                # pylint: disable=no-member
+                assert url_shortener in shortener.available_shorteners
+                # pylint: enable=no-member
+                to_return = getattr(shortener, url_shortener).short(the_url)
+                # Sanity check!
+
+                if len(to_return) > len(the_url):
+                    # Not shorter?  You're fired!
+                    raise RuntimeError(
+                        'Shortener %s produced a longer URL ' +
+                        'than the original!', url_shortener)
+            # pylint: disable=broad-except
+            except Exception as exception:
+                # Shortening attempt failed somehow (we don't care how, except
+                # for messaging purposes) - revert to non-shortened link
+
+                if isinstance(exception, AssertionError):
+                    all_shorteners = ' '.join(shortener.available_shorteners)
+                    logging.error('URL shortener %s is unimplemented!',
+                                  url_shortener)
+                    logging.info('Available URL shorteners: %s',
+                                 all_shorteners)
+                else:
+                    logging.error('Cannot shorten URL %s with %s: %s',
+                                  the_url, url_shortener, str(exception))
+                to_return = the_url
+            # pylint: enable=broad-except
+
+        return to_return
+
+    def filter_tags(self, feed, entry):
+        '''
+        Filter the client/feed-specific tag list and entry tag lists
+        (title, content, category) according to the client/feed-specific tag
+        filtering options, producing an ordered and size-limited tag list
+        to be used during posting
+        :param feed:
+        :param entry:
+        '''
+
+        # First priority: user-defined tags
+        tags_opts = self.resolve_option(feed, 'tags')
+        to_filter = tags_opts[:] if tags_opts else []
+        # Next, title tags, if appropriate
+        tag_filter_opts = self.resolve_option(feed, 'tag_filter_opts')
+        if (not (tag_filter_opts and
+                 'ignore_title' in tag_filter_opts)) and \
+           entry.tags['title']:
+            to_filter.extend(entry.tags['title'])
+        # Then, content tags, if appropriate
+        if (not (tag_filter_opts and
+                 'ignore_content' in tag_filter_opts)) and \
+           entry.tags['content']:
+            to_filter.extend(entry.tags['content'])
+        # Finally, category tags, again if appropriate
+        if (not (tag_filter_opts and
+                 'ignore_category' in tag_filter_opts)) and \
+           entry.tags['category']:
+            to_filter.extend(entry.tags['category'])
+
+        # And now we filter.  We NEVER want any duplicates, and that might
+        # include non-case-sensitive duplication too, depending upon options
+        to_return = []
+        non_case_sensitive = []
+        for tag in to_filter:
+            if tag_filter_opts and 'case-sensitive' in tag_filter_opts and \
+               tag not in to_return:
+                to_return.append(tag)
+            elif (not (tag_filter_opts and \
+                       'case-sensitive' in  tag_filter_opts)) and \
+                 tag.lower() not in non_case_sensitive:
+                to_return.append(tag)
+                non_case_sensitive.append(tag.lower())
+            # We may have all that were specified
+            if len(to_return) >= self.resolve_option(feed, 'max_tags'):
+                break
+
+        return to_return
+
+    def remove_ending_tags(self, feed, content):
+        '''
+        Trim any tags from the end of content, and return the modified content,
+        unless the ignore_content tag filter option is set (then do nothing).
+        :param feed:
+        :param content:
+        '''
+
+        tag_filter_opts = self.resolve_option(feed, 'tag_filter_opts')
+        if content and \
+           (not (tag_filter_opts and 'ignore_content' in tag_filter_opts)):
+            tag_pattern = r'\s+#([\w]+)$'
+            match_result = re.search(tag_pattern, content)
+
+            while match_result:
+                content = re.sub(tag_pattern, '', content)
+                match_result = re.search(tag_pattern, content)
+
+            if re.match(r'^\s*#[\w]+$', content):
+                # Left with a single tag!
+                content = ''
+
+        return content
+
+    def strip_html(self, feed, before_strip):
         '''
         Strip HTML from the content
+        :param feed:
         :param before_strip:
         '''
 
@@ -530,6 +476,6 @@ class GenericClient:
             if not done:
                 before_strip = to_return
         # Remove all tags from end of content!
-        to_return = self.remove_ending_tags(to_return)
+        to_return = self.remove_ending_tags(feed, to_return)
 
         return to_return
