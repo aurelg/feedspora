@@ -18,18 +18,18 @@ class WPClient(GenericClient):
     ''' The WPClient handles the connection to Wordpress. '''
     client = None
 
-    def __init__(self, account, testing):
+    def __init__(self, config, testing):
         '''
         Initialize
-        :param account:
+        :param config:
         :param testing:
         '''
-        self._account = account
+        self._config = config
 
         if not testing:
-            self.client = Client(account['wpurl'], account['username'],
-                                 account['password'])
-        self.set_common_opts(account)
+            self.client = Client(config['wpurl'], config['username'],
+                                 config['password'])
+        self.set_common_opts(config)
 
     # pylint: disable=no-self-use
     def get_content(self, url):
@@ -60,18 +60,20 @@ class WPClient(GenericClient):
         '''
 
         return {
-            "client": self._account['name'],
-            "title": self._account['post_prefix']+kwargs['entry'].title + \
-                     self._account['post_suffix'],
-            "post_tag": self.filter_tags(kwargs['entry']),
+            "client": self._config['name'],
+            "title": self.resolve_option(kwargs['feed'], 'post_prefix') + \
+                     kwargs['entry'].title + \
+                     self.resolve_option(kwargs['feed'], 'post_suffix'),
+            "post_tag": self.filter_tags(kwargs['feed'], kwargs['entry']),
             "media_path": kwargs['media_path'],
             "content": kwargs['content'],
-            "url": self.shorten_url(kwargs['entry'].link)
+            "url": self.shorten_url(kwargs['feed'], kwargs['entry'].link)
         }
 
-    def post(self, entry):
+    def post(self, feed, entry):
         '''
         Post entry to Wordpress.
+        :param feed:
         :param entry:
         '''
 
@@ -96,32 +98,33 @@ class WPClient(GenericClient):
 
 
         article_content = ''
-        if 'post_link_content' in self._account and \
-           self._account['post_link_content']:
+        if 'post_link_content' in self._config and \
+           self._config['post_link_content']:
             article_content = self.get_content(entry.link)
         else:
-            if self._account['post_include_content'] and entry.content:
-                article_content = self.strip_html(entry.content)
+            if self.resolve_option(feed, 'post_include_content') and \
+               entry.content:
+                article_content = self.strip_html(feed, entry.content)
 
         post_content = r"Source: <a href='{}'>{}</a><hr\>{}".format(
-            self.shorten_url(entry.link),
+            self.shorten_url(feed, entry.link),
             urlparse(entry.link).netloc, article_content)
 
         # Resolve media, if appropriate and possible
         media_path = None
-        if self._account['post_include_media'] and entry.media_url:
+        if self.resolve_option(feed, 'post_include_media') and entry.media_url:
             # Need to download image from that URL in order to post it!
             media_path = self.download_media(entry.media_url)
 
         to_return = False
         if self.is_testing():
             content = article_content
-            if 'post_link_content' in self._account and \
-               self._account['post_link_content']:
-                content = "From "+self.shorten_url(entry.link)
+            if 'post_link_content' in self._config and \
+               self._config['post_link_content']:
+                content = "From "+self.shorten_url(feed, entry.link)
 
             self.accumulate_testing_output(
-                self.get_dict_output(entry=entry, content=content,
+                self.get_dict_output(feed=feed, entry=entry, content=content,
                                      media_path=media_path))
         else:
             # Upload media, if appropriate
@@ -131,11 +134,12 @@ class WPClient(GenericClient):
 
             # get text with readability
             post = WordPressPost()
-            post.title = self._account['post_prefix']+entry.title + \
-                         self._account['post_suffix']
+            post.title = self.resolve_option(feed, 'post_prefix') + \
+                         entry.title + \
+                         self.resolve_option(feed, 'post_suffix')
             post.content = post_content
             post.terms_names = {
-                'post_tag': self.filter_tags(entry),
+                'post_tag': self.filter_tags(feed, entry),
                 'category': ["AutomatedPost"]
             }
             post.post_status = 'publish'

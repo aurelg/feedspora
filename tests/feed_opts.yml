@@ -1,0 +1,126 @@
+accounts:
+
+  - name: 'Diaspora_feed_opts'
+    type: 'DiaspyClient'
+    pod: 'diaspora_pod_url'
+    username: 'username'
+    password: 'password'
+    tags: 'Diaspora'
+    max_tags: 3
+    post_include_media: false
+    post_include_content: true
+
+  - name: 'Twitter_feed_opts'
+    type: 'TweepyClient'
+    consumer_token: 'my_consumer_token'
+    consumer_secret: 'my_consumer_secret'
+    access_token: 'my_access_token'
+    access_token_secret: 'my_access_token_secret'
+    tags: 'Twitter'
+    max_tags: 3
+    post_include_media: false
+    post_include_content: true
+
+  - name: 'Facebook_feed_opts'
+    type: 'FacebookClient'
+    token: 'your_facebook_token'
+    post_to_id: '411'
+    tags: 'Facebook'
+    max_tags: 3
+    post_include_media: false
+    post_include_content: true
+
+  - name: 'Mastodon_feed_opts'
+    type: 'MastodonClient'
+    client_id: 'client_key'
+    client_secret: 'client_secret'
+    access_token: 'access_token'
+    url: 'base_url_mastodon'
+    tags: 'Mastodon'
+    tag_filter_opts: 'ignore_category'
+    max_tags: 3
+    post_include_media: false
+    post_include_content: true
+
+  - name: 'Shaarpy_feed_opts'
+    type: 'ShaarpyClient'
+    username: 'shaarli username'
+    password: 'shaarli password'
+    url: 'https://shaarli_url/u/shaarli_username/'
+    tags: 'Shaarli'
+    max_tags: 3
+    post_include_media: false
+    post_include_content: true
+
+  - name: 'WordPress_feed_opts'
+    type: 'WPClient'
+    wpurl: 'some_random_url'
+    username: 'username'
+    password: 'password'
+    tags: 'WordPress'
+    tag_filter_opts: 'ignore_title,ignore_category,case-sensitive'
+    max_tags: 3
+    post_include_media: false
+    post_include_content: true
+
+  - name: 'LinkedIn_feed_opts'
+    type: 'LinkedInClient'
+    authentication_token: 'authentication_token'
+    visibility: 'anyone'
+    tags: 'LinkedIn'
+    max_tags: 3
+    post_include_media: false
+    post_include_content: true
+
+feeds:
+  - path: 'feed.atom'
+    post_include_media: false
+    post_include_content: true
+    url_shortener: 'Tinyurl'
+    post_prefix: 'ATOM FEED: '
+    post_suffix: '/END'
+    max_posts: 2
+    max_tags: 1
+    tags: ''
+    tag_filter_opts: 'ignore_title,ignore_content,ignore_category,case-sensitive'
+
+  - path: 'feed.rss'
+    post_include_media: true
+    post_include_content: false
+    url_shortener: 'Tinyurl'
+    post_prefix: 'RSS FEED: '
+    post_suffix: '/END'
+    max_posts: 3
+    max_tags: 2
+    tags: ''
+    tag_filter_opts: 'ignore_content,ignore_category,case-sensitive'
+
+  - path: 'tag_opts.atom'
+    post_include_media: false
+    post_include_content: true
+    url_shortener: 'Tinyurl'
+    post_prefix: 'TAG OPTS: '
+    post_suffix: '/END'
+    max_posts: 2
+    tag_filter_opts: 'ignore_category,case-sensitive'
+
+  - path: 'title_tags.atom'
+    post_include_media: false
+    post_include_content: true
+    url_shortener: 'Tinyurl'
+    post_prefix: 'TITLE TAGS: '
+    post_suffix: '/END'
+    max_posts: 3
+    max_tags: 4
+    tag_filter_opts: 'category,case-sensitive'
+
+  - path: 'content_tags.rss'
+    post_include_media: true
+    post_include_content: true
+    url_shortener: 'Tinyurl'
+    post_prefix: 'CONTENT TAGS: '
+    post_suffix: '/END'
+    max_posts: 3
+    max_tags: 5
+    tag_filter_opts: ''
+

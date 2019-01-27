@@ -12,13 +12,13 @@ class TweepyClient(GenericClient):
     ''' The TweepyClient handles the connection to Twitter. '''
     _api = None
 
-    def __init__(self, account, testing):
+    def __init__(self, config, testing):
         '''
         Initialize
-        :param account:
+        :param config:
         :param testing:
         '''
-        self._account = account
+        self._config = config
 
         # handle auth
         # See https://tweepy.readthedocs.org/en/v3.2.0/auth_tutorial.html
@@ -26,15 +26,15 @@ class TweepyClient(GenericClient):
         auth = None
 
         if not testing:
-            auth = tweepy.OAuthHandler(account['consumer_token'],
-                                       account['consumer_secret'])
-            auth.set_access_token(account['access_token'],
-                                  account['access_token_secret'])
+            auth = tweepy.OAuthHandler(config['consumer_token'],
+                                       config['consumer_secret'])
+            auth.set_access_token(config['access_token'],
+                                  config['access_token_secret'])
         self._link_cost = 23
         self._max_len = 280
         self._api = tweepy.API(auth)
 
-        self.set_common_opts(account)
+        self.set_common_opts(config)
 
     def get_dict_output(self, **kwargs):
         '''
@@ -43,12 +43,12 @@ class TweepyClient(GenericClient):
         '''
 
         return {
-            "client": self._account['name'],
+            "client": self._config['name'],
             "content": kwargs['text'],
             "media": kwargs['media_path'] if kwargs['media_path'] else None
         }
 
-    def post(self, entry):
+    def post(self, feed, entry):
         '''
         Post entry to Twitter.
         :param entry:
@@ -61,27 +61,27 @@ class TweepyClient(GenericClient):
         maxlen = self._max_len - adjust_with_inner_links - 1  # for last ' '
 
         # Let's build our tweet!  Apply optional prefix
-        text = self._account['post_prefix']
+        text = self.resolve_option(feed, 'post_prefix')
 
         # Process contents
         raw_contents = entry.title
 
-        stripped_html = self.strip_html(entry.content) \
+        stripped_html = self.strip_html(feed, entry.content) \
                         if entry.content else None
-        if self._account['post_include_content'] and stripped_html:
+        if self.resolve_option(feed, 'post_include_content') and stripped_html:
             raw_contents += ": " + stripped_html
-        text += self._mkrichtext(raw_contents, self.filter_tags(entry),
+        text += self._mkrichtext(raw_contents, self.filter_tags(feed, entry),
                                  maxlen=maxlen)
 
         # Apply optional suffix
-        text += self._account['post_suffix']
+        text += self.resolve_option(feed, 'post_suffix')
 
         # Shorten the link URL if configured/possible
-        text += " " + self.shorten_url(entry.link)
+        text += " " + self.shorten_url(feed, entry.link)
 
         # Finally ready to post.  Let's find out how (media/text)
         media_path = None
-        if self._account['post_include_media'] and entry.media_url:
+        if self.resolve_option(feed, 'post_include_media') and entry.media_url:
             # Need to download image from that URL in order to post it!
             media_path = self.download_media(entry.media_url)
 
