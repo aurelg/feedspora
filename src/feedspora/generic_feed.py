@@ -285,7 +285,7 @@ class GenericFeed(CommonConfig):
         '''
         to_return = None
         # get feed content
-        feed_url = self.get_path()
+        feed_url = self.path
         try:
             soup = self.retrieve_feed_soup(feed_url)
         except (requests.exceptions.ConnectionError, ValueError,

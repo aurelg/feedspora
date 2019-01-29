@@ -36,13 +36,14 @@ class FeedSpora:
         self._testing = False
         self._testing_accumulator = None
 
-    @db_file.setter
     def db_file(self, db_file):
         '''
         Set database file to track entries that have been already published
         :param db_file:
         '''
         self._db_file = db_file
+    # Necessary because (intentionally) db_file has no getter defined
+    db_file = property(None, db_file)
 
     def connect_client(self, client):
         '''
@@ -81,7 +82,6 @@ class FeedSpora:
         else:
             logging.info("Found database file %s", self._db_file)
 
-    @testing.setter
     def testing(self, testing):
         '''
         Are we testing feedspora?
@@ -90,6 +90,8 @@ class FeedSpora:
 
         if self._testing:
             self._testing_accumulator = dict()
+    # Necessary because (intentionally) testing has no getter defined
+    testing = property(None, testing)
 
     # pylint: disable=no-self-use
     def entry_identifier(self, entry):
