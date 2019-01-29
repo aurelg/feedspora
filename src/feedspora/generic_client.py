@@ -20,26 +20,29 @@ class GenericClient(CommonConfig):
     _testing_root = None
     _testing_output = None
 
-    def set_testing_root(self, testing_root):
-        '''
-        Client testing_root setter
-        :param testing_root:
-        '''
-        self._testing_root = testing_root
-
-    def get_testing_root(self):
+    @property
+    def testing_root(self):
         '''
         Client testing_root getter
         '''
 
         return self._testing_root
 
+    @testing_root.setter
+    def testing_root(self, testing_root):
+        '''
+        Client testing_root setter
+        :param testing_root:
+        '''
+        self._testing_root = testing_root
+
+
     def is_testing(self):
         '''
         Are we testing this client?
         '''
 
-        return self._testing_root is not None
+        return self.testing_root is not None
 
     def accumulate_testing_output(self, outdict):
         '''
@@ -75,8 +78,8 @@ class GenericClient(CommonConfig):
         '''
 
         to_return = None
-        if feed and feed.get_config() and option in feed.get_config():
-            to_return = feed.get_config()[option]
+        if feed and feed.config and option in feed.config:
+            to_return = feed.config[option]
         elif option in self._config:
             to_return = self._config[option]
         return to_return
@@ -309,9 +312,9 @@ class GenericClient(CommonConfig):
         # The client config and feed config need to be taken into
         # consideration independently; don't use resolve_option
         post_from_feed = not feed.is_post_limited() or \
-                         feed.get_posts_done() < feed.get_config()['max_posts']
+                         feed.posts_done < feed.config['max_posts']
         post_to_client = not self.is_post_limited() or \
-                         self.get_posts_done() < self.get_config()['max_posts']
+                         self.posts_done < self.config['max_posts']
         if post_from_feed and post_to_client:
             to_return = self.post(feed, entry_to_post)
 
@@ -330,10 +333,10 @@ class GenericClient(CommonConfig):
         '''
         # The client config and feed config need to be taken into
         # consideration independently; don't use resolve_option
-        seed_client = self.get_config()['max_posts'] < 0 and \
-                      entry_count + self.get_config()['max_posts'] <= 0
-        seed_feed = feed.get_config()['max_posts'] < 0 and \
-                    feed_count + feed.get_config()['max_posts'] <= 0
+        seed_client = self.config['max_posts'] < 0 and \
+                      entry_count + self.config['max_posts'] <= 0
+        seed_feed = feed.config['max_posts'] < 0 and \
+                    feed_count + feed.config['max_posts'] <= 0
 
         return seed_client or seed_feed
 

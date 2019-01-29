@@ -52,7 +52,8 @@ class GenericFeed(CommonConfig):
         # Feed options are an override to client options
         self.set_common_opts(config, is_override=True)
 
-    def get_path(self):
+    @property
+    def path(self):
         '''
         Get the defined path (URL)
         '''

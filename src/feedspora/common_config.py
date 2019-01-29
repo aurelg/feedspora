@@ -10,14 +10,16 @@ class CommonConfig:
     _config = None
     _posts_done = 0
 
-    def get_config(self):
+    @property
+    def config(self):
         '''
         Return config dict
         (Really only needed so that non-config code can access a public method)
         '''
         return self._config
 
-    def get_posts_done(self):
+    @property
+    def posts_done(self):
         '''
         Return the number of posts done
         '''
@@ -35,7 +37,7 @@ class CommonConfig:
         '''
         return self._config['max_posts'] != 0
 
-    def set_option_defaults(self, config):
+    def _set_option_defaults(self, config):
         '''
         Set default values for options common to all clients
         :param config:
@@ -74,7 +76,7 @@ class CommonConfig:
             if 'max_posts' not in self._config:
                 self._config['max_posts'] = 0
         else:
-            self.set_option_defaults(config)
+            self._set_option_defaults(config)
 
         # Format changes/data manipulations
         # Tags

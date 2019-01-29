@@ -50,7 +50,7 @@ def main():
         try:
             client_class = globals()[account['type']]
             client = client_class(account, testing)
-            client.set_testing_root(testing)
+            client.testing_root = testing
             feedspora.connect_client(client)
         except Exception as exception:
             logging.error('Cannot connect %s : %s', account['name'],
@@ -91,8 +91,8 @@ def main():
     for account in config['accounts']:
         if 'enabled' not in account or account['enabled']:
             connect_client(account, args.testing)
-    feedspora.set_db_file(root_name + '.db')
-    feedspora.set_testing(args.testing is not None)
+    feedspora.db_file = root_name + '.db'
+    feedspora.testing = args.testing is not None
     feedspora.run()
 
 
