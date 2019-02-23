@@ -36,12 +36,14 @@ class FeedSpora:
         self._testing = False
         self._testing_accumulator = None
 
-    def set_db_file(self, db_file):
+    def db_file(self, db_file):
         '''
         Set database file to track entries that have been already published
         :param db_file:
         '''
         self._db_file = db_file
+    # Necessary because (intentionally) db_file has no getter defined
+    db_file = property(None, db_file)
 
     def connect_client(self, client):
         '''
@@ -80,7 +82,7 @@ class FeedSpora:
         else:
             logging.info("Found database file %s", self._db_file)
 
-    def set_testing(self, testing):
+    def testing(self, testing):
         '''
         Are we testing feedspora?
         '''
@@ -88,6 +90,8 @@ class FeedSpora:
 
         if self._testing:
             self._testing_accumulator = dict()
+    # Necessary because (intentionally) testing has no getter defined
+    testing = property(None, testing)
 
     # pylint: disable=no-self-use
     def entry_identifier(self, entry):
@@ -116,16 +120,16 @@ class FeedSpora:
               "client_id=:client_id"
         self._cur.execute(sql, {
             "feedspora_id": pub_item,
-            "client_id": client.get_config()['name']
+            "client_id": client.config['name']
         })
         already_published = self._cur.fetchone() is not None
 
         if already_published:
             logging.info('Skipping already published entry in %s: %s',
-                         client.get_config()['name'], entry.title)
+                         client.config['name'], entry.title)
         else:
             logging.info('Found entry to publish in %s: %s',
-                         client.get_config()['name'], entry.title)
+                         client.config['name'], entry.title)
 
         return already_published
 
@@ -139,7 +143,7 @@ class FeedSpora:
         logging.info('Storing in database of published items: %s', pub_item)
         self._cur.execute(
             "INSERT INTO posts (feedspora_id, client_id) "
-            "values (?,?)", (pub_item, client.get_config()['name']))
+            "values (?,?)", (pub_item, client.config['name']))
         self._conn.commit()
 
     def _publish_entry(self, entry, entry_count, feed, feed_count):
@@ -213,16 +217,16 @@ class FeedSpora:
                 if feed.max_posts_done():
                     # If feed limit reached, we're done here; break out
                     logging.info("Configured feed limit of %d reached.",
-                                 feed.get_config()['max_posts'])
+                                 feed.config['max_posts'])
                     break
 
             if self._testing:
                 output = {
-                    client.get_config()['name']: client.pop_testing_output()
+                    client.config['name']: client.pop_testing_output()
 
                     for client in self._client
                 }
-                self._testing_accumulator[feed.get_path()] = output
+                self._testing_accumulator[feed.path] = output
         return entry_count
 
     def run(self):
