@@ -26,11 +26,11 @@ def read_config_file(filename):
     Loads the YML configuration file.
     :param filename:
     '''
-    from yaml import load
+    from yaml import load, FullLoader
     error = ''
     try:
         with open(filename) as config_file:
-            return load(config_file)
+            return load(config_file, Loader=FullLoader)
     except FileNotFoundError as excpt:
         error = format(excpt)
     raise Exception("Couldn't load config file " + filename + ":\n" + error)
