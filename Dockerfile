@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.8
 LABEL maintainer="Strubbl-dockerfile@linux4tw.de"
 
 ARG GIT_REPO=https://github.com/aurelg/feedspora.git
