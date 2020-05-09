@@ -1,7 +1,7 @@
 Mastodon.py
 PyReadability
 PyYAML
-beautifulsoup4
+beautifulsoup4==4.5.3
 facebook-sdk
 git+https://github.com/aurelg/shaarpy.git
 git+https://github.com/ellisonleao/pyshorteners.git
