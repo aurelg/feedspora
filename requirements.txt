@@ -3,7 +3,7 @@ git+https://github.com/marekjm/diaspy.git
 facebook-sdk==3.1.0
 git+https://github.com/aurelg/shaarpy.git
 git+https://github.com/ellisonleao/pyshorteners.git
-lxml==4.6.3
+lxml==4.6.5
 Mastodon.py==1.5.1
 PyReadability==0.4.0
 python3-linkedin==1.0.2
