@@ -10,5 +10,5 @@ python3-linkedin==1.0.2
 python-wordpress-xmlrpc==2.3
 PyYAML>=4.2b1
 readability==0.3
-requests==2.25.1
+requests==2.31.0
 tweepy==3.10.0
