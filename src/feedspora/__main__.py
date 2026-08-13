@@ -75,13 +75,17 @@ def main():
         const='feedspora',
         default=None,
         help='execute test runs; no actual posting done')
+    parser.add_argument(
+        '-c',
+        '--config',
+        default=None,
+        help='path to the configuration file')
     args = parser.parse_args()
 
-    # root name of config and DB files, optionally modified by the --testing
-    # argument value (if present)
     root_name = args.testing if args.testing else 'feedspora'
 
-    config = read_config_file(root_name + '.yml')
+    config_file = args.config if args.config else (root_name + '.yml')
+    config = read_config_file(config_file)
     feedspora = FeedSpora()
 
     for feed in config['feeds']:
